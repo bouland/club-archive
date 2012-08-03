@@ -1,0 +1,22 @@
+{# src/Aueio/ClubBundle/Resources/views/Player/list.html.twig #}
+{% extends 'AueioClubBundle::layout.html.twig' %}
+
+{% block sidebar %}
+	<li><a href="{{ path('aueio_club_player_new') }}">New Player</a></li>
+{% endblock %}
+
+{% block title %}
+	Players list
+{% endblock %}
+
+{% block content %}
+	<h1> Liste des Joueurs </h1>
+
+	<ul>
+    {% for player in players %}
+		<li>{% include 'AueioClubBundle:Player:short.html.twig' with {'player': player} %}</li>
+    {% else %}
+        <h1>No Player found</h1>
+    {% endfor %}
+	</ul>
+{% endblock %}

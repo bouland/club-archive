@@ -1,0 +1,10 @@
+.buildpath
+.project
+.settings
+/web/bundles/
+/app/bootstrap*
+/app/cache/*
+/app/logs/*
+/vendor/
+/app/config/parameters.ini
+/src/Acme/

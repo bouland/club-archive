@@ -1,0 +1,28 @@
+{# src/Aueio/ClubBundle/Resources/views/layout.html.twig #}
+{% extends 'AueioClubBundle::base.html.twig' %}
+
+{% block body %}
+
+	{% include 'AueioClubBundle::header.html.twig' %}
+
+	<div id="wrapper">
+		<div class="inner">
+			<div id="layout">
+				<div id="sidebar">
+		       		 <ul id="sidebar_menu">
+		            {% block sidebar %}
+		            {% endblock %}
+		            </ul>
+		        </div>
+
+		        <div id="content">
+		            {% block content %}
+		            {% endblock %}
+		        </div>
+	        </div>
+	    </div>
+     </div>
+     
+     {% include 'AueioClubBundle::footer.html.twig' %}
+        
+{% endblock %}

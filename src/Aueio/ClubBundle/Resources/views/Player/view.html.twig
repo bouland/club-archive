@@ -1,0 +1,16 @@
+{# src/Aueio/ClubBundle/Resources/views/Player/view.html.twig #}
+{% extends 'AueioClubBundle::layout.html.twig' %}
+
+{% block title %}
+	Player view {{ player.id }}
+{% endblock %}
+
+{% block sidebar %}
+	<li><a href="{{ path('aueio_club_player_edit', {"id": player.id}) }}"> Edit</a>
+	<li><a href="{{ path('aueio_club_player_delete', {"id": player.id}) }}">Delete</a></li>
+	<li><a href="{{ path('aueio_club_player_new') }}">New</a></li>
+{% endblock %}
+
+{% block content %}
+	{% include 'AueioClubBundle:Player:full.html.twig' with {'player': player} %}
+{% endblock %}

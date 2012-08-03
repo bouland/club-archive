@@ -1,0 +1,27 @@
+{# src/Aueio/ClubBundle/Resources/views/Game/full.html.twig #}
+<div class="game-view full">
+	<div id="game-header">
+		<div id="game-desc" class="game-col">
+			<div id="game-avatar"
+				<img alt="game photo" title="inria link" src="http://adt/bundles/inriajob/images/logo-inria.png">
+			</div>
+			<p>{{ game.date|date("d M Y") }}</p>
+		</div><div id="game-comment" >
+			<p>{{ game.comment }}</p>
+		</div>
+	</div>
+	<div id="game-visitor">
+		<p>Visiteurs</p>
+		<p>Score</p>
+		<p>Team</p>
+		<div class="game-players">
+		</div>
+	</div>
+	<div id="game-locals">
+		<p>Locaux</p>
+		<p>Score</p>
+		<p>Team</p>
+		<div class="game-players">
+		</div>
+	</div>
+</div>

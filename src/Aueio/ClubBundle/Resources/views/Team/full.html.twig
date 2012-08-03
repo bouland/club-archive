@@ -1,0 +1,39 @@
+{# src/Aueio/ClubBundle/Resources/views/Team/full.html.twig #}
+<div class="team-view full">
+	<div id="team-header">
+		<div id="team-desc" class="team-col">
+			<div id="team-avatar"
+				<img alt="team photo" title="photo" src="http://hand/bundles/aueioclub/images/logo.jpeg">
+			</div>
+			<p>{{ team.name }}</p>
+		</div><div id="team-contact" class="team-col">
+			<p>{{ team.adress}}</p>
+			<p>{{ team.contact }}</p>
+			<p>{{ team.email }}</p>
+			<p>{{ team.phone }}</p>
+			<p>{{ team.adress}}</p>
+		</div>
+	</div>
+	<div id="team-stats">
+		<p>X (%)  Victoires		X (%) Défaites		X (%) Nuls</p>
+		<p>X Domiciles		X  extérieurs	X Forfaits</p>
+	</div>
+	{#<div id="team-games" class="team-col">
+		<ul>
+	    {% for game in games %}
+			<li>{% include 'AueioClubBundle:Game:short.html.twig' with {'game': game} %}</li>
+	    {% else %}
+	        <h1>No Game found</h1>
+	    {% endfor %}
+		</ul>
+	</div>
+	<div id="team-players" class="team-col">
+		<ul>
+	    {% for player in players %}
+			<li>{% include 'AueioClubBundle:Player:short.html.twig' with {'player': player} %}</li>
+	    {% else %}
+	        <h1>No Player found</h1>
+	    {% endfor %}
+		</ul>
+	</div>#}
+</div>

@@ -1,0 +1,10 @@
+{# src/Aueio/ClubBundle/Resources/views/base.html.twig #}
+{% extends '::base.html.twig' %}
+
+{% block stylesheets %}
+	{% stylesheets
+	    '@AueioClubBundle/Resources/public/css/*'
+	%}
+		<link rel="stylesheet" href="{{ asset_url }}" />
+	{% endstylesheets %}
+{% endblock %}

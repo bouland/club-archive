@@ -1,0 +1,22 @@
+{# src/Aueio/ClubBundle/Resources/views/Team/list.html.twig #}
+{% extends 'AueioClubBundle::layout.html.twig' %}
+
+{% block sidebar %}
+	<li><a href="{{ path('aueio_club_team_new') }}">New Team</a></li>
+{% endblock %}
+
+{% block title %}
+	Teams list
+{% endblock %}
+
+{% block content %}
+	<h1> Liste des équipes </h1>
+
+	<ul>
+    {% for team in teams %}
+		<li>{% include 'AueioClubBundle:Team:short.html.twig' with {'team': team} %}</li>
+    {% else %}
+        <h1>No Team found</h1>
+    {% endfor %}
+	</ul>
+{% endblock %}

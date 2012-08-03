@@ -1,0 +1,25 @@
+{# src/Aueio/ClubBundle/Resources/views/Player/full.html.twig #}
+<div class="player-view full">
+	<div id="player-header">
+		<div id="player-desc" class="player-col">
+			<div id="player-avatar"
+				<img alt="player photo" title="inria link" src="http://adt/bundles/inriajob/images/logo-inria.png">
+			</div>
+			<p>{{ player.surname }}</p>
+		</div><div id="player-contact" class="player-col">
+			<p>{{ player.firstname }} {{ player.lastname }}</p>
+			<p>{{ player.email }}</p>
+			<p>{{ player.phone }}</p>
+			<p>{{ player.adress}}</p>
+		</div>
+	</div>
+	<div id="player-info">
+		<p>possède une voiture</p>
+		<p>Poste : {{ player.position }}</p>
+		<p>Main de tir : {{ player.hand}}</p>
+	</div>
+	<div id="player-stats">
+		<p>X Buts		X Matchs         0.x Ratio</p>
+		<p>X Quart-temps arbitrage		Courses</p>
+	</div>
+</div>

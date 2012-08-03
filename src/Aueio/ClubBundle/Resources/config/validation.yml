@@ -1,0 +1,94 @@
+# Aueio/ClubBundle/Resources/config/validation.yml
+Aueio\ClubBundle\Entity\Player:
+    properties:
+        firstname:
+            - NotBlank: ~
+            - MaxLength: 50
+            - Type:
+                 type: string
+        lastname:
+            - NotBlank: ~
+            - MaxLength: 50
+            - Type:
+                 type: string
+        surname:
+            - NotBlank: ~
+            - MaxLength: 50
+            - Type:
+                 type: string
+        gender:
+            - MaxLength: 6
+            - Choice: [male, female]
+        email:
+            - MaxLength: 255
+            - NotBlank: ~
+            - Type:
+                 type: string
+            - Email:
+                checkMX: true
+        phone:
+            - NotBlank: ~
+            - Type:
+                 type: string
+            - MinLength: 10
+            - MaxLength: 10
+        adress:
+            - NotBlank: ~
+            - Type:
+                 type: string
+            - MaxLength: 255
+        position:
+            - NotBlank: ~
+            - Choice: [goal, pivot, center, back, wing]
+        car:
+            - NotBlank: ~
+            - Type:
+                type: bool
+        hand:
+            - MaxLength: 6
+            - Choice: [left, right]
+        enable:
+            - NotBlank: ~
+            - Type:
+                type: bool
+
+Aueio\ClubBundle\Entity\Team:
+    properties:
+        name:
+            - NotBlank: ~
+            - MaxLength: 50
+            - Type:
+                 type: string
+        contact:
+            - NotBlank: ~
+            - MaxLength: 50
+            - Type:
+                 type: string
+        email:
+            - MaxLength: 255
+            - NotBlank: ~
+            - Type:
+                 type: string
+            - Email:
+                checkMX: true
+        phone:
+            - NotBlank: ~
+            - Type:
+                 type: string
+            - MaxLength: 10
+        adress:
+            - NotBlank: ~
+            - Type:
+                 type: string
+            - MaxLength: 255
+
+Aueio\ClubBundle\Entity\Game:
+    properties:
+        date:
+            - NotBlank: ~
+            - Type: \DateTime
+        comment:
+            - NotBlank: ~
+            - MaxLength: 500
+            - Type:
+                 type: string

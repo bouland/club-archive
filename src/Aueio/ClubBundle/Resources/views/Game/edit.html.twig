@@ -1,0 +1,12 @@
+{# src/Aueio/ClubBundle/Resources/views/Player/edit.html.twig #}
+{% extends 'AueioClubBundle::layout.html.twig' %}
+
+{% block title %}
+	Player edit {{ id }}
+{% endblock %}
+
+{% block content %}
+	<form action="{{ path('aueio_club_player_edit', {"id": id}) }}" method="post" {{ form_enctype(form) }}>
+		{% include 'AueioClubBundle:Player:form.html.twig' %}
+	</form>
+{% endblock %}

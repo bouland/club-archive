@@ -1,0 +1,7 @@
+parameters:
+#    aueio_club.example.class: Aueio\ClubBundle\Example
+
+services:
+#    aueio_club.example:
+#        class: %aueio_club.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

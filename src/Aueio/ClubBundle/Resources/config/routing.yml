@@ -1,0 +1,3 @@
+AueioClubBundle:
+    resource: "@AueioClubBundle/Controller"
+    type:     annotation

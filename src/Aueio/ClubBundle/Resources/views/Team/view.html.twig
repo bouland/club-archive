@@ -1,0 +1,16 @@
+{# src/Aueio/ClubBundle/Resources/views/Team/view.html.twig #}
+{% extends 'AueioClubBundle::layout.html.twig' %}
+
+{% block title %}
+	Team view {{ team.id }}
+{% endblock %}
+
+{% block sidebar %}
+	<li><a href="{{ path('aueio_club_team_edit', {"id": team.id}) }}"> Edit team</a>
+	<li><a href="{{ path('aueio_club_team_delete', {"id": team.id}) }}">Delete team</a></li>
+	<li><a href="{{ path('aueio_club_team_new') }}">New team</a></li>
+{% endblock %}
+
+{% block content %}
+	{% include 'AueioClubBundle:Team:full.html.twig' with {'team': team} %}
+{% endblock %}

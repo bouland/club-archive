@@ -1,0 +1,44 @@
+{# src/Aueio/ClubBundle/Resources/views/Team/form.html.twig #}
+<div class="team-view full">
+	<div id="team-header">
+		<div id="team-desc" class="team-col">
+			<div id="team-avatar"
+				<img alt="team photo" title="photo" src="http://hand/bundles/aueioclub/images/logo.jpeg">
+			</div>
+			<p>
+				{{ form_errors(form.name) }}
+				{{ form_label(form.name, 'Club') }} {{ form_widget(form.name, { 'attr': { 'size' : 31, 'maxlength' : 50} }) }}
+			</p>
+		</div><div id="team-contact" class="team-col">
+			<p>
+				{{ form_errors(form.contact) }}
+				{{ form_label(form.contact, 'Contact') }} {{ form_widget(form.contact, { 'attr': { 'size' : 31, 'maxlength' : 50} }) }}
+			</p>
+			<p>
+				{{ form_errors(form.email) }}
+				{{ form_label(form.email, 'E-mail') }} {{ form_widget(form.email, { 'attr': { 'size' : 31, 'maxlength' : 255} }) }}
+			</p>
+			<p>
+				{{ form_errors(form.phone) }}
+				{{ form_label(form.phone, 'Téléphone') }} {{ form_widget(form.phone, { 'attr': { 'size' : 31, 'maxlength' : 10} }) }}
+			</p>
+			<h4>
+				{{ form_errors(form.adress) }}
+				{{ form_label(form.adress, 'Adresse') }}
+			</h4>
+			<p>
+				{{ form_widget(form.adress, { 'attr': { 'resize' : 'none', 'maxlength' : 255} }) }}
+			</p>
+		</div>
+	</div>
+	<div id="team-games" class="team-col">
+	        <h1>No Game found</h1>
+	</div>
+	<div id="team-players" class="team-col">
+	        <h1>No Player found</h1>
+	</div>
+</div>
+
+{{ form_rest(form) }}
+
+<input type="submit" value="Save" />

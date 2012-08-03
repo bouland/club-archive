@@ -1,0 +1,22 @@
+{# src/Aueio/ClubBundle/Resources/views/Game/list.html.twig #}
+{% extends 'AueioClubBundle::layout.html.twig' %}
+
+{% block sidebar %}
+	<li><a href="{{ path('aueio_club_game_new') }}">New Game</a></li>
+{% endblock %}
+
+{% block title %}
+	Games list
+{% endblock %}
+
+{% block content %}
+	<h1> Liste des Matchs </h1>
+
+	<ul>
+    {% for game in games %}
+		<li>{% include 'AueioClubBundle:Game:short.html.twig' with {'game': game} %}</li>
+    {% else %}
+        <h1>No Game found</h1>
+    {% endfor %}
+	</ul>
+{% endblock %}

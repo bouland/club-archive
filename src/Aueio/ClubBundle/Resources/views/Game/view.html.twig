@@ -1,0 +1,16 @@
+{# src/Aueio/ClubBundle/Resources/views/Game/view.html.twig #}
+{% extends 'AueioClubBundle::layout.html.twig' %}
+
+{% block title %}
+	Game view {{ game.id }}
+{% endblock %}
+
+{% block sidebar %}
+	<li><a href="{{ path('aueio_club_game_edit', {"id": game.id}) }}"> Edit Game</a>
+	<li><a href="{{ path('aueio_club_game_delete', {"id": game.id}) }}">Delete Game</a></li>
+	<li><a href="{{ path('aueio_club_game_new') }}">New Game</a></li>
+{% endblock %}
+
+{% block content %}
+	{% include 'AueioClubBundle:Game:full.html.twig' with {'game': game} %}
+{% endblock %}
