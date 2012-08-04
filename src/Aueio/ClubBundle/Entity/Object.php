@@ -18,8 +18,24 @@ abstract class Object
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
-	protected $id;
+	private $id;
 
+	/**
+	 * @ORM\OneToMany(targetEntity="Relation", mappedBy="source", cascade={"persist", "remove"})
+	 */
+	protected $sources;
+	
+	/**
+	 * @ORM\OneToMany(targetEntity="Relation", mappedBy="target", cascade={"persist", "remove"})
+	 */
+	protected $targets;
+
+    public function __construct()
+    {
+        $this->sources = new \Doctrine\Common\Collections\ArrayCollection();
+    	$this->targets = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+    
     /**
      * Get id
      *
@@ -28,5 +44,25 @@ abstract class Object
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get sources
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getSources()
+    {
+        return $this->sources;
+    }
+
+    /**
+     * Get targets
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getTargets()
+    {
+        return $this->targets;
     }
 }

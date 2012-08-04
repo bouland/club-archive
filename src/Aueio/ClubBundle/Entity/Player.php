@@ -2,13 +2,17 @@
 
 namespace Aueio\ClubBundle\Entity;
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
+use Aueio\ClubBundle\Entity\Team;
+use Aueio\ClubBundle\Entity\Relation;
 
 /**
  * Aueio\ClubBundle\Entity\Player
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Aueio\ClubBundle\Entity\PlayerRepository")
+ * @ORM\Entity()
+ * @ORM\HasLifecycleCallbacks()
  */
 class Player extends Object
 {
@@ -88,7 +92,7 @@ class Player extends Object
      * 
      * @ORM\Column(name="date_register", type="date")
      */
-    protected $date_register;
+    private $date_register;
     
     /**
      * @var boolean $enable
@@ -301,12 +305,13 @@ class Player extends Object
      * Set date_register
      *
      * @param date $dateRegister
+     * 
+     * @ORM\PrePersist
      */
-    public function setDateRegister(\DateTime $dateRegister = null)
+    public function setDateRegister()
     {
-        $this->date_register = $dateRegister;
+        $this->date_register = new \DateTime('now');
     }
-
     /**
      * Get date_register
      *
@@ -336,4 +341,32 @@ class Player extends Object
     {
         return $this->enable;
     }
+    /**
+     * Get Team
+     * 
+     * @return array Team
+     **/
+     public function getTeams(){
+     	$relations = $this->getSources();
+     	$teams = array();
+     	foreach($relations as $relation){
+     		if($relation->getName() == 'member'){
+     			$teams[] = $relation->getTarget();
+     		}
+     	}
+     	return $teams;
+     }
+     /**
+      * Add Team
+      *
+      * @param Team $team
+      **/
+     public function addTeam(Team $team){
+     	$teams = $this->getTeams();
+     	if(!in_array($team, $teams)){
+     		$this->sources[] = new Relation(array( 	'source' => $this,
+     								  			'target' => $team,
+     											'name' => 'member'));
+     	}
+	}
 }

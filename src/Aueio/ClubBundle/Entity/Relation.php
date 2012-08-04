@@ -22,16 +22,14 @@ class Relation
     private $id;
 	
     /**
-    * @ORM\OneToOne(targetEntity="Object")
-    * @ORM\JoinColumn(name="id_one", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Object")
     */
-    private $id_one;
+    private $source;
 
     /**
-    * @ORM\OneToOne(targetEntity="Object")
-    * @ORM\JoinColumn(name="id_two", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Object")
     */
-    private $id_two;
+    private $target;
     
     /**
     * @var string $name
@@ -71,6 +69,8 @@ class Relation
     	}
     	return $this;
     }
+
+
     /**
      * Get id
      *
@@ -122,43 +122,13 @@ class Relation
     }
 
     /**
-     * Set id_one
+     * Set date
      *
-     * @param Aueio\ClubBundle\Entity\Object $idOne
+     * @param date $date
      */
-    public function setIdOne(\Aueio\ClubBundle\Entity\Object $idOne)
+    public function setDate($date)
     {
-        $this->id_one = $idOne;
-    }
-
-    /**
-     * Get id_one
-     *
-     * @return Aueio\ClubBundle\Entity\Object 
-     */
-    public function getIdOne()
-    {
-        return $this->id_one;
-    }
-
-    /**
-     * Set id_two
-     *
-     * @param Aueio\ClubBundle\Entity\Object $idTwo
-     */
-    public function setIdTwo(\Aueio\ClubBundle\Entity\Object $idTwo)
-    {
-        $this->id_two = $idTwo;
-    }
-
-    /**
-     * Get id_two
-     *
-     * @return Aueio\ClubBundle\Entity\Object 
-     */
-    public function getIdTwo()
-    {
-        return $this->id_two;
+        $this->date = $date;
     }
 
     /**
@@ -172,12 +142,62 @@ class Relation
     }
 
     /**
-     * Set date
+     * Set origin
      *
-     * @param date $date
+     * @param Aueio\ClubBundle\Entity\Object $origin
      */
-    public function setDate($date)
+    public function setOrigin(\Aueio\ClubBundle\Entity\Object $origin)
     {
-        $this->date = $date;
+        $this->origin = $origin;
+    }
+
+    /**
+     * Get origin
+     *
+     * @return Aueio\ClubBundle\Entity\Object 
+     */
+    public function getOrigin()
+    {
+        return $this->origin;
+    }
+
+    /**
+     * Set target
+     *
+     * @param Aueio\ClubBundle\Entity\Object $target
+     */
+    public function setTarget(\Aueio\ClubBundle\Entity\Object $target)
+    {
+        $this->target = $target;
+    }
+
+    /**
+     * Get target
+     *
+     * @return Aueio\ClubBundle\Entity\Object 
+     */
+    public function getTarget()
+    {
+        return $this->target;
+    }
+
+    /**
+     * Set source
+     *
+     * @param Aueio\ClubBundle\Entity\Object $source
+     */
+    public function setSource(\Aueio\ClubBundle\Entity\Object $source)
+    {
+        $this->source = $source;
+    }
+
+    /**
+     * Get source
+     *
+     * @return Aueio\ClubBundle\Entity\Object 
+     */
+    public function getSource()
+    {
+        return $this->source;
     }
 }

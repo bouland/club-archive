@@ -11,8 +11,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Aueio\ClubBundle\Entity\Player;
-use Aueio\ClubBundle\Form\Type\PlayerType;
-use Aueio\ClubBundle\Form\Handler\PlayerHandler;
+use Aueio\ClubBundle\Form\Type\TeamPlayerType;
+use Aueio\ClubBundle\Form\Handler\TeamPlayerHandler;
 /**
 * @Route("/player")
 */
@@ -31,7 +31,8 @@ class PlayerController extends Controller
     	if (!$player) {
     		throw $this->createNotFoundException('No player found for id '.$id);
     	}
-        return $this->render('AueioClubBundle:Player:view.html.twig', array('player' => $player));
+    	
+    	return $this->render('AueioClubBundle:Player:view.html.twig', array('player' => $player));
     }
     /**
      * @Route("/list")
@@ -62,23 +63,11 @@ class PlayerController extends Controller
      **/
     public function newAction(Request $request)
     {
-    	$em = $this->get('doctrine')->getEntityManager();
+    	$em = $this->getDoctrine()->getEntityManager();
     	$player = new Player();
-    	$player->setDateRegister(new \DateTime('now'));
-    	$data = array('player' => $player);
     	
-    	$builder = $this->createFormBuilder($data);
-    	$builder->add('player', new PlayerType());
-		$choices = array();
-    	$teams = $em->getRepository('AueioClubBundle:Team')->findAll();
-    	foreach($teams as $team){
-    		$choices[$team->getId()] = $team->getName();
-    	}
-    	$builder->add('team_id', 'choice', array('choices' => $choices));
-		
-    	$form = $builder->getForm();
-    	
-    	$formHandler = new PlayerHandler($form, $request, $em);
+    	$form = $this->createForm(new TeamPlayerType($em), array('player' => $player));
+    	$formHandler = new TeamPlayerHandler($form, $request, $em);
 
         // On exécute le traitement du formulaire. S'il retourne true, alors le formulaire a bien été traité
         if( $formHandler->process() )
@@ -101,20 +90,17 @@ class PlayerController extends Controller
     	if (!$player) {
     		throw $this->createNotFoundException('No player found for id '.$id);
     	}
-    	$form = $this->createForm(new PlayerType(), $player);
+        
+    	$form = $this->createForm(new TeamPlayerType($em), array('player' => $player));
+    	$formHandler = new TeamPlayerHandler($form, $request, $em);
+
+        // On exécute le traitement du formulaire. S'il retourne true, alors le formulaire a bien été traité
+        if( $formHandler->process() )
+        {
+            return $this->redirect($this->generateUrl('aueio_club_player_view', array('id' => $player->getId())));
+        }
     
-    	if ($request->getMethod() == 'POST') {
-    		$form->bindRequest($request);
-    		 
-    		if ($form->isValid()) {
-    			$em = $this->getDoctrine()->getEntityManager();
-    			$em->persist($job);
-    			$em->flush();
     
-    			return $this->redirect($this->generateUrl('aueio_club_player_view', array('id' => $player->getId())));
-    		}
-    	}
-    
-    	return $this->render('AueioClubBundle:Player:new.html.twig', array('id' => $player->getId(), 'form' => $form->createView()));
+    	return $this->render('AueioClubBundle:Player:edit.html.twig', array('id' => $player->getId(), 'form' => $form->createView()));
     }
 }

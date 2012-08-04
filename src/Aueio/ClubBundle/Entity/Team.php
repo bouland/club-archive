@@ -4,12 +4,13 @@ namespace Aueio\ClubBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Aueio\ClubBundle\Entity\Relation;
 
 /**
  * Aueio\ClubBundle\Entity\Team
  *
  * @ORM\Table()
- * @ORM\Entity
+ * @ORM\Entity()
  */
 class Team extends Object
 {
@@ -47,7 +48,7 @@ class Team extends Object
     * @ORM\Column(name="adress", type="text")
     */
     private $adress;
-
+    
     /**
      * Set name
      *

@@ -4,49 +4,30 @@ namespace Aueio\ClubBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
+use Doctrine\ORM\EntityManager;
 
 class TeamPlayerType extends AbstractType
 {
-	public function __construct($em){
-		
+	private $em;
+	
+	public function __construct(EntityManager $em){
+		$this->em = $em;
 	}
 	
 	public function buildForm(FormBuilder $builder, array $options)
 	{
-		$builder->add('firstname', 'text');
-		$builder->add('lastname', 'text');
-		$builder->add('surname', 'text');
-		$builder->add('email', 'email');
-		$builder->add('phone', 'text');
-		$builder->add('adress', 'textarea');
-		$builder->add('gender', 'choice', array(
-				'choices'   => array('male' => 'Homme', 'female' => 'Femme'),
-				'required'  => true,
-		));
-		$builder->add('car', 'checkbox', array('required'  => false));
-		$builder->add('position', 'choice', array(
-				'choices'   => array(	'goal' => 'Gardien',
-										'pivot' => 'Pivot',
-										'center' => 'Demi',
-										'back' => 'Arrière',
-										'wing' => 'Ailier')
-		));
-		$builder->add('hand', 'choice', array(
-				'choices'   => array('right' => 'Droitier', 'left' => 'Gaucher')
-		));
 		
-		$builder->add('enable', 'checkbox', array('required'  => false));
+		$builder->add('player', new PlayerType());
+		$choices = array();
+		$teams = $this->em->getRepository('AueioClubBundle:Team')->findAll();
+		foreach($teams as $team){
+			$choices[$team->getId()] = $team->getName();
+		}
+		$builder->add('team_id', 'choice', array('choices' => $choices));
 	}
 
 	public function getName()
 	{
-		return 'player';
-	}
-	
-	public function getDefaultOptions(array $options)
-	{
-		return array(
-				'data_class' => 'Aueio\ClubBundle\Entity\Player',
-		);
+		return 'data';
 	}
 }

@@ -3,11 +3,10 @@
 namespace Aueio\ClubBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Aueio\ClubBundle\Entity\MappedSuperclassObject;
 /**
  * Aueio\ClubBundle\Entity\Game
- *
- * @ORM\Entity(repositoryClass="Aueio\ClubBundle\Entity\GameRepository")
+ * @ORM\Table()
+ * @ORM\Entity()
  */
 class Game extends Object
 {
@@ -22,13 +21,12 @@ class Game extends Object
      * @ORM\Column(type="text")
      */
     private $comment;
-
     /**
      * Set date
      *
      * @param date $date
      */
-    public function setDate(\DateTime $date = null)
+    public function setDate($date)
     {
         $this->date = $date;
     }
