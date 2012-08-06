@@ -24,8 +24,6 @@ Aueio\ClubBundle\Entity\Player:
             - NotBlank: ~
             - Type:
                  type: string
-            - Email:
-                checkMX: true
         phone:
             - NotBlank: ~
             - Type:
@@ -65,12 +63,7 @@ Aueio\ClubBundle\Entity\Team:
             - Type:
                  type: string
         email:
-            - MaxLength: 255
             - NotBlank: ~
-            - Type:
-                 type: string
-            - Email:
-                checkMX: true
         phone:
             - NotBlank: ~
             - Type:

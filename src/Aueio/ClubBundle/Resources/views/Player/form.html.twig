@@ -1,4 +1,4 @@
-{# src/Aueio/ClubBundle/Resources/views/Player/form.player.html.twig #}
+{# src/Aueio/ClubBundle/Resources/views/Player/form.html.twig #}
 <div class="player-view full">
 	<div id="player-header">
 		<div id="player-desc" class="player-col">
@@ -6,49 +6,49 @@
 				<img alt="player photo" title="inria link" src="http://adt/bundles/inriajob/images/logo-inria.png">
 			</div>
 			<p>
-				{{ form_errors(form.player.surname) }}
-				{{ form_label(form.player.surname, 'Surnom') }} {{ form_widget(form.player.surname, { 'attr': { 'size' : 31, 'maxlength' : 50} }) }}
+				{{ form_errors(form.surname) }}
+				{{ form_label(form.surname, 'Surnom') }} {{ form_widget(form.surname, { 'attr': { 'size' : 31, 'maxlength' : 50} }) }}
 			</p>
 		</div><div id="player-contact" class="player-col">
 			<p>
-				{{ form_errors(form.player.firstname) }} {{ form_errors(form.player.lastname) }}
-				{{ form_label(form.player.firstname, 'Prénom') }} {{ form_widget(form.player.firstname, { 'attr': { 'size' : 31, 'maxlength' : 50} }) }} {{ form_label(form.player.lastname, 'Nom') }} {{ form_widget(form.player.lastname, { 'attr': { 'size' : 31, 'maxlength' : 255} }) }}
+				{{ form_errors(form.firstname) }} {{ form_errors(form.lastname) }}
+				{{ form_label(form.firstname, 'Prénom') }} {{ form_widget(form.firstname, { 'attr': { 'size' : 31, 'maxlength' : 50} }) }} {{ form_label(form.lastname, 'Nom') }} {{ form_widget(form.lastname, { 'attr': { 'size' : 31, 'maxlength' : 255} }) }}
 			</p>
 			<p>
-				{{ form_errors(form.player.gender) }}
-				{{ form_label(form.player.gender, 'Genre') }} {{ form_widget(form.player.gender) }}
+				{{ form_errors(form.gender) }}
+				{{ form_label(form.gender, 'Genre') }} {{ form_widget(form.gender) }}
 			</p>
 			<p>
-				{{ form_errors(form.player.email) }}
-				{{ form_label(form.player.email, 'E-mail') }} {{ form_widget(form.player.email, { 'attr': { 'size' : 31, 'maxlength' : 50} }) }}
+				{{ form_errors(form.email) }}
+				{{ form_label(form.email, 'E-mail') }} {{ form_widget(form.email, { 'attr': { 'size' : 31, 'maxlength' : 50} }) }}
 			</p>
 			<p>
-				{{ form_errors(form.player.phone) }}
-				{{ form_label(form.player.phone, 'Téléphone') }} {{ form_widget(form.player.phone, { 'attr': { 'size' : 31, 'maxlength' : 10} }) }}
+				{{ form_errors(form.phone) }}
+				{{ form_label(form.phone, 'Téléphone') }} {{ form_widget(form.phone, { 'attr': { 'size' : 31, 'maxlength' : 10} }) }}
 			</p>
 			<h4>
-				{{ form_errors(form.player.adress) }}
-				{{ form_label(form.player.adress, 'Adresse') }}
+				{{ form_errors(form.adress) }}
+				{{ form_label(form.adress, 'Adresse') }}
 			</h4>
 			<p>
-				{{ form_widget(form.player.adress, { 'attr': { 'resize' : 'none', 'maxlength' : 255} }) }}
+				{{ form_widget(form.adress, { 'attr': { 'resize' : 'none', 'maxlength' : 255} }) }}
 			</p>
 		</div>
 	</div>
 	<div id="player-info">
 		<p>
-			{{ form_errors(form.player.car) }}
-			{{ form_label(form.player.car, 'Tu as une voiture ?') }} {{ form_widget(form.player.car) }}
+			{{ form_errors(form.car) }}
+			{{ form_label(form.car, 'Tu as une voiture ?') }} {{ form_widget(form.car) }}
 		</p>
 		<p>
-			{{ form_errors(form.player.position) }}
-			{{ form_label(form.player.position, 'Tu joues quel poste ?') }} {{ form_widget(form.player.position) }}
+			{{ form_errors(form.position) }}
+			{{ form_label(form.position, 'Tu joues quel poste ?') }} {{ form_widget(form.position) }}
 		</p>
-		<p>{{ form_errors(form.player.hand) }}
-			{{ form_label(form.player.hand, 'Tu tires de quelle main ?') }} {{ form_widget(form.player.hand) }}
+		<p>{{ form_errors(form.hand) }}
+			{{ form_label(form.hand, 'Tu tires de quelle main ?') }} {{ form_widget(form.hand) }}
 		</p>
-		<p>{{ form_errors(form.team_id) }}
-			{{ form_label(form.team_id, 'Choisi ton équipe') }} {{ form_widget(form.team_id) }}
+		<p>{{ form_errors(form.team) }}
+			{{ form_label(form.team, 'Choisi ton équipe') }} {{ form_widget(form.team) }}
 		</p>
 	</div>
 </div>

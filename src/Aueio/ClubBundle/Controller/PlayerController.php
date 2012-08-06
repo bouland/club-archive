@@ -11,8 +11,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\Validator\Constraints\DateTime;
 use Aueio\ClubBundle\Entity\Player;
-use Aueio\ClubBundle\Form\Type\TeamPlayerType;
-use Aueio\ClubBundle\Form\Handler\TeamPlayerHandler;
+use Aueio\ClubBundle\Form\Type\PlayerType;
+use Aueio\ClubBundle\Form\Handler\PlayerHandler;
 /**
 * @Route("/player")
 */
@@ -66,8 +66,9 @@ class PlayerController extends Controller
     	$em = $this->getDoctrine()->getEntityManager();
     	$player = new Player();
     	
-    	$form = $this->createForm(new TeamPlayerType($em), array('player' => $player));
-    	$formHandler = new TeamPlayerHandler($form, $request, $em);
+    	$form = $this->createForm(new PlayerType, $player);
+    	
+    	$formHandler = new PlayerHandler($form, $request, $em);
 
         // On exécute le traitement du formulaire. S'il retourne true, alors le formulaire a bien été traité
         if( $formHandler->process() )

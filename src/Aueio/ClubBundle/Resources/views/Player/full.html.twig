@@ -14,14 +14,7 @@
 		</div>
 	</div>
 	<div id="player-teams">
-		<h4>Teams</h4>
-		<ul>
-	    {% for team in player.teams %}
-			<li>{{ team.name }}</li>
-	    {% else %}
-	        <h1>No team found</h1>
-	    {% endfor %}
-		</ul>
+		<p>Team {{ player.team.name }}</p>
 	</div>
 	<div id="player-info">
 		<p>possède une voiture</p>

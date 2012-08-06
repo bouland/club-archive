@@ -7,7 +7,6 @@ use Symfony\Component\Form\FormBuilder;
 
 class PlayerType extends AbstractType
 {
-	
 	public function buildForm(FormBuilder $builder, array $options)
 	{
 		$builder->add('firstname', 'text');
@@ -33,6 +32,12 @@ class PlayerType extends AbstractType
 		));
 		
 		$builder->add('enable', 'checkbox', array('required'  => false));
+		
+		$builder->add('team', 'entity', array(
+												'class' 		=> 'AueioClubBundle:Team',
+												'property'     	=> 'name',
+												'expanded'	=> true,
+										));
 	}
 
 	public function getName()
