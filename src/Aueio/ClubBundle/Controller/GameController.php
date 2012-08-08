@@ -133,63 +133,6 @@ class GameController extends Controller
     	return $this->render('AueioClubBundle:Game:result.html.twig', array('id' => $game->getId(), 'form' => $form->createView()));
     }
     /**
-     * @Route("/action/{type}/{id_game}/{id_player}/value", requirements={"id_game" = "\d+", "id_player" = "\d+", "action"="play|miss|shop"} , defaults={"value"="empty"})
-     **/
-    public function actionAction(Request $request, $type, $id_game, $id_player, $value)
-    {
-    	$em = $this->getDoctrine()->getEntityManager();
-    	
-    	$game = $em->getRepository('AueioClubBundle:Game')->find($id_game);
-    	if (!$game) {
-    		throw $this->createNotFoundException('No game found for id '.$id_game);
-    	}
-    	 
-    	$player = $em->getRepository('AueioClubBundle:Player')->find($id_player);
-    	if (!$player) {
-    		throw $this->createNotFoundException('No player found for id '.$id_player);
-    	}
-    	
-    	$repository = $em->getRepository('AueioClubBundle:Action');
-    	$query = $repository->createQueryBuilder('a')
-    	->join('a.game', 'g')
-    	->join('a.player', 'p')
-    	->Where('a.type = :type')
-    	->andWhere('a.value = :value')
-    	->andWhere('p.id = :id_player')
-    	->andWhere('g.id = :id_game')
-    	->setParameters(array(
-    			'id_player' => $id_player,
-    			'id_game' => $id_game,
-    	    	'type' => $type,
-    	    	'value' => $value,
-    	))
-    	->setMaxResults(1)
-    	->getQuery();
-
-    	try {
-    		$action = $query->getSingleResult();
-    	} catch (\Doctrine\Orm\NoResultException $e) {
-    		$action = null;
-    	}
-    	
-    	if (!$action) {
-
-    		$action = new Action();
-	    	$action->setGame($game);
-	    	$action->setPlayer($player);
-	    	$action->setType($type);
-    		$action->setValue($value);
-	    	$em->persist($action);
-	    	$em->flush();
-    	}else{
-    		if($value == 'delete'){
-    			$em->remove($action);
-    			$em->flush();
-    		}
-    	}
-    	return $this->redirect($this->generateUrl('aueio_club_game_selection', array('id' => $game->getId())));
-    }
-    /**
      * @Route("/selection/{id}", requirements={"id" = "\d+"})
      **/
     public function selectionAction($id, Request $request)
@@ -227,6 +170,18 @@ class GameController extends Controller
     	$miss = $query->getResult();
     	
     	$query = $repository->createQueryBuilder('p')
+    	->leftJoin('p.actions', 'a')
+    	->join('a.game', 'g')
+    	->where('a.type = :type')
+    	->andWhere('g.id = :id')
+    	->setParameters(array(
+    			'type' => 'shop',
+    			'id' => $id,
+    	))
+    	->getQuery();
+    	$shop = $query->getResult();
+    	
+    	$query = $repository->createQueryBuilder('p')
     	->join('p.team', 't')
     	->leftJoin('t.roles', 'r')
     	->join('r.game', 'g')
@@ -253,6 +208,6 @@ class GameController extends Controller
     	$wait2 = $query->getResult();
     	
     	$wait = new ArrayCollection(array_merge($wait1, $wait2));
-    	return $this->render('AueioClubBundle:Game:selection.html.twig', array('game' => $game, 'wait' => $wait, 'miss' => $miss, 'play' => $play));
+    	return $this->render('AueioClubBundle:Game:selection.html.twig', array('game' => $game, 'wait' => $wait, 'miss' => $miss,'shop' => $shop, 'play' => $play));
     }
 }
