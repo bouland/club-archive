@@ -92,9 +92,10 @@ class PlayerController extends Controller
     		throw $this->createNotFoundException('No player found for id '.$id);
     	}
         
-    	$form = $this->createForm(new TeamPlayerType($em), array('player' => $player));
-    	$formHandler = new TeamPlayerHandler($form, $request, $em);
-
+		$form = $this->createForm(new PlayerType, $player);
+    	
+    	$formHandler = new PlayerHandler($form, $request, $em);
+    	
         // On exécute le traitement du formulaire. S'il retourne true, alors le formulaire a bien été traité
         if( $formHandler->process() )
         {

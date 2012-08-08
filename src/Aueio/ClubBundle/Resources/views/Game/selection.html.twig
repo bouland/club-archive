@@ -1,0 +1,69 @@
+{# src/Aueio/ClubBundle/Resources/views/Game/view.html.twig #}
+{% extends 'AueioClubBundle::layout.html.twig' %}
+
+{% block title %}
+	Game view {{ game.id }}
+{% endblock %}
+
+{% block sidebar %}
+	{% include 'AueioClubBundle:Game:sidebar.html.twig' with {'game': game} %}
+{% endblock %}
+
+{% block content %}
+	<div id="game-header">
+		<div id="game-desc" class="game-col">
+			<div id="game-avatar"
+				<img alt="game photo" title="inria link" src="http://adt/bundles/inriajob/images/logo-inria.png">
+			</div>
+			<h1>{{ game.teams[0].team.name }} VS {{ game.teams[1].team.name }}</h1>
+			<p>{{ game.date|date("d M Y") }}</p>
+		</div>
+	</div>
+
+
+	<div id="team-players" class="team-col">
+		<h4>Disponible</h4>
+		<ul>
+	    {% for player in wait %}
+			<li>
+				<p>
+					<a href="{{ path('aueio_club_player_view', {"id": player.id}) }}">{{ player.surname }}</a>
+					<a href="{{ path('aueio_club_game_action', {"id_game": game.id, "id_player": player.id, "type": "play"}) }}" title="Present">P</a>
+					<a href="{{ path('aueio_club_game_action', {"id_game": game.id, "id_player": player.id, "type": "miss"}) }}" title="Absent">A</a>
+				</p>
+			</li>
+	    {% else %}
+	        <h3>No Player found</h3>
+	    {% endfor %}
+		</ul>
+	</div>
+	<div id="team-players" class="team-col">
+		<h4>Absents</h4>
+		<ul>
+	    {% for player in miss %}
+			<li>
+				<p>
+					<a href="{{ path('aueio_club_player_view', {"id": player.id}) }}">{{ player.surname }}</a>
+					<a href="{{ path('aueio_club_game_action', {"id_game": game.id, "id_player": player.id, "type": "miss", "value": "delete"}) }}" title="Modifier">M</a>
+				</p>
+			</li>
+	    {% else %}
+	        <h3>No Player found</h3>
+	    {% endfor %}
+		</ul>
+	</div>
+	<div id="team-players" class="team-col">
+		<h4>Selection</h4>
+		<ul>
+	    {% for player in play %}
+			<li>
+				<a href="{{ path('aueio_club_player_view', {"id": player.id}) }}">{{ player.surname }}</a>
+				<a href="{{ path('aueio_club_game_action', {"id_game": game.id, "id_player": player.id, "type": "miss", "value": "delete"}) }}" title="Modifier">M</a>
+				<a href="{{ path('aueio_club_game_action', {"id_game": game.id, "id_player": player.id, "type": "shop"}) }}" title="Courses">C</a>
+			</li>
+	    {% else %}
+	        <h3>No Player found</h3>
+	    {% endfor %}
+		</ul>
+	</div>
+{% endblock %}

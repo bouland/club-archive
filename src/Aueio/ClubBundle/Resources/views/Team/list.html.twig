@@ -14,7 +14,7 @@
 
 	<ul>
     {% for team in teams %}
-		<li>{% include 'AueioClubBundle:Team:short.html.twig' with {'team': team} %}</li>
+		<li><p><a href="{{ path('aueio_club_team_view', {"id": team.id}) }}">{{ team.name }}</a> {{ team.adress }}</p></li>
     {% else %}
         <h1>No Team found</h1>
     {% endfor %}

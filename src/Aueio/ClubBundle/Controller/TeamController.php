@@ -2,17 +2,15 @@
 
 namespace Aueio\ClubBundle\Controller;
 
-use Symfony\Component\Validator\Constraints\DateTime;
-
-use Aueio\ClubBundle\Entity\Team;
-use Aueio\ClubBundle\Form\Type\TeamType;
-
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-
+use Symfony\Component\Validator\Constraints\DateTime;
+use Aueio\ClubBundle\Entity\Team;
+use Aueio\ClubBundle\Form\Type\TeamType;
+use Aueio\ClubBundle\Form\Handler\TeamHandler;
 /**
 * @Route("/team")
 */
@@ -62,20 +60,17 @@ class TeamController extends Controller
      **/
     public function newAction(Request $request)
     {
+    	$em = $this->getDoctrine()->getEntityManager();
     	// just setup a fresh $task object (remove the dummy data)
     	$team = new Team();
     	
-    	$form = $this->createForm(new TeamType(), $team);
     	 
-    	if ($request->getMethod() == 'POST') {
-    		$form->bindRequest($request);
-    		 
-    		if ($form->isValid()) {
-    			$em = $this->getDoctrine()->getEntityManager();
-    			$em->persist($team);
-    			$em->flush();
+    	$form = $this->createForm(new TeamType(), $team);
+    
+    	$formHandler = new TeamHandler($form, $request, $em);
+    	if( $formHandler->process() )
+    	{
     			return $this->redirect($this->generateUrl('aueio_club_team_view', array('id' => $team->getId())));
-    		}
     	}
     
     	return $this->render('AueioClubBundle:Team:new.html.twig', array(
@@ -95,18 +90,14 @@ class TeamController extends Controller
     	}
     	$form = $this->createForm(new TeamType(), $team);
     
-    	if ($request->getMethod() == 'POST') {
-    		$form->bindRequest($request);
-    		 
-    		if ($form->isValid()) {
-    			$em = $this->getDoctrine()->getEntityManager();
-    			$em->persist($job);
-    			$em->flush();
-    
-    			return $this->redirect($this->generateUrl('aueio_club_team_view', array('id' => $team->getId())));
-    		}
+    	$formHandler = new TeamHandler($form, $request, $em);
+    	
+    	// On exécute le traitement du formulaire. S'il retourne true, alors le formulaire a bien été traité
+        if( $formHandler->process() )
+        {
+    		return $this->redirect($this->generateUrl('aueio_club_team_view', array('id' => $team->getId())));
     	}
     
-    	return $this->render('AueioClubBundle:Team:new.html.twig', array('id' => $team->getId(), 'form' => $form->createView()));
+    	return $this->render('AueioClubBundle:Team:edit.html.twig', array('id' => $team->getId(), 'form' => $form->createView()));
     }
 }

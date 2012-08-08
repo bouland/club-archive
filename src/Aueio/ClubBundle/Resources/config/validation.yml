@@ -17,8 +17,8 @@ Aueio\ClubBundle\Entity\Player:
             - Type:
                  type: string
         gender:
-            - MaxLength: 6
-            - Choice: [male, female]
+            - MaxLength: 1
+            - Choice: [M, F]
         email:
             - MaxLength: 255
             - NotBlank: ~
@@ -37,14 +37,14 @@ Aueio\ClubBundle\Entity\Player:
             - MaxLength: 255
         position:
             - NotBlank: ~
-            - Choice: [goal, pivot, center, back, wing]
+            - Choice: [GOAL, PIVOT, CENTER, BACK, WING]
         car:
             - NotBlank: ~
             - Type:
                 type: bool
         hand:
             - MaxLength: 6
-            - Choice: [left, right]
+            - Choice: [LEFT, RIGHT]
         enable:
             - NotBlank: ~
             - Type:
@@ -63,7 +63,10 @@ Aueio\ClubBundle\Entity\Team:
             - Type:
                  type: string
         email:
+            - MaxLength: 255
             - NotBlank: ~
+            - Type:
+                 type: string
         phone:
             - NotBlank: ~
             - Type:
@@ -81,7 +84,15 @@ Aueio\ClubBundle\Entity\Game:
             - NotBlank: ~
             - Type: \DateTime
         comment:
-            - NotBlank: ~
             - MaxLength: 500
             - Type:
                  type: string
+Aueio\ClubBundle\Entity\Role:
+    properties:
+        type:
+            - MaxLength: 7
+            - Choice: [VISITOR, LOCAL]
+        score:
+            - Type:
+                 type: integer
+                 

@@ -1,0 +1,12 @@
+{# src/Aueio/ClubBundle/Resources/views/Game/result.html.twig #}
+{% extends 'AueioClubBundle::layout.html.twig' %}
+
+{% block title %}
+	Game Result {{ id }}
+{% endblock %}
+
+{% block content %}
+	<form action="{{ path('aueio_club_game_result', {"id": id}) }}" method="post" {{ form_enctype(form) }}>
+		{% include 'AueioClubBundle:Game:form.result.html.twig' %}
+	</form>
+{% endblock %}

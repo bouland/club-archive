@@ -6,22 +6,24 @@
 				<img alt="game photo" title="inria link" src="http://adt/bundles/inriajob/images/logo-inria.png">
 			</div>
 			<p>{{ game.date|date("d M Y") }}</p>
-		</div><div id="game-comment" >
-			<p>{{ game.comment }}</p>
 		</div>
 	</div>
-	<div id="game-visitor">
-		<p>Visiteurs</p>
-		<p>Score</p>
-		<p>Team</p>
-		<div class="game-players">
-		</div>
-	</div>
-	<div id="game-locals">
-		<p>Locaux</p>
-		<p>Score</p>
-		<p>Team</p>
-		<div class="game-players">
-		</div>
-	</div>
+	<ul class="game-teams">
+	{% for role in game.teams %}
+		<li>
+			<div class="game-team-result">
+			<p>{{role.team.name }} {{ role.type }} {{ role.result }} {{ role.score }}</p>
+			</div>
+			<div class="game-team-result">
+			<ul>
+			{% for player in game.getPlayers(role.team) %}
+				<li><p><a href="{{ path('aueio_club_player_view', {"id": player.id}) }}">{{ player.surname }}</a> {{ player.position }} {{ player.hand }}</p></li>
+	    	{% else %}
+	        	<h3>No Player found</h3>
+			{% endfor %}
+			</ul>
+			</div>
+		</li>
+	{% endfor %}
+	</ul>
 </div>

@@ -18,10 +18,10 @@
 		<p>X (%)  Victoires		X (%) Défaites		X (%) Nuls</p>
 		<p>X Domiciles		X  extérieurs	X Forfaits</p>
 	</div>
-	{#<div id="team-games" class="team-col">
+	<div id="team-games" class="team-col">
 		<ul>
-	    {% for game in games %}
-			<li>{% include 'AueioClubBundle:Game:short.html.twig' with {'game': game} %}</li>
+	    {% for role in team.roles %}
+			<li>{% include 'AueioClubBundle:Role:team.html.twig' with {'role': role} %}</li>
 	    {% else %}
 	        <h1>No Game found</h1>
 	    {% endfor %}
@@ -29,11 +29,11 @@
 	</div>
 	<div id="team-players" class="team-col">
 		<ul>
-	    {% for player in players %}
-			<li>{% include 'AueioClubBundle:Player:short.html.twig' with {'player': player} %}</li>
+	    {% for player in team.players %}
+			<li><p><a href="{{ path('aueio_club_player_view', {"id": player.id}) }}">{{ player.surname }}</a> {{ player.position }} {{ player.hand }}</p></li>
 	    {% else %}
-	        <h1>No Player found</h1>
+	        <h3>No Player found</h3>
 	    {% endfor %}
 		</ul>
-	</div>#}
+	</div>
 </div>

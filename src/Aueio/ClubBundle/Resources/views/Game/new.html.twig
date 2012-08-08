@@ -7,6 +7,6 @@
 
 {% block content %}
 	<form action="{{ path('aueio_club_game_new') }}" method="post" {{ form_enctype(form) }}>
-		{% include 'AueioClubBundle:Game:form.html.twig' %}
+		{% include 'AueioClubBundle:Game:form.edit.html.twig' %}
 	</form>
 {% endblock %}

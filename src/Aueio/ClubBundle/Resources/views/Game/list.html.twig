@@ -14,7 +14,12 @@
 
 	<ul>
     {% for game in games %}
-		<li>{% include 'AueioClubBundle:Game:short.html.twig' with {'game': game} %}</li>
+		<li>
+			<p>Match du <a href="{{ path('aueio_club_game_view', {"id": game.id}) }}">{{ game.date|date("d M Y") }}</a>
+			<a href="{{ path('aueio_club_team_view', {"id": game.teams[0].team.id}) }}">{{ game.teams[0].team.name }}</a>
+			 VS 
+			<a href="{{ path('aueio_club_team_view', {"id": game.teams[0].team.id}) }}">{{ game.teams[1].team.name }}</a></p>
+		</li>
     {% else %}
         <h1>No Game found</h1>
     {% endfor %}

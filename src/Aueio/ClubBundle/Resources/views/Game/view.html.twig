@@ -6,9 +6,7 @@
 {% endblock %}
 
 {% block sidebar %}
-	<li><a href="{{ path('aueio_club_game_edit', {"id": game.id}) }}"> Edit Game</a>
-	<li><a href="{{ path('aueio_club_game_delete', {"id": game.id}) }}">Delete Game</a></li>
-	<li><a href="{{ path('aueio_club_game_new') }}">New Game</a></li>
+	{% include 'AueioClubBundle:Game:sidebar.html.twig' with {'game': game} %}
 {% endblock %}
 
 {% block content %}

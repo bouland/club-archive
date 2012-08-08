@@ -1,0 +1,35 @@
+{# src/Aueio/ClubBundle/Resources/views/Game/form.html.twig #}
+
+<div class="game-view full">
+	<div id="game-header">
+		<div id="game-desc" class="game-col">
+			<div id="game-avatar"
+				<img alt="game photo" title="inria link" src="http://adt/bundles/inriajob/images/logo-inria.png">
+			</div>
+		</div>
+		<h2>Teams</h2>
+	    <ul class="game-teams">
+	    {% for role in form.teams %}
+	        <li>
+	        	<div class="role-team">
+	        		<h4>{{ role.vars.value.type }} {{ role.vars.value.team.name }}<h4>
+					{{ form_errors(role.score) }}
+					{{ form_label(role.score, 'Score') }} {{ form_widget(role.score) }}
+				</div>
+	        </li>
+	    {% endfor %}
+	    </ul>
+	</div>
+	<div id="game-comment" >
+		<h2>
+			{{ form_errors(form.comment) }}
+			{{ form_label(form.comment, 'Comment') }}
+		</h2>
+		<p>
+			{{ form_widget(form.comment) }}
+		</p>
+	</div>
+
+{{ form_rest(form) }}
+
+<input type="submit" value="Save" />

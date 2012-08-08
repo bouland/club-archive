@@ -12,12 +12,20 @@ use Aueio\ClubBundle\Entity\Team;
 /**
  * Aueio\ClubBundle\Entity\Player
  *
- * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity
+ * @ORM\Table(name="players")
  * @ORM\HasLifecycleCallbacks()
  */
-class Player extends Entity
+class Player
 {
+	/**
+	 * @var integer $id
+	 *
+	 * @ORM\Column(name="id", type="integer")
+	 * @ORM\Id
+	 * @ORM\GeneratedValue(strategy="AUTO")
+	 */
+	private $id;
 	
     /**
      * @var string $firstname
@@ -43,7 +51,7 @@ class Player extends Entity
     /**
      * @var string $gender
      *
-     * @ORM\Column(name="gender", type="string", length=6)
+     * @ORM\Column(name="gender", type="string", length=1)
      */
     private $gender;
     
@@ -79,7 +87,7 @@ class Player extends Entity
     /**
     * @var string $position
     *
-    * @ORM\Column(name="position", type="string", length=255)
+    * @ORM\Column(name="position", type="string", length=6)
     */
     private $position;
     
@@ -110,33 +118,39 @@ class Player extends Entity
     private $team;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Game", mappedBy="players")
+     * @ORM\OneToMany(targetEntity="Action", mappedBy="player")
      */
-    private $games;
+    private $actions;
     
+
     /**
-     * @ORM\OneToMany(targetEntity="Action", mappedBy="entity")
+     * @ORM\PrePersist
+     *
      */
-    private $goals;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="Action", mappedBy="entity")
-     */
-    private $saves;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="Action", mappedBy="entity")
-     */
-    private $officials;
-    
+    public function setDateRegister()
+    {
+        $this->date_register = new \DateTime('now');
+    }
+
     public function __construct()
     {
-	    $this->games = new \Doctrine\Common\Collections\ArrayCollection();
-	    $this->goals = new \Doctrine\Common\Collections\ArrayCollection();
-	    $this->saves = new \Doctrine\Common\Collections\ArrayCollection();
-	    $this->officials = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->games = new \Doctrine\Common\Collections\ArrayCollection();
+    	$this->actions = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
+    public function __toString(){
+    	return "Player " . $this->getId() . " " . $this->getFirstname();
+    }
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
     /**
      * Set firstname
      *
@@ -338,15 +352,6 @@ class Player extends Entity
     }
 
     /**
-     * @ORM\PrePersist
-     *
-     */
-    public function setDateRegister()
-    {
-        $this->date_register = new \DateTime('now');
-    }
-
-    /**
      * Get date_register
      *
      * @return date 
@@ -377,9 +382,20 @@ class Player extends Entity
     }
 
     /**
+     * Set team
+     *
+     * @param Aueio\ClubBundle\Entity\Team $team
+     */
+    public function setTeam(\Aueio\ClubBundle\Entity\Team $team)
+    {
+    	$team->addPlayer($this);
+        $this->team = $team;
+    }
+
+    /**
      * Get team
      *
-     * @return Doctrine\Common\Collections\Collection 
+     * @return Aueio\ClubBundle\Entity\Team 
      */
     public function getTeam()
     {
@@ -407,52 +423,22 @@ class Player extends Entity
     }
 
     /**
-     * Add goals
+     * Add actions
      *
-     * @param Aueio\ClubBundle\Entity\Action $goals
+     * @param Aueio\ClubBundle\Entity\Action $actions
      */
-    public function addAction(\Aueio\ClubBundle\Entity\Action $goals)
+    public function addAction(\Aueio\ClubBundle\Entity\Action $actions)
     {
-        $this->goals[] = $goals;
+        $this->actions[] = $actions;
     }
 
     /**
-     * Get goals
+     * Get actions
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getGoals()
+    public function getActions()
     {
-        return $this->goals;
-    }
-
-    /**
-     * Get saves
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getSaves()
-    {
-        return $this->saves;
-    }
-
-    /**
-     * Get officials
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getOfficials()
-    {
-        return $this->officials;
-    }
-
-    /**
-     * Set team
-     *
-     * @param Aueio\ClubBundle\Entity\Team $team
-     */
-    public function setTeam(\Aueio\ClubBundle\Entity\Team $team)
-    {
-        $this->team = $team;
+        return $this->actions;
     }
 }

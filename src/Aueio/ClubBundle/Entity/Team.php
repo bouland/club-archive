@@ -11,11 +11,20 @@ use Aueio\ClubBundle\Entity\Action;
 /**
  * Aueio\ClubBundle\Entity\Team
  *
- * @ORM\Table()
- * @ORM\Entity()
+ * @ORM\Entity
+ * @ORM\Table(name="teams")
  */
-class Team extends Entity
+class Team
 {
+	/**
+	 * @var integer $id
+	 *
+	 * @ORM\Column(name="id", type="integer")
+	 * @ORM\Id
+	 * @ORM\GeneratedValue(strategy="AUTO")
+	 */
+	private $id;
+	
     /**
      * @var string $name
      *
@@ -52,49 +61,38 @@ class Team extends Entity
     private $adress;
 
     /**
+     * Bidirectional - One-To-Many (INVERSE SIDE)
+     *
      * @ORM\OneToMany(targetEntity="Player", mappedBy="team")
      */
     private $players;
-    /**
-     * @ORM\OneToMany(targetEntity="Game", mappedBy="win")
-     */
-    private $wins;
     
-    /**
-     * @ORM\OneToMany(targetEntity="Game", mappedBy="lost")
+     /**
+     * Bidirectional - One-To-Many (INVERSE SIDE)
+     *
+     * @ORM\OneToMany(targetEntity="Role", mappedBy="team")
      */
-    private $losts;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="Game", mappedBy="visitor")
-     */
-    private $visitors;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="Game", mappedBy="lost")
-     */
-    private $locals;
-    
-    /**
-     * @ORM\OneToMany(targetEntity="Action", mappedBy="entity")
-     */
-    private $goals;
+    private $roles;
     
     
     public function __toString(){
     	return $this->name;
     }
-    
-    
     public function __construct()
     {
-        $this->wins = new \Doctrine\Common\Collections\ArrayCollection();
-    $this->losts = new \Doctrine\Common\Collections\ArrayCollection();
-    $this->visitors = new \Doctrine\Common\Collections\ArrayCollection();
-    $this->locals = new \Doctrine\Common\Collections\ArrayCollection();
-    $this->goals = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->players = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
     /**
      * Set name
      *
@@ -196,76 +194,6 @@ class Team extends Entity
     }
 
     /**
-     * Add wins
-     *
-     * @param Aueio\ClubBundle\Entity\Game $wins
-     */
-    public function addGame(\Aueio\ClubBundle\Entity\Game $wins)
-    {
-        $this->wins[] = $wins;
-    }
-
-    /**
-     * Get wins
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getWins()
-    {
-        return $this->wins;
-    }
-
-    /**
-     * Get losts
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getLosts()
-    {
-        return $this->losts;
-    }
-
-    /**
-     * Get visitors
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getVisitors()
-    {
-        return $this->visitors;
-    }
-
-    /**
-     * Get locals
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getLocals()
-    {
-        return $this->locals;
-    }
-
-    /**
-     * Add goals
-     *
-     * @param Aueio\ClubBundle\Entity\Action $goals
-     */
-    public function addAction(\Aueio\ClubBundle\Entity\Action $goals)
-    {
-        $this->goals[] = $goals;
-    }
-
-    /**
-     * Get goals
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getGoals()
-    {
-        return $this->goals;
-    }
-
-    /**
      * Add players
      *
      * @param Aueio\ClubBundle\Entity\Player $players
@@ -283,5 +211,25 @@ class Team extends Entity
     public function getPlayers()
     {
         return $this->players;
+    }
+
+    /**
+     * Get roles
+     *
+     * @return Aueio\ClubBundle\Entity\Role 
+     */
+    public function getRoles()
+    {
+        return $this->roles;
+    }
+
+    /**
+     * Add roles
+     *
+     * @param Aueio\ClubBundle\Entity\Role $roles
+     */
+    public function addRole(\Aueio\ClubBundle\Entity\Role $roles)
+    {
+        $this->roles[] = $roles;
     }
 }

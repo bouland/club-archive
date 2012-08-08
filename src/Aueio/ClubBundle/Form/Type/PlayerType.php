@@ -16,19 +16,19 @@ class PlayerType extends AbstractType
 		$builder->add('phone', 'text');
 		$builder->add('adress', 'textarea');
 		$builder->add('gender', 'choice', array(
-				'choices'   => array('male' => 'Homme', 'female' => 'Femme'),
+				'choices'   => array('M' => 'Homme', 'F' => 'Femme'),
 				'required'  => true,
 		));
 		$builder->add('car', 'checkbox', array('required'  => false));
 		$builder->add('position', 'choice', array(
-				'choices'   => array(	'goal' => 'Gardien',
-										'pivot' => 'Pivot',
-										'center' => 'Demi',
-										'back' => 'Arrière',
-										'wing' => 'Ailier')
+				'choices'   => array(	'GOAL' => 'Gardien',
+										'PIVOT' => 'Pivot',
+										'CENTER' => 'Demi',
+										'BACK' => 'Arrière',
+										'WING' => 'Ailier')
 		));
 		$builder->add('hand', 'choice', array(
-				'choices'   => array('right' => 'Droitier', 'left' => 'Gaucher')
+				'choices'   => array('RIGHT' => 'Droitier', 'LEFT' => 'Gaucher')
 		));
 		
 		$builder->add('enable', 'checkbox', array('required'  => false));

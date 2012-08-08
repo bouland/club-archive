@@ -8,8 +8,9 @@ use Aueio\ClubBundle\Entity\Game;
 /**
  * Aueio\ClubBundle\Entity\Relation
  *
- * @ORM\Table()
- * @ORM\Entity(repositoryClass="Aueio\ClubBundle\Entity\RelationRepository")
+ * @ORM\Entity
+ * @ORM\Table(name="actions")
+ * @ORM\Entity(repositoryClass="Aueio\ClubBundle\Entity\ActionRepository")
  */
 class Action
 {
@@ -23,21 +24,31 @@ class Action
     private $id;
 	
     /**
-     * @ORM\ManyToOne(targetEntity="Entity")
-    */
-    private $entity;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="Game")
+     * @ORM\ManyToOne(targetEntity="Game", inversedBy="actions")
+     * @ORM\JoinColumn(name="game_id", referencedColumnName="id")
     */
     private $game;
     
     /**
-     * @var string $number
-     *
-     * @ORM\Column(name="number", type="integer")
+     * @ORM\ManyToOne(targetEntity="Player", inversedBy="actions")
+     * @ORM\JoinColumn(name="player_id", referencedColumnName="id")
      */
-    private $number;
+    private $player;
+    
+    
+    /**
+     * @var string $type
+     *
+     * @ORM\Column(name="type", type="string", length="5" )
+     */
+    private $type;
+    
+    /**
+     * @var string $value
+     *
+     * @ORM\Column(name="value", type="string", length="10", nullable="true")
+     */
+    private $value;
     
     /**
      * @var datetime $date
@@ -61,23 +72,23 @@ class Action
     }
 
     /**
-     * Set number
+     * Set type
      *
-     * @param integer $number
+     * @param string $type
      */
-    public function setNumber($number)
+    public function setType($type)
     {
-        $this->number = $number;
+        $this->type = $type;
     }
 
     /**
-     * Get number
+     * Get type
      *
-     * @return integer 
+     * @return string 
      */
-    public function getNumber()
+    public function getType()
     {
-        return $this->number;
+        return $this->type;
     }
 
     /**
@@ -101,26 +112,6 @@ class Action
     }
 
     /**
-     * Set entity
-     *
-     * @param Aueio\ClubBundle\Entity\Entity $entity
-     */
-    public function setEntity(\Aueio\ClubBundle\Entity\Entity $entity)
-    {
-        $this->entity = $entity;
-    }
-
-    /**
-     * Get entity
-     *
-     * @return Aueio\ClubBundle\Entity\Entity 
-     */
-    public function getEntity()
-    {
-        return $this->entity;
-    }
-
-    /**
      * Set game
      *
      * @param Aueio\ClubBundle\Entity\Game $game
@@ -138,5 +129,48 @@ class Action
     public function getGame()
     {
         return $this->game;
+    }
+
+    /**
+     * Set player
+     *
+     * @param Aueio\ClubBundle\Entity\Player $player
+     */
+    public function setPlayer(\Aueio\ClubBundle\Entity\Player $player)
+    {
+        $this->player = $player;
+    }
+
+    /**
+     * Get player
+     *
+     * @return Aueio\ClubBundle\Entity\Player 
+     */
+    public function getPlayer()
+    {
+        return $this->player;
+    }
+
+    /**
+     * Set value
+     *
+     * @param string $value
+     */
+    public function setValue($value)
+    {
+        $this->value = $value;
+    }
+
+    /**
+     * Get value
+     *
+     * @return string 
+     */
+    public function getValue()
+    {
+        return $this->value;
+    }
+    public function isPlay(){
+    	return $this->type == 'play';
     }
 }

@@ -230,6 +230,7 @@ p
 	overflow:auto;
 	padding: 10px 10px 40px 10px;
 	margin:0 0 0 220px;
+	min-height: 200px;
 }  /* must be same height as the footer */
 #content > ul > li {
 	border-bottom: 1px dotted #9E8D99;
