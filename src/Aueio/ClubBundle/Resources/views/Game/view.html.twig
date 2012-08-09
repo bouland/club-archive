@@ -5,8 +5,17 @@
 	Game view {{ game.id }}
 {% endblock %}
 
+{% block header_menu %}
+	{% include 'AueioClubBundle:Game:header.html.twig' %}
+{% endblock %}
+
 {% block sidebar %}
-	{% include 'AueioClubBundle:Game:sidebar.html.twig' with {'game': game} %}
+	<li><a href="{{ path('aueio_club_game_selection', {"id": game.id}) }}">Selection</a>
+	<li><a href="{{ path('aueio_club_game_result', {"id": game.id}) }}">Results</a>
+	<li  class="selected"><a href="{{ path('aueio_club_game_view', {"id": game.id}) }}">View</a>
+	<li><a href="{{ path('aueio_club_game_edit', {"id": game.id}) }}">Edit</a>
+	<li><a href="{{ path('aueio_club_game_delete', {"id": game.id}) }}">Delete</a></li>
+	<li><a href="{{ path('aueio_club_game_new') }}">New</a></li>
 {% endblock %}
 
 {% block content %}

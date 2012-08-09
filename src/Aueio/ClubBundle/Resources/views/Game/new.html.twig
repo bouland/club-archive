@@ -5,6 +5,14 @@
 	Game new
 {% endblock %}
 
+{% block header_menu %}
+	{% include 'AueioClubBundle:Game:header.html.twig' %}
+{% endblock %}
+
+{% block sidebar %}
+	<li class="selected"><a href="{{ path('aueio_club_game_new') }}">New Game</a></li>
+{% endblock %}
+
 {% block content %}
 	<form action="{{ path('aueio_club_game_new') }}" method="post" {{ form_enctype(form) }}>
 		{% include 'AueioClubBundle:Game:form.edit.html.twig' %}

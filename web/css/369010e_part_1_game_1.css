@@ -1,14 +1,26 @@
 @CHARSET "UTF-8";
 
-.game-selection-col{
+ul.game-selection-cols > li{
 	display: inline-block;
-	width: 25%;
-    height: 100%;
-    margin: 0;
-    min-height: 100%;
-    padding: 0;
-    vertical-align: top;
+	vertical-align: top;
+	width: 158px;;	
+	border-right: 1px dotted #9E8D99;
+	padding: 10px;
+}
+ul.game-selection-cols > li:last-child {
+    border: none;
+}
+ul.game-selection-cols > li > h4 {
+	text-align: center;
+	padding-bottom: 20px;
 }
 .game-selection-col p{
 	padding-bottom: 5px;
+}
+ul.game-selection-menu {
+	float: left;
+	margin-right: 10px;
+}
+ul.game-selection-menu > li {
+	display: inline-block;
 }

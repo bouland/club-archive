@@ -3,8 +3,19 @@
 
 {% block body %}
 
-	{% include 'AueioClubBundle::header.html.twig' %}
-
+	<div id="header" >
+		<div class="inner">
+			<div id="header_title">
+				<h1>		
+					<a href="{{ path('_welcome') }}">Meylan Handball Club</a>
+				</h1>
+			</div>
+			<ul id="header_menu" class="clearfix">
+			{% block header_menu %}
+			{% endblock %}
+		    </ul>
+	    </div>
+	</div>
 	<div id="wrapper">
 		<div class="inner">
 			<div id="layout">
@@ -23,6 +34,15 @@
 	    </div>
      </div>
      
-     {% include 'AueioClubBundle::footer.html.twig' %}
+     <div id="footer">
+		<div class="inner">
+			<div id="footer_menu">
+				<ul>
+				{% block footer_menu %}
+			    {% endblock %}
+			    </ul>
+		    </div>
+	    </div>
+	</div>
         
 {% endblock %}

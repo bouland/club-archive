@@ -98,6 +98,6 @@ class TeamController extends Controller
     		return $this->redirect($this->generateUrl('aueio_club_team_view', array('id' => $team->getId())));
     	}
     
-    	return $this->render('AueioClubBundle:Team:edit.html.twig', array('id' => $team->getId(), 'form' => $form->createView()));
+    	return $this->render('AueioClubBundle:Team:edit.html.twig', array('team' => $team, 'form' => $form->createView()));
     }
 }

@@ -2,11 +2,24 @@
 {% extends 'AueioClubBundle::layout.html.twig' %}
 
 {% block title %}
-	Game Result {{ id }}
+	Game Result {{ game.id }}
+{% endblock %}
+
+{% block header_menu %}
+	{% include 'AueioClubBundle:Game:header.html.twig' %}
+{% endblock %}
+
+{% block sidebar %}
+	<li><a href="{{ path('aueio_club_game_selection', {"id": game.id}) }}">Selection</a>
+	<li class="selected"><a href="{{ path('aueio_club_game_result', {"id": game.id}) }}">Results</a>
+	<li><a href="{{ path('aueio_club_game_view', {"id": game.id}) }}">View</a>
+	<li><a href="{{ path('aueio_club_game_edit', {"id": game.id}) }}">Edit</a>
+	<li><a href="{{ path('aueio_club_game_delete', {"id": game.id}) }}">Delete</a></li>
+	<li><a href="{{ path('aueio_club_game_new') }}">New</a></li>
 {% endblock %}
 
 {% block content %}
-	<form action="{{ path('aueio_club_game_result', {"id": id}) }}" method="post" {{ form_enctype(form) }}>
+	<form action="{{ path('aueio_club_game_result', {"id": game.id}) }}" method="post" {{ form_enctype(form) }}>
 		{% include 'AueioClubBundle:Game:form.result.html.twig' %}
 	</form>
 {% endblock %}

@@ -2,11 +2,22 @@
 {% extends 'AueioClubBundle::layout.html.twig' %}
 
 {% block title %}
-	Player edit {{ id }}
+	Player edit {{ player.id }}
+{% endblock %}
+
+{% block header_menu %}
+	{% include 'AueioClubBundle:Player:header.html.twig' %}
+{% endblock %}
+
+{% block sidebar %}
+	<li><a href="{{ path('aueio_club_player_view', {"id": player.id}) }}">View</a>
+	<li class="selected"><a href="{{ path('aueio_club_player_edit', {"id": player.id}) }}"> Edit</a>
+	<li><a href="{{ path('aueio_club_player_delete', {"id": player.id}) }}">Delete</a></li>
+	<li><a href="{{ path('aueio_club_player_new') }}">New</a></li>
 {% endblock %}
 
 {% block content %}
-	<form action="{{ path('aueio_club_player_edit', {"id": id}) }}" method="post" {{ form_enctype(form) }}>
+	<form action="{{ path('aueio_club_player_edit', {"player": player.id}) }}" method="post" {{ form_enctype(form) }}>
 		{% include 'AueioClubBundle:Player:form.html.twig' %}
 	</form>
 {% endblock %}

@@ -154,7 +154,7 @@ p
     left: 230px;
     position: absolute;
 }
-#header_menu > li.tab_selected > a,
+#header_menu > li.selected > a,
 #header_menu > li:hover > a {
 	z-index: 1;
     background: none repeat scroll 0 0 white; //#EFEFEF;
@@ -213,6 +213,7 @@ p
     margin: 0 0 3px;
     padding: 2px 4px 2px 8px;
 }
+#sidebar_menu > li.selected > a,
 #sidebar_menu > li:hover > a{
 	background-color: #86717F;
 	color: white; //#EFEFEF;

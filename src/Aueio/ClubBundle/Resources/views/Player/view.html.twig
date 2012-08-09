@@ -5,7 +5,12 @@
 	Player view {{ player.id }}
 {% endblock %}
 
+{% block header_menu %}
+	{% include 'AueioClubBundle:Player:header.html.twig' %}
+{% endblock %}
+
 {% block sidebar %}
+	<li  class="selected"><a href="{{ path('aueio_club_player_view', {"id": player.id}) }}">View</a>
 	<li><a href="{{ path('aueio_club_player_edit', {"id": player.id}) }}"> Edit</a>
 	<li><a href="{{ path('aueio_club_player_delete', {"id": player.id}) }}">Delete</a></li>
 	<li><a href="{{ path('aueio_club_player_new') }}">New</a></li>

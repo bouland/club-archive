@@ -5,6 +5,14 @@
 	Team new
 {% endblock %}
 
+{% block header_menu %}
+	{% include 'AueioClubBundle:Team:header.html.twig' %}
+{% endblock %}
+
+{% block sidebar %}
+	<li class="selected"><a href="{{ path('aueio_club_team_new') }}">New Team</a></li>
+{% endblock %}
+
 {% block content %}
 	<form action="{{ path('aueio_club_team_new') }}" method="post" {{ form_enctype(form) }}>
 		{% include 'AueioClubBundle:Team:form.html.twig' %}

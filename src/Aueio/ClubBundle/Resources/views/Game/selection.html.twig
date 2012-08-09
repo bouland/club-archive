@@ -2,11 +2,20 @@
 {% extends 'AueioClubBundle::layout.html.twig' %}
 
 {% block title %}
-	Game view {{ game.id }}
+	Game selection {{ game.id }}
+{% endblock %}
+
+{% block header_menu %}
+	{% include 'AueioClubBundle:Game:header.html.twig' %}
 {% endblock %}
 
 {% block sidebar %}
-	{% include 'AueioClubBundle:Game:sidebar.html.twig' with {'game': game} %}
+	<li class="selected"><a href="{{ path('aueio_club_game_selection', {"id": game.id}) }}">Selection</a>
+	<li><a href="{{ path('aueio_club_game_result', {"id": game.id}) }}">Results</a>
+	<li><a href="{{ path('aueio_club_game_view', {"id": game.id}) }}">View</a>
+	<li><a href="{{ path('aueio_club_game_edit', {"id": game.id}) }}">Edit</a>
+	<li><a href="{{ path('aueio_club_game_delete', {"id": game.id}) }}">Delete</a></li>
+	<li><a href="{{ path('aueio_club_game_new') }}">New</a></li>
 {% endblock %}
 
 {% block content %}
@@ -19,65 +28,67 @@
 			<p>{{ game.date|date("d M Y") }}</p>
 		</div>
 	</div>
-
 	<div id="game-content">
-		<div id="game-wait" class="game-selection-col">
-			<h4>Disponible</h4>
-			<ul>
-		    {% for player in wait %}
-				<li>
-					<p>
+		<ul class="game-selection-cols">
+			<li>
+				<h4>Disponibles ({{ wait|length }})</h4>
+				<ul>
+			    {% for player in wait %}
+					<li>
 						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
-						<a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "play"}) }}" title="Present">P</a>
-						<a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "miss"}) }}" title="Absent">A</a>
-					</p>
-				</li>
-		    {% else %}
-		        <h3>No Player found</h3>
-		    {% endfor %}
-			</ul>
-		</div><div id="game-miss" class="game-selection-col">
-			<h4>Absents</h4>
-			<ul>
-		    {% for player in miss %}
-				<li>
-					<p>
+						<ul class="game-selection-menu">
+							<li><a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "play"}) }}" title="Selectionner">S</a></li>
+							<li><a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "miss"}) }}" title="Absent">A</a></li>
+						</ul>
+					</li>
+			    {% else %}
+			        <h3>No Player found</h3>
+			    {% endfor %}
+				</ul>
+			</li><li>
+				<h4>Absents ({{ miss|length }})</h4>
+				<ul>
+			    {% for player in miss %}
+					<li>
 						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
-						<a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "miss"}) }}" title="Modifier">M</a>
-					</p>
-				</li>
-		    {% else %}
-		        <h3>No Player found</h3>
-		    {% endfor %}
-			</ul>
-		</div><div id="game-shop" class="game-selection-col">
-			<h4>Courses</h4>
-			<ul>
-		    {% for player in shop %}
-				<li>
-					<p>
+						<ul class="game-selection-menu">
+							<li><a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "miss"}) }}" title="Modifier">M</a></li>
+						</ul>
+					</li>
+			    {% else %}
+			        <h3>No Player found</h3>
+			    {% endfor %}
+				</ul>
+			</li><li>
+				<h4>Courses</h4>
+				<ul>
+			    {% for player in shop %}
+					<li>
 						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
-						<a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "shop"}) }}" title="Modifier">M</a>
-					</p>
-				</li>
-		    {% else %}
-		        <h3>No Player found</h3>
-		    {% endfor %}
-		</div><div id="game-play" class="game-selection-col">
-			<h4>Selection</h4>
-			<ul>
-		    {% for player in play %}
-				<li>
-					<p>
+						<ul class="game-selection-menu">
+							<li><a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "shop"}) }}" title="Modifier">M</a></li>
+						</ul>
+					</li>
+			    {% else %}
+			        <h3>No Player found</h3>
+			    {% endfor %}
+			    </ul>
+			</li><li>
+				<h4>Sélectionnés ({{ play|length }})</h4>
+				<ul>
+			    {% for player in play %}
+					<li>
 						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
-						<a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "play"}) }}" title="Modifier">M</a>
-						<a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "shop"}) }}" title="Courses">C</a>
-					</p>
-				</li>
-		    {% else %}
-		        <h3>No Player found</h3>
-		    {% endfor %}
-			</ul>
-		</div>
+						<ul class="game-selection-menu">
+							<li><a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "play"}) }}" title="Modifier">M</a></li>
+							<li><a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "shop"}) }}" title="Courses">C</a></li>
+						</ul>
+					</li>
+			    {% else %}
+			        <h3>No Player found</h3>
+			    {% endfor %}
+				</ul>
+			</li>
+		</ul>
 	</div>
 {% endblock %}

@@ -1,12 +1,16 @@
 {# src/Aueio/ClubBundle/Resources/views/Game/list.html.twig #}
 {% extends 'AueioClubBundle::layout.html.twig' %}
 
-{% block sidebar %}
-	<li><a href="{{ path('aueio_club_game_new') }}">New Game</a></li>
-{% endblock %}
-
 {% block title %}
 	Games list
+{% endblock %}
+
+{% block header_menu %}
+	{% include 'AueioClubBundle:Game:header.html.twig' %}
+{% endblock %}
+
+{% block sidebar %}
+	<li><a href="{{ path('aueio_club_game_new') }}">New Game</a></li>
 {% endblock %}
 
 {% block content %}

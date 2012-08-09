@@ -103,6 +103,6 @@ class PlayerController extends Controller
         }
     
     
-    	return $this->render('AueioClubBundle:Player:edit.html.twig', array('id' => $player->getId(), 'form' => $form->createView()));
+    	return $this->render('AueioClubBundle:Player:edit.html.twig', array('player' => $player, 'form' => $form->createView()));
     }
 }
