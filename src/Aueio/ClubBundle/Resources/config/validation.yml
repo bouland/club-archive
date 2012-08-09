@@ -95,4 +95,3 @@ Aueio\ClubBundle\Entity\Role:
         score:
             - Type:
                  type: integer
-                 
