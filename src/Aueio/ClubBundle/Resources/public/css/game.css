@@ -6,6 +6,13 @@ ul.game-selection-cols > li{
 	width: 158px;;	
 	border-right: 1px dotted #9E8D99;
 	padding: 10px;
+	
+}
+#game-desc h2{
+	text-align: center;
+}
+ul.game-selection-cols > li > ul > li{
+	height: 25px;
 }
 ul.game-selection-cols > li:last-child {
     border: none;
@@ -14,13 +21,14 @@ ul.game-selection-cols > li > h4 {
 	text-align: center;
 	padding-bottom: 20px;
 }
-.game-selection-col p{
-	padding-bottom: 5px;
+.game-selection-cols img{
+	height: 16px;
 }
 ul.game-selection-menu {
-	float: left;
+	float: right;
 	margin-right: 10px;
 }
 ul.game-selection-menu > li {
 	display: inline-block;
+	vertical-align: top;
 }

@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block content %}
-	<h1> Liste des Joueurs </h1>
+	<h2> Liste des Joueurs </h2>
 	<ul>
     {% for player in players %}
 		<li>{% include 'AueioClubBundle:Player:short.html.twig' with {'player': player} %}</li>

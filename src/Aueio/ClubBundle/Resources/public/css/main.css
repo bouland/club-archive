@@ -112,17 +112,10 @@ h1
 
 h2
 {
+	font-size:      30px;
     font-weight:   bold;
-    color:         #FFFFFF;
-    /* Font is duplicated of body (sans-serif) */
-    font-family:      "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
-
     margin-bottom:    10px;
-    background-color: #aacd4e;
     padding:          2px 4px;
-    display:          inline-block;
-    text-transform:   uppercase;
-
 }
 
 p

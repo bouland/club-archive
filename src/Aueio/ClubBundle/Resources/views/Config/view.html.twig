@@ -1,0 +1,21 @@
+{# src/Aueio/ClubBundle/Resources/views/Config/view.html.twig #}
+{% extends 'AueioClubBundle::layout.html.twig' %}
+
+{% block title %}
+	Config view {{ config.id }}
+{% endblock %}
+
+{% block header_menu %}
+	{% include 'AueioClubBundle:Config:header.html.twig' %}
+{% endblock %}
+
+{% block sidebar %}
+	<li  class="selected"><a href="{{ path('aueio_club_config_view', {"id": config.id}) }}">View</a>
+	<li><a href="{{ path('aueio_club_config_edit', {"id": config.id}) }}">Edit</a>
+	<li><a href="{{ path('aueio_club_config_delete', {"id": config.id}) }}">Delete</a></li>
+	<li><a href="{{ path('aueio_club_config_new') }}">New</a></li>
+{% endblock %}
+
+{% block content %}
+	<p> Team default {{ config.teamDefault}}</p>
+{% endblock %}

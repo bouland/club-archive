@@ -11,7 +11,7 @@ class GameType extends AbstractType
 	public function buildForm(FormBuilder $builder, array $options)
 	{
 		if($options['form'] == 'new' || $options['form'] == 'edit'){
-			$builder->add('date', 'date');
+			$builder->add('date', 'date',array("format" => "dd MM YYYY", "pattern" => "{{ day }} {{ month }} {{ year }}"));
 		}else{
 			$builder->add('comment', 'textarea', array('required' => false));
 		}

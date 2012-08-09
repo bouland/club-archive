@@ -1,0 +1,23 @@
+{# src/Aueio/ClubBundle/Resources/views/Game/edit.html.twig #}
+{% extends 'AueioClubBundle::layout.html.twig' %}
+
+{% block title %}
+	Config edit {{ config.id }}
+{% endblock %}
+
+{% block header_menu %}
+	{% include 'AueioClubBundle:Config:header.html.twig' %}
+{% endblock %}
+
+{% block sidebar %}
+	<li><a href="{{ path('aueio_club_config_view', {"id": config.id}) }}">View</a>
+	<li class="selected"><a href="{{ path('aueio_club_config_edit', {"id": config.id}) }}">Edit</a>
+	<li><a href="{{ path('aueio_club_config_delete', {"id": config.id}) }}">Delete</a></li>
+	<li><a href="{{ path('aueio_club_config_new') }}">New</a></li>
+{% endblock %}
+
+{% block content %}
+	<form action="{{ path('aueio_club_config_edit', {"id": config.id}) }}" method="post" {{ form_enctype(form) }}>
+		{% include 'AueioClubBundle:Config:form.html.twig' %}
+	</form>
+{% endblock %}

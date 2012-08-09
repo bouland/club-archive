@@ -24,8 +24,8 @@
 			<div id="game-avatar"
 				<img alt="game photo" title="inria link" src="http://adt/bundles/inriajob/images/logo-inria.png">
 			</div>
-			<h1>{{ game.teams[0].team.name }} VS {{ game.teams[1].team.name }}</h1>
-			<p>{{ game.date|date("d M Y") }}</p>
+			<h2>{{ game.teams[0].team.name }} VS {{ game.teams[1].team.name }}</h2>
+			<p>{{ game.date|date("l d F Y") }}</p>
 		</div>
 	</div>
 	<div id="game-content">
@@ -37,8 +37,16 @@
 					<li>
 						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
 						<ul class="game-selection-menu">
-							<li><a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "play"}) }}" title="Selectionner">S</a></li>
-							<li><a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "miss"}) }}" title="Absent">A</a></li>
+							<li>
+								<a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "play"}) }}" title="Selectionner">
+									<img src="/bundles/aueioclub/images/Crystal_Clear_action_apply.png" alt="valid logo">
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "miss"}) }}" title="Absent">
+									<img src="/bundles/aueioclub/images/Crystal_Clear_action_button_cancel.png" alt="cancel logo">
+								</a>
+							</li>
 						</ul>
 					</li>
 			    {% else %}
@@ -52,7 +60,11 @@
 					<li>
 						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
 						<ul class="game-selection-menu">
-							<li><a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "miss"}) }}" title="Modifier">M</a></li>
+							<li>
+								<a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "miss"}) }}" title="Modifier">
+									<img src="/bundles/aueioclub/images/Crystal_Clear_action_button_cancel.png" alt="cancel logo">
+								</a>
+							</li>
 						</ul>
 					</li>
 			    {% else %}
@@ -66,7 +78,11 @@
 					<li>
 						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
 						<ul class="game-selection-menu">
-							<li><a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "shop"}) }}" title="Modifier">M</a></li>
+							<li>
+								<a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "shop"}) }}" title="Modifier">
+									<img src="/bundles/aueioclub/images/Crystal_Clear_action_button_cancel.png" alt="cancel logo">
+								</a>
+							</li>
 						</ul>
 					</li>
 			    {% else %}
@@ -80,8 +96,16 @@
 					<li>
 						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
 						<ul class="game-selection-menu">
-							<li><a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "play"}) }}" title="Modifier">M</a></li>
-							<li><a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "shop"}) }}" title="Courses">C</a></li>
+							<li>
+								<a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "shop"}) }}" title="Courses">
+									<img style="height: 20px;margin-top: -2px;" src="/bundles/aueioclub/images/logo-panier.png" alt="cancel logo">
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "play"}) }}" title="Modifier">
+									<img src="/bundles/aueioclub/images/Crystal_Clear_action_button_cancel.png" alt="cancel logo">
+								</a>
+							</li>
 						</ul>
 					</li>
 			    {% else %}
