@@ -1,0 +1,14 @@
+{# src/Aueio/ClubBundle/Resources/views/Player/view.html.twig #}
+{% extends 'AueioClubBundle::layout.html.twig' %}
+
+{% block title %}
+	Register
+{% endblock %}
+
+{% block header_menu %}
+	{% include 'AueioClubBundle::header.html.twig' %}
+{% endblock %}
+
+{% block content %}
+{% include "FOSUserBundle:Registration:register_content.html.twig" %}
+{% endblock %}
