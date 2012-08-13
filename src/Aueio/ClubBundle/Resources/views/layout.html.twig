@@ -14,6 +14,20 @@
 			{% block header_menu %}
 			{% endblock %}
 		    </ul>
+		    <div>
+		    <script type="text/javascript">
+		    $(document).ready(function() {
+		    	$(".message").animate({opacity: '1.0'}, delay).fadeOut('slow');
+		    </script>
+			
+				<ul class="system-messages">
+		        {% for key, message in app.session.getFlashes() %}
+		        <li class="{{ key }} message" style="opacity: 0.9; display: none;">
+		            {{ message|trans({}, 'FOSUserBundle') }}
+		        </li>
+		        {% endfor %}
+		        </ul>
+			</div>
 	    </div>
 	</div>
 	<div id="wrapper">
@@ -27,6 +41,21 @@
 		        </div>
 
 		        <div id="content">
+		        	<div id="content-login">
+			       		<div>
+			            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+			            	<a href="{{ path('fos_user_profile_show') }}">
+			                {{ 'layout.logged_in_as'|trans({'%username%': app.user.firstname}, 'FOSUserBundle') }}
+			                </a> |
+			                <a href="{{ path('fos_user_security_logout') }}">
+			                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+			                </a>
+			            {% else %}
+			            	<a href="{{ path('fos_user_registration_register') }}">{{ 'layout.register'|trans({}, 'FOSUserBundle') }}</a>  |
+			            	<a href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+			            {% endif %}
+			        	</div>
+		        	</div>
 		            {% block content %}
 		            {% endblock %}
 		        </div>

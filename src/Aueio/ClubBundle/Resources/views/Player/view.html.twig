@@ -11,9 +11,8 @@
 
 {% block sidebar %}
 	<li  class="selected"><a href="{{ path('aueio_club_player_view', {"id": player.id}) }}">View</a>
-	<li><a href="{{ path('aueio_club_player_edit', {"id": player.id}) }}"> Edit</a>
+	{% if me %}<li><a href="{{ path('fos_user_profile_edit') }}"> Edit</a>{% endif %}
 	<li><a href="{{ path('aueio_club_player_delete', {"id": player.id}) }}">Delete</a></li>
-	<li><a href="{{ path('aueio_club_player_new') }}">New</a></li>
 {% endblock %}
 
 {% block content %}

@@ -1,0 +1,20 @@
+{% block subject %}
+{% autoescape false %}
+{{ 'email.subject.tag'|trans({},'AueioClubBundle') }} {{ 'email.subject.registration'|trans({},'AueioClubBundle') }}
+{% endautoescape %}
+{% endblock %}
+
+{% block body_text %}
+{% autoescape false %}
+{{ 'email.message.hello'|trans({'%firstname%': user.firstname}, 'AueioClubBundle') }}
+
+{{ 'email.message.registration'|trans({},'AueioClubBundle') }} {{ 'email.message.link'|trans({},'AueioClubBundle') }}
+{{ confirmationUrl }}
+
+{{ 'email.message.sign'|trans({'%firstname%': user.firstname}, 'AueioClubBundle') }}
+{% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+{% include 'AueioClubBundle:Player:registration.email.html.twig' %}
+{% endblock %}

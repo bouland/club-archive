@@ -2,17 +2,18 @@
 // src/Auieo/ClubBundle/Form/Type/PlayerType.php
 namespace Aueio\ClubBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilder;
+use FOS\UserBundle\Form\Type\RegistrationFormType;
 
-class PlayerType extends AbstractType
+class PlayerType extends RegistrationFormType
 {
 	public function buildForm(FormBuilder $builder, array $options)
 	{
+		parent::buildForm($builder, $options);
+		
 		$builder->add('firstname', 'text');
 		$builder->add('lastname', 'text');
 		$builder->add('surname', 'text');
-		$builder->add('email', 'email');
 		$builder->add('phone', 'text');
 		$builder->add('adress', 'textarea');
 		$builder->add('gender', 'choice', array(
@@ -31,8 +32,6 @@ class PlayerType extends AbstractType
 				'choices'   => array('RIGHT' => 'Droitier', 'LEFT' => 'Gaucher')
 		));
 		
-		$builder->add('enable', 'checkbox', array('required'  => false));
-		
 		$builder->add('team', 'entity', array(
 												'class' 		=> 'AueioClubBundle:Team',
 												'property'     	=> 'name',
@@ -42,13 +41,7 @@ class PlayerType extends AbstractType
 
 	public function getName()
 	{
-		return 'player';
+		return 'aueio_player_registration';
 	}
-	
-	public function getDefaultOptions(array $options)
-	{
-		return array(
-				'data_class' => 'Aueio\ClubBundle\Entity\Player',
-		);
-	}
+
 }

@@ -32,7 +32,7 @@ class PlayerController extends Controller
     		throw $this->createNotFoundException('No player found for id '.$id);
     	}
     	
-    	return $this->render('AueioClubBundle:Player:view.html.twig', array('player' => $player));
+    	return $this->render('AueioClubBundle:Player:view.html.twig', array('player' => $player, 'me' => false));
     }
     /**
      * @Route("/list")
@@ -57,52 +57,5 @@ class PlayerController extends Controller
     	$em->flush();
     	 
     	return $this->redirect($this->generateUrl('aueio_club_player_list'));
-    }
-    /**
-     * @Route("/new")
-     **/
-    public function newAction(Request $request)
-    {
-    	$em = $this->getDoctrine()->getEntityManager();
-    	$player = new Player();
-    	
-    	$form = $this->createForm(new PlayerType, $player);
-    	
-    	$formHandler = new PlayerHandler($form, $request, $em);
-
-        // On exécute le traitement du formulaire. S'il retourne true, alors le formulaire a bien été traité
-        if( $formHandler->process() )
-        {
-            return $this->redirect($this->generateUrl('aueio_club_player_view', array('id' => $player->getId())));
-        }
-    
-    	return $this->render('AueioClubBundle:Player:new.html.twig', array(
-    			'form' => $form->createView(),
-    	));
-    }
-    /**
-     * @Route("/edit/{id}", requirements={"id" = "\d+"})
-     **/
-    public function editAction($id, Request $request)
-    {
-    	$em = $this->getDoctrine()->getEntityManager();
-    
-    	$player = $em->getRepository('AueioClubBundle:Player')->find($id);
-    	if (!$player) {
-    		throw $this->createNotFoundException('No player found for id '.$id);
-    	}
-        
-		$form = $this->createForm(new PlayerType, $player);
-    	
-    	$formHandler = new PlayerHandler($form, $request, $em);
-    	
-        // On exécute le traitement du formulaire. S'il retourne true, alors le formulaire a bien été traité
-        if( $formHandler->process() )
-        {
-            return $this->redirect($this->generateUrl('aueio_club_player_view', array('id' => $player->getId())));
-        }
-    
-    
-    	return $this->render('AueioClubBundle:Player:edit.html.twig', array('player' => $player, 'form' => $form->createView()));
     }
 }

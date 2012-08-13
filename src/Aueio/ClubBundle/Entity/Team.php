@@ -33,25 +33,13 @@ class Team
     private $name;
 
     /**
-     * @var string $contact
-     *
-     * @ORM\Column(name="contact", type="string", length=255)
+     * @ORM\ManyToMany(targetEntity="Player")
+     * @ORM\JoinTable(name="teams_contacts",
+     *      joinColumns={@ORM\JoinColumn(name="team_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="player_id", referencedColumnName="id")}
+     *      )
      */
-    private $contact;
-    
-    /**
-    * @var string $email
-    *
-    * @ORM\Column(name="email", type="string", unique=true, length=255)
-    */
-    private $email;
-
-    /**
-    * @var string $phone
-    *
-    * @ORM\Column(name="phone", type="string", unique=true, length=10)
-    */
-    private $phone;
+    private $contacts;
     
     /**
     * @var string $adress
@@ -80,7 +68,9 @@ class Team
     }
     public function __construct()
     {
-        $this->players = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
+	    $this->players = new \Doctrine\Common\Collections\ArrayCollection();
+	    $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     /**
@@ -114,66 +104,6 @@ class Team
     }
 
     /**
-     * Set contact
-     *
-     * @param string $contact
-     */
-    public function setContact($contact)
-    {
-        $this->contact = $contact;
-    }
-
-    /**
-     * Get contact
-     *
-     * @return string 
-     */
-    public function getContact()
-    {
-        return $this->contact;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string 
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set phone
-     *
-     * @param string $phone
-     */
-    public function setPhone($phone)
-    {
-        $this->phone = $phone;
-    }
-
-    /**
-     * Get phone
-     *
-     * @return string 
-     */
-    public function getPhone()
-    {
-        return $this->phone;
-    }
-
-    /**
      * Set adress
      *
      * @param text $adress
@@ -194,15 +124,35 @@ class Team
     }
 
     /**
-     * Add players
+     * Add contacts
      *
-     * @param Aueio\ClubBundle\Entity\Player $players
+     * @param Aueio\ClubBundle\Entity\Player $contacts
      */
-    public function addPlayer(\Aueio\ClubBundle\Entity\Player $players)
+    public function addContact(\Aueio\ClubBundle\Entity\Player $contact)
     {
-        $this->players[] = $players;
+        $this->contacts[] = $contact;
     }
 
+    /**
+     * Get contacts
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getContacts()
+    {
+        return $this->contacts;
+    }
+    
+    /**
+     * Add players
+     *
+     * @param Aueio\ClubBundle\Entity\Player $player
+     */
+    public function addPlayer(\Aueio\ClubBundle\Entity\Player $player)
+    {
+    	$this->players[] = $player;
+    }
+    
     /**
      * Get players
      *
@@ -214,22 +164,22 @@ class Team
     }
 
     /**
-     * Get roles
-     *
-     * @return Aueio\ClubBundle\Entity\Role 
-     */
-    public function getRoles()
-    {
-        return $this->roles;
-    }
-
-    /**
      * Add roles
      *
      * @param Aueio\ClubBundle\Entity\Role $roles
      */
-    public function addRole(\Aueio\ClubBundle\Entity\Role $roles)
+    public function addRole(\Aueio\ClubBundle\Entity\Role $role)
     {
-        $this->roles[] = $roles;
+        $this->roles[] = $role;
+    }
+
+    /**
+     * Get roles
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getRoles()
+    {
+        return $this->roles;
     }
 }

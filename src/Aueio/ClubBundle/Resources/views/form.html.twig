@@ -1,0 +1,16 @@
+{% extends 'form_div_layout.html.twig' %}
+
+{% block field_label %}
+	{% spaceless %}
+	    <label for="{{ id }}">{{ id|trans([], 'FOSUserBundle') }}</label>
+	{% endspaceless %}
+    {% if required %}
+        <span class="required" title="This field is required">*</span>
+    {% endif %}
+{% endblock %}
+
+{% block radio_label %}
+	{% spaceless %}
+	    <label for="{{ id }}">{{ label }}</label>
+	{% endspaceless %}
+{% endblock %}

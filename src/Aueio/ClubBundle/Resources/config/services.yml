@@ -5,3 +5,15 @@ services:
 #    aueio_club.example:
 #        class: %aueio_club.example.class%
 #        arguments: [@service_id, "plain_value", %parameter%]
+services:
+   aueio_player.registration.form.type:
+        class: Aueio\ClubBundle\Form\Type\PlayerType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: aueio_player_registration }
+
+   aueio_player.form.handler.registration:
+        class: Aueio\ClubBundle\Form\Handler\PlayerHandler
+        arguments: ["@fos_user.registration.form", "@request", "@fos_user.user_manager", "@fos_user.mailer"]
+        scope: request
+        public: false

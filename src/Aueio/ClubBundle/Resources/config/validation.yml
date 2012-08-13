@@ -19,11 +19,6 @@ Aueio\ClubBundle\Entity\Player:
         gender:
             - MaxLength: 1
             - Choice: [M, F]
-        email:
-            - MaxLength: 255
-            - NotBlank: ~
-            - Type:
-                 type: string
         phone:
             - NotBlank: ~
             - Type:
@@ -45,10 +40,6 @@ Aueio\ClubBundle\Entity\Player:
         hand:
             - MaxLength: 6
             - Choice: [LEFT, RIGHT]
-        enable:
-            - NotBlank: ~
-            - Type:
-                type: bool
 
 Aueio\ClubBundle\Entity\Team:
     properties:
@@ -57,21 +48,6 @@ Aueio\ClubBundle\Entity\Team:
             - MaxLength: 50
             - Type:
                  type: string
-        contact:
-            - NotBlank: ~
-            - MaxLength: 50
-            - Type:
-                 type: string
-        email:
-            - MaxLength: 255
-            - NotBlank: ~
-            - Type:
-                 type: string
-        phone:
-            - NotBlank: ~
-            - Type:
-                 type: string
-            - MaxLength: 10
         adress:
             - NotBlank: ~
             - Type:

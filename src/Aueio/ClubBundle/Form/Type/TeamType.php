@@ -10,11 +10,13 @@ class TeamType extends AbstractType
 	public function buildForm(FormBuilder $builder, array $options)
 	{
 		$builder->add('name', 'text');
-		$builder->add('contact', 'text');
-		$builder->add('email', 'email');
-		$builder->add('phone', 'text');
 		$builder->add('adress', 'textarea');
-	}
+		$builder->add('contacts', 'entity', array(
+												'class' 		=> 'AueioClubBundle:Player',
+												'property'     	=> 'firstname',
+												'expanded'		=> true,
+												'multiple'		=> true,
+										));	}
 
 	public function getName()
 	{

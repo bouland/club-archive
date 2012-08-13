@@ -4,7 +4,7 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallback: %locale% }
+    translator:      { fallback: %locale% }
     secret:          %secret%
     charset:         UTF-8
     router:          { resource: "%kernel.root_dir%/config/routing.yml" }
@@ -50,11 +50,46 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: %mailer_transport%
-    host:      %mailer_host%
-    username:  %mailer_user%
-    password:  %mailer_password%
+    transport:   %mailer_transport%
+    encryption:  %mailer_encryption%
+    auth_mode:   %mailer_auth_mode%
+    host:        %mailer_host%
+    username:    %mailer_user%
+    password:    %mailer_password%
 
 jms_security_extra:
     secure_controllers:  true
     secure_all_services: false
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Aueio\ClubBundle\Entity\Player
+    service:
+        mailer: fos_user.mailer.twig_swift
+    from_email:
+        address:        noreply@bouland.org
+        sender_name:    "[HandBall]"
+    template:
+        theme:  AueioClubBundle::form.html.twig
+    registration:
+        confirmation:
+            enabled:    true
+            template: AueioClubBundle:Player:registration.email.txt.twig
+            from_email:
+                address:        registration@bouland.org
+                sender_name:    "[HandBall] Registration"
+        form:
+            type: aueio_player_registration
+            handler: aueio_player.form.handler.registration
+    profile:
+        form:
+            type: aueio_player_registration
+            handler: aueio_player.form.handler.registration
+    resetting:
+        email:
+            template: AueioClubBundle:Player:resetting.email.txt.twig
+            from_email:
+                address:        resetting@bouland.org
+                sender_name:    "[HandBall] Reset Password"
+

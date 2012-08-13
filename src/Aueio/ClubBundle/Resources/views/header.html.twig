@@ -1,14 +1,5 @@
-{# src/Aueio/ClubBundle/Resources/views/header.html.twig #}
-<div id="header" >
-	<div class="inner">
-		<div id="header_title">
-			<h1>		
-				<a href="{{ path('_welcome') }}">Meylan Handball Club</a>
-			</h1>
-		</div>
-		<ul id="header_menu" class="clearfix">
-		{% block header_menu %}
-		{% endblock %}
-	    </ul>
-    </div>
-</div>
+<li><a href="{{ path('aueio_club_game_list') }}">Games</a></li>
+<li><a href="{{ path('aueio_club_team_list') }}">Teams</a></li>
+{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+<li><a href="{{ path('aueio_club_player_list') }}">Players</a></li>
+{% endif %}

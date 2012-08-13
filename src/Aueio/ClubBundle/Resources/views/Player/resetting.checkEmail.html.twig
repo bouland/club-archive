@@ -1,0 +1,18 @@
+{# src/Aueio/ClubBundle/Resources/views/Player/view.html.twig #}
+{% extends 'AueioClubBundle::layout.html.twig' %}
+
+{% block title %}
+	Login
+{% endblock %}
+
+{% block header_menu %}
+	{% include 'AueioClubBundle:Player:header.html.twig' %}
+{% endblock %}
+
+{% block content %}
+	<div id="player-login">
+		<p>
+			{% autoescape false %}{{ 'resetting.check_email'|trans({'%email%': email}, 'FOSUserBundle') }}{% endautoescape %}
+		</p>
+	</div>
+{% endblock %}

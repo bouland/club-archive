@@ -3,3 +3,49 @@
 .player-link{
 	width: 120px;
 }
+
+.fos_user_login > div,
+.fos_user_registration_register > div > div,
+.fos_user_resetting_request > div,
+.fos_user_resetting_reset > div > div,
+.fos_user_registration_form > div {
+	margin-bottom: 10px;
+}
+.fos_user_success{
+	 background-color: black;
+}
+.fos_user_registration_register > ul > li,
+.fos_user_login > ul > li,
+.fos_user_resetting_request > ul > li,
+.fos_user_resetting_reset > ul > li,
+.fos_user_registration_form > ul > li {
+	margin-bottom: 5px;
+	color: white;
+	background-color: red;
+	border-radius: 8px 8px 8px 8px;
+	padding: 3px 10px;
+}
+#player-login,
+.fos_user_login ,
+.fos_user_registration_register,
+.fos_user_resetting_request,
+.fos_user_resetting_reset,
+.fos_user_registration_form {
+	width: 350px;
+	padding:20px;
+	margin: 50px auto;
+	border: 1px dotted #9E8D99;
+}
+.player-col{
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    vertical-align: top;
+    width: 50%;
+}
+.player-view{
+	padding: 10px;
+}
+#player-header{
+	padding-bottom: 20px;
+}

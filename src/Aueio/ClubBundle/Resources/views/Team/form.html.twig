@@ -11,16 +11,8 @@
 			</p>
 		</div><div id="team-contact" class="team-col">
 			<p>
-				{{ form_errors(form.contact) }}
-				{{ form_label(form.contact, 'Contact') }} {{ form_widget(form.contact, { 'attr': { 'size' : 31, 'maxlength' : 50} }) }}
-			</p>
-			<p>
-				{{ form_errors(form.email) }}
-				{{ form_label(form.email, 'E-mail') }} {{ form_widget(form.email, { 'attr': { 'size' : 31, 'maxlength' : 255} }) }}
-			</p>
-			<p>
-				{{ form_errors(form.phone) }}
-				{{ form_label(form.phone, 'Téléphone') }} {{ form_widget(form.phone, { 'attr': { 'size' : 31, 'maxlength' : 10} }) }}
+				{{ form_errors(form.contacts) }}
+				{{ form_label(form.contacts, 'Contacts') }} {{ form_widget(form.contacts) }}
 			</p>
 			<h4>
 				{{ form_errors(form.adress) }}

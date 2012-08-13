@@ -62,9 +62,16 @@ input,button,textarea,select,optgroup,option{
 	font-style:inherit;
 	font-weight:inherit;
 }
-input,button,textarea,select{
-	*font-size:100%;
+input, textarea {
+    -moz-box-sizing: border-box;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px 5px 5px 5px;
+    color: #666666;
+    font: 120% Arial,Helvetica,sans-serif;
+    padding: 5px;
+    width: 100%;
 }
+
 html, body
 {
    //background-color: #EFEFEF; 
@@ -121,7 +128,7 @@ h2
 p
 {
     line-height:    20px;
-    padding-bottom: 20px;
+    padding-bottom: 5px;
 }
 #header {
 	background: url("/bundles/aueioclub/images/header_shadow.png") repeat-x scroll left bottom #86717F;
@@ -226,6 +233,9 @@ p
 	margin:0 0 0 220px;
 	min-height: 200px;
 }  /* must be same height as the footer */
+#content-login{
+	text-align: right;
+}
 #content > ul > li {
 	border-bottom: 1px dotted #9E8D99;
 	
@@ -245,4 +255,40 @@ p
 .short p {
 	padding: 0;	
 	
+}
+.button-submit {
+    background: url("http://elgg18/_graphics/button_graduation.png") repeat-x scroll left 10px #86717F;
+    border: 1px solid #86717F;
+    color: white;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 black;
+}
+.button {
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    outline: medium none;
+    padding: 2px 4px;
+    width: auto;
+}
+#content-login{
+	margin-bottom: 15px;
+}
+system-messages {
+    max-width: 500px;
+    position: fixed;
+    right: 20px;
+    top: 24px;
+    z-index: 2000;
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45);
+    color: white;
+    cursor: pointer;
+    display: block;
+    font-weight: bold;
+    opacity: 0.9;
+    padding: 3px 10px;
+}
 }

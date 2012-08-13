@@ -5,10 +5,8 @@ namespace Aueio\ClubBundle\Entity;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Aueio\ClubBundle\Entity\Entity;
-use Aueio\ClubBundle\Entity\Action;
-use Aueio\ClubBundle\Entity\Game;
-use Aueio\ClubBundle\Entity\Team;
+use FOS\UserBundle\Entity\User;
+
 /**
  * Aueio\ClubBundle\Entity\Player
  *
@@ -16,7 +14,7 @@ use Aueio\ClubBundle\Entity\Team;
  * @ORM\Table(name="players")
  * @ORM\HasLifecycleCallbacks()
  */
-class Player
+class Player extends User
 {
 	/**
 	 * @var integer $id
@@ -25,7 +23,7 @@ class Player
 	 * @ORM\Id
 	 * @ORM\GeneratedValue(strategy="AUTO")
 	 */
-	private $id;
+	protected $id;
 	
     /**
      * @var string $firstname
@@ -55,13 +53,6 @@ class Player
      */
     private $gender;
     
-    /**
-    * @var string $email
-    *
-    * @ORM\Column(name="email", type="string", unique=true, length=255)
-    */
-    private $email;
-
     /**
     * @var string $phone
     *
@@ -99,18 +90,11 @@ class Player
     private $hand;
     
     /**
-     * @var datetime $date_register
+     * @var datetime $created
      * 
-     * @ORM\Column(name="date_register", type="date")
+     * @ORM\Column(name="created", type="date")
      */
-    private $date_register;
-    
-    /**
-     * @var boolean $enable
-     *
-     * @ORM\Column(name="enable", type="boolean")
-     */
-    private $enable;
+    private $created;
     
     /**
      * @ORM\ManyToOne(targetEntity="Team")
@@ -127,15 +111,16 @@ class Player
      * @ORM\PrePersist
      *
      */
-    public function setDateRegister()
+    public function setCreated()
     {
-        $this->date_register = new \DateTime('now');
+        $this->created = new \DateTime('now');
     }
 
     public function __construct()
     {
+        parent::__construct();
         $this->games = new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->actions = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->actions = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     public function __toString(){
@@ -229,26 +214,6 @@ class Player
     public function getGender()
     {
         return $this->gender;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string 
-     */
-    public function getEmail()
-    {
-        return $this->email;
     }
 
     /**
@@ -359,26 +324,6 @@ class Player
     public function getDateRegister()
     {
         return $this->date_register;
-    }
-
-    /**
-     * Set enable
-     *
-     * @param boolean $enable
-     */
-    public function setEnable($enable)
-    {
-        $this->enable = $enable;
-    }
-
-    /**
-     * Get enable
-     *
-     * @return boolean 
-     */
-    public function getEnable()
-    {
-        return $this->enable;
     }
 
     /**

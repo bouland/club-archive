@@ -5,12 +5,19 @@
 			<div id="team-avatar"
 				<img alt="team photo" title="photo" src="http://hand/bundles/aueioclub/images/logo.jpeg">
 			</div>
-			<p>{{ team.name }}</p>
+			<h2>{{ team.name }}</h2>
 		</div><div id="team-contact" class="team-col">
-			<p>{{ team.adress}}</p>
-			<p>{{ team.contact }}</p>
-			<p>{{ team.email }}</p>
-			<p>{{ team.phone }}</p>
+			<div id="team-players">
+				<h4>Contacts</h4>
+				<ul>
+			    {% for player in team.contacts %}
+					<li><p><a href="{{ path('aueio_club_player_view', {"id": player.id}) }}">{{ player.surname }}</a></p></li>
+			    {% else %}
+			        <h3>No contact found</h3>
+			    {% endfor %}
+				</ul>
+			</div>
+			<h4>Adresse</h4>
 			<p>{{ team.adress}}</p>
 		</div>
 	</div>

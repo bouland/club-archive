@@ -1,0 +1,27 @@
+# Emails
+email:
+    subject:
+        tag: "[HandBall]"
+        resetting: Reset du mot de passe
+        registration: Validation du compte
+    message:
+        hello: "Salut %firstname% !"
+        registration: "Pour valider ton compte, voici le "
+        resetting: "Pour réinitialiser ton mot de passe, voici le "
+        link: "lien"
+        sign: "A bientôt,<br/>Simon."
+resetting:
+    lost: "Mot de passe oublié ?"
+player:
+    surname: Surnom
+    username: Login
+    position: Poste
+    hand: Main de tir
+    WING: Ailier
+    GOAL: Gardien
+    PIVOT: Pivot
+    CENTER: Demi
+    BACK: Arrière
+    LEFT: Gaucher
+    RIGHT: Droitier
+    
