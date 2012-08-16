@@ -24,4 +24,44 @@ player:
     BACK: Arrière
     LEFT: Gaucher
     RIGHT: Droitier
-    
+game:
+    WIN: WIN
+    LOST: LOST
+    NUL: NUL
+    VISITOR: Visiteurs
+    LOCAL: Locaux
+form:
+    submit: Enregistrer
+
+config_team_default: Team focus
+config_secret: Réponses au secret d'enregistrement
+
+fos_user_profile_form_username:             "Nom d'utilisateur"
+fos_user_profile_form_email:                "Adresse e-mail"
+fos_user_profile_form_plainPassword_first:  "Mot de passe"
+fos_user_profile_form_plainPassword_second: "Vérification"
+fos_user_profile_form_firstname: "Prénom"
+fos_user_profile_form_lastname: "Nom"
+fos_user_profile_form_surname: "Surnom"
+fos_user_profile_form_phone: "Téléphone"
+fos_user_profile_form_adress: "Adresse"
+fos_user_profile_form_gender: "Genre"
+fos_user_profile_form_car: "As tu une voiture ?"
+fos_user_profile_form_position: "De préférence à quel poste joues tu ?"
+fos_user_profile_form_hand: "Main de tir"
+fos_user_profile_form_secret: "Le prénom d'un de nos Gardiens"
+
+fos_user_registration_form_username:             "Nom d'utilisateur"
+fos_user_registration_form_email:                "Adresse e-mail"
+fos_user_registration_form_plainPassword_first:  "Mot de passe"
+fos_user_registration_form_plainPassword_second: "Vérification"
+fos_user_registration_form_firstname: "Prénom"
+fos_user_registration_form_lastname: "Nom"
+fos_user_registration_form_surname: "Surnom"
+fos_user_registration_form_phone: "Téléphone"
+fos_user_registration_form_adress: "Adresse"
+fos_user_registration_form_gender: "Genre"
+fos_user_registration_form_car: "As tu une voiture ?"
+fos_user_registration_form_position: "De préférence à quel poste joues tu ?"
+fos_user_registration_form_hand: "Main de tir"
+fos_user_registration_form_secret: "Le prénom d'un de nos Gardiens"

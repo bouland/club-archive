@@ -6,18 +6,17 @@
 {% endblock %}
 
 {% block header_menu %}
-	{% include 'AueioClubBundle:Config:header.html.twig' %}
+	{% include 'AueioClubBundle::tab.menu.html.twig' with {'selected': "game"} %}
 {% endblock %}
 
 {% block sidebar %}
 	<li><a href="{{ path('aueio_club_config_view', {"id": config.id}) }}">View</a>
 	<li class="selected"><a href="{{ path('aueio_club_config_edit', {"id": config.id}) }}">Edit</a>
 	<li><a href="{{ path('aueio_club_config_delete', {"id": config.id}) }}">Delete</a></li>
-	<li><a href="{{ path('aueio_club_config_new') }}">New</a></li>
 {% endblock %}
 
 {% block content %}
-	<form action="{{ path('aueio_club_config_edit', {"id": config.id}) }}" method="post" {{ form_enctype(form) }}>
-		{% include 'AueioClubBundle:Config:form.html.twig' %}
+	<form action="{{ path('aueio_club_config_edit', {"id": config.id}) }}" {{ form_enctype(form) }} method="POST" class="aueio_club_config_form">
+	{% include 'AueioClubBundle:Config:form.html.twig' %}
 	</form>
 {% endblock %}

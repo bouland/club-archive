@@ -16,7 +16,7 @@ use Aueio\ClubBundle\Entity\Action;
 class ActionController extends Controller
 {
 	/**
-     * @Route("/add/{type}/{id_game}/{id_player}/{value}", requirements={"id_game" = "\d+", "id_player" = "\d+", "action"="play|miss|shop"} , defaults={"value"="empty"})
+     * @Route("/add/{type}/{id_game}/{id_player}/{value}", requirements={"id_game" = "\d+", "id_player" = "\d+", "type"="play|miss|shop|referee"} , defaults={"value"="empty"})
      **/
     public function addAction(Request $request, $type, $id_game, $id_player, $value)
     {

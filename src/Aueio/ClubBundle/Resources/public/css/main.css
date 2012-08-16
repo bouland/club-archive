@@ -125,6 +125,15 @@ h2
     padding:          2px 4px;
 }
 
+h3
+{
+	font-size:      20px;
+    font-weight:   bold;
+    margin-bottom:    10px;
+    margin-top: 20px;
+    padding:          2px 4px;
+}
+
 p
 {
     line-height:    20px;
@@ -236,11 +245,11 @@ p
 #content-login{
 	text-align: right;
 }
-#content > ul > li {
+ul.list > li {
 	border-bottom: 1px dotted #9E8D99;
-	
+	line-height: 25px;
 }
-#content > ul {
+ul.list {
 	border-top: 1px dotted #9E8D99;
     clear: both;
     margin: 5px 0;
@@ -252,18 +261,13 @@ p
 	height: 50px;
 	clear:both;
 } 
-.short p {
-	padding: 0;	
-	
-}
-.button-submit {
+input[type="submit"]{
     background: url("http://elgg18/_graphics/button_graduation.png") repeat-x scroll left 10px #86717F;
     border: 1px solid #86717F;
     color: white;
     text-decoration: none;
     text-shadow: 1px 1px 0 black;
-}
-.button {
+	cursor:pointer;
     border-radius: 5px 5px 5px 5px;
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
     cursor: pointer;
@@ -276,7 +280,7 @@ p
 #content-login{
 	margin-bottom: 15px;
 }
-system-messages {
+.system-messages {
     max-width: 500px;
     position: fixed;
     right: 20px;
@@ -290,5 +294,96 @@ system-messages {
     font-weight: bold;
     opacity: 0.9;
     padding: 3px 10px;
+
 }
+.aueio_club_config_form > div > div,
+.fos_user_login > div,
+.fos_user_profile_edit > div > div,
+.fos_user_registration_register > div > div,
+.fos_user_resetting_request > div,
+.fos_user_resetting_reset > div > div,
+.fos_user_registration_form > div {
+	margin-bottom: 10px;
 }
+.fos_user_success{
+	 background-color: black;
+}
+.aueio_club_config_form div ul > li,
+.fos_user_profile_edit div ul > li,
+.fos_user_registration_register div  ul > li,
+.fos_user_login > ul > li,
+.fos_user_resetting_request > ul > li,
+.fos_user_resetting_reset > ul > li,
+.fos_user_registration_form > ul > li {
+	margin-bottom: 5px;
+	color: white;
+	background-color: red;
+	border-radius: 8px 8px 8px 8px;
+	padding: 3px 10px;
+}
+#player-login,
+.aueio_club_config_form,
+.fos_user_login ,
+.fos_user_profile_edit,
+.fos_user_registration_register,
+.fos_user_resetting_request,
+.fos_user_resetting_reset,
+.fos_user_registration_form {
+	width: 350px;
+	padding:20px;
+	margin: 50px auto;
+	border: 1px dotted #9E8D99;
+}
+.full{
+	padding:20px;
+}
+.long,
+.short,
+.link,
+.name,
+.date,
+.adress,
+.team,
+.phone,
+.position,
+.hand{
+	display: inline-block;
+}
+ul.list > li > div {
+	width: 100%;
+}
+.cols{
+	display: inline-block;
+	width: 50%;
+	vertical-align: top;
+    padding: 0;
+    margin: 0;
+}
+
+.cols > ul,
+.cols > p  {
+	padding: 10px;
+}
+.stats > ul {
+    padding: 10px;
+}
+.stats > ul > li {
+	display: inline-block;
+	vertical-align: top;
+    padding: 0;
+    margin: 0;
+	width: 30%
+}
+.stats > ul > li > ul > li.red{
+	color: red;
+}
+.stats > ul > li > ul > li.green{
+	color: green;
+}
+.stats > ul > li > ul >.blue{
+	color: blue;
+}
+li.player > div.short {
+	width: 100%;
+}
+

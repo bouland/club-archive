@@ -8,9 +8,8 @@ use Aueio\ClubBundle\Entity\Game;
 /**
  * Aueio\ClubBundle\Entity\Relation
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Aueio\ClubBundle\Repository\ActionRepository")
  * @ORM\Table(name="actions")
- * @ORM\Entity(repositoryClass="Aueio\ClubBundle\Entity\ActionRepository")
  */
 class Action
 {

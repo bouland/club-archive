@@ -44,7 +44,7 @@
 		        	<div id="content-login">
 			       		<div>
 			            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-			            	<a href="{{ path('fos_user_profile_show') }}">
+			            	<a href="{{ path('aueio_club_player_view', {"id": app.user.id}) }}">
 			                {{ 'layout.logged_in_as'|trans({'%username%': app.user.firstname}, 'FOSUserBundle') }}
 			                </a> |
 			                <a href="{{ path('fos_user_security_logout') }}">

@@ -8,7 +8,7 @@ services:
 services:
    aueio_player.registration.form.type:
         class: Aueio\ClubBundle\Form\Type\PlayerType
-        arguments: [%fos_user.model.user.class%]
+        arguments: [%fos_user.model.user.class%, "@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type, alias: aueio_player_registration }
 

@@ -71,7 +71,7 @@ fos_user:
         address:        noreply@bouland.org
         sender_name:    "[HandBall]"
     template:
-        theme:  AueioClubBundle::form.html.twig
+        theme:  AueioClubBundle::form.theme.html.twig
     registration:
         confirmation:
             enabled:    true

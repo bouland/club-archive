@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block header_menu %}
-	{% include 'AueioClubBundle:Team:header.html.twig' %}
+	{% include 'AueioClubBundle::tab.menu.html.twig' with {'selected': "team"} %}
 {% endblock %}
 
 {% block sidebar %}
@@ -17,7 +17,9 @@
 {% endblock %}
 
 {% block content %}
+<div id="team">
 	<form action="{{ path('aueio_club_team_edit', {"id": team.id}) }}" method="post" {{ form_enctype(form) }}>
 		{% include 'AueioClubBundle:Team:form.html.twig' %}
 	</form>
+</div>
 {% endblock %}

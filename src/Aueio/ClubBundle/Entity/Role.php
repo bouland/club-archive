@@ -5,7 +5,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Aueio\ClubBundle\Entity\Role
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Aueio\ClubBundle\Repository\RoleRepository")
  * @ORM\Table(name="roles")
  */
 class Role
@@ -52,6 +52,10 @@ class Role
 	
 	public function __toString(){
 		return "Role " . $this->id . " " . $this->type;
+	}
+	
+	public function isLocal(){
+		return ($this->type == 'LOCAL');
 	}
     /**
      * Get id

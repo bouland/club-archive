@@ -1,0 +1,346 @@
+@CHARSET "UTF-8";
+html{
+	color:#000;background:#FFF;
+}
+html, body {
+	height: 100%;
+}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td {
+    border: 0 none;
+    font-family: inherit;
+    font-size: 100%;
+    font-style: inherit;
+    font-weight: inherit;
+    margin: 0;
+    outline: 0 none;
+    padding: 0;
+    vertical-align: baseline;
+}
+table{
+	border-collapse:collapse;
+	border-spacing:0;
+}
+fieldset,img{
+	border:0;
+}
+address,caption,cite,code,dfn,em,strong,th,var,optgroup{
+	font-style:inherit;
+	font-weight:inherit;
+}
+del,ins{
+	text-decoration:none;
+}
+li{
+	list-style:none;
+}
+caption,th{
+	text-align:left;
+}
+h1,h2,h3,h4,h5,h6{
+	font-size:100%;
+	font-weight:normal;
+}
+q:before,q:after{
+	content:'';
+}
+abbr,acronym{
+	border:0;
+	font-variant:normal;
+}
+sup{
+	vertical-align:baseline;
+}
+sub{
+	vertical-align:baseline;
+}
+legend{
+	color:#000;
+}
+input,button,textarea,select,optgroup,option{
+	font-family:inherit;
+	font-size:inherit;
+	font-style:inherit;
+	font-weight:inherit;
+}
+input, textarea {
+    -moz-box-sizing: border-box;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px 5px 5px 5px;
+    color: #666666;
+    font: 120% Arial,Helvetica,sans-serif;
+    padding: 5px;
+    width: 100%;
+}
+
+html, body
+{
+   //background-color: #EFEFEF; 
+}
+
+body
+{
+    font-size:        14px;
+    font-family:      "Lucida Sans Unicode", "Lucida Grande", Verdana, Arial, Helvetica, sans-serif;
+    color:            #313131;
+}
+
+a
+{
+    color:           #86717F;
+    text-decoration: none;
+}
+
+a:hover
+{
+    text-decoration: underline;
+}
+
+strong
+{
+    font-weight: bold;
+}
+
+em
+{
+    font-style: italic;
+}
+
+h1, h2, h3
+{
+    font-family:    Georgia, "Times New Roman", Times, serif;
+    color:          #404040;
+}
+
+h1
+{
+    font-size:      45px;
+    padding-bottom: 30px;
+}
+
+h2
+{
+	font-size:      30px;
+    font-weight:   bold;
+    margin-bottom:    10px;
+    padding:          2px 4px;
+}
+
+p
+{
+    line-height:    20px;
+    padding-bottom: 5px;
+}
+#header {
+	background: url("/bundles/aueioclub/images/header_shadow.png") repeat-x scroll left bottom #86717F;
+    position: relative;
+    min-height: 90px;
+}
+#header_title h1{
+    font-family: Georgia,times,serif;
+    font-style: italic;
+   	text-shadow: 1px 2px 4px #333333;
+    text-align: center;
+	padding: 0;
+}
+#header_title h1 > a {
+	line-height: 1.4em;
+	text-decoration: none;
+	color: white;
+}
+#header_menu {
+	vertical-align: baseline;
+	bottom: 0;
+    height: 23px;
+    left: 230px;
+    position: absolute;
+}
+#header_menu > li.selected > a,
+#header_menu > li:hover > a {
+	z-index: 1;
+    background: none repeat scroll 0 0 white; //#EFEFEF;
+    border-radius: 4px 4px 0 0;
+    box-shadow: 2px -1px 1px rgba(0, 0, 0, 0.25);
+    color: #86717F;
+}
+#header_menu > li > a {
+	color: white; //#EFEFEF;
+	text-decoration: none;
+	display: block;
+    font-weight: bold;
+    height: 20px;
+    padding: 3px 13px 0;
+}
+#header_menu > li {
+	float: left;
+    margin-right: 1px;
+	position: relative;
+}
+.clearfix:after {
+    clear: both;
+    content: ".";
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+#footer {
+    background: none repeat scroll 0 0 #86717F;
+    color: white;
+    font-size: 0.9em;
+    line-height: 2em;
+    text-align: center;
+}
+.inner {
+	position: relative;
+	width: 1000px;
+	margin: 0 auto;
+}
+#header > .inner{
+	height: 90px;
+}
+#sidebar{
+	width: 200px;
+    float: left;
+	position: relative;
+    padding: 20px 10px;
+    margin: 0;
+    min-height: 100%;
+}
+#sidebar_menu > li > a{
+	background-color: white; //#EFEFEF;
+	text-decoration: none;
+    border-radius: 8px 8px 8px 8px;
+    display: block;
+    margin: 0 0 3px;
+    padding: 2px 4px 2px 8px;
+}
+#sidebar_menu > li.selected > a,
+#sidebar_menu > li:hover > a{
+	background-color: #86717F;
+	color: white; //#EFEFEF;
+}
+
+#wrapper{
+	min-height: 100%;
+}
+#layout{
+	background: url("/bundles/aueioclub/images/sidebar_background.jpg") repeat-y scroll left top transparent;
+	min-height: 100%;
+}		
+#content {
+	width:   720px;
+	overflow:auto;
+	padding: 10px 10px 40px 10px;
+	margin:0 0 0 220px;
+	min-height: 200px;
+}  /* must be same height as the footer */
+#content-login{
+	text-align: right;
+}
+ul.list > li {
+	border-bottom: 1px dotted #9E8D99;
+	line-height: 25px;
+}
+ul.list {
+	border-top: 1px dotted #9E8D99;
+    clear: both;
+    margin: 5px 0;
+}
+#footer {
+	clear:both;
+	position: relative;
+	//margin-top: -50px; /* negative value of footer height */
+	height: 50px;
+	clear:both;
+} 
+input[type="submit"]{
+    background: url("http://elgg18/_graphics/button_graduation.png") repeat-x scroll left 10px #86717F;
+    border: 1px solid #86717F;
+    color: white;
+    text-decoration: none;
+    text-shadow: 1px 1px 0 black;
+	cursor:pointer;
+    border-radius: 5px 5px 5px 5px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    outline: medium none;
+    padding: 2px 4px;
+    width: auto;
+}
+#content-login{
+	margin-bottom: 15px;
+}
+.system-messages {
+    max-width: 500px;
+    position: fixed;
+    right: 20px;
+    top: 24px;
+    z-index: 2000;
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45);
+    color: white;
+    cursor: pointer;
+    display: block;
+    font-weight: bold;
+    opacity: 0.9;
+    padding: 3px 10px;
+
+}
+.aueio_club_config_form > div > div,
+.fos_user_login > div,
+.fos_user_profile_edit > div > div,
+.fos_user_registration_register > div > div,
+.fos_user_resetting_request > div,
+.fos_user_resetting_reset > div > div,
+.fos_user_registration_form > div {
+	margin-bottom: 10px;
+}
+.fos_user_success{
+	 background-color: black;
+}
+.aueio_club_config_form div ul > li,
+.fos_user_profile_edit div ul > li,
+.fos_user_registration_register div  ul > li,
+.fos_user_login > ul > li,
+.fos_user_resetting_request > ul > li,
+.fos_user_resetting_reset > ul > li,
+.fos_user_registration_form > ul > li {
+	margin-bottom: 5px;
+	color: white;
+	background-color: red;
+	border-radius: 8px 8px 8px 8px;
+	padding: 3px 10px;
+}
+#player-login,
+.aueio_club_config_form,
+.fos_user_login ,
+.fos_user_profile_edit,
+.fos_user_registration_register,
+.fos_user_resetting_request,
+.fos_user_resetting_reset,
+.fos_user_registration_form {
+	width: 350px;
+	padding:20px;
+	margin: 50px auto;
+	border: 1px dotted #9E8D99;
+}
+.full{
+	padding:20px;
+}
+.long,
+.short,
+.link,
+.name,
+.date,
+.adress,
+.team,
+.phone,
+.position,
+.hand{
+	display: inline-block;
+}
+ul.list > li > div {
+	width: 100%;
+}
+

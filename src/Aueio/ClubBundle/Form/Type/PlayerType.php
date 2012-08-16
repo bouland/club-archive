@@ -2,11 +2,22 @@
 // src/Auieo/ClubBundle/Form/Type/PlayerType.php
 namespace Aueio\ClubBundle\Form\Type;
 
-use Symfony\Component\Form\FormBuilder;
-use FOS\UserBundle\Form\Type\RegistrationFormType;
+use Symfony\Component\Form\FormError,
+ 	Symfony\Component\Form\FormInterface,
+	Symfony\Component\Form\FormBuilder,
+	Symfony\Component\Form\CallbackValidator,
+	FOS\UserBundle\Form\Type\RegistrationFormType;
 
 class PlayerType extends RegistrationFormType
 {
+	private $em;
+	
+	public function __construct($class, $em)
+	{
+		parent::__construct($class);
+		$this->em = $em;
+	}
+	
 	public function buildForm(FormBuilder $builder, array $options)
 	{
 		parent::buildForm($builder, $options);
@@ -20,7 +31,10 @@ class PlayerType extends RegistrationFormType
 				'choices'   => array('M' => 'Homme', 'F' => 'Femme'),
 				'required'  => true,
 		));
-		$builder->add('car', 'checkbox', array('required'  => false));
+		$builder->add('car', 'checkbox', array(
+				'data' => true,
+				'required' => false,
+		));
 		$builder->add('position', 'choice', array(
 				'choices'   => array(	'GOAL' => 'Gardien',
 										'PIVOT' => 'Pivot',
@@ -37,6 +51,20 @@ class PlayerType extends RegistrationFormType
 												'property'     	=> 'name',
 												'expanded'	=> true,
 										));
+		$builder->add('secret', 'text', array('property_path' => false));
+		
+		$builder->addValidator(new CallbackValidator(function(FormInterface $form)
+		{
+			//$config = $this->em->getRepository('AueioClubBundle:Config')->find(1);
+			$secret = $form["secret"];
+			//$answers= $config->getSecret();
+			$answers = array("CYRILLE", "GILLES");
+			if (!in_array(strtoupper($secret->getData()), $answers))
+			{
+				$secret->addError(new FormError('Wrong answer.'));
+			}
+		})
+		);
 	}
 
 	public function getName()

@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block header_menu %}
-	{% include 'AueioClubBundle:Game:header.html.twig' %}
+	{% include 'AueioClubBundle::tab.menu.html.twig' with {'selected': "game"} %}
 {% endblock %}
 
 {% block sidebar %}
@@ -14,7 +14,9 @@
 {% endblock %}
 
 {% block content %}
+<div id="game">
 	<form action="{{ path('aueio_club_game_new') }}" method="post" {{ form_enctype(form) }}>
 		{% include 'AueioClubBundle:Game:form.edit.html.twig' %}
 	</form>
+</div>
 {% endblock %}

@@ -11,7 +11,7 @@ use Aueio\ClubBundle\Entity\Action;
 /**
  * Aueio\ClubBundle\Entity\Team
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Aueio\ClubBundle\Repository\TeamRepository")
  * @ORM\Table(name="teams")
  */
 class Team

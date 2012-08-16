@@ -3,12 +3,12 @@
 namespace Aueio\ClubBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Aueio\ClubBundle\Entity\Relation
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Aueio\ClubBundle\Repository\ConfigRepository")
  * @ORM\Table(name="configs")
- * @ORM\Entity(repositoryClass="Aueio\ClubBundle\Entity\ConfigRepository")
  */
 class Config
 {
@@ -27,6 +27,34 @@ class Config
     */
     private $team_default;
 
+    /**
+     * @var string $secret
+     *
+     * @ORM\Column(name="secret", type="string", length="255" )
+     */
+
+    private $secret;
+    
+    
+    /**
+     * Assert\True()
+     */
+    public function isSecrets()
+    {
+    	$secret = $this->getSecrets();
+    	return is_array($secret);
+    }
+    
+	/**
+     * Get secret
+     *
+     * @return array
+     */
+    public function getSecrets()
+    {
+    	
+        return explode(",", $this->secret);
+    }
     /**
      * Get id
      *
@@ -55,5 +83,25 @@ class Config
     public function getTeamDefault()
     {
         return $this->team_default;
+    }
+
+    /**
+     * Set secret
+     *
+     * @param string $secret
+     */
+    public function setSecret($secret)
+    {
+        $this->secret = $secret;
+    }
+
+    /**
+     * Get secret
+     *
+     * @return string 
+     */
+    public function getSecret()
+    {
+        return $this->secret;
     }
 }

@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block header_menu %}
-	{% include 'AueioClubBundle:Config:header.html.twig' %}
+	{% include 'AueioClubBundle::tab.menu.html.twig' with {'selected': "config"} %}
 {% endblock %}
 
 {% block sidebar %}
@@ -14,7 +14,7 @@
 {% endblock %}
 
 {% block content %}
-	<form action="{{ path('aueio_club_config_new') }}" method="post" {{ form_enctype(form) }}>
-		{% include 'AueioClubBundle:Config:form.html.twig' %}
+	<form action="{{ path('aueio_club_config_new') }}" {{ form_enctype(form) }} method="POST" class="aueio_club_config_form">
+	{% include 'AueioClubBundle:Config:form.html.twig' %}
 	</form>
 {% endblock %}

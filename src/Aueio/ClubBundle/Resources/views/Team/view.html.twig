@@ -6,16 +6,20 @@
 {% endblock %}
 
 {% block header_menu %}
-	{% include 'AueioClubBundle:Team:header.html.twig' %}
+	{% include 'AueioClubBundle::tab.menu.html.twig' with {'selected': "team"} %}
 {% endblock %}
 
 {% block sidebar %}
 	<li  class="selected"><a href="{{ path('aueio_club_player_view', {"id": team.id}) }}">View</a>
+{% if is_granted("ROLE_ADMIN") %}
 	<li><a href="{{ path('aueio_club_team_edit', {"id": team.id}) }}"> Edit team</a>
 	<li><a href="{{ path('aueio_club_team_delete', {"id": team.id}) }}">Delete team</a></li>
 	<li><a href="{{ path('aueio_club_team_new') }}">New team</a></li>
+{% endif %}
 {% endblock %}
 
 {% block content %}
+<div id="team">
 	{% include 'AueioClubBundle:Team:full.html.twig' with {'team': team} %}
+</div>
 {% endblock %}

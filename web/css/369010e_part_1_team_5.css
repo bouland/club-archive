@@ -1,0 +1,7 @@
+@CHARSET "UTF-8";
+#team ul.list div.short div.link{
+	width:30%;
+}
+#team ul.list div.short div.adress{
+	width:70%;
+}

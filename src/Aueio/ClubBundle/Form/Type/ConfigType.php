@@ -13,7 +13,9 @@ class ConfigType extends AbstractType
 					'class' 		=> 'AueioClubBundle:Team',
 					'property'     	=> 'name',
 					'expanded'		=> false,
-			));	}
+			));
+		$builder->add('secret', 'text');
+	}
 
 	public function getName()
 	{

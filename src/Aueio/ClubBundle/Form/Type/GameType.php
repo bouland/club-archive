@@ -11,11 +11,24 @@ class GameType extends AbstractType
 	public function buildForm(FormBuilder $builder, array $options)
 	{
 		if($options['form'] == 'new' || $options['form'] == 'edit'){
-			$builder->add('date', 'date',array("format" => "dd MM YYYY", "pattern" => "{{ day }} {{ month }} {{ year }}"));
+			$builder->add('date', 'date', array(
+					'input'  => 'datetime',
+					'widget' => 'choice',
+			));
+			$builder->add('startTime', 'time', array(
+			    'input'  => 'datetime',
+			    'widget' => 'choice',
+					'with_seconds' => false,
+			));
+			$builder->add('endTime', 'time', array(
+					'input'  => 'datetime',
+					'widget' => 'choice',
+					'with_seconds' => false,
+			));
 		}else{
 			$builder->add('comment', 'textarea', array('required' => false));
 		}
-		$builder->add('teams', 'collection', array( 'type' => new RoleType(),
+		$builder->add('roles', 'collection', array( 'type' => new RoleType(),
 													'options' => array('form' => $options['form']),
 												  ));
 	}

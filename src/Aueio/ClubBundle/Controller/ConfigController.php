@@ -24,10 +24,7 @@ class ConfigController extends Controller
     	$config = $this->getDoctrine()
 				    	->getRepository('AueioClubBundle:Config')
 				    	->find($id);
-    	if (!$config) {
-    		throw $this->createNotFoundException('No config found for id '.$id);
-    	}
-    	
+
     	return $this->render('AueioClubBundle:Config:view.html.twig', array('config' => $config));
     }
     /**
@@ -53,7 +50,6 @@ class ConfigController extends Controller
     {
     	$em = $this->getDoctrine()->getEntityManager();
     	$config = new Config();
-    	
     	$form = $this->createForm(new ConfigType, $config);
     	
     	$formHandler = new ConfigHandler($form, $request, $em);
@@ -63,9 +59,9 @@ class ConfigController extends Controller
         {
             return $this->redirect($this->generateUrl('aueio_club_config_view', array('id' => $config->getId())));
         }
-    
-    	return $this->render('AueioClubBundle:Config:new.html.twig', array(
+        return $this->render('AueioClubBundle:Config:new.html.twig', array(
     			'form' => $form->createView(),
+    			'theme' => 'AueioClubBundle::form.theme.html.twig'
     	));
     }
     /**
@@ -91,7 +87,11 @@ class ConfigController extends Controller
     	}
     
     
-    	return $this->render('AueioClubBundle:Config:edit.html.twig', array('config' => $config, 'form' => $form->createView()));
+    	return $this->render('AueioClubBundle:Config:edit.html.twig', array(
+    			'config' => $config,
+    			'form' => $form->createView(),
+    			    			'theme' => 'AueioClubBundle::form.theme.html.twig'
+    	));
     }
     
 }

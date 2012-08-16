@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block header_menu %}
-	{% include 'AueioClubBundle:Player:header.html.twig' %}
+	{% include 'AueioClubBundle::tab.menu.html.twig' with {'selected': "player"} %}
 {% endblock %}
 
 {% block sidebar %}
@@ -16,5 +16,7 @@
 {% endblock %}
 
 {% block content %}
+<div id="player">
 	{% include "FOSUserBundle:Profile:edit_content.html.twig" %}
+</div>
 {% endblock %}

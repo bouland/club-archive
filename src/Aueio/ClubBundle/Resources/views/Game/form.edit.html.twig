@@ -7,14 +7,15 @@
 				<img alt="game photo" title="inria link" src="http://adt/bundles/inriajob/images/logo-inria.png">
 			</div>
 			<p>
-				{{ form_errors(form.date) }}
-				{{ form_label(form.date, 'Date') }} {{ form_widget(form.date) }}
+				{{ form_row(form.date) }}
+				{{ form_row(form.startTime) }}
+				{{ form_row(form.endTime) }}
 			</p>
 		</div>
 	</div>
 	<h3>Teams</h3>
     <ul class="game-teams">
-    {% for role in form.teams %}
+    {% for role in form.roles %}
         <li>
         	<div class="role-team">
         		<h4>{{ role.vars.value.type }}<h4>

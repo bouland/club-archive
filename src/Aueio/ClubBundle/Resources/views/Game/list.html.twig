@@ -6,26 +6,26 @@
 {% endblock %}
 
 {% block header_menu %}
-	{% include 'AueioClubBundle:Game:header.html.twig' %}
+	{% include 'AueioClubBundle::tab.menu.html.twig' with {'selected': "game"} %}
 {% endblock %}
 
 {% block sidebar %}
-	<li><a href="{{ path('aueio_club_game_new') }}">New Game</a></li>
+{% if is_granted("ROLE_ADMIN") %}
+<li><a href="{{ path('aueio_club_game_new') }}">New Game</a></li>
+{% endif %}
 {% endblock %}
 
 {% block content %}
+<div id="game">
 	<h2> Liste des Matchs </h2>
-
-	<ul>
+	<ul class="list">
     {% for game in games %}
 		<li>
-			<p>Match du <a href="{{ path('aueio_club_game_view', {"id": game.id}) }}">{{ game.date|date("d M Y") }}</a>
-			<a href="{{ path('aueio_club_team_view', {"id": game.teams[0].team.id}) }}">{{ game.teams[0].team.name }}</a>
-			 VS 
-			<a href="{{ path('aueio_club_team_view', {"id": game.teams[0].team.id}) }}">{{ game.teams[1].team.name }}</a></p>
+			{% include 'AueioClubBundle:Game:short.html.twig' with {'game': game}  %}
 		</li>
     {% else %}
         <h1>No Game found</h1>
     {% endfor %}
 	</ul>
+</div>
 {% endblock %}

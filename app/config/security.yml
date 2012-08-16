@@ -19,7 +19,12 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/player, role: ROLE_USER }
-        - { path: ^/admin/, role: ROLE_ADMIN }
+        - { path: ^/game/new, role: ROLE_ADMIN }
+        - { path: ^/game/edit, role: ROLE_ADMIN }
+        - { path: ^/game/delete, role: ROLE_ADMIN }
+        - { path: ^/team/new, role: ROLE_ADMIN }
+        - { path: ^/team/edit, role: ROLE_ADMIN }
+        - { path: ^/team/delete, role: ROLE_ADMIN }
 
     role_hierarchy:
         ROLE_ADMIN:       ROLE_USER

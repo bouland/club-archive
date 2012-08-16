@@ -1,0 +1,4 @@
+{# src/Aueio/ClubBundle/Resources/views/Config/tab.link.html.twig #}
+{% if is_granted("ROLE_ADMIN") %}
+<li {% if selected == "config" %}class="selected" {%  endif %}><a href="{{ path('aueio_club_config_view') }}">Config</a></li>
+{% endif %}

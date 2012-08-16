@@ -34,7 +34,6 @@ Aueio\ClubBundle\Entity\Player:
             - NotBlank: ~
             - Choice: [GOAL, PIVOT, CENTER, BACK, WING]
         car:
-            - NotBlank: ~
             - Type:
                 type: bool
         hand:
@@ -56,7 +55,10 @@ Aueio\ClubBundle\Entity\Team:
 
 Aueio\ClubBundle\Entity\Game:
     properties:
-        date:
+        startTime:
+            - NotBlank: ~
+            - Type: \DateTime
+        endTime:
             - NotBlank: ~
             - Type: \DateTime
         comment:
@@ -71,3 +73,9 @@ Aueio\ClubBundle\Entity\Role:
         score:
             - Type:
                  type: integer
+Aueio\ClubBundle\Entity\Config:
+    properties:
+        secret:
+            - NotBlank: ~
+            - MaxLength: 255
+             

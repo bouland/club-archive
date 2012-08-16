@@ -13,5 +13,6 @@ class PlayerHandler extends RegistrationFormHandler
 {
 	public function onSuccess(UserInterface $user, $confirmation){
 		parent::onSuccess($user, $confirmation);
+
 	}
 }

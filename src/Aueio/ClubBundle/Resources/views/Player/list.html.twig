@@ -6,16 +6,18 @@
 {% endblock %}
 
 {% block header_menu %}
-	{% include 'AueioClubBundle:Player:header.html.twig' %}
+	{% include 'AueioClubBundle::tab.menu.html.twig' with {'selected': "player"} %}
 {% endblock %}
 
 {% block content %}
+<div id="player">
 	<h2> Liste des Joueurs </h2>
-	<ul>
+	<ul class="list">
     {% for player in players %}
-		<li>{% include 'AueioClubBundle:Player:short.html.twig' with {'player': player} %}</li>
+		<li class="player">{% include 'AueioClubBundle:Player:long.html.twig' with {'player': player} %}</li>
     {% else %}
         <h1>No Player found</h1>
     {% endfor %}
 	</ul>
+</div>
 {% endblock %}

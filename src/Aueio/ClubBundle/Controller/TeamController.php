@@ -23,13 +23,15 @@ class TeamController extends Controller
 	*/
 	public function viewAction($id)
     {
-    	$team = $this->getDoctrine()
-				    	->getRepository('AueioClubBundle:Team')
-				    	->find($id);
+    	$em = $this->getDoctrine()->getEntityManager();
+    	$team = $em->getRepository('AueioClubBundle:Team')->find($id);
     	if (!$team) {
     		throw $this->createNotFoundException('No team found for id '.$id);
     	}
-        return $this->render('AueioClubBundle:Team:view.html.twig', array('team' => $team));
+    	$stats = $em->getRepository('AueioClubBundle:Role')->getStats($id);
+    	$stats['total'] = count($team->getRoles());
+    	
+        return $this->render('AueioClubBundle:Team:view.html.twig', array('team' => $team, 'stats' => $stats));
     }
     /**
      * @Route("/list")

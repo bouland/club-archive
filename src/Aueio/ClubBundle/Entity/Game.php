@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Aueio\ClubBundle\Entity\Game
  * 
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Aueio\ClubBundle\Repository\GameRepository")
  * @ORM\Table(name="games")
  */
 class Game
@@ -28,6 +28,20 @@ class Game
     private $date;
     
     /**
+    * @var datetime $startTime
+    *
+    * @ORM\Column(name="startTime", type="time")
+    */
+    private $startTime;
+    
+    /**
+     * @var datetime $endTime
+     *
+     * @ORM\Column(name="endTime", type="time")
+     */
+    private $endTime;
+    
+    /**
      * @ORM\Column(name="comment", type="text", nullable=true)
      */
     private $comment;
@@ -35,7 +49,7 @@ class Game
     /**
      * @ORM\OneToMany(targetEntity="Role", mappedBy="game", cascade={"persist", "remove"})
      */
-    private $teams;
+    private $roles;
 
     /**
      * @ORM\OneToMany(targetEntity="Action", mappedBy="game")
@@ -44,7 +58,7 @@ class Game
  
     public function __construct()
     {
-        $this->teams = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->$roles = new \Doctrine\Common\Collections\ArrayCollection();
     	$this->actions = new \Doctrine\Common\Collections\ArrayCollection();
     }
     public function __toString(){
@@ -59,26 +73,6 @@ class Game
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set date
-     *
-     * @param date $date
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-    }
-
-    /**
-     * Get date
-     *
-     * @return date 
-     */
-    public function getDate()
-    {
-        return $this->date;
     }
 
     /**
@@ -102,14 +96,14 @@ class Game
     }
 
     /**
-     * Add teams
+     * Add role
      *
-     * @param Aueio\ClubBundle\Entity\Role $teams
+     * @param Aueio\ClubBundle\Entity\Role $role
      */
-    public function addRole(\Aueio\ClubBundle\Entity\Role $team)
+    public function addRole(\Aueio\ClubBundle\Entity\Role $role)
     {
     	$team->setGame($this);
-        $this->teams[] = $team;
+        $this->roles[] = $role;
     }
 
     /**
@@ -117,9 +111,9 @@ class Game
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getTeams()
+    public function getRoles()
     {
-        return $this->teams;
+        return $this->roles;
     }
 
     /**
@@ -154,5 +148,78 @@ class Game
     	}
     	
     	return $players;
+    }
+    
+	/** 
+     * Get adress
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getAdress(){
+		foreach($this->roles as $role){
+			if($role->isLocal()){
+				return $role->getTeam()->getAdress();
+			}
+			
+		}
+	}
+    /**
+     * Set startTime
+     *
+     * @param date $startTime
+     */
+    public function setStartTime($startTime)
+    {
+        $this->startTime = $startTime;
+    }
+
+    /**
+     * Get startTime
+     *
+     * @return date 
+     */
+    public function getStartTime()
+    {
+        return $this->startTime;
+    }
+
+    /**
+     * Set endTime
+     *
+     * @param date $endTime
+     */
+    public function setEndTime($endTime)
+    {
+        $this->endTime = $endTime;
+    }
+
+    /**
+     * Get endTime
+     *
+     * @return date 
+     */
+    public function getEndTime()
+    {
+        return $this->endTime;
+    }
+
+    /**
+     * Set date
+     *
+     * @param date $date
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    }
+
+    /**
+     * Get date
+     *
+     * @return date 
+     */
+    public function getDate()
+    {
+        return $this->date;
     }
 }

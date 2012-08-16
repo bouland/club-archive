@@ -15,6 +15,7 @@ use Aueio\ClubBundle\Form\Type\GameType;
 use Aueio\ClubBundle\Form\Handler\GameHandler;
 use Aueio\ClubBundle\Entity\Role;
 use Aueio\ClubBundle\Entity\Action;
+use Aueio\ClubBundle\Entity\Config;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Expr;
 /**
@@ -69,8 +70,10 @@ class GameController extends Controller
     	$em = $this->getDoctrine()->getEntityManager();
     	
     	$game = new Game();
-    	$game->setDate(new \DateTime('now'));
-    	
+    	$date = new \DateTime('now');
+    	$game->setDate($date);
+    	$game->setStartTime(\DateTime::createFromFormat("Ymd\THis\Z",$date->format("Ymd"). "T200000Z"));
+    	$game->setEndTime(\DateTime::createFromFormat("Ymd\THis\Z",$date->format("Ymd"). "T223000Z"));
     	$local = new Role();
     	$visitor = new Role();
     	$local->setType('LOCAL');
@@ -138,7 +141,10 @@ class GameController extends Controller
     public function selectionAction($id, Request $request)
     {
     	$em = $this->getDoctrine()->getEntityManager();
-    
+    	$config = $em->getRepository('AueioClubBundle:Config')->find(1);
+    	if (!$config) {
+    		throw $this->createNotFoundException('No config found for id '.$id);
+    	}
     	$game = $em->getRepository('AueioClubBundle:Game')->find($id);
     	if (!$game) {
     		throw $this->createNotFoundException('No game found for id '.$id);
@@ -192,19 +198,18 @@ class GameController extends Controller
     	if(is_array($result)){
     		$shop = $result;
     	}
-    	 
     	$query = $repository->createQueryBuilder('p')
     	//->addSelect('count(p)')
     	->join('p.team', 't')
     	->leftJoin('t.roles', 'r')
     	->join('r.game', 'g')
-    	->leftJoin('p.actions', 'a')
-    	->join('a.game', 'g2')
+    	//->leftJoin('p.actions', 'a')
+    	//->join('a.game', 'g2')
     	->where('g.id = :id_game')
     	->andWhere('t.id = :id_team')
     	->setParameters(array(
     			'id_game' => $id,
-    			'id_team' => 8,
+    			'id_team' => $config->getTeamDefault()->getId(),
     	))
     	->getQuery();
     	$result = $query->getResult();

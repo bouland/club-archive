@@ -6,29 +6,32 @@
 {% endblock %}
 
 {% block header_menu %}
-	{% include 'AueioClubBundle:Game:header.html.twig' %}
+	{% include 'AueioClubBundle::tab.menu.html.twig' with {'selected': "game"} %}
 {% endblock %}
 
 {% block sidebar %}
+	<li><a href="{{ path('aueio_club_game_view', {"id": game.id}) }}">View</a>
 	<li class="selected"><a href="{{ path('aueio_club_game_selection', {"id": game.id}) }}">Selection</a>
 	<li><a href="{{ path('aueio_club_game_result', {"id": game.id}) }}">Results</a>
-	<li><a href="{{ path('aueio_club_game_view', {"id": game.id}) }}">View</a>
+{% if is_granted("ROLE_ADMIN") %}
 	<li><a href="{{ path('aueio_club_game_edit', {"id": game.id}) }}">Edit</a>
 	<li><a href="{{ path('aueio_club_game_delete', {"id": game.id}) }}">Delete</a></li>
 	<li><a href="{{ path('aueio_club_game_new') }}">New</a></li>
+{% endif %}
 {% endblock %}
 
 {% block content %}
+<div id="game">
 	<div id="game-header">
 		<div id="game-desc" class="game-col">
 			<div id="game-avatar"
 				<img alt="game photo" title="inria link" src="http://adt/bundles/inriajob/images/logo-inria.png">
 			</div>
-			<h2>{{ game.teams[0].team.name }} VS {{ game.teams[1].team.name }}</h2>
-			<p>{{ game.date|date("l d F Y") }}</p>
+			{% include 'AueioClubBundle:Game:name.html.twig' %}
+			{% include 'AueioClubBundle:Game:date.html.twig' %}
 		</div>
 	</div>
-	<div id="game-content">
+	<div id="game-manage">
 		<ul class="game-selection-cols">
 			<li>
 				<h4>Disponibles ({{ wait|length }})</h4>
@@ -68,7 +71,7 @@
 						</ul>
 					</li>
 			    {% else %}
-			        <h3>No Player found</h3>
+			        <h4>Aucuns</h4>
 			    {% endfor %}
 				</ul>
 			</li><li>
@@ -86,11 +89,11 @@
 						</ul>
 					</li>
 			    {% else %}
-			        <h3>No Player found</h3>
+			        <h4>Besoin d'un volontaire</h4>
 			    {% endfor %}
 			    </ul>
 			</li><li>
-				<h4>Sélectionnés ({{ play|length }})</h4>
+				<h4>Présents ({{ play|length }})</h4>
 				<ul>
 			    {% for player in play %}
 					<li>
@@ -115,4 +118,17 @@
 			</li>
 		</ul>
 	</div>
+	<div id="game-selection">
+		<h4>Détails de la sélection</h4>
+		<ul>
+		{% for player in play %}
+			<li class="player">
+			{% include 'AueioClubBundle:Player:short.html.twig' with {'player': player} %}
+			</li>
+		{% else %}
+	        <h3>No Player found</h3>
+	    {% endfor %}
+	    </ul>
+	</div>
+</div>
 {% endblock %}

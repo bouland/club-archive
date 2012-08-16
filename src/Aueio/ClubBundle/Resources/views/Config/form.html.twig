@@ -1,11 +1,7 @@
-{# src/Aueio/ClubBundle/Resources/views/Player/form.html.twig #}
-<div class="config-view full">
-	<p>
-		{{ form_errors(form.team_default) }}
-		{{ form_label(form.team_default, 'Choose default Team') }} {{ form_widget(form.team_default) }}
-	</p>
+{# src/Aueio/ClubBundle/Resources/views/Config/form.html.twig #}
+{% form_theme form theme %}
+
+{{ form_widget(form) }}
+<div>
+    <input class="button button-submit" type="submit" value="{{ 'form.submit'|trans({}, 'AueioClubBundle') }}" />
 </div>
-
-{{ form_rest(form) }}
-
-<input type="submit" value="Save" />

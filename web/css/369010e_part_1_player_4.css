@@ -1,0 +1,25 @@
+@CHARSET "UTF-8";
+
+.player-col{
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+    vertical-align: top;
+    width: 50%;
+}
+.player-view{
+	padding: 10px;
+}
+#player-header{
+	padding-bottom: 20px;
+}
+#player ul.list div.long > div.short{
+	width:60%;
+}
+#player ul.list div.long > div.team,
+#player ul.list div.long > div.phone{
+	width:20%;
+}
+li.player div.short > div{
+	width: 33%;
+}

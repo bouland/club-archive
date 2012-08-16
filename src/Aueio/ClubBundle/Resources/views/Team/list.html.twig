@@ -6,21 +6,24 @@
 {% endblock %}
 
 {% block header_menu %}
-	{% include 'AueioClubBundle:Team:header.html.twig' %}
+	{% include 'AueioClubBundle::tab.menu.html.twig' with {'selected': "team"} %}
 {% endblock %}
 
 {% block sidebar %}
+{% if is_granted("ROLE_ADMIN") %}
 	<li><a href="{{ path('aueio_club_team_new') }}">New Team</a></li>
+{% endif %}
 {% endblock %}
 
 {% block content %}
+<div id="team">
 	<h2> Liste des équipes </h2>
-
-	<ul>
+	<ul class="list">
     {% for team in teams %}
-		<li><p><a href="{{ path('aueio_club_team_view', {"id": team.id}) }}">{{ team.name }}</a> {{ team.adress }}</p></li>
+		<li>{% include 'AueioClubBundle:Team:short.html.twig' with {'team': team}  %}</li>
     {% else %}
         <h1>No Team found</h1>
     {% endfor %}
 	</ul>
+</div>
 {% endblock %}

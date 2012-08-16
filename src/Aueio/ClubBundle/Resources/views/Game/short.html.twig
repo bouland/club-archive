@@ -1,4 +1,2 @@
 {# src/Aueio/ClubBundle/Resources/views/Game/short.html.twig #}
-<div class="player-short">
-	<p>Match du <a href="{{ path('aueio_club_game_view', {"id": game.id}) }}">{{ game.date|date("d M Y") }}</a></p>
-</div>
+<div class="short"><div class="name">Match du {% include 'AueioClubBundle:Game:link.html.twig' %}</div>{% include 'AueioClubBundle:Game:name.html.twig' %}

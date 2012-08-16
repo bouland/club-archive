@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+#team ul.list div.short div.link{
+	width:30%;
+}
+#team ul.list div.short div.adress{
+	width:70%;
+}
+.full h2{
+	padding-left: 150px;;
+}
+.role-team > div {
+	display: inline-block;
+	width: 33%;
+}
+#team-games > ul {
+	border-right: 1px dotted #9E8D99;
+}

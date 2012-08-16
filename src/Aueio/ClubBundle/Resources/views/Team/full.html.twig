@@ -1,46 +1,63 @@
 {# src/Aueio/ClubBundle/Resources/views/Team/full.html.twig #}
 <div class="team-view full">
-	<div id="team-header">
-		<div id="team-desc" class="team-col">
-			<div id="team-avatar"
-				<img alt="team photo" title="photo" src="http://hand/bundles/aueioclub/images/logo.jpeg">
-			</div>
-			<h2>{{ team.name }}</h2>
-		</div><div id="team-contact" class="team-col">
-			<div id="team-players">
-				<h4>Contacts</h4>
-				<ul>
-			    {% for player in team.contacts %}
-					<li><p><a href="{{ path('aueio_club_player_view', {"id": player.id}) }}">{{ player.surname }}</a></p></li>
-			    {% else %}
-			        <h3>No contact found</h3>
-			    {% endfor %}
-				</ul>
-			</div>
-			<h4>Adresse</h4>
+	<h2>{{ team.name }}</h2>
+	<div id="team-desc">
+		<div class="cols">
+			<h3>Adresse</h3>
 			<p>{{ team.adress}}</p>
+		</div><div class="cols">
+			<h3>Contacts</h3>
+			<ul>
+		    {% for player in team.contacts %}
+				<li class="player">{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}</li>
+		    {% else %}
+		        <h4>No contact found</h4>
+		    {% endfor %}
+			</ul>
 		</div>
 	</div>
-	<div id="team-stats">
-		<p>X (%)  Victoires		X (%) Défaites		X (%) Nuls</p>
-		<p>X Domiciles		X  extérieurs	X Forfaits</p>
+	<div class="stats">
+		<h3>Statistiques</h3>
+		<ul>
+{% if stats['total'] > 0 %}
+			<li>
+				<ul class="stats-results">
+					<li class="games-win {% if stats['win'] >= (stats['total']-stats['win']) %}green{% endif %}">{{ stats['win'] }} ({{ (stats['win']*100)//stats['total'] }}%) Victoires</li>
+					<li class="games-lost {% if stats['lost'] >= (stats['total']-stats['lost']) %}red{% endif %}">{{ stats['lost'] }} ({{ (stats['lost']*100)//stats['total'] }}%) Défaites</li>
+					<li class="games-nul {% if stats['nul'] >= (stats['total']-stats['nul']) %}blue{% endif %}">{{ stats['nul'] }} ({{ (stats['nul']*100)//stats['total'] }}%) Nuls</li>
+				</ul>
+			</li>
+			<li>
+				<ul class="stats-games">
+					<li class="games-local">{{ stats['local'] }} ({{ (stats['local']*100)//stats['total'] }}%) Domiciles</li>
+					<li class="games-visitor">{{ stats['visitor'] }} ({{ (stats['visitor']*100)//stats['total'] }}%) Extérieurs</li>
+					<li class="games-giveup">{{ stats['giveup'] }} ({{ (stats['giveup']*100)//stats['total'] }}%) Forfaits</li>
+				</ul>
+			</li>
+{% endif %}
+			<li class="games-total ">{{ stats['total'] }} Matchs</li>
+		</ul>
+
 	</div>
-	<div id="team-games" class="team-col">
+	<div id="team-games" class="cols">
+		<h3>Matchs</h3>
 		<ul>
 	    {% for role in team.roles %}
-			<li>{% include 'AueioClubBundle:Role:team.html.twig' with {'role': role} %}</li>
+			<li class="role">{% include 'AueioClubBundle:Role:team.html.twig' with {'role': role, 'id': team.id} %}</li>
 	    {% else %}
 	        <h1>No Game found</h1>
 	    {% endfor %}
 		</ul>
-	</div>
-	<div id="team-players" class="team-col">
+	</div><div id="team-players" class="cols">
+		<h3>Membres</h3>
 		<ul>
-	    {% for player in team.players %}
-			<li><p><a href="{{ path('aueio_club_player_view', {"id": player.id}) }}">{{ player.surname }}</a> {{ player.position }} {{ player.hand }}</p></li>
-	    {% else %}
-	        <h3>No Player found</h3>
+		{% for player in team.players %}
+			<li class="player">
+			{% include 'AueioClubBundle:Player:short.html.twig' with {'player': player} %}
+			</li>
+		{% else %}
+	        <h3>No member found</h3>
 	    {% endfor %}
-		</ul>
+	    </ul>
 	</div>
 </div>

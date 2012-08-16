@@ -10,7 +10,7 @@ use FOS\UserBundle\Entity\User;
 /**
  * Aueio\ClubBundle\Entity\Player
  *
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Aueio\ClubBundle\Repository\PlayerRepository")
  * @ORM\Table(name="players")
  * @ORM\HasLifecycleCallbacks()
  */
@@ -42,7 +42,7 @@ class Player extends User
     /**
      * @var string $surname
      *
-     * @ORM\Column(name="surname", type="string", length=50)
+     * @ORM\Column(name="surname", type="string", unique=true, length=50)
      */
     private $surname;
     
@@ -385,5 +385,15 @@ class Player extends User
     public function getActions()
     {
         return $this->actions;
+    }
+
+    /**
+     * Get created
+     *
+     * @return date 
+     */
+    public function getCreated()
+    {
+        return $this->created;
     }
 }

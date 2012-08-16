@@ -1,4 +1,2 @@
 {# src/Aueio/ClubBundle/Resources/views/Player/short.html.twig #}
-<div class="player-short">
-	<p><a href="{{ path('aueio_club_player_view', {"id": player.id}) }}">{{ player.surname }}</a> {{ player.phone }} </p>
-</div>
+<div class="short">{% include 'AueioClubBundle:Player:link.html.twig' %}<div class="position">{{ ('player.' ~ player.position)|trans({}, 'AueioClubBundle') }}</div><div class="hand">{{ ('player.' ~ player.hand)|trans({}, 'AueioClubBundle') }}</div></div>

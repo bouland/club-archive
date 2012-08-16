@@ -1,4 +1,2 @@
 {# src/Aueio/ClubBundle/Resources/views/Role/team.html.twig #}
-<div class="role-team">
-	<p>{{ role.result }} {{ role.score }} as {{ role.type }} at <a href="{{ path('aueio_club_game_view', {"id": role.game.id}) }}">match {{ role.game.date|date("d M") }}</a></p>
-</div>
+<div class="role-team"><div>{% include 'AueioClubBundle:Role:result.html.twig' %} {{ role.score }}</div><div>VS {% for r in role.game.roles%}{% if r.team.id != role.team.id %}{% include 'AueioClubBundle:Team:link.html.twig' with {'team': r.team} %}{%endif%}{% endfor %}</div><div>le <a href="{{ path('aueio_club_game_view', {"id": role.game.id}) }}">{{ role.game.date|date("d F") }}</a></div></div>
