@@ -11,8 +11,10 @@
 
 {% block sidebar %}
 	<li  class="selected"><a href="{{ path('aueio_club_player_view', {"id": player.id}) }}">View</a>
-	{% if (player.id == app.user.id) or is_granted("ROLE_ADMIN") %}
+{% if (player.id == app.user.id) %}
 	<li><a href="{{ path('fos_user_profile_edit') }}"> Edit</a>
+	<li><a href="{{ path('aueio_club_player_delete', {"id": player.id}) }}">Delete</a></li>
+{% elseif is_granted("ROLE_ADMIN") %}
 	<li><a href="{{ path('aueio_club_player_delete', {"id": player.id}) }}">Delete</a></li>
 {% endif %}
 {% endblock %}

@@ -22,7 +22,7 @@
     {% for team in teams %}
 		<li>{% include 'AueioClubBundle:Team:short.html.twig' with {'team': team}  %}</li>
     {% else %}
-        <h1>No Team found</h1>
+        <h3>No Team found</h3>
     {% endfor %}
 	</ul>
 </div>

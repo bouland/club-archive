@@ -16,7 +16,7 @@
     {% for player in players %}
 		<li class="player">{% include 'AueioClubBundle:Player:long.html.twig' with {'player': player} %}</li>
     {% else %}
-        <h1>No Player found</h1>
+        <h3>No Player found</h3>
     {% endfor %}
 	</ul>
 </div>

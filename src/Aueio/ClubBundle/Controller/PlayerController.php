@@ -50,12 +50,14 @@ class PlayerController extends Controller
     	if (!$player) {
     		throw $this->createNotFoundException('No player found for id '.$id);
     	}
-    	if ( ($player->getId() == $this->get('security.context')->getToken()->getUser()->getId())
-    			|| $this->get('security.context')->isGranted('ROLE_ADMIN')) {
+    	if ( $player->getId() == $this->get('security.context')->getToken()->getUser()->getId() ) {
 	    	$em->remove($player);
 	    	$em->flush();
-	    	 
 	    	return $this->redirect($this->generateUrl('fos_user_security_logout'));
+    	}elseif($this->get('security.context')->isGranted('ROLE_ADMIN')){
+    		$em->remove($player);
+    		$em->flush();
+    		return $this->redirect($this->generateUrl('aueio_club_player_list'));
     	}else{
     		return $this->redirect($this->get('request')->headers->get('referer'));
     	}
