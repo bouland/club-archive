@@ -182,6 +182,16 @@ class Game
     {
         return $this->startTime;
     }
+    /**
+     * Get startTime
+     *
+     * @return date
+     */
+    public function getStartTimeUTC()
+    {
+    	return $this->startTime->setTimezone(new \DateTimeZone('UTC'));
+    }
+    
 
     /**
      * Set endTime
@@ -192,7 +202,7 @@ class Game
     {
         $this->endTime = $endTime;
     }
-
+    
     /**
      * Get endTime
      *
@@ -202,7 +212,16 @@ class Game
     {
         return $this->endTime;
     }
-
+    /**
+     * Get endTime
+     *
+     * @return date
+     */
+    public function getEndTimeUTC()
+    {
+    	return $this->endTime->setTimezone(new \DateTimeZone('UTC'));
+    }
+    
     /**
      * Set date
      *
