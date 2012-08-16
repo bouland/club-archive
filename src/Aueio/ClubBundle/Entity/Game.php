@@ -58,7 +58,7 @@ class Game
  
     public function __construct()
     {
-        $this->$roles = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
     	$this->actions = new \Doctrine\Common\Collections\ArrayCollection();
     }
     public function __toString(){
@@ -102,7 +102,7 @@ class Game
      */
     public function addRole(\Aueio\ClubBundle\Entity\Role $role)
     {
-    	$team->setGame($this);
+    	$role->setGame($this);
         $this->roles[] = $role;
     }
 
