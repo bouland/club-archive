@@ -84,8 +84,8 @@ fos_user:
             handler: aueio_player.form.handler.registration
     profile:
         form:
-            type: aueio_player_registration
-            handler: aueio_player.form.handler.registration
+            type: aueio_player_profile
+            handler: aueio_player.form.handler.profile
     resetting:
         email:
             template: AueioClubBundle:Player:resetting.email.txt.twig

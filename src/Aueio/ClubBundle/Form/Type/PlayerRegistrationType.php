@@ -8,7 +8,7 @@ use Symfony\Component\Form\FormError,
 	Symfony\Component\Form\CallbackValidator,
 	FOS\UserBundle\Form\Type\RegistrationFormType;
 
-class PlayerType extends RegistrationFormType
+class PlayerRegistrationType extends RegistrationFormType
 {
 	private $em;
 	

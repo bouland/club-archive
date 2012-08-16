@@ -10,8 +10,8 @@
 {% endblock %}
 
 {% block sidebar %}
-	<li><a href="{{ path('fos_user_profile_show') }}">View</a>
-	<li class="selected"><a href="{{ path('fos_user_profile_edit') }}"> Edit</a></li>
+	<li ><a href="{{ path('aueio_club_player_view', {"id": app.user.id}) }}">View</a>
+	<li  class="selected"><a href="{{ path('fos_user_profile_edit') }}"> Edit</a>
 	<li><a href="{{ path('aueio_club_player_delete', {"id": app.user.id}) }}">Delete</a></li>
 {% endblock %}
 

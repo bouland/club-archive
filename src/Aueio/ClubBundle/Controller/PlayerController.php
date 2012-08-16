@@ -30,13 +30,7 @@ class PlayerController extends Controller
     	if (!$player) {
     		throw $this->createNotFoundException('No player found for id '.$id);
     	}
-    	if($player->getTeam()){
-			$stats = $em->getRepository('AueioClubBundle:Action')->getStats($id);
-			$stats['total'] = count($player->getTeam()->getRoles());
-    	}else{
-    		$stats = array('play' => 0,'total' => 0);
-    	}
-    	return $this->render('AueioClubBundle:Player:view.html.twig', array('player' => $player, 'stats' =>$stats));
+    	return $this->render('AueioClubBundle:Player:view.html.twig', array('player' => $player));
     }
     /**
      * @Route("/list")
@@ -66,4 +60,18 @@ class PlayerController extends Controller
     		return $this->redirect($this->get('request')->headers->get('referer'));
     	}
     }
+    public function statsAction($player)
+    {
+    	if (!$player) {
+    		throw $this->createNotFoundException('No player found for id '.$id);
+    	}
+    	if($player->getTeam()){
+    		$stats = $em->getRepository('AueioClubBundle:Action')->getStats($id);
+    		$stats['total'] = count($player->getTeam()->getRoles());
+    	}else{
+    		$stats = array('play' => 0,'total' => 0);
+    	}
+    	return $this->render('AueioClubBundle:Player:stats.html.twig', array('stats' =>$stats));
+    }
+    
 }

@@ -9,7 +9,7 @@ use Symfony\Component\Form\Form;
 use FOS\UserBundle\Form\Handler\RegistrationFormHandler;
 use FOS\UserBundle\Model\UserInterface;
 
-class PlayerHandler extends RegistrationFormHandler
+class PlayerRegistrationHandler extends RegistrationFormHandler
 {
 	public function onSuccess(UserInterface $user, $confirmation){
 		parent::onSuccess($user, $confirmation);

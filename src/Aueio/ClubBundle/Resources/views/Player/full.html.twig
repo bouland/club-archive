@@ -23,41 +23,5 @@
 	<div id="player-teams" class="cols">
 		<h3>Team</h3>{% if player.team %}{% include 'AueioClubBundle:Team:link.html.twig' with {'team': player.team} %}{% else %}No team{%  endif %}</p>
 	</div>
-	<div class="stats">
-		<h3>Statistiques</h3>
-		<ul>
-{% if stats['play'] > 0 %}
-			<li>
-				<ul class="stats-results">
-					<li class="games-win {% if stats['win'] >= (stats['play']-stats['win']) %}green{% endif %}">{{ stats['win'] }} ({{ (stats['win']*100)//stats['play'] }}%) Victoires</li>
-					<li class="games-lost {% if stats['lost'] >= (stats['play']-stats['lost']) %}red{% endif %}">{{ stats['lost'] }} ({{ (stats['lost']*100)//stats['play'] }}%) Défaites</li>
-					<li class="games-nul {% if stats['nul'] >= (stats['play']-stats['nul']) %}blue{% endif %}">{{ stats['nul'] }} ({{ (stats['nul']*100)//stats['play'] }}%) Nuls</li>
-				</ul>
-			</li>
-{% endif %}
-{% if stats['total'] > 0 %}
-			<li>
-				<ul class="stats-games">
-					<li class="games-play {% if stats['play'] >= (stats['total']-stats['play']) %}green{% endif %}">{{ stats['play'] }} ({{ (stats['play']*100)//stats['total'] }}%) Présent</li>
-					<li class="games-miss {% if stats['miss'] >= (stats['total']-stats['miss']) %}red{% endif %}">{{ stats['miss'] }} ({{ (stats['miss']*100)//stats['total'] }}%) Absent</li>
-					<li class="games-total {% if stats['total'] != (stats['play']+stats['miss']) %}red{% endif %}">{{ stats['total'] }} ({{ ((stats['play']+stats['miss'])*100)//stats['total'] }}%) Matchs</li>
-				</ul>
-			</li>
-{% endif %}
-{% if stats['play'] > 0 %}
-			<li>
-				<ul class="stats-actions">
-					<li class="games-score">{{ stats['score'] }}({{ ((stats['score']*100)//stats['play'])/100 }}) Buts</li>
-					<li class="games-shop {% if stats['shop'] < 1 %}red{% endif %}">{{ stats['shop'] }} Courses</li>
-					<li class="games-referee {% if stats['referee'] < 2 %}red{% endif %}">{{ stats['referee'] }} Arbitrages</li>
-				</ul>
-			</li>
-{% endif %}
-		</ul>
-{% if stats['total'] > 0 %}
-		{% if stats['total'] != (stats['play']+stats['miss']) %}
-		<p>Matchs est en rouge car il doit etre à 100% sinon les stats sont biaisées. Tu n'as pas répondu à toutes les sélections</p>
-		{% endif %}
-{% endif %}
-	</div>
+	{% render "AueioClubBundle:Player:stats"  with {'player': player}%}
 </div>

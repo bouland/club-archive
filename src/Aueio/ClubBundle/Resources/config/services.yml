@@ -7,13 +7,24 @@ services:
 #        arguments: [@service_id, "plain_value", %parameter%]
 services:
    aueio_player.registration.form.type:
-        class: Aueio\ClubBundle\Form\Type\PlayerType
+        class: Aueio\ClubBundle\Form\Type\PlayerRegistrationType
         arguments: [%fos_user.model.user.class%, "@doctrine.orm.entity_manager"]
         tags:
             - { name: form.type, alias: aueio_player_registration }
 
    aueio_player.form.handler.registration:
-        class: Aueio\ClubBundle\Form\Handler\PlayerHandler
+        class: Aueio\ClubBundle\Form\Handler\PlayerRegistrationHandler
         arguments: ["@fos_user.registration.form", "@request", "@fos_user.user_manager", "@fos_user.mailer"]
         scope: request
         public: false
+   aueio_player.profile.form.type:
+        class: Aueio\ClubBundle\Form\Type\PlayerProfileType
+        arguments: [%fos_user.model.user.class%, "@doctrine.orm.entity_manager"]
+        tags:
+            - { name: form.type, alias: aueio_player_profile }
+   aueio_player.form.handler.profile:
+        class: Aueio\ClubBundle\Form\Handler\PlayerProfileHandler
+        arguments: ["@fos_user.profile.form", "@request", "@fos_user.user_manager", "@fos_user.mailer"]
+        scope: request
+        public: false
+        
