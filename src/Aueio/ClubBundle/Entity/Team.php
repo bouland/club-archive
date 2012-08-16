@@ -72,7 +72,6 @@ class Team
 	    $this->players = new \Doctrine\Common\Collections\ArrayCollection();
 	    $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
     /**
      * Get id
      *
@@ -152,7 +151,11 @@ class Team
     {
     	$this->players[] = $player;
     }
-    
+    public function removePlayers(){
+    	foreach($this->players as $player){
+    		$player->removeTeam();
+    	}
+    }
     /**
      * Get players
      *

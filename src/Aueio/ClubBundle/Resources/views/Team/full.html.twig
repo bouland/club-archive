@@ -45,7 +45,7 @@
 	    {% for role in team.roles %}
 			<li class="role">{% include 'AueioClubBundle:Role:team.html.twig' with {'role': role, 'id': team.id} %}</li>
 	    {% else %}
-	        <h1>No Game found</h1>
+	        <h3>No Game found</h3>
 	    {% endfor %}
 		</ul>
 	</div><div id="team-players" class="cols">

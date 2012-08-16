@@ -53,6 +53,7 @@ class Role
 	public function __toString(){
 		return "Role " . $this->id . " " . $this->type;
 	}
+
 	
 	public function isLocal(){
 		return ($this->type == 'LOCAL');

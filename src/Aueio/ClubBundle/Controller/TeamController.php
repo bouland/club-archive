@@ -51,7 +51,15 @@ class TeamController extends Controller
     	if (!$team) {
     		throw $this->createNotFoundException('No team found for id '.$id);
     	}
-    	 
+    	$config = $em->getRepository('AueioClubBundle:Config')->find(1);
+    	if($config->getTeamDefault()->getId() == $id){
+    		$config->removeTeamDefault();
+    	}
+    	
+    	$team->removePlayers();
+        foreach ($team->getRoles() AS $role) {
+    		$em->remove($role);
+    	}
     	$em->remove($team);
     	$em->flush();
     	 

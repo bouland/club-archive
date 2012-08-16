@@ -21,7 +21,7 @@
 		</div>
 	</div>
 	<div id="player-teams" class="cols">
-		<h3>Team</h3>{% include 'AueioClubBundle:Team:link.html.twig' with {'team': player.team} %}</p>
+		<h3>Team</h3>{% if player.team %}{% include 'AueioClubBundle:Team:link.html.twig' with {'team': player.team} %}{% else %}No team{%  endif %}</p>
 	</div>
 	<div class="stats">
 		<h3>Statistiques</h3>
@@ -54,8 +54,10 @@
 			</li>
 {% endif %}
 		</ul>
+{% if stats['total'] > 0 %}
 		{% if stats['total'] != (stats['play']+stats['miss']) %}
 		<p>Matchs est en rouge car il doit etre à 100% sinon les stats sont biaisées. Tu n'as pas répondu à toutes les sélections</p>
 		{% endif %}
+{% endif %}
 	</div>
 </div>

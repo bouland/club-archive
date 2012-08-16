@@ -98,6 +98,7 @@ class Player extends User
     
     /**
      * @ORM\ManyToOne(targetEntity="Team")
+     * @ORM\JoinColumn(name="team_id", referencedColumnName="id", nullable="TRUE")
      */
     private $team;
 
@@ -336,7 +337,10 @@ class Player extends User
     	$team->addPlayer($this);
         $this->team = $team;
     }
-
+    public function removeTeam()
+    {
+    	$this->team = null;
+    }
     /**
      * Get team
      *

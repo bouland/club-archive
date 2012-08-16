@@ -56,7 +56,10 @@ class GameController extends Controller
     	if (!$game) {
     		throw $this->createNotFoundException('No game found for id '.$id);
     	}
-    	 
+    	
+    	foreach ($game->getActions() AS $action) {
+    		$em->remove($action);
+    	}
     	$em->remove($game);
     	$em->flush();
     	 

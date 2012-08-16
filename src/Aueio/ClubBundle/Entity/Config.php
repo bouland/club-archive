@@ -23,7 +23,7 @@ class Config
 	
     /**
      * @ORM\OneToOne(targetEntity="Team")
-     * @ORM\JoinColumn(name="team_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="team_id", referencedColumnName="id", nullable = TRUE)
     */
     private $team_default;
 
@@ -74,7 +74,9 @@ class Config
     {
         $this->team_default = $teamDefault;
     }
-
+	public function removeTeamDefault(){
+		$this->team_default = null;
+	}
     /**
      * Get team_default
      *
