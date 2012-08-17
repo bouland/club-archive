@@ -1,5 +1,12 @@
 # Aueio/ClubBundle/Resources/config/validation.yml
 Aueio\ClubBundle\Entity\Player:
+    constraints: 
+            - FOS\UserBundle\Validator\Unique: 
+                        property: surname
+                        message: aueio_club.surname.already_used
+            - FOS\UserBundle\Validator\Unique: 
+                        property: phone
+                        message: aueio_club.phone.already_used
     properties:
         firstname:
             - NotBlank: ~
