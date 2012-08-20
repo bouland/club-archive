@@ -22,21 +22,15 @@
 
 {% block content %}
 <div id="game">
-	<div id="game-header">
-		<div id="game-desc" class="game-col">
-			<div id="game-avatar"
-				<img alt="game photo" title="inria link" src="http://adt/bundles/inriajob/images/logo-inria.png">
-			</div>
-			{% include 'AueioClubBundle:Game:name.html.twig' %}
-			{% include 'AueioClubBundle:Game:date.html.twig' %}
-		</div>
+	<div class="full">
+		{% include 'AueioClubBundle:Game:header.html.twig' %}
 	</div>
 	<div id="game-manage">
 		<ul class="game-selection-cols">
 			<li>
-				<h4>Disponibles ({{ wait|length }})</h4>
+				<h4>En attente ({{ players['wait']|length }})</h4>
 				<ul>
-			    {% for player in wait %}
+			    {% for player in players['wait'] %}
 					<li>
 						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
 						<ul class="game-selection-menu">
@@ -53,13 +47,13 @@
 						</ul>
 					</li>
 			    {% else %}
-			        <h3>No Player found</h3>
+			        <h4>Aucuns</h4>
 			    {% endfor %}
 				</ul>
 			</li><li>
-				<h4>Absents ({{ miss|length }})</h4>
+				<h4>Absents ({{ players['miss']|length }})</h4>
 				<ul>
-			    {% for player in miss %}
+			    {% for player in players['miss'] %}
 					<li>
 						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
 						<ul class="game-selection-menu">
@@ -77,7 +71,7 @@
 			</li><li>
 				<h4>Courses</h4>
 				<ul>
-			    {% for player in shop %}
+			    {% for player in players['shop'] %}
 					<li>
 						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
 						<ul class="game-selection-menu">
@@ -93,9 +87,9 @@
 			    {% endfor %}
 			    </ul>
 			</li><li>
-				<h4>Présents ({{ play|length }})</h4>
+				<h4>Présents ({{ players['play']|length }})</h4>
 				<ul>
-			    {% for player in play %}
+			    {% for player in players['play'] %}
 					<li>
 						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
 						<ul class="game-selection-menu">
@@ -112,7 +106,7 @@
 						</ul>
 					</li>
 			    {% else %}
-			        <h3>No Player found</h3>
+			        <h4>Aucuns</h4>
 			    {% endfor %}
 				</ul>
 			</li>
@@ -121,14 +115,15 @@
 	<div id="game-selection">
 		<h4>Détails de la sélection</h4>
 		<ul>
-		{% for player in play %}
+		{% for player in players['play'] %}
 			<li class="player">
 			{% include 'AueioClubBundle:Player:short.html.twig' with {'player': player} %}
 			</li>
 		{% else %}
-	        <h3>No Player found</h3>
+	        <h4>Aucuns</h4>
 	    {% endfor %}
 	    </ul>
 	</div>
+
 </div>
 {% endblock %}

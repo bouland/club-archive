@@ -6,10 +6,7 @@ ul.game-selection-cols > li{
 	width: 158px;;	
 	border-right: 1px dotted #9E8D99;
 	padding: 10px;
-	
-}
-#game-desc h2{
-	text-align: center;
+	min-height: 150px;
 }
 ul.game-selection-cols > li > ul > li{
 	height: 25px;
@@ -40,48 +37,15 @@ ul.game-selection-menu > li {
 	text-align: center;
 	padding: 20px;
 }
-#game-selection > ul > li > div{
-	width: 33%;
-}
+
 #game ul.list div.short div.name{
 	width:50%;
-}
-#game .full div.name{
-	width: 100%;
-	text-align: center;
-	font-size: 40px;
-	margin-bottom: 20px;
-}
-#game div.cols{
-	display: inline-block;
-	width: 50%;
-	vertical-align: top;
-}
-ul.game-teams > li {
-	display: inline-block;
-	vertical-align: top;
-	width: 50%;
-}
-#game-desc{
-	margin-bottom: 20px;
-}
-#game li.player > div.short {
-	width: 100%;
-}
-#game-desc > div.cols > div,
-#game ul.game-teams > li > div,
-#game ul.game-teams > li > ul{
-	padding: 0px 20px;
 }
 .score {
 	font-size: 1.5em;
 	margin-bottom:20px;
 }
-div.LOST{
-	display:inline;
-	color:red;
-}
-div.WIN{
-	color:green;
-	display:inline;
+#results > li > input{
+	width: 32px;
+	display: inline-block;
 }

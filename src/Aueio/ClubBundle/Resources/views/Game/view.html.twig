@@ -11,8 +11,10 @@
 
 {% block sidebar %}
 	<li  class="selected"><a href="{{ path('aueio_club_game_view', {"id": game.id}) }}">View</a>
+{% if is_granted("ROLE_USER") %}
 	<li><a href="{{ path('aueio_club_game_selection', {"id": game.id}) }}">Selection</a>
 	<li><a href="{{ path('aueio_club_game_result', {"id": game.id}) }}">Results</a>
+{% endif %}
 {% if is_granted("ROLE_ADMIN") %}
 	<li><a href="{{ path('aueio_club_game_edit', {"id": game.id}) }}">Edit</a>
 	<li><a href="{{ path('aueio_club_game_delete', {"id": game.id}) }}">Delete</a></li>
@@ -22,6 +24,20 @@
 
 {% block content %}
 <div id="game">
-	{% include 'AueioClubBundle:Game:full.html.twig' with {'game': game} %}
+	<div class="full">
+		{% include 'AueioClubBundle:Game:header.html.twig' %}
+		<ul>
+	{% for role in game.roles %}<li class="cols">
+			{% include 'AueioClubBundle:Role:score.html.twig' with {'role': role} %}
+			<ul>
+			{% for player in game.getPlayers(role.team) %}
+				<li class="player">{% include 'AueioClubBundle:Player:short.html.twig' with {'player': player} %}</li>
+	    	{% else %}
+	        	<h3>No Player found</h3>
+			{% endfor %}
+			</ul>
+			</li>{% endfor %}
+		</ul>
+	</div>
 </div>
 {% endblock %}

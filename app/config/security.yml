@@ -19,6 +19,8 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/player, role: ROLE_USER }
+        - { path: ^/game/selection, role: ROLE_USER }
+        - { path: ^/game/result, role: ROLE_USER }
         - { path: ^/game/new, role: ROLE_ADMIN }
         - { path: ^/game/edit, role: ROLE_ADMIN }
         - { path: ^/game/delete, role: ROLE_ADMIN }

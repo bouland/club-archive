@@ -20,8 +20,11 @@
 
 {% block content %}
 <div id="game">
-	<form action="{{ path('aueio_club_game_edit', {"id": game.id}) }}" method="post" {{ form_enctype(form) }}>
-		{% include 'AueioClubBundle:Game:form.edit.html.twig' %}
-	</form>
+	<div class="full">
+		{% include 'AueioClubBundle:Game:header.html.twig' %}
+		<form action="{{ path('aueio_club_game_edit', {"id": game.id}) }}" method="post" {{ form_enctype(form) }}>
+			{% include 'AueioClubBundle:Game:form.html.twig' %}
+		</form>
+	</div>
 </div>
 {% endblock %}

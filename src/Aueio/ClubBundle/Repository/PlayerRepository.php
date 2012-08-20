@@ -12,5 +12,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class PlayerRepository extends EntityRepository
 {
+	public function findActionByGame($action_type, $game_id, $team_id){
+		return $this->createQueryBuilder('p')
+			->join('p.team', 't')
+			->leftJoin('p.actions', 'a')
+			->join('a.game', 'g')
+			->where('a.type = :type')
+			->andWhere('g.id = :id_game')
+			->andWhere('t.id = :id_team')
+			->setParameters(array(
+					'type' => $action_type,
+					'id_game' => $game_id,
+					'id_team' => $team_id,
+			))
+			->getQuery()->getResult();
+	}
 
 }

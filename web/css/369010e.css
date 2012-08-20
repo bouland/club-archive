@@ -8,10 +8,7 @@ ul.game-selection-cols > li{
 	width: 158px;;	
 	border-right: 1px dotted #9E8D99;
 	padding: 10px;
-	
-}
-#game-desc h2{
-	text-align: center;
+	min-height: 150px;
 }
 ul.game-selection-cols > li > ul > li{
 	height: 25px;
@@ -42,52 +39,18 @@ ul.game-selection-menu > li {
 	text-align: center;
 	padding: 20px;
 }
-#game-selection > ul > li > div{
-	width: 33%;
-}
+
 #game ul.list div.short div.name{
 	width:50%;
-}
-#game .full div.name{
-	width: 100%;
-	text-align: center;
-	font-size: 40px;
-	margin-bottom: 20px;
-}
-#game div.cols{
-	display: inline-block;
-	width: 50%;
-	vertical-align: top;
-}
-ul.game-teams > li {
-	display: inline-block;
-	vertical-align: top;
-	width: 50%;
-}
-#game-desc{
-	margin-bottom: 20px;
-}
-#game li.player > div.short {
-	width: 100%;
-}
-#game-desc > div.cols > div,
-#game ul.game-teams > li > div,
-#game ul.game-teams > li > ul{
-	padding: 0px 20px;
 }
 .score {
 	font-size: 1.5em;
 	margin-bottom:20px;
 }
-div.LOST{
-	display:inline;
-	color:red;
+#results > li > input{
+	width: 32px;
+	display: inline-block;
 }
-div.WIN{
-	color:green;
-	display:inline;
-}
-
 @CHARSET "UTF-8";
 html{
 	color:#000;background:#FFF;
@@ -212,6 +175,15 @@ h2
 	font-size:      30px;
     font-weight:   bold;
     margin-bottom:    10px;
+    padding:          2px 4px;
+}
+
+h3
+{
+	font-size:      20px;
+    font-weight:   bold;
+    margin-bottom:    10px;
+    margin-top: 20px;
     padding:          2px 4px;
 }
 
@@ -357,6 +329,7 @@ input[type="submit"]{
     outline: medium none;
     padding: 2px 4px;
     width: auto;
+    margin-top: 15px;
 }
 #content-login{
 	margin-bottom: 15px;
@@ -416,7 +389,7 @@ input[type="submit"]{
 	border: 1px dotted #9E8D99;
 }
 .full{
-	padding:20px;
+	margin:20px;
 }
 .long,
 .short,
@@ -433,17 +406,53 @@ input[type="submit"]{
 ul.list > li > div {
 	width: 100%;
 }
+.cols{
+	display: inline-block;
+	width: 50%;
+	vertical-align: top;
+    padding: 0;
+    margin: 0;
+}
+
+.cols > ul,
+.cols > p  {
+	padding: 10px;
+}
+.stats > ul {
+    padding: 10px;
+}
+.stats > ul > li {
+	display: inline-block;
+	vertical-align: top;
+    padding: 0;
+    margin: 0;
+	width: 30%
+}
+.stats > ul > li > ul > li.red{
+	color: red;
+}
+.stats > ul > li > ul > li.green{
+	color: green;
+}
+.stats > ul > li > ul >.blue{
+	color: blue;
+}
+li.player > div.short {
+	width: 100%;
+}
+.full div.name{
+	width: 100%;
+	text-align: center;
+	font-size: 40px;
+	margin-bottom: 20px;
+}
+#intro{
+	margin-bottom: 20px;
+}
 
 
 @CHARSET "UTF-8";
 
-.player-col{
-    display: inline-block;
-    padding: 0;
-    margin: 0;
-    vertical-align: top;
-    width: 50%;
-}
 .player-view{
 	padding: 10px;
 }
@@ -460,10 +469,46 @@ ul.list > li > div {
 li.player div.short > div{
 	width: 33%;
 }
+
+#player-teams div.link{
+	float:	right;
+}
+
+@CHARSET "UTF-8";
+.LOST,
+.WIN,
+.NUL,
+.VISITOR,
+.LOCAL{
+	display:inline;
+}
+div.LOST{
+	color:red;
+}
+div.WIN{
+	color:green;
+}
+div.NUL{
+	color:blue;
+}
+
 @CHARSET "UTF-8";
 #team ul.list div.short div.link{
 	width:30%;
 }
 #team ul.list div.short div.adress{
 	width:70%;
+}
+.full h2{
+	padding-left: 150px;;
+}
+.role-team > div {
+	display: inline-block;
+	width: 33%;
+}
+#team-games > ul {
+	border-right: 1px dotted #9E8D99;
+}
+#team > ul.list > li > div.short > div.link{
+	width:20%;
 }

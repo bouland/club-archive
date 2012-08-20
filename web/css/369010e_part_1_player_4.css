@@ -1,12 +1,5 @@
 @CHARSET "UTF-8";
 
-.player-col{
-    display: inline-block;
-    padding: 0;
-    margin: 0;
-    vertical-align: top;
-    width: 50%;
-}
 .player-view{
 	padding: 10px;
 }
@@ -22,4 +15,8 @@
 }
 li.player div.short > div{
 	width: 33%;
+}
+
+#player-teams div.link{
+	float:	right;
 }

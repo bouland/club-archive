@@ -1,0 +1,17 @@
+@CHARSET "UTF-8";
+.LOST,
+.WIN,
+.NUL,
+.VISITOR,
+.LOCAL{
+	display:inline;
+}
+div.LOST{
+	color:red;
+}
+div.WIN{
+	color:green;
+}
+div.NUL{
+	color:blue;
+}

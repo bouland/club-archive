@@ -22,8 +22,23 @@
 
 {% block content %}
 <div id="game">
-	<form action="{{ path('aueio_club_game_result', {"id": game.id}) }}" method="post" {{ form_enctype(form) }}>
-		{% include 'AueioClubBundle:Game:form.result.html.twig' %}
-	</form>
+	<div class="full">
+		{% include 'AueioClubBundle:Game:header.html.twig' %}
+		<form action="{{ path('aueio_club_game_result', {"id": game.id}) }}" method="post" {{ form_enctype(form) }}>
+			<h3>Teams</h3>
+		    <ul id="results">
+		    {% for role in form.roles %}<li class="cols">
+						{{ form_errors(role.score) }}
+						{{ form_widget(role.score) }}
+						pour les  {% include 'AueioClubBundle:Role:type.html.twig' with {'role':role.vars.value} %} ({% include 'AueioClubBundle:Team:link.html.twig' with {'team': role.vars.value.team} %})
+		        </li>{% endfor %}
+		    </ul>
+		<div id="game-comment" >
+			<h3>Commentaires</h3>
+			{{ form_errors(form.comment) }}
+			{{ form_widget(form.comment) }}
+		</div>
+		{% include 'AueioClubBundle::form.submit.html.twig' %}
+	</div>
 </div>
 {% endblock %}

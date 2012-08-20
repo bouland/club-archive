@@ -64,7 +64,7 @@ class ActionController extends Controller
 	    	$em->persist($action);
 	    	$em->flush();
     	}
-    	return $this->redirect($this->generateUrl('aueio_club_game_selection', array('id' => $game->getId())));
+    	return $this->redirect($this->get('request')->headers->get('referer'));
     }
 	/**
      * @Route("/delete/{type}/{id_game}/{id_player}/{value}", requirements={"id_game" = "\d+", "id_player" = "\d+", "action"="play|miss|shop"} , defaults={"value"="empty"})
@@ -110,6 +110,6 @@ class ActionController extends Controller
     		$em->remove($action);
     		$em->flush();
     	}
-    	return $this->redirect($this->generateUrl('aueio_club_game_selection', array('id' => $game->getId())));
+    	return $this->redirect($this->get('request')->headers->get('referer'));
     }
 }

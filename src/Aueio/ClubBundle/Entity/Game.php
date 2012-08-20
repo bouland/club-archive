@@ -125,7 +125,13 @@ class Game
     {
         $this->actions[] = $actions;
     }
-
+    public function getTeams(){
+    	$teams = new \Doctrine\Common\Collections\ArrayCollection();
+    	foreach($this->roles as $role){
+			$teams[] = $role->getTeam();
+    	}
+    	return $teams;
+    }
     /** 
      * Get actions
      *
@@ -146,7 +152,6 @@ class Game
     			}
     		}
     	}
-    	
     	return $players;
     }
     

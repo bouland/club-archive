@@ -64,11 +64,12 @@ class PlayerController extends Controller
     }
     public function statsAction($player)
     {
+    	$em = $this->getDoctrine()->getEntityManager();
     	if (!$player) {
-    		throw $this->createNotFoundException('No player found for id '.$id);
+    		throw $this->createNotFoundException('Need player to calculate stats');
     	}
     	if($player->getTeam()){
-    		$stats = $em->getRepository('AueioClubBundle:Action')->getStats($id);
+    		$stats = $em->getRepository('AueioClubBundle:Action')->getStats($player->getId());
     		$stats['total'] = count($player->getTeam()->getRoles());
     	}else{
     		$stats = array('play' => 0,'total' => 0);
