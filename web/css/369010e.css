@@ -51,6 +51,51 @@ ul.game-selection-menu > li {
 	width: 32px;
 	display: inline-block;
 }
+div.value,
+#scores > li  ul > li{
+	display: inline-block;
+}
+#scores > li > ul{
+	height: 30px;
+}
+#scores img{
+	height: 16px;
+	vertical-align: middle;
+}
+li.goal > a,
+li.referee > a,
+li.value,
+div.value {
+    background-color: white;
+    border-radius: 8px 8px 8px 8px;
+    border: 1px solid #86717F;
+    margin: 0 0 3px;
+    padding: 2px 8px 3px 8px;
+    text-decoration: none;
+}
+#scores li.selected >a,
+li.delete > a,
+li.goal:hover > a,
+li.referee:hover > a{
+    background-color: #86717F;
+    color: white;
+}
+#results div.value{
+	margin:20px;
+}
+li.action{
+	float:right;
+}
+#results > li:first-child {
+	text-align: right;
+}
+#results{
+	margin-bottom: 30px;
+}
+#game-scores .cols{
+	width:48%;
+	padding:1%;
+}
 @CHARSET "UTF-8";
 html{
 	color:#000;background:#FFF;
