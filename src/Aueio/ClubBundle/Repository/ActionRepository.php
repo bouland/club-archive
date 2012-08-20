@@ -15,11 +15,19 @@ class ActionRepository extends EntityRepository
 	public function getStats($id)
 	{
 		$stats = array();
-		foreach ( array("play", "miss", "shop", "referee", "score") as $type ){
+		foreach ( array("play", "miss", "shop", "referee") as $type ){
 			$res = $this->findByType($id, $type);
 			if(is_array($res)){
 				$stats[$type] = count($res);
 			}
+		}
+		foreach ( array("score", "save") as $type ){
+			$actions = $this->findByType($id, $type);
+			$total = 0;
+			foreach($actions as $action){
+				 $total += $action->getValue();
+			}
+			$stats[$type] = $total;
 		}
 		foreach ( array("win", "lost", "nul") as $result ){
 			$res = $this->findPlayByResult($id, $result);
@@ -54,6 +62,20 @@ class ActionRepository extends EntityRepository
 		->setParameters(array(
 				'id_player' => $id,
 				'type' => $result
+		))
+		->getQuery()->getResult();
+	}
+	public function getScores($id_game, $id_team){
+		return $this->createQueryBuilder('a')
+		->join('a.game', 'g')
+		->join('a.player', 'p')
+	 	->join('p.team', 't')
+	 	->where('g.id = :id_game')
+		->andWhere("t.id = :id_team")
+		->andWhere("a.type = 'score'")
+		->setParameters(array(
+				'id_game' => $id_game,
+				'id_team' => $id_team
 		))
 		->getQuery()->getResult();
 	}

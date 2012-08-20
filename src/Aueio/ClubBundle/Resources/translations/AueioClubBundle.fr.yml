@@ -25,6 +25,9 @@ player:
     LEFT: Gaucher
     RIGHT: Droitier
 game:
+    selection: Engagement
+    sheet: Feuille de match
+    score: Table de marque
     WIN: WIN
     LOST: LOST
     NUL: NUL

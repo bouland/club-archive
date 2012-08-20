@@ -1,0 +1,16 @@
+{# src/Aueio/ClubBundle/Resources/views/Action/score.html.twig #}
+<ul class="count">
+	<li>
+		<a href="" title="decrease">
+			<img src="/bundles/aueioclub/images/Crystal_Clear_action_edit_remove.png" alt="minus logo">
+		</a>
+	</li><li class="value">0</li><li>
+	{% if player.id == id_goal %}
+		<a href="{{ path('aueio_club_action_add', {"id_game": id_game, "id_player": player.id, "type":"save", "value":1 }) }}" title="increase">
+	{% else %}
+		<a href="{{ path('aueio_club_action_add', {"id_game": id_game, "id_player": player.id, "type":"score", "value":1  }) }}" title="increase">
+	{% endif %}
+			<img src="/bundles/aueioclub/images/Crystal_Clear_action_edit_add.png" alt="plus logo">
+		</a>
+	</li>
+</ul>

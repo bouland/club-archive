@@ -11,8 +11,9 @@
 
 {% block sidebar %}
 	<li><a href="{{ path('aueio_club_game_view', {"id": game.id}) }}">View</a>
-	<li><a href="{{ path('aueio_club_game_selection', {"id": game.id}) }}">Selection</a>
-	<li class="selected"><a href="{{ path('aueio_club_game_result', {"id": game.id}) }}">Results</a>
+	<li><a href="{{ path('aueio_club_game_selection', {"id": game.id}) }}">{{ 'game.selection'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_game_score', {"id": game.id}) }}">{{ 'game.score'|trans({}, 'AueioClubBundle') }}</a>
+	<li class="selected"><a href="{{ path('aueio_club_game_sheet', {"id": game.id}) }}">{{ 'game.sheet'|trans({}, 'AueioClubBundle') }}</a>
 {% if is_granted("ROLE_ADMIN") %}
 	<li><a href="{{ path('aueio_club_game_edit', {"id": game.id}) }}">Edit</a>
 	<li><a href="{{ path('aueio_club_game_delete', {"id": game.id}) }}">Delete</a></li>
@@ -24,7 +25,7 @@
 <div id="game">
 	<div class="full">
 		{% include 'AueioClubBundle:Game:header.html.twig' %}
-		<form action="{{ path('aueio_club_game_result', {"id": game.id}) }}" method="post" {{ form_enctype(form) }}>
+		<form action="{{ path('aueio_club_game_score', {"id": game.id}) }}" method="post" {{ form_enctype(form) }}>
 			<h3>Teams</h3>
 		    <ul id="results">
 		    {% for role in form.roles %}<li class="cols">

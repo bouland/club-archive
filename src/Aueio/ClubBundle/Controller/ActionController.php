@@ -16,7 +16,7 @@ use Aueio\ClubBundle\Entity\Action;
 class ActionController extends Controller
 {
 	/**
-     * @Route("/add/{type}/{id_game}/{id_player}/{value}", requirements={"id_game" = "\d+", "id_player" = "\d+", "type"="play|miss|shop|referee"} , defaults={"value"="empty"})
+     * @Route("/add/{type}/{id_game}/{id_player}/{value}", requirements={"id_game" = "\d+", "id_player" = "\d+", "type"="play|miss|shop|referee|score|save"} , defaults={"value"="empty"})
      **/
     public function addAction(Request $request, $type, $id_game, $id_player, $value)
     {
@@ -110,6 +110,22 @@ class ActionController extends Controller
     		$em->remove($action);
     		$em->flush();
     	}
+    	return $this->redirect($this->get('request')->headers->get('referer'));
+    }
+    /**
+     * @Route("/update/{id}/{value}", requirements={"id" = "\d+", "value" = "\d+"})
+     **/
+    public function updateAction($id, $value, Request $request)
+    {
+    	$em = $this->getDoctrine()->getEntityManager();
+    	 
+    	$action = $em->getRepository('AueioClubBundle:Action')->find($id);
+    	if (!$action) {
+    		throw $this->createNotFoundException('No action found for id '.$id);
+    	}
+    	$action->setValue($value);
+    	$em->persist($action);
+    	$em->flush();
     	return $this->redirect($this->get('request')->headers->get('referer'));
     }
 }

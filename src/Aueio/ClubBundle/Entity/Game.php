@@ -142,12 +142,12 @@ class Game
         return $this->actions;
     }
     
-    public function getPlayers(Team $team){
+    public function getPlayers($id_team){
     	$players = new \Doctrine\Common\Collections\ArrayCollection();
     	foreach($this->actions as $action){
     		if($action->isPlay()){
     			$player = $action->getPlayer();
-    			if($player->getTeam() == $team){
+    			if($player->getTeam()->getId() == $id_team){
     				$players[] = $player;
     			}
     		}

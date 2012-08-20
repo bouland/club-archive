@@ -38,7 +38,7 @@ class Action
     /**
      * @var string $type
      *
-     * @ORM\Column(name="type", type="string", length="5" )
+     * @ORM\Column(name="type", type="string", length="7" )
      */
     private $type;
     

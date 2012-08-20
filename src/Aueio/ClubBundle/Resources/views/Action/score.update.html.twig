@@ -1,0 +1,18 @@
+{# src/Aueio/ClubBundle/Resources/views/Action/score.html.twig #}
+<ul class="count">
+	<li>
+		{% if action.value > 1 %}
+		<a href="{{ path('aueio_club_action_update', {"id": action.id, "value": (action.value - 1)}) }}" title="decrease">
+			<img src="/bundles/aueioclub/images/Crystal_Clear_action_edit_remove.png" alt="minus logo">
+		</a>
+		{% else %}
+			<a href="" title="decrease">
+				<img src="/bundles/aueioclub/images/Crystal_Clear_action_edit_remove.png" alt="minus logo">
+			</a>
+		{% endif %}
+	</li><li class="value">{{ action.value }}</li><li>
+		<a href="{{ path('aueio_club_action_update', {"id": action.id, "value": (action.value + 1)}) }}" title="increase">
+			<img src="/bundles/aueioclub/images/Crystal_Clear_action_edit_add.png" alt="plus logo">
+		</a>
+	</li>
+</ul>
