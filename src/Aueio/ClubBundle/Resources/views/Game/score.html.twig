@@ -44,7 +44,7 @@
 			{% else %}
 				<li class="referee add"><a href="{{ path('aueio_club_action_add', {"id_game": game['id'], "id_player": player['object'].id, "type": "referee"}) }}" title="Arbitre">A</a></li>
 			{% endif %}
-				<li class="surname">{{ player['object'].surname }}</li>
+				<li class="displayname">{{ player['object'].displayname }}</li>
 			{% if player['action'] %}
 				<li class="action">{% include 'AueioClubBundle:Action:score.update.html.twig' with {'action': player['action'][0]} %}</li>
 			{% else %}

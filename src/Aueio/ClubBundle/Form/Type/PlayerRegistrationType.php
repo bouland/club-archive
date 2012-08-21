@@ -10,21 +10,11 @@ use Symfony\Component\Form\FormError,
 
 class PlayerRegistrationType extends RegistrationFormType
 {
-	private $em;
-	
-	public function __construct($class, $em)
-	{
-		parent::__construct($class);
-		$this->em = $em;
-	}
-	
 	public function buildForm(FormBuilder $builder, array $options)
 	{
 		parent::buildForm($builder, $options);
 		
-		$builder->add('firstname', 'text');
-		$builder->add('lastname', 'text');
-		$builder->add('surname', 'text');
+		$builder->add('displayname', 'text');
 		$builder->add('phone', 'text');
 		$builder->add('adress', 'textarea');
 		$builder->add('gender', 'choice', array(
@@ -45,12 +35,6 @@ class PlayerRegistrationType extends RegistrationFormType
 		$builder->add('hand', 'choice', array(
 				'choices'   => array('RIGHT' => 'Droitier', 'LEFT' => 'Gaucher')
 		));
-		
-		$builder->add('team', 'entity', array(
-												'class' 		=> 'AueioClubBundle:Team',
-												'property'     	=> 'name',
-												'expanded'	=> true,
-										));
 		$builder->add('secret', 'text', array('property_path' => false));
 		
 		$builder->addValidator(new CallbackValidator(function(FormInterface $form)
@@ -58,7 +42,7 @@ class PlayerRegistrationType extends RegistrationFormType
 			//$config = $this->em->getRepository('AueioClubBundle:Config')->find(1);
 			$secret = $form["secret"];
 			//$answers= $config->getSecret();
-			$answers = array("CYRILLE", "GILLES");
+			$answers = array("CYRILLE", "GILLES", "CYRIL");
 			if (!in_array(strtoupper($secret->getData()), $answers))
 			{
 				$secret->addError(new FormError('Wrong answer.'));

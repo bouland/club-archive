@@ -26,25 +26,11 @@ class Player extends User
 	protected $id;
 	
     /**
-     * @var string $firstname
+     * @var string $displayname
      *
-     * @ORM\Column(name="firstname", type="string", length=50)
+     * @ORM\Column(name="displayname", type="string", length=50)
      */
-    private $firstname;
-
-    /**
-     * @var string $lastname
-     *
-     * @ORM\Column(name="lastname", type="string", length=50)
-     */
-    private $lastname;
-	
-    /**
-     * @var string $surname
-     *
-     * @ORM\Column(name="surname", type="string", unique=true, length=50)
-     */
-    private $surname;
+    private $displayname;
     
     /**
      * @var string $gender
@@ -142,9 +128,9 @@ class Player extends User
      *
      * @param string $firstname
      */
-    public function setFirstname($firstname)
+    public function setDisplayname($displayname)
     {
-        $this->firstname = $firstname;
+        $this->displayname = $displayname;
     }
 
     /**
@@ -152,49 +138,9 @@ class Player extends User
      *
      * @return string 
      */
-    public function getFirstname()
+    public function getDisplayname()
     {
-        return $this->firstname;
-    }
-
-    /**
-     * Set lastname
-     *
-     * @param string $lastname
-     */
-    public function setLastname($lastname)
-    {
-        $this->lastname = $lastname;
-    }
-
-    /**
-     * Get lastname
-     *
-     * @return string 
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
-    }
-
-    /**
-     * Set surname
-     *
-     * @param string $surname
-     */
-    public function setSurname($surname)
-    {
-        $this->surname = $surname;
-    }
-
-    /**
-     * Get surname
-     *
-     * @return string 
-     */
-    public function getSurname()
-    {
-        return $this->surname;
+        return $this->displayname;
     }
 
     /**

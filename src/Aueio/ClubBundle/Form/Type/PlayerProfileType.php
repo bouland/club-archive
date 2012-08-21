@@ -10,21 +10,11 @@ use Symfony\Component\Form\FormError,
 
 class PlayerProfileType extends ProfileFormType
 {
-	private $em;
-	
-	public function __construct($class, $em)
-	{
-		parent::__construct($class);
-		$this->em = $em;
-	}
-	
 	public function buildUserForm(FormBuilder $builder, array $options)
 	{
 		parent::buildUserForm($builder, $options);
 		
-		$builder->add('firstname', 'text');
-		$builder->add('lastname', 'text');
-		$builder->add('surname', 'text');
+		$builder->add('displayname', 'text');
 		$builder->add('phone', 'text');
 		$builder->add('adress', 'textarea');
 		$builder->add('gender', 'choice', array(

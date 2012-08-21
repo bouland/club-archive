@@ -77,7 +77,7 @@ player:
     stats:
         title: Statistiques
         error: "Matchs est en rouge car il doit etre à 100% sinon les stats sont biaisées. Tu n'as pas répondu à toutes les sélections"
-    surname: Surnom
+    displayname: Nom à afficher
     username: Login
     position: Poste
     hand: Main de tir
@@ -123,9 +123,7 @@ fos_user_profile_form_user_username:             "Nom d'utilisateur"
 fos_user_profile_form_user_email:                "Adresse e-mail"
 fos_user_profile_form_user_plainPassword_first:  "Mot de passe"
 fos_user_profile_form_user_plainPassword_second: "Vérification"
-fos_user_profile_form_user_firstname: "Prénom"
-fos_user_profile_form_user_lastname: "Nom"
-fos_user_profile_form_user_surname: "Surnom"
+fos_user_profile_form_user_displayname: "Nom à afficher"
 fos_user_profile_form_user_phone: "Téléphone"
 fos_user_profile_form_user_adress: "Adresse"
 fos_user_profile_form_user_gender: "Genre"
@@ -139,9 +137,7 @@ fos_user_registration_form_username:             "Nom d'utilisateur"
 fos_user_registration_form_email:                "Adresse e-mail"
 fos_user_registration_form_plainPassword_first:  "Mot de passe"
 fos_user_registration_form_plainPassword_second: "Vérification"
-fos_user_registration_form_firstname: "Prénom"
-fos_user_registration_form_lastname: "Nom"
-fos_user_registration_form_surname: "Surnom"
+fos_user_registration_form_displayname: "Nom à afficher"
 fos_user_registration_form_phone: "Téléphone"
 fos_user_registration_form_adress: "Adresse"
 fos_user_registration_form_gender: "Genre"

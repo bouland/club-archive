@@ -1,7 +1,7 @@
 {% autoescape false %}
-{{ 'email.message.hello'|trans({'%firstname%': user.firstname}, 'AueioClubBundle') }}
+{{ 'email.message.hello'|trans({'%displayname%': user.displayname}, 'AueioClubBundle') }}
 <br /><br />
 {{ 'email.message.registration'|trans({},'AueioClubBundle') }} <a href="{{confirmationUrl}}">{{ 'email.message.link'|trans({},'AueioClubBundle') }}</a>
 <br /><br />
-{{ 'email.message.sign'|trans({'%firstname%': user.firstname}, 'AueioClubBundle') }}
+{{ 'email.message.sign'|trans({'%displayname%': user.displayname}, 'AueioClubBundle') }}
 {% endautoescape %}
