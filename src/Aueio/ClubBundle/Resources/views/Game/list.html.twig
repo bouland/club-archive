@@ -2,7 +2,7 @@
 {% extends 'AueioClubBundle::layout.html.twig' %}
 
 {% block title %}
-	Games list
+	{{ 'game.title.list'|trans({}, 'AueioClubBundle') }}
 {% endblock %}
 
 {% block header_menu %}
@@ -11,20 +11,20 @@
 
 {% block sidebar %}
 {% if is_granted("ROLE_ADMIN") %}
-<li><a href="{{ path('aueio_club_game_new') }}">New Game</a></li>
+<li><a href="{{ path('aueio_club_game_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endif %}
 {% endblock %}
 
 {% block content %}
 <div id="game">
-	<h2> Liste des Matchs </h2>
+	<h2>{{ 'game.title.list'|trans({}, 'AueioClubBundle') }}</h2>
 	<ul class="list">
     {% for game in games %}
 		<li>
 			{% include 'AueioClubBundle:Game:short.html.twig' with {'game': game}  %}
 		</li>
     {% else %}
-        <h3>No Game found</h3>
+        <h3>{{ 'game.notfound'|trans({}, 'AueioClubBundle') }}</h3>
     {% endfor %}
 	</ul>
 </div>

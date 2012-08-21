@@ -2,7 +2,7 @@
 {% extends 'AueioClubBundle::layout.html.twig' %}
 
 {% block title %}
-	Team new
+	{{ 'team.title.edit'|trans({}, 'AueioClubBundle') }}
 {% endblock %}
 
 {% block header_menu %}
@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block sidebar %}
-	<li class="selected"><a href="{{ path('aueio_club_team_new') }}">New Team</a></li>
+	<li class="selected"><a href="{{ path('aueio_club_team_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endblock %}
 
 {% block content %}

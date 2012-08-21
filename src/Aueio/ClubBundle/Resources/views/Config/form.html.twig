@@ -1,7 +1,3 @@
 {# src/Aueio/ClubBundle/Resources/views/Config/form.html.twig #}
 {% form_theme form theme %}
-
-{{ form_widget(form) }}
-<div>
-    <input class="button button-submit" type="submit" value="{{ 'form.submit'|trans({}, 'AueioClubBundle') }}" />
-</div>
+{% include 'AueioClubBundle::form.submit.html.twig' %}

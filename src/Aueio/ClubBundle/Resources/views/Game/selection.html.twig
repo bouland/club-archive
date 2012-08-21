@@ -2,7 +2,7 @@
 {% extends 'AueioClubBundle::layout.html.twig' %}
 
 {% block title %}
-	Game selection {{ game.id }}
+	{{ 'game.title.selection'|trans({}, 'AueioClubBundle') }}
 {% endblock %}
 
 {% block header_menu %}
@@ -10,14 +10,14 @@
 {% endblock %}
 
 {% block sidebar %}
-	<li><a href="{{ path('aueio_club_game_view', {"id": game.id}) }}">View</a>
-	<li class="selected"><a href="{{ path('aueio_club_game_selection', {"id": game.id}) }}">{{ 'game.selection'|trans({}, 'AueioClubBundle') }}</a>
-	<li><a href="{{ path('aueio_club_game_score', {"id": game.id}) }}">{{ 'game.score'|trans({}, 'AueioClubBundle') }}</a>
-	<li><a href="{{ path('aueio_club_game_sheet', {"id": game.id}) }}">{{ 'game.sheet'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_game_view', {"id": game.id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
+	<li class="selected"><a href="{{ path('aueio_club_game_selection', {"id": game.id}) }}">{{ 'sidebar.selection'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_game_score', {"id": game.id}) }}">{{ 'sidebar.score'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_game_sheet', {"id": game.id}) }}">{{ 'sidebar.sheet'|trans({}, 'AueioClubBundle') }}</a>
 {% if is_granted("ROLE_ADMIN") %}
-	<li><a href="{{ path('aueio_club_game_edit', {"id": game.id}) }}">Edit</a>
-	<li><a href="{{ path('aueio_club_game_delete', {"id": game.id}) }}">Delete</a></li>
-	<li><a href="{{ path('aueio_club_game_new') }}">New</a></li>
+	<li><a href="{{ path('aueio_club_game_edit', {"id": game.id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_game_delete', {"id": game.id}) }}">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
+	<li><a href="{{ path('aueio_club_game_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endif %}
 {% endblock %}
 
@@ -29,7 +29,7 @@
 	<div id="game-manage">
 		<ul class="game-selection-cols">
 			<li>
-				<h4>En attente ({{ players['wait']|length }})</h4>
+				<h4>{{ 'game.selection.wait'|trans({'%count%': players['wait']|length}, 'AueioClubBundle') }}</h4>
 				<ul>
 			    {% for player in players['wait'] %}
 					<li>
@@ -48,11 +48,11 @@
 						</ul>
 					</li>
 			    {% else %}
-			        <h4>Aucuns</h4>
+			        <h4>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h4>
 			    {% endfor %}
 				</ul>
 			</li><li>
-				<h4>Absents ({{ players['miss']|length }})</h4>
+				<h4>{{ 'game.selection.miss'|trans({'%count%': players['miss']|length}, 'AueioClubBundle')}}</h4>
 				<ul>
 			    {% for player in players['miss'] %}
 					<li>
@@ -66,11 +66,11 @@
 						</ul>
 					</li>
 			    {% else %}
-			        <h4>Aucuns</h4>
+			        <h4>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h4>
 			    {% endfor %}
 				</ul>
 			</li><li>
-				<h4>Courses</h4>
+				<h4>{{ 'game.selection.shop'|trans({}, 'AueioClubBundle') }}</h4>
 				<ul>
 			    {% for player in players['shop'] %}
 					<li>
@@ -84,11 +84,11 @@
 						</ul>
 					</li>
 			    {% else %}
-			        <h4>Besoin d'un volontaire</h4>
+			        <h4>{{ 'game.selection.noshop'|trans({}, 'AueioClubBundle') }}</h4>
 			    {% endfor %}
 			    </ul>
 			</li><li>
-				<h4>Présents ({{ players['play']|length }})</h4>
+				<h4>{{ 'game.selection.play'|trans({'%count%': players['play']|length}, 'AueioClubBundle') }}</h4>
 				<ul>
 			    {% for player in players['play'] %}
 					<li>
@@ -107,21 +107,21 @@
 						</ul>
 					</li>
 			    {% else %}
-			        <h4>Aucuns</h4>
+			        <h4>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h4>
 			    {% endfor %}
 				</ul>
 			</li>
 		</ul>
 	</div>
 	<div id="game-selection">
-		<h4>Détails de la sélection</h4>
+		<h4>{{ 'game.selection.details'|trans({}, 'AueioClubBundle') }}</h4>
 		<ul>
 		{% for player in players['play'] %}
 			<li class="player">
 			{% include 'AueioClubBundle:Player:short.html.twig' with {'player': player} %}
 			</li>
 		{% else %}
-	        <h4>Aucuns</h4>
+	        <h4>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h4>
 	    {% endfor %}
 	    </ul>
 	</div>

@@ -2,7 +2,7 @@
 {% extends 'AueioClubBundle::layout.html.twig' %}
 
 {% block title %}
-	Players list
+	{{ 'player.title.list'|trans({}, 'AueioClubBundle') }}
 {% endblock %}
 
 {% block header_menu %}
@@ -11,12 +11,12 @@
 
 {% block content %}
 <div id="player">
-	<h2> Liste des Joueurs </h2>
+	<h2>{{ 'player.title.list'|trans({}, 'AueioClubBundle') }}</h2>
 	<ul class="list">
     {% for player in players %}
 		<li class="player">{% include 'AueioClubBundle:Player:long.html.twig' with {'player': player} %}</li>
     {% else %}
-        <h3>No Player found</h3>
+        <h3>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h3>
     {% endfor %}
 	</ul>
 </div>

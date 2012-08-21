@@ -2,7 +2,7 @@
 {% extends 'AueioClubBundle::layout.html.twig' %}
 
 {% block title %}
-	Team edit {{ team.id }}
+	{{ 'team.title.edit'|trans({}, 'AueioClubBundle') }}
 {% endblock %}
 
 {% block header_menu %}
@@ -10,10 +10,10 @@
 {% endblock %}
 
 {% block sidebar %}
-	<li><a href="{{ path('aueio_club_player_view', {"id": team.id}) }}">View</a>
-	<li class="selected"><a href="{{ path('aueio_club_team_edit', {"id": team.id}) }}"> Edit team</a>
-	<li><a href="{{ path('aueio_club_team_delete', {"id": team.id}) }}">Delete team</a></li>
-	<li><a href="{{ path('aueio_club_team_new') }}">New team</a></li>
+	<li><a href="{{ path('aueio_club_player_view', {"id": team.id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
+	<li class="selected"><a href="{{ path('aueio_club_team_edit', {"id": team.id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_team_delete', {"id": team.id}) }}">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
+	<li><a href="{{ path('aueio_club_team_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endblock %}
 
 {% block content %}

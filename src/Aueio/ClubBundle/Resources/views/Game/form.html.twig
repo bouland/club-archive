@@ -1,11 +1,11 @@
 {# src/Aueio/ClubBundle/Resources/views/Game/form.html.twig #}
 <div class="cols">
-	<h3>Quand</h3>
+	<h3>{{ 'game.form.title.date'|trans({}, 'AueioClubBundle') }}</h3>
 	{{ form_row(form.date) }}
 	{{ form_row(form.startTime) }}
 	{{ form_row(form.endTime) }}
 </div><div class="cols">
-	<h3>Qui</h3>
+	<h3>{{ 'game.form.title.team'|trans({}, 'AueioClubBundle') }}</h3>
     <ul class="team">
     {% for role in form.roles %}
         <li>

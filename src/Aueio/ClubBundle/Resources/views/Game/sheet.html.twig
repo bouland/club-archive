@@ -2,7 +2,7 @@
 {% extends 'AueioClubBundle::layout.html.twig' %}
 
 {% block title %}
-	Game Result {{ game.id }}
+	{{ 'game.title.sheet'|trans({}, 'AueioClubBundle') }}
 {% endblock %}
 
 {% block header_menu %}
@@ -10,14 +10,14 @@
 {% endblock %}
 
 {% block sidebar %}
-	<li><a href="{{ path('aueio_club_game_view', {"id": game.id}) }}">View</a>
-	<li><a href="{{ path('aueio_club_game_selection', {"id": game.id}) }}">{{ 'game.selection'|trans({}, 'AueioClubBundle') }}</a>
-	<li><a href="{{ path('aueio_club_game_score', {"id": game.id}) }}">{{ 'game.score'|trans({}, 'AueioClubBundle') }}</a>
-	<li class="selected"><a href="{{ path('aueio_club_game_sheet', {"id": game.id}) }}">{{ 'game.sheet'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_game_view', {"id": game.id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_game_selection', {"id": game.id}) }}">{{ 'sidebar.selection'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_game_score', {"id": game.id}) }}">{{ 'sidebar.score'|trans({}, 'AueioClubBundle') }}</a>
+	<li class="selected"><a href="{{ path('aueio_club_game_sheet', {"id": game.id}) }}">{{ 'sidebar.sheet'|trans({}, 'AueioClubBundle') }}</a>
 {% if is_granted("ROLE_ADMIN") %}
-	<li><a href="{{ path('aueio_club_game_edit', {"id": game.id}) }}">Edit</a>
-	<li><a href="{{ path('aueio_club_game_delete', {"id": game.id}) }}">Delete</a></li>
-	<li><a href="{{ path('aueio_club_game_new') }}">New</a></li>
+	<li><a href="{{ path('aueio_club_game_edit', {"id": game.id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_game_delete', {"id": game.id}) }}">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
+	<li><a href="{{ path('aueio_club_game_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endif %}
 {% endblock %}
 
@@ -26,7 +26,7 @@
 	<div class="full">
 		{% include 'AueioClubBundle:Game:header.html.twig' %}
 		<form action="{{ path('aueio_club_game_score', {"id": game.id}) }}" method="post" {{ form_enctype(form) }}>
-			<h3>Teams</h3>
+			<h3>{{ 'game.sheet.title.scores'|trans({}, 'AueioClubBundle') }}</h3>
 		    <ul id="results">
 		    {% for role in form.roles %}<li class="cols">
 						{{ form_errors(role.score) }}
@@ -35,7 +35,7 @@
 		        </li>{% endfor %}
 		    </ul>
 		<div id="game-comment" >
-			<h3>Commentaires</h3>
+			<h3>{{ 'game.sheet.title.scores'|trans({}, 'AueioClubBundle') }}</h3>
 			{{ form_errors(form.comment) }}
 			{{ form_widget(form.comment) }}
 		</div>

@@ -1,5 +1,5 @@
 	<div class="stats">
-		<h3>Statistiques</h3>
+		<h3>{{ 'player.stats.title'|trans({}, 'AueioClubBundle') }}</h3>
 		<ul>
 {% if stats['play'] > 0 %}
 			<li>
@@ -31,7 +31,7 @@
 		</ul>
 {% if stats['total'] > 0 %}
 		{% if stats['total'] != (stats['play']+stats['miss']) %}
-		<p>Matchs est en rouge car il doit etre à 100% sinon les stats sont biaisées. Tu n'as pas répondu à toutes les sélections</p>
+		<p>{{ 'player.stats.error'|trans({}, 'AueioClubBundle') }}</p>
 		{% endif %}
 {% endif %}
 	</div>

@@ -1,3 +1,4 @@
+
 # Emails
 email:
     subject:
@@ -9,10 +10,73 @@ email:
         registration: "Pour valider ton compte, voici le "
         resetting: "Pour réinitialiser ton mot de passe, voici le "
         link: "lien"
-        sign: "A bientôt,<br/>Simon."
+        sign: "A bientôt,<br/>Simon"
 resetting:
     lost: "Mot de passe oublié ?"
+config:
+    title:
+        new: "Config nouvelle"
+        edit: "Config modification"
+        view: "Config vue"
+game:
+    WIN: WIN
+    LOST: LOST
+    NUL: NUL
+    VISITOR: Visiteurs
+    LOCAL: Locaux
+    notfound: "Aucun match"
+    title:
+        new: "Nouveau match"
+        list: "Liste des matchs"
+        edit: "Modification du match"
+        view: "Vue du match"
+        score: "Table de marque"
+        selection: "Sélection du match"
+        sheet: "Feuille de match"
+    form:
+        title:
+            date: Quand
+            team: Qui
+    selection:
+        shop: "Courses"
+        noshop: "Besoin d'un volontaire"
+        wait: "En attente (%count%)"
+        miss: "Absents (%count%)"
+        play: "Présents (%count%)"
+        details: "Détails de la sélection actuelle"
+    sheet:
+        title:
+            scores: "Les scores"
+            comment: "Commentaire"
+    time: "%startTime% à %endTime%"
+sidebar:
+    view: Voir
+    new: Créer
+    edit: Modifier
+    delete: Supprimer
+    selection: Sélection des joueurs
+    sheet: Feuille de match
+    score: Table de marque
+tab:
+    config: Configuration
+    game: Matchs
+    player: Joueurs
+    team: Équipes
+    
 player:
+    title:
+        list: "Liste des joueurs"
+        edit: "Modification du profile"
+        view: "Profile du joueur"
+        register: "Nouveau profile"
+    view:
+        car: "possède un véhicule"
+        nocar: "ne possède pas de véhicule"
+        title:
+            team: "Son équipe"
+    stats:
+        title: Statistiques
+        error: "Matchs est en rouge car il doit etre à 100% sinon les stats sont biaisées. Tu n'as pas répondu à toutes les sélections"
     surname: Surnom
     username: Login
     position: Poste
@@ -24,18 +88,34 @@ player:
     BACK: Arrière
     LEFT: Gaucher
     RIGHT: Droitier
-game:
-    selection: Engagement
-    sheet: Feuille de match
-    score: Table de marque
-    WIN: WIN
-    LOST: LOST
-    NUL: NUL
-    VISITOR: Visiteurs
-    LOCAL: Locaux
+    notfound: "Aucun joueur"
+team:
+    notfound: "Aucune équipe"
+    title:
+        new: "Nouvelle équipe"
+        list: "Liste des équipes"
+        edit: "Modification de l'équipe"
+        view: "Vue de léquipe"
+    view:
+        title:
+            adress: "Adresse"
+            contact: "Contacts"
+            game: "Matchs"
+            player: "Membres"
+        stats:
+            title: "Statistiques"
+            win: "%nb% (%percent%%) Victoires"
+            lost: "%nb% (%percent%%) Défaites"
+            nul: "%nb% (%percent%%) Nuls"
+            local: "%nb% (%percent%%) Domiciles"
+            visitor: "%nb% (%percent%%) Extérieurs"
+            giveup: "%nb% (%percent%%) Forfaits"
+            total: "%nb% Matchs"
 form:
     submit: Enregistrer
-
+score:
+     decrease: Diminuer
+     increase: Augmenter
 config_team_default: Team focus
 config_secret: Réponses au secret d'enregistrement
 

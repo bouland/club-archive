@@ -1,1 +1,1 @@
-<div class="time">{{ game.startTime|date("H:i") }} à {{ game.endTime|date("H:i") }}</div>
+<div class="time">{{ 'game.time'|trans({'%startTime%': game.startTime|date("H:i"), '%endTime%': game.endTime|date("H:i") }, 'AueioClubBundle') }}</div>

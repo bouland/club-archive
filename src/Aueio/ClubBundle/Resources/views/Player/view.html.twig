@@ -2,7 +2,7 @@
 {% extends 'AueioClubBundle::layout.html.twig' %}
 
 {% block title %}
-	Player view
+	{{ 'player.title.edit'|trans({}, 'AueioClubBundle') }}
 {% endblock %}
 
 {% block header_menu %}
@@ -10,17 +10,42 @@
 {% endblock %}
 
 {% block sidebar %}
-	<li  class="selected"><a href="{{ path('aueio_club_player_view', {"id": player.id}) }}">View</a>
+	<li  class="selected"><a href="{{ path('aueio_club_player_view', {"id": player.id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
 {% if (player.id == app.user.id) %}
-	<li><a href="{{ path('fos_user_profile_edit') }}"> Edit</a>
-	<li><a href="{{ path('aueio_club_player_delete', {"id": player.id}) }}">Delete</a></li>
+	<li><a href="{{ path('fos_user_profile_edit') }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_player_delete', {"id": player.id}) }}">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 {% elseif is_granted("ROLE_ADMIN") %}
-	<li><a href="{{ path('aueio_club_player_delete', {"id": player.id}) }}">Delete</a></li>
+	<li><a href="{{ path('aueio_club_player_delete', {"id": player.id}) }}">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endif %}
 {% endblock %}
 
 {% block content %}
 <div id="player">
-	{% include 'AueioClubBundle:Player:full.html.twig' %}
+	<div class="full">
+		<div id="player-header">
+			<div id="player-desc" class="cols">
+				<p>{{ 'player.surname'|trans({}, 'AueioClubBundle') }} : {{ player.surname }}</p>
+				{% if player.id == app.user.id %}
+				<p>{{ 'player.username'|trans({}, 'AueioClubBundle') }} : {{ player.username }}</p>
+				{% endif %}
+				<p>{{ 'player.position'|trans({}, 'AueioClubBundle') }} : {{ ('player.' ~ player.position)|trans({}, 'AueioClubBundle') }}</p>
+				<p>{{ 'player.hand'|trans({}, 'AueioClubBundle') }} : {{ ('player.' ~ player.hand)|trans({}, 'AueioClubBundle') }}</p>
+				{% if player.car %}
+				<p>{{ 'player.view.car'|trans({}, 'AueioClubBundle') }}</p>
+				{% else %}
+				<p>{{ 'player.view.nocar'|trans({}, 'AueioClubBundle') }}</p>
+				{% endif %}
+			</div><div id="player-contact" class="cols">
+				<p>{{ player.firstname }} {{ player.lastname }}</p>
+				<p>{{ player.email }}</p>
+				<p>{{ player.phone }}</p>
+				<p>{{ player.adress}}</p>
+			</div>
+		</div>
+		<div id="player-teams" class="cols">
+			<h3>{{ 'player.view.title.team'|trans({}, 'AueioClubBundle') }}</h3>{% if player.team %}{% include 'AueioClubBundle:Team:link.html.twig' with {'team': player.team} %}{% else %}{{ 'team.notfound'|trans({}, 'AueioClubBundle') }}{%  endif %}</p>
+		</div>
+		{% render "AueioClubBundle:Player:stats"  with {'player': player}%}
+	</div>
 </div>
 {% endblock %}

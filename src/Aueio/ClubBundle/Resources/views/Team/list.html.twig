@@ -2,7 +2,7 @@
 {% extends 'AueioClubBundle::layout.html.twig' %}
 
 {% block title %}
-	Teams list
+	{{ 'team.title.list'|trans({}, 'AueioClubBundle') }}
 {% endblock %}
 
 {% block header_menu %}
@@ -11,18 +11,18 @@
 
 {% block sidebar %}
 {% if is_granted("ROLE_ADMIN") %}
-	<li><a href="{{ path('aueio_club_team_new') }}">New Team</a></li>
+	<li><a href="{{ path('aueio_club_team_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endif %}
 {% endblock %}
 
 {% block content %}
 <div id="team">
-	<h2> Liste des équipes </h2>
+	<h2>{{ 'team.title.list'|trans({}, 'AueioClubBundle') }}</h2>
 	<ul class="list">
     {% for team in teams %}
 		<li>{% include 'AueioClubBundle:Team:short.html.twig' with {'team': team}  %}</li>
     {% else %}
-        <h3>No Team found</h3>
+        <h3>{{ 'team.notfound'|trans({}, 'AueioClubBundle') }}</h3>
     {% endfor %}
 	</ul>
 </div>

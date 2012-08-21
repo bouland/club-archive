@@ -2,7 +2,7 @@
 {% extends 'AueioClubBundle::layout.html.twig' %}
 
 {% block title %}
-	Profile edit
+	{{ 'player.title.view'|trans({}, 'AueioClubBundle') }}
 {% endblock %}
 
 {% block header_menu %}
@@ -10,9 +10,9 @@
 {% endblock %}
 
 {% block sidebar %}
-	<li ><a href="{{ path('aueio_club_player_view', {"id": app.user.id}) }}">View</a>
-	<li  class="selected"><a href="{{ path('fos_user_profile_edit') }}"> Edit</a>
-	<li><a href="{{ path('aueio_club_player_delete', {"id": app.user.id}) }}">Delete</a></li>
+	<li ><a href="{{ path('aueio_club_player_view', {"id": app.user.id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
+	<li  class="selected"><a href="{{ path('fos_user_profile_edit') }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_player_delete', {"id": app.user.id}) }}">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endblock %}
 
 {% block content %}

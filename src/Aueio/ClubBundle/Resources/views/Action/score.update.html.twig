@@ -2,7 +2,7 @@
 <ul class="count">
 	<li>
 		{% if action.value > 1 %}
-		<a href="{{ path('aueio_club_action_update', {"id": action.id, "value": (action.value - 1)}) }}" title="decrease">
+		<a href="{{ path('aueio_club_action_update', {"id": action.id, "value": (action.value - 1)}) }}" title="{{ 'score.decrease'|trans({}, 'AueioClubBundle') }}">
 			<img src="/bundles/aueioclub/images/Crystal_Clear_action_edit_remove.png" alt="minus logo">
 		</a>
 		{% else %}
@@ -11,7 +11,7 @@
 			</a>
 		{% endif %}
 	</li><li class="value">{{ action.value }}</li><li>
-		<a href="{{ path('aueio_club_action_update', {"id": action.id, "value": (action.value + 1)}) }}" title="increase">
+		<a href="{{ path('aueio_club_action_update', {"id": action.id, "value": (action.value + 1)}) }}" title="{{ 'score.increase'|trans({}, 'AueioClubBundle') }}">
 			<img src="/bundles/aueioclub/images/Crystal_Clear_action_edit_add.png" alt="plus logo">
 		</a>
 	</li>

@@ -2,7 +2,7 @@
 {% extends 'AueioClubBundle::layout.html.twig' %}
 
 {% block title %}
-	Config new
+	{{ 'config.title.new'|trans({}, 'AueioClubBundle') }}
 {% endblock %}
 
 {% block header_menu %}
@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block sidebar %}
-	<li class="selected"><a href="{{ path('aueio_club_config_new') }}">New config</a></li>
+	<li class="selected"><a href="{{ path('aueio_club_config_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endblock %}
 
 {% block content %}

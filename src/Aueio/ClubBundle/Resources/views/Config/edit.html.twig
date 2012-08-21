@@ -2,17 +2,17 @@
 {% extends 'AueioClubBundle::layout.html.twig' %}
 
 {% block title %}
-	Config edit {{ config.id }}
+	{{ 'config.title.edit'|trans({}, 'AueioClubBundle') }}
 {% endblock %}
 
 {% block header_menu %}
-	{% include 'AueioClubBundle::tab.menu.html.twig' with {'selected': "game"} %}
+	{% include 'AueioClubBundle::tab.menu.html.twig' with {'selected': "config"} %}
 {% endblock %}
 
 {% block sidebar %}
-	<li><a href="{{ path('aueio_club_config_view', {"id": config.id}) }}">View</a>
-	<li class="selected"><a href="{{ path('aueio_club_config_edit', {"id": config.id}) }}">Edit</a>
-	<li><a href="{{ path('aueio_club_config_delete', {"id": config.id}) }}">Delete</a></li>
+	<li><a href="{{ path('aueio_club_config_view', {"id": config.id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
+	<li class="selected"><a href="{{ path('aueio_club_config_edit', {"id": config.id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_config_delete', {"id": config.id}) }}">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endblock %}
 
 {% block content %}
