@@ -4,13 +4,13 @@ namespace Aueio\ClubBundle\Form\Type;
 
 use Symfony\Component\Form\FormError,
  	Symfony\Component\Form\FormInterface,
-	Symfony\Component\Form\FormBuilder,
+	Symfony\Component\Form\FormBuilderInterface,
 	Symfony\Component\Form\CallbackValidator,
 	FOS\UserBundle\Form\Type\RegistrationFormType;
 
 class PlayerRegistrationType extends RegistrationFormType
 {
-	public function buildForm(FormBuilder $builder, array $options)
+	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		parent::buildForm($builder, $options);
 		
@@ -53,7 +53,7 @@ class PlayerRegistrationType extends RegistrationFormType
 
 	public function getName()
 	{
-		return 'aueio_player_registration';
+		return 'aueio_club_registration';
 	}
 
 }

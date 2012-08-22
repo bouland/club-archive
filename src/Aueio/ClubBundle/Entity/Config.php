@@ -23,14 +23,14 @@ class Config
 	
     /**
      * @ORM\OneToOne(targetEntity="Team")
-     * @ORM\JoinColumn(name="team_id", referencedColumnName="id", nullable = TRUE)
+     * @ORM\JoinColumn(name="team_id", referencedColumnName="id", nullable=true)
     */
     private $team_default;
 
     /**
      * @var string $secret
      *
-     * @ORM\Column(name="secret", type="string", length="255" )
+     * @ORM\Column(name="secret", type="string", length=255 )
      */
 
     private $secret;

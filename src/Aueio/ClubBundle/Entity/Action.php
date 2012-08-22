@@ -38,14 +38,14 @@ class Action
     /**
      * @var string $type
      *
-     * @ORM\Column(name="type", type="string", length="7" )
+     * @ORM\Column(name="type", type="string", length=7)
      */
     private $type;
     
     /**
      * @var string $value
      *
-     * @ORM\Column(name="value", type="string", length="10", nullable="true")
+     * @ORM\Column(name="value", type="string", length=10, nullable=true)
      */
     private $value;
     

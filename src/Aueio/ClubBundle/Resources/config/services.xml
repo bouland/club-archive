@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+	<services>
+        <service id="aueio_club.registration.form.type" class="Aueio\ClubBundle\Form\Type\PlayerRegistrationType">
+            <tag name="form.type" alias="aueio_club_registration" />
+            <argument>%fos_user.model.user.class%</argument>
+        </service>
+
+        <service id="aueio_club.form.handler.registration" class="Aueio\ClubBundle\Form\Handler\PlayerRegistrationHandler" scope="request" public="false">
+            <argument type="service" id="fos_user.registration.form" />
+            <argument type="service" id="request" />
+            <argument type="service" id="fos_user.user_manager" />
+            <argument type="service" id="fos_user.mailer" />
+            <argument type="service" id="fos_user.util.token_generator" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
+
+        <service id="aueio_club.profile.form.type" class="Aueio\ClubBundle\Form\Type\PlayerProfileType">
+            <tag name="form.type" alias="aueio_club_profile" />
+            <argument>%fos_user.model.user.class%</argument>
+        </service>
+
+    </services>
+
+</container>

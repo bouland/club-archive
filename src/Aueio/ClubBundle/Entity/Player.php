@@ -84,7 +84,7 @@ class Player extends User
     
     /**
      * @ORM\ManyToOne(targetEntity="Team")
-     * @ORM\JoinColumn(name="team_id", referencedColumnName="id", nullable="TRUE")
+     * @ORM\JoinColumn(name="team_id", referencedColumnName="id", nullable=true)
      */
     private $team;
 

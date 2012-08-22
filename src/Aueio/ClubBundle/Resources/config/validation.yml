@@ -1,12 +1,12 @@
 # Aueio/ClubBundle/Resources/config/validation.yml
 Aueio\ClubBundle\Entity\Player:
-    constraints: 
-            - FOS\UserBundle\Validator\Unique: 
-                        property: displayname
-                        message: aueio_club.displayname.already_used
-            - FOS\UserBundle\Validator\Unique: 
-                        property: phone
-                        message: aueio_club.phone.already_used
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+                     fields: displayname
+                     message: aueio_club.displayname.already_used
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+                     fields: phone
+                     message: aueio_club.phone.already_used
     properties:
         displayname:
             - NotBlank: ~

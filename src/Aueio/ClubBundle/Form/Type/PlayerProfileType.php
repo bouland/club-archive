@@ -2,15 +2,12 @@
 // src/Auieo/ClubBundle/Form/Type/PlayerType.php
 namespace Aueio\ClubBundle\Form\Type;
 
-use Symfony\Component\Form\FormError,
- 	Symfony\Component\Form\FormInterface,
-	Symfony\Component\Form\FormBuilder,
-	Symfony\Component\Form\CallbackValidator,
+use Symfony\Component\Form\FormBuilderInterface,
 	FOS\UserBundle\Form\Type\ProfileFormType;
 
 class PlayerProfileType extends ProfileFormType
 {
-	public function buildUserForm(FormBuilder $builder, array $options)
+	public function buildUserForm(FormBuilderInterface $builder, array $options)
 	{
 		parent::buildUserForm($builder, $options);
 		
@@ -46,7 +43,7 @@ class PlayerProfileType extends ProfileFormType
 
 	public function getName()
 	{
-		return 'aueio_player_registration';
+		return 'aueio_club_registration';
 	}
 
 }
