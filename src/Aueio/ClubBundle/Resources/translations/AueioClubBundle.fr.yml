@@ -1,4 +1,4 @@
-
+view: "Voir "
 # Emails
 email:
     subject:
@@ -6,7 +6,7 @@ email:
         resetting: Reset du mot de passe
         registration: Validation du compte
     message:
-        hello: "Salut %firstname% !"
+        hello: "Salut %displayname% !"
         registration: "Pour valider ton compte, voici le "
         resetting: "Pour réinitialiser ton mot de passe, voici le "
         link: "lien"
@@ -62,7 +62,7 @@ tab:
     game: Matchs
     player: Joueurs
     team: Équipes
-    
+    season: Saisons
 player:
     title:
         list: "Liste des joueurs"
@@ -89,6 +89,14 @@ player:
     LEFT: Gaucher
     RIGHT: Droitier
     notfound: "Aucun joueur"
+season:
+    title:
+        new: "Nouvelle saison"
+        edit: "Modification de la saison"
+        view: "Vue de la saison"
+        list: "Liste des saisons"
+    notfound: "Aucune saison"
+    date: "%startDate% - %endDate%"
 team:
     notfound: "Aucune équipe"
     title:

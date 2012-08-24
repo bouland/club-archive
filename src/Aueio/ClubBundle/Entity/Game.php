@@ -3,13 +3,14 @@
 namespace Aueio\ClubBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Aueio\ClubBundle\Filter\SeasonAwareInterface;
 /**
  * Aueio\ClubBundle\Entity\Game
  * 
  * @ORM\Entity(repositoryClass="Aueio\ClubBundle\Repository\GameRepository")
  * @ORM\Table(name="games")
  */
-class Game
+class Game implements SeasonAwareInterface
 {
 	/**
 	 * @var integer $id
@@ -55,7 +56,13 @@ class Game
      * @ORM\OneToMany(targetEntity="Action", mappedBy="game")
      */
     private $actions;
- 
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Season", inversedBy="games")
+     * @ORM\JoinColumn(name="season_id", referencedColumnName="id")
+     */
+    private $season;
+    
     public function __construct()
     {
         $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
@@ -245,5 +252,50 @@ class Game
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Remove roles
+     *
+     * @param Aueio\ClubBundle\Entity\Role $roles
+     */
+    public function removeRole(\Aueio\ClubBundle\Entity\Role $roles)
+    {
+        $this->roles->removeElement($roles);
+    }
+
+    /**
+     * Remove actions
+     *
+     * @param Aueio\ClubBundle\Entity\Action $actions
+     */
+    public function removeAction(\Aueio\ClubBundle\Entity\Action $actions)
+    {
+        $this->actions->removeElement($actions);
+    }
+
+    /**
+     * Set season
+     *
+     * @param Aueio\ClubBundle\Entity\Season $season
+     * @return Game
+     */
+    public function setSeason(\Aueio\ClubBundle\Entity\Season $season = null)
+    {
+        $this->season = $season;
+        foreach($this->roles as $role){
+        	$role->setSeason($season);
+        }
+        return $this;
+    }
+
+    /**
+     * Get season
+     *
+     * @return Aueio\ClubBundle\Entity\Season 
+     */
+    public function getSeason()
+    {
+        return $this->season;
     }
 }

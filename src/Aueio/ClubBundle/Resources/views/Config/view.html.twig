@@ -22,6 +22,7 @@
 {% block content %}
 	{% if config %}
 		<p> Team default : {{ config.teamDefault}}</p>
+		<p> Saison en cours : {{ config.seasonCurrent}}</p>
 		<p> Secret : {{ config.secret}}</p>
 	{% else %}
 		<p> Pas de config</p>

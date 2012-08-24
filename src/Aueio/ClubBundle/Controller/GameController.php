@@ -43,7 +43,9 @@ class GameController extends Controller
      */
     public function listAction()
     {
-    	$games = $this->getDoctrine()->getRepository('AueioClubBundle:Game')->findAll();
+    	$em = $this->getDoctrine()->getEntityManager();
+    	 
+    	$games = $em->getRepository('AueioClubBundle:Game')->findAll();
     	return $this->render('AueioClubBundle:Game:list.html.twig', array('games' => $games));
     }
     /**

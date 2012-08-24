@@ -62,7 +62,11 @@ class Team
      */
     private $roles;
     
-    
+    /**
+     * @ORM\ManyToMany(targetEntity="Season", mappedBy="teams")
+     */
+    private $seasons;
+
     public function __toString(){
     	return $this->name;
     }
@@ -184,5 +188,68 @@ class Team
     public function getRoles()
     {
         return $this->roles;
+    }
+
+    /**
+     * Remove contacts
+     *
+     * @param Aueio\ClubBundle\Entity\Player $contacts
+     */
+    public function removeContact(\Aueio\ClubBundle\Entity\Player $contacts)
+    {
+        $this->contacts->removeElement($contacts);
+    }
+
+    /**
+     * Remove players
+     *
+     * @param Aueio\ClubBundle\Entity\Player $players
+     */
+    public function removePlayer(\Aueio\ClubBundle\Entity\Player $players)
+    {
+        $this->players->removeElement($players);
+    }
+
+    /**
+     * Remove roles
+     *
+     * @param Aueio\ClubBundle\Entity\Role $roles
+     */
+    public function removeRole(\Aueio\ClubBundle\Entity\Role $roles)
+    {
+        $this->roles->removeElement($roles);
+    }
+
+    /**
+     * Add seasons
+     *
+     * @param Aueio\ClubBundle\Entity\Season $seasons
+     * @return Team
+     */
+    public function addSeason(\Aueio\ClubBundle\Entity\Season $seasons)
+    {
+        $this->seasons[] = $seasons;
+    
+        return $this;
+    }
+
+    /**
+     * Remove seasons
+     *
+     * @param Aueio\ClubBundle\Entity\Season $seasons
+     */
+    public function removeSeason(\Aueio\ClubBundle\Entity\Season $seasons)
+    {
+        $this->seasons->removeElement($seasons);
+    }
+
+    /**
+     * Get seasons
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getSeasons()
+    {
+        return $this->seasons;
     }
 }

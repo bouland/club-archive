@@ -11,6 +11,13 @@ use Aueio\ClubBundle\Entity\Game;
 class GameHandler extends FormHandler
 {
 	public function onSuccess(Game $game){
+		$date = $game->getDate();
+		$season = $this->em->getRepository('AueioClubBundle:Season')->findByDate($date);
+		if (!$season) {
+			throw $this->createNotFoundException('No season found for date '. $date->format("Y-m-d"));
+		}
+		$game->setSeason($season);
+		
 		$roles = $game->getRoles();
 		$score_team_0 = $roles[0]->getScore();
 		$score_team_1 = $roles[1]->getScore();

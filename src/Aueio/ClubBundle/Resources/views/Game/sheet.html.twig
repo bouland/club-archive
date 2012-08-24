@@ -25,7 +25,7 @@
 <div id="game">
 	<div class="full">
 		{% include 'AueioClubBundle:Game:header.html.twig' %}
-		<form action="{{ path('aueio_club_game_score', {"id": game.id}) }}" method="post" {{ form_enctype(form) }}>
+		<form action="{{ path('aueio_club_game_sheet', {"id": game.id}) }}" method="post" {{ form_enctype(form) }}>
 			<h3>{{ 'game.sheet.title.scores'|trans({}, 'AueioClubBundle') }}</h3>
 		    <ul id="results">
 		    {% for role in form.roles %}<li class="cols">
@@ -35,7 +35,7 @@
 		        </li>{% endfor %}
 		    </ul>
 		<div id="game-comment" >
-			<h3>{{ 'game.sheet.title.scores'|trans({}, 'AueioClubBundle') }}</h3>
+			<h3>{{ 'game.sheet.title.comment'|trans({}, 'AueioClubBundle') }}</h3>
 			{{ form_errors(form.comment) }}
 			{{ form_widget(form.comment) }}
 		</div>

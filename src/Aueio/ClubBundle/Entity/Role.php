@@ -2,13 +2,14 @@
 namespace Aueio\ClubBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Aueio\ClubBundle\Filter\SeasonAwareInterface;
 /**
  * Aueio\ClubBundle\Entity\Role
  *
  * @ORM\Entity(repositoryClass="Aueio\ClubBundle\Repository\RoleRepository")
  * @ORM\Table(name="roles")
  */
-class Role
+class Role  implements SeasonAwareInterface
 {
 	/**
 	 * @var integer $id
@@ -42,13 +43,21 @@ class Role
 	
 	/**
 	 * @ORM\ManyToOne(targetEntity="Game")
+	 * @ORM\JoinColumn(name="game_id", referencedColumnName="id", onDelete="CASCADE")
 	 */
 	private $game;
 
 	/**
 	 * @ORM\ManyToOne(targetEntity="Team")
+	 * @ORM\JoinColumn(name="team_id", referencedColumnName="id", onDelete="CASCADE")
 	 */
 	private $team;
+	
+	/**
+	 * @ORM\ManyToOne(targetEntity="Season", inversedBy="roles")
+	 * @ORM\JoinColumn(name="season_id", referencedColumnName="id", nullable=false)
+	 */
+	private $season;
 	
 	public function __toString(){
 		return "Role " . $this->id . " " . $this->type;
@@ -116,6 +125,7 @@ class Role
     public function setGame(\Aueio\ClubBundle\Entity\Game $game)
     {
         $this->game = $game;
+        $this->season = $game->getSeason();
     }
 
     /**
@@ -166,5 +176,28 @@ class Role
     public function getType()
     {
         return $this->type;
+    }
+
+    /**
+     * Set season
+     *
+     * @param Aueio\ClubBundle\Entity\Season $season
+     * @return Role
+     */
+    public function setSeason(\Aueio\ClubBundle\Entity\Season $season = null)
+    {
+        $this->season = $season;
+    
+        return $this;
+    }
+
+    /**
+     * Get season
+     *
+     * @return Aueio\ClubBundle\Entity\Season 
+     */
+    public function getSeason()
+    {
+        return $this->season;
     }
 }

@@ -28,6 +28,12 @@ class Config
     private $team_default;
 
     /**
+     * @ORM\OneToOne(targetEntity="Season")
+     * @ORM\JoinColumn(name="season_id", referencedColumnName="id", nullable=true)
+     */
+    private $season_current;
+    
+    /**
      * @var string $secret
      *
      * @ORM\Column(name="secret", type="string", length=255 )
@@ -105,5 +111,28 @@ class Config
     public function getSecret()
     {
         return $this->secret;
+    }
+
+    /**
+     * Set season_current
+     *
+     * @param Aueio\ClubBundle\Entity\Season $seasonCurrent
+     * @return Config
+     */
+    public function setSeasonCurrent(\Aueio\ClubBundle\Entity\Season $seasonCurrent = null)
+    {
+        $this->season_current = $seasonCurrent;
+    
+        return $this;
+    }
+
+    /**
+     * Get season_current
+     *
+     * @return Aueio\ClubBundle\Entity\Season 
+     */
+    public function getSeasonCurrent()
+    {
+        return $this->season_current;
     }
 }

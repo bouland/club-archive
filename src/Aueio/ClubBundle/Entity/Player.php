@@ -95,6 +95,11 @@ class Player extends User
     
 
     /**
+     * @ORM\ManyToMany(targetEntity="Season", mappedBy="players")
+     */
+    private $seasons;
+
+    /**
      * @ORM\PrePersist
      *
      */
@@ -111,7 +116,7 @@ class Player extends User
     }
     
     public function __toString(){
-    	return "Player " . $this->getId() . " " . $this->getFirstname();
+    	return "Player " . $this->getId() . " " . $this->getDisplayname();
     }
     /**
      * Get id
@@ -345,5 +350,48 @@ class Player extends User
     public function getCreated()
     {
         return $this->created;
+    }
+
+    /**
+     * Remove actions
+     *
+     * @param Aueio\ClubBundle\Entity\Action $actions
+     */
+    public function removeAction(\Aueio\ClubBundle\Entity\Action $actions)
+    {
+        $this->actions->removeElement($actions);
+    }
+
+    /**
+     * Add seasons
+     *
+     * @param Aueio\ClubBundle\Entity\Season $seasons
+     * @return Player
+     */
+    public function addSeason(\Aueio\ClubBundle\Entity\Season $seasons)
+    {
+        $this->seasons[] = $seasons;
+    
+        return $this;
+    }
+
+    /**
+     * Remove seasons
+     *
+     * @param Aueio\ClubBundle\Entity\Season $seasons
+     */
+    public function removeSeason(\Aueio\ClubBundle\Entity\Season $seasons)
+    {
+        $this->seasons->removeElement($seasons);
+    }
+
+    /**
+     * Get seasons
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getSeasons()
+    {
+        return $this->seasons;
     }
 }

@@ -5,13 +5,14 @@ namespace Aueio\ClubBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Aueio\ClubBundle\Entity\Entity;
 use Aueio\ClubBundle\Entity\Game;
+use Aueio\ClubBundle\Filter\SeasonAwareInterface;
 /**
  * Aueio\ClubBundle\Entity\Relation
  *
  * @ORM\Entity(repositoryClass="Aueio\ClubBundle\Repository\ActionRepository")
  * @ORM\Table(name="actions")
  */
-class Action
+class Action implements SeasonAwareInterface
 {
     /**
      * @var integer $id
@@ -52,14 +53,21 @@ class Action
     /**
      * @var datetime $date
      *
-     * @ORM\Column(name="date", type="date")
+     * @ORM\Column(name="created", type="date")
      */
-    private $date;
+    private $created;
     
     public function __construct(array $options = null) {
-    	$this->date = new \DateTime('now');
+    	$this->created = new \DateTime('now');
     }
+    /**
+     * @ORM\ManyToOne(targetEntity="Season", inversedBy="actions")
+     * @ORM\JoinColumn(name="season_id", referencedColumnName="id")
+     */
 
+    private $season;
+    
+    
     /**
      * Get id
      *
@@ -118,6 +126,7 @@ class Action
     public function setGame(\Aueio\ClubBundle\Entity\Game $game)
     {
         $this->game = $game;
+        $this->season = $game->getSeason();
     }
 
     /**
@@ -171,5 +180,51 @@ class Action
     }
     public function isPlay(){
     	return $this->type == 'play';
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     * @return Action
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+    
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime 
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set season
+     *
+     * @param Aueio\ClubBundle\Entity\Season $season
+     * @return Action
+     */
+    public function setSeason(\Aueio\ClubBundle\Entity\Season $season = null)
+    {
+        $this->season = $season;
+    
+        return $this;
+    }
+
+    /**
+     * Get season
+     *
+     * @return Aueio\ClubBundle\Entity\Season 
+     */
+    public function getSeason()
+    {
+        return $this->season;
     }
 }

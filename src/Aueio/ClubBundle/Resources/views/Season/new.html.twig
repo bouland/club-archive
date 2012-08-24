@@ -1,0 +1,21 @@
+{# src/Aueio/ClubBundle/Resources/views/Season/new.html.twig #}
+{% extends 'AueioClubBundle::layout.html.twig' %}
+
+{% block title %}
+	{{ 'season.title.new'|trans({}, 'AueioClubBundle') }}
+{% endblock %}
+
+{% block header_menu %}
+	{% include 'AueioClubBundle::tab.menu.html.twig' with {'selected': "season"} %}
+{% endblock %}
+
+{% block sidebar %}
+	<li class="selected"><a href="{{ path('aueio_club_season_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>
+{% endblock %}
+
+{% block content %}
+	<form action="{{ path('aueio_club_season_new') }}" {{ form_enctype(form) }} method="POST" class="aueio_club_season_form">
+		{% form_theme form theme %}
+		{% include 'AueioClubBundle::form.submit.html.twig' %}
+	</form>
+{% endblock %}

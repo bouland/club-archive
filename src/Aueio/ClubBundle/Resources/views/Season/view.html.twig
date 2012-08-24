@@ -1,0 +1,25 @@
+{# src/Aueio/ClubBundle/Resources/views/Season/view.html.twig #}
+{% extends 'AueioClubBundle::layout.html.twig' %}
+
+{% block title %}
+	{{ 'season.title.view'|trans({}, 'AueioClubBundle') }}
+{% endblock %}
+
+{% block header_menu %}
+	{% include 'AueioClubBundle::tab.menu.html.twig' with {'selected': "season"} %}
+{% endblock %}
+
+{% block sidebar %}
+	<li  class="selected"><a href="{{ path('aueio_club_season_view', {"id": season.id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_season_edit', {"id": season.id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_season_delete', {"id": season.id}) }}">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
+	<li><a href="{{ path('aueio_club_season_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>
+{% endblock %}
+
+{% block content %}
+	{% if season %}
+		{% include 'AueioClubBundle:Season:date.html.twig' %}
+	{% else %}
+		<p>{{ 'season.notfound'|trans({}, 'AueioClubBundle') }}</p>
+	{% endif %}
+{% endblock %}
