@@ -2,11 +2,12 @@
 
 namespace Aueio\ClubBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Aueio\ClubBundle\Entity\Entity;
-use Aueio\ClubBundle\Entity\Game;
-use Aueio\ClubBundle\Entity\Action;
+use Doctrine\ORM\Mapping as ORM,
+	Doctrine\Common\Collections\ArrayCollection,
+	Aueio\ClubBundle\Entity\PLayer,
+	Aueio\ClubBundle\Entity\Role,
+	Aueio\ClubBundle\Entity\Season,
+	Aueio\ClubBundle\Entity\Adress;
 
 /**
  * Aueio\ClubBundle\Entity\Team
@@ -28,9 +29,59 @@ class Team
     /**
      * @var string $name
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", unique=true, length=255)
      */
     private $name;
+
+    /**
+     * @var string $colors
+     *
+     * @ORM\Column(name="colors", type="string", length=255)
+     */
+    private $colors;
+    
+    
+    /**
+    * @var integer $slot_day
+    *
+    * @ORM\Column(name="slot_day", type="string", length=255)
+    */
+    private $slot_days;
+    /**
+     * @var datetime $slot_start_time
+     *
+     * @ORM\Column(name="start_time", type="time")
+     */
+    private $slot_start_time;
+    
+    /**
+     * @var datetime $slot_end_time
+     *
+     * @ORM\Column(name="end_time", type="time")
+     */
+    private $slot_end_time;
+    
+    /**
+     * @var string $gym_name
+     *
+     * @ORM\Column(name="gym_name", type="string", length=255)
+     */
+    private $gym_name;
+    
+    /**
+     * @var string $gym_phone
+     *
+     * @ORM\Column(name="gym_phone", type="string", length=10)
+     */
+    private $gym_phone;
+    
+		
+	/**
+    * @var string $adress
+    *
+    * @ORM\ManyToOne(targetEntity="Adress")
+    */
+    private $adress;
 
     /**
      * @ORM\ManyToMany(targetEntity="Player")
@@ -41,13 +92,6 @@ class Team
      */
     private $contacts;
     
-    /**
-    * @var string $adress
-    *
-    * @ORM\Column(name="adress", type="text")
-    */
-    private $adress;
-
     /**
      * Bidirectional - One-To-Many (INVERSE SIDE)
      *
@@ -131,7 +175,7 @@ class Team
      *
      * @param Aueio\ClubBundle\Entity\Player $contacts
      */
-    public function addContact(\Aueio\ClubBundle\Entity\Player $contact)
+    public function addContact(Player $contact)
     {
         $this->contacts[] = $contact;
     }
@@ -151,7 +195,7 @@ class Team
      *
      * @param Aueio\ClubBundle\Entity\Player $player
      */
-    public function addPlayer(\Aueio\ClubBundle\Entity\Player $player)
+    public function addPlayer(Player $player)
     {
     	$this->players[] = $player;
     }
@@ -175,7 +219,7 @@ class Team
      *
      * @param Aueio\ClubBundle\Entity\Role $roles
      */
-    public function addRole(\Aueio\ClubBundle\Entity\Role $role)
+    public function addRole(Role $role)
     {
         $this->roles[] = $role;
     }
@@ -195,7 +239,7 @@ class Team
      *
      * @param Aueio\ClubBundle\Entity\Player $contacts
      */
-    public function removeContact(\Aueio\ClubBundle\Entity\Player $contacts)
+    public function removeContact(Player $contacts)
     {
         $this->contacts->removeElement($contacts);
     }
@@ -205,7 +249,7 @@ class Team
      *
      * @param Aueio\ClubBundle\Entity\Player $players
      */
-    public function removePlayer(\Aueio\ClubBundle\Entity\Player $players)
+    public function removePlayer(Player $players)
     {
         $this->players->removeElement($players);
     }
@@ -215,7 +259,7 @@ class Team
      *
      * @param Aueio\ClubBundle\Entity\Role $roles
      */
-    public function removeRole(\Aueio\ClubBundle\Entity\Role $roles)
+    public function removeRole(Role $roles)
     {
         $this->roles->removeElement($roles);
     }
@@ -226,7 +270,7 @@ class Team
      * @param Aueio\ClubBundle\Entity\Season $seasons
      * @return Team
      */
-    public function addSeason(\Aueio\ClubBundle\Entity\Season $seasons)
+    public function addSeason(Season $seasons)
     {
         $this->seasons[] = $seasons;
     
@@ -238,7 +282,7 @@ class Team
      *
      * @param Aueio\ClubBundle\Entity\Season $seasons
      */
-    public function removeSeason(\Aueio\ClubBundle\Entity\Season $seasons)
+    public function removeSeason(Season $seasons)
     {
         $this->seasons->removeElement($seasons);
     }
@@ -251,5 +295,166 @@ class Team
     public function getSeasons()
     {
         return $this->seasons;
+    }
+
+    /**
+     * Set colors
+     *
+     * @param string $colors
+     * @return Team
+     */
+    public function setColors($colors)
+    {
+        $this->colors = $colors;
+    
+        return $this;
+    }
+
+    /**
+     * Get colors
+     *
+     * @return string 
+     */
+    public function getColors()
+    {
+        return $this->colors;
+    }
+
+    /**
+     * Set slot_day
+     *
+     * @param integer $slotDay
+     * @return Team
+     */
+    public function setSlotDay($slotDay)
+    {
+        $this->slot_day = $slotDay;
+    
+        return $this;
+    }
+
+    /**
+     * Get slot_day
+     *
+     * @return integer 
+     */
+    public function getSlotDay()
+    {
+        return $this->slot_day;
+    }
+
+    /**
+     * Set slot_start_time
+     *
+     * @param \DateTime $slotStartTime
+     * @return Team
+     */
+    public function setSlotStartTime($slotStartTime)
+    {
+        $this->slot_start_time = $slotStartTime;
+    
+        return $this;
+    }
+
+    /**
+     * Get slot_start_time
+     *
+     * @return \DateTime 
+     */
+    public function getSlotStartTime()
+    {
+        return $this->slot_start_time;
+    }
+
+    /**
+     * Set slot_end_time
+     *
+     * @param \DateTime $slotEndTime
+     * @return Team
+     */
+    public function setSlotEndTime($slotEndTime)
+    {
+        $this->slot_end_time = $slotEndTime;
+    
+        return $this;
+    }
+
+    /**
+     * Get slot_end_time
+     *
+     * @return \DateTime 
+     */
+    public function getSlotEndTime()
+    {
+        return $this->slot_end_time;
+    }
+
+    /**
+     * Set gym_name
+     *
+     * @param string $gymName
+     * @return Team
+     */
+    public function setGymName($gymName)
+    {
+        $this->gym_name = $gymName;
+    
+        return $this;
+    }
+
+    /**
+     * Get gym_name
+     *
+     * @return string 
+     */
+    public function getGymName()
+    {
+        return $this->gym_name;
+    }
+
+    /**
+     * Set gym_phone
+     *
+     * @param string $gymPhone
+     * @return Team
+     */
+    public function setGymPhone($gymPhone)
+    {
+        $this->gym_phone = $gymPhone;
+    
+        return $this;
+    }
+
+    /**
+     * Get gym_phone
+     *
+     * @return string 
+     */
+    public function getGymPhone()
+    {
+        return $this->gym_phone;
+    }
+
+    /**
+     * Set slot_days
+     *
+     * @param string $slotDays
+     * @return Team
+     */
+    public function setSlotDays($slotDays)
+    {
+        $this->slot_days = $slotDays;
+    
+        return $this;
+    }
+
+    /**
+     * Get slot_days
+     *
+     * @return string 
+     */
+    public function getSlotDays()
+    {
+        return $this->slot_days;
     }
 }

@@ -3,7 +3,8 @@
 namespace Aueio\ClubBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface,
-	FOS\UserBundle\Form\Type\ProfileFormType;
+	FOS\UserBundle\Form\Type\ProfileFormType,
+	Aueio\ClubBundle\Form\Type\AdressType;
 
 class PlayerProfileType extends ProfileFormType
 {
@@ -11,9 +12,10 @@ class PlayerProfileType extends ProfileFormType
 	{
 		parent::buildUserForm($builder, $options);
 		
-		$builder->add('displayname', 'text');
+		$builder->add('firstname', 'text');
+		$builder->add('lastname', 'text');
 		$builder->add('phone', 'text');
-		$builder->add('adress', 'textarea');
+		$builder->add('adress',  new AdressType());
 		$builder->add('gender', 'choice', array(
 				'choices'   => array('M' => 'Homme', 'F' => 'Femme'),
 				'required'  => true,
@@ -43,7 +45,7 @@ class PlayerProfileType extends ProfileFormType
 
 	public function getName()
 	{
-		return 'aueio_club_registration';
+		return 'aueio_club_profile';
 	}
 
 }

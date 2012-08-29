@@ -29,18 +29,18 @@ class Game implements SeasonAwareInterface
     private $date;
     
     /**
-    * @var datetime $startTime
+    * @var datetime $start_time
     *
-    * @ORM\Column(name="startTime", type="time")
+    * @ORM\Column(name="start_time", type="time")
     */
-    private $startTime;
+    private $start_time;
     
     /**
-     * @var datetime $endTime
+     * @var datetime $end_time
      *
-     * @ORM\Column(name="endTime", type="time")
+     * @ORM\Column(name="end_time", type="time")
      */
-    private $endTime;
+    private $end_time;
     
     /**
      * @ORM\Column(name="comment", type="text", nullable=true)
@@ -180,9 +180,9 @@ class Game implements SeasonAwareInterface
      *
      * @param date $startTime
      */
-    public function setStartTime($startTime)
+    public function setStartTime($start_time)
     {
-        $this->startTime = $startTime;
+        $this->start_time = $start_time;
     }
 
     /**
@@ -192,7 +192,7 @@ class Game implements SeasonAwareInterface
      */
     public function getStartTime()
     {
-        return $this->startTime;
+        return $this->start_time;
     }
     /**
      * Get startTime
@@ -201,7 +201,7 @@ class Game implements SeasonAwareInterface
      */
     public function getStartTimeUTC()
     {
-    	return $this->startTime->setTimezone(new \DateTimeZone('UTC'));
+    	return $this->start_time->setTimezone(new \DateTimeZone('UTC'));
     }
     
 
@@ -210,9 +210,9 @@ class Game implements SeasonAwareInterface
      *
      * @param date $endTime
      */
-    public function setEndTime($endTime)
+    public function setEndTime($end_time)
     {
-        $this->endTime = $endTime;
+        $this->end_time = $end_time;
     }
     
     /**
@@ -222,7 +222,7 @@ class Game implements SeasonAwareInterface
      */
     public function getEndTime()
     {
-        return $this->endTime;
+        return $this->end_time;
     }
     /**
      * Get endTime
@@ -231,7 +231,7 @@ class Game implements SeasonAwareInterface
      */
     public function getEndTimeUTC()
     {
-    	return $this->endTime->setTimezone(new \DateTimeZone('UTC'));
+    	return $this->end_time->setTimezone(new \DateTimeZone('UTC'));
     }
     
     /**

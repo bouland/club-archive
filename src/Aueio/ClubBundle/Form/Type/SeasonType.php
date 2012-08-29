@@ -9,11 +9,12 @@ class SeasonType extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		$builder->add('startDate', 'date', array(
+		$builder->add('color', 'text');
+		$builder->add('start_date', 'date', array(
 				'input'  => 'datetime',
 				'widget' => 'choice',
 		));
-		$builder->add('endDate', 'date', array(
+		$builder->add('end_date', 'date', array(
 				'input'  => 'datetime',
 				'widget' => 'choice',
 		));

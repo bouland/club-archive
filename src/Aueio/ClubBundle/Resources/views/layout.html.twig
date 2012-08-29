@@ -3,9 +3,11 @@
 
 {% block body %}
 
-	<div id="header" >
+	<div id="header" style="background-color: hsl({{ app.session.get('season_color') }}, 25%, 48%);">
 		<div class="inner">
-			<div id="header_title">
+			<div id="header_switch">
+			{% render 'AueioClubBundle:Season:switch' %}
+			</div><div id="header_title">
 				<h1>		
 					<a href="{{ path('_welcome') }}">Meylan Handball Club</a>
 				</h1>
@@ -33,7 +35,7 @@
 	<div id="wrapper">
 		<div class="inner">
 			<div id="layout">
-				<div id="sidebar">
+				<div id="sidebar" style="background-color: hsla({{ app.session.get('season_color') }}, 25%, 48%, 0.3);">
 		       		 <ul id="sidebar_menu">
 		            {% block sidebar %}
 		            {% endblock %}
@@ -45,7 +47,7 @@
 			       		<div>
 			            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 			            	<a href="{{ path('aueio_club_player_view', {"id": app.user.id}) }}">
-			                {{ 'layout.logged_in_as'|trans({'%username%': app.user.displayname}, 'FOSUserBundle') }}
+			                {{ 'layout.logged_in_as'|trans({'%username%': app.user.firstname}, 'FOSUserBundle') }}
 			                </a> |
 			                <a href="{{ path('fos_user_security_logout') }}">
 			                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}

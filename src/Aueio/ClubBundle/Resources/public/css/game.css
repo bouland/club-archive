@@ -94,3 +94,11 @@ li.action{
 	width:48%;
 	padding:1%;
 }
+#game form > div.cols > div {
+	margin-bottom: 15px;
+}
+#game form label{
+	float: left;
+	width: 30%;
+}
+

@@ -24,7 +24,7 @@
 	<div class="full">
 		<div id="player-header">
 			<div id="player-desc" class="cols">
-				<p>{{ 'player.displayname'|trans({}, 'AueioClubBundle') }} : {{ player.displayname }}</p>
+				<p>{{ 'player.name'|trans({}, 'AueioClubBundle') }} : {{ player.firstname }} {{ player.lastname }}</p>
 				{% if player.id == app.user.id %}
 				<p>{{ 'player.username'|trans({}, 'AueioClubBundle') }} : {{ player.username }}</p>
 				{% endif %}

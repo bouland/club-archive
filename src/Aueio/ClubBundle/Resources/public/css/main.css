@@ -140,9 +140,16 @@ p
     padding-bottom: 5px;
 }
 #header {
-	background: url("/bundles/aueioclub/images/header_shadow.png") repeat-x scroll left bottom #86717F;
+	background: url("/bundles/aueioclub/images/header_shadow.png") repeat-x scroll left bottom;
     position: relative;
     min-height: 90px;
+    vertical-align: top;
+}
+#header_title{
+	width: 780px;
+	top: 0;
+	left:220px;
+	position: absolute;
 }
 #header_title h1{
     font-family: Georgia,times,serif;
@@ -184,6 +191,20 @@ p
     margin-right: 1px;
 	position: relative;
 }
+#header_switch{
+	display: inline-block;
+	width: 220px;
+	position: absolute;
+	bottom: 0px;
+}
+form.season-switch{
+	padding-bottom: 10px;
+	text-align: center;
+}
+form.season-switch h3{
+	display: inline;
+	color: white;
+}
 .clearfix:after {
     clear: both;
     content: ".";
@@ -212,7 +233,8 @@ p
 	position: relative;
     padding: 20px 10px;
     margin: 0;
-    min-height: 100%;
+    min-height: 200px;
+    -moz-opacity: 0.78;
 }
 #sidebar_menu > li > a{
 	background-color: white; //#EFEFEF;
@@ -232,7 +254,6 @@ p
 	min-height: 100%;
 }
 #layout{
-	background: url("/bundles/aueioclub/images/sidebar_background.jpg") repeat-y scroll left top transparent;
 	min-height: 100%;
 }		
 #content {
@@ -299,8 +320,9 @@ input[type="submit"]{
 }
 .aueio_club_config_form > div > div,
 .fos_user_login > div,
-.fos_user_profile_edit > div > div,
-.fos_user_registration_register > div > div,
+.fos_user_profile_edit > div,
+.fos_user_registration_register > div,
+#fos_user_registration_form_adress > div,
 .fos_user_resetting_request > div,
 .fos_user_resetting_reset > div > div,
 .fos_user_registration_form > div {
@@ -338,16 +360,16 @@ input[type="submit"]{
 .full{
 	margin:20px;
 }
-.long,
-.short,
-.link,
-.name,
-.date,
-.adress,
-.team,
-.phone,
-.position,
-.hand{
+div.long,
+div.short,
+div.link,
+div.name,
+div.date,
+div.adress,
+div.team,
+div.phone,
+div.position,
+div.hand{
 	display: inline-block;
 }
 ul.list > li > div {

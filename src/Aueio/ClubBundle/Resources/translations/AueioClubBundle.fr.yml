@@ -6,7 +6,7 @@ email:
         resetting: Reset du mot de passe
         registration: Validation du compte
     message:
-        hello: "Salut %displayname% !"
+        hello: "Salut %firstname% !"
         registration: "Pour valider ton compte, voici le "
         resetting: "Pour réinitialiser ton mot de passe, voici le "
         link: "lien"
@@ -57,6 +57,7 @@ sidebar:
     selection: Sélection des joueurs
     sheet: Feuille de match
     score: Table de marque
+    confirm: Tu es sûr de toi ?
 tab:
     config: Configuration
     game: Matchs
@@ -77,7 +78,7 @@ player:
     stats:
         title: Statistiques
         error: "Matchs est en rouge car il doit etre à 100% sinon les stats sont biaisées. Tu n'as pas répondu à toutes les sélections"
-    displayname: Nom à afficher
+    name: Noms
     username: Login
     position: Poste
     hand: Main de tir
@@ -88,15 +89,19 @@ player:
     BACK: Arrière
     LEFT: Gaucher
     RIGHT: Droitier
+    "N/A": Inconnu 
     notfound: "Aucun joueur"
 season:
+    switch: Saison
     title:
         new: "Nouvelle saison"
         edit: "Modification de la saison"
         view: "Vue de la saison"
         list: "Liste des saisons"
+        color: "Couleur de style"
+        date: "Les dates"
     notfound: "Aucune saison"
-    date: "%startDate% - %endDate%"
+    date: "%start_date% au %end_date%"
 team:
     notfound: "Aucune équipe"
     title:
@@ -119,6 +124,8 @@ team:
             visitor: "%nb% (%percent%%) Extérieurs"
             giveup: "%nb% (%percent%%) Forfaits"
             total: "%nb% Matchs"
+    gym: Gymnase
+
 form:
     submit: Enregistrer
 score:
@@ -131,9 +138,13 @@ fos_user_profile_form_user_username:             "Nom d'utilisateur"
 fos_user_profile_form_user_email:                "Adresse e-mail"
 fos_user_profile_form_user_plainPassword_first:  "Mot de passe"
 fos_user_profile_form_user_plainPassword_second: "Vérification"
-fos_user_profile_form_user_displayname: "Nom à afficher"
+fos_user_registration_form_firstname: "Prénom"
+fos_user_registration_form_lastname: "NOM"
 fos_user_profile_form_user_phone: "Téléphone"
-fos_user_profile_form_user_adress: "Adresse"
+fos_user_registration_form_adress: "Adresse"
+fos_user_registration_form_adress_name: "Rue"
+fos_user_registration_form_adress_code: "Code postale"
+fos_user_registration_form_adress_city: "Ville"
 fos_user_profile_form_user_gender: "Genre"
 fos_user_profile_form_user_car: "As tu une voiture ?"
 fos_user_profile_form_user_position: "De préférence à quel poste joues tu ?"
@@ -145,11 +156,33 @@ fos_user_registration_form_username:             "Nom d'utilisateur"
 fos_user_registration_form_email:                "Adresse e-mail"
 fos_user_registration_form_plainPassword_first:  "Mot de passe"
 fos_user_registration_form_plainPassword_second: "Vérification"
-fos_user_registration_form_displayname: "Nom à afficher"
+fos_user_registration_form_firstname: "Prénom"
+fos_user_registration_form_lastname: "NOM"
 fos_user_registration_form_phone: "Téléphone"
 fos_user_registration_form_adress: "Adresse"
+fos_user_registration_form_adress_name: "Rue"
+fos_user_registration_form_adress_code: "Code postal"
+fos_user_registration_form_adress_city: "Ville"
 fos_user_registration_form_gender: "Genre"
 fos_user_registration_form_car: "As tu une voiture ?"
 fos_user_registration_form_position: "De préférence à quel poste joues tu ?"
 fos_user_registration_form_hand: "Main de tir"
 fos_user_registration_form_secret: "Le prénom d'un de nos Gardiens"
+
+season_color: Couleur format HTML
+season_start_date: début
+season_end_date: fin
+
+team_team: Equipe
+team_name: Nom
+team_colors: Couleurs
+team_slot: Créneau
+team_slot_days: Jour de la semaine
+team_slot_start_time: Heure de début
+team_slot_end_time: Heure de fin
+team_contacts: Contacts
+team_gym_name: Nom
+team_gym_phone: Téléphone
+team_adress_name: Rue
+team_adress_code: Code Postal
+team_adress_city: Ville

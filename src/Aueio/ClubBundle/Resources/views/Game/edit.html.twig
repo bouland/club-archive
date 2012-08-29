@@ -15,7 +15,7 @@
 	<li><a href="{{ path('aueio_club_game_score', {"id": game.id}) }}">{{ 'sidebar.score'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_game_sheet', {"id": game.id}) }}">{{ 'sidebar.sheet'|trans({}, 'AueioClubBundle') }}</a>
 	<li class="selected"><a href="{{ path('aueio_club_game_edit', {"id": game.id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
-	<li><a href="{{ path('aueio_club_game_delete', {"id": game.id}) }}">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
+	<li><a href="{{ path('aueio_club_game_delete', {"id": game.id}) }}" onclick="return confirm('{{ 'sidebar.confirm'|trans({}, 'AueioClubBundle') }}')">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 	<li><a href="{{ path('aueio_club_game_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endblock %}
 

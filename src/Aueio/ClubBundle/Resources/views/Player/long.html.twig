@@ -1,2 +1,2 @@
 {# src/Aueio/ClubBundle/Resources/views/Player/short.html.twig #}
-<div class="long">{% include 'AueioClubBundle:Player:short.html.twig' %}<div class="team">{% if player.team %}{{ player.team.name }}{% else %}No team{%  endif %}</div><div class="phone">{{ player.phone }}</div></div>
+<div class="long">{% include 'AueioClubBundle:Player:short.html.twig' %}<div class="team">{% if player.team %}{{ player.team.name }}{% else %}{{ 'team.notfound'|trans({}, 'AueioClubBundle') }}{%  endif %}</div><div class="phone">{{ player.phone }}</div></div>

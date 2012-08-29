@@ -20,7 +20,7 @@
 	<h2>{{ 'season.title.list'|trans({}, 'AueioClubBundle') }}</h2>
 	<ul class="list">
     {% for season in seasons %}
-		<li><div class="short"><div class="link"><a href="{{ path('aueio_club_season_view', {"id": season.id}) }}">{{ 'view'|trans({}, 'AueioClubBundle') }}</a>{{ season }}</li>
+		<li>{% include 'AueioClubBundle:Season:short.html.twig' %}</li>
     {% else %}
         <h3>{{ 'season.notfound'|trans({}, 'AueioClubBundle') }}</h3>
     {% endfor %}

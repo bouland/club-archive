@@ -15,18 +15,35 @@ class SeasonRepository extends EntityRepository
 	public function findAllOrdered()
 	{
 		return $this->createQueryBuilder('s')
-		->orderBy('s.startDate' , 'DESC')
+		->orderBy('s.start_date' , 'DESC')
 		->getQuery()->getResult();
 	}
 	public function findByDate(\DateTime $date)
 	{
-		return $this->createQueryBuilder('s')
-		->where('s.startDate < :date')
-		->andWhere('s.endDate > :date')
+		
+		$query =  $this->createQueryBuilder('s')
+		->where('s.start_date < :date')
+		->andWhere('s.end_date > :date')
 		->setMaxResults(1)
 		->setParameters(array(
 				'date' => $date->format("Y-m-d"),
 		))
-		->getQuery()->getSingleResult();
+		->getQuery();
+		try {
+			$season = $query->getSingleResult();
+		} catch (\Doctrine\Orm\NoResultException $e) {
+			$season = null;
+		}
+		return $season;
+	}
+	public function findCurrent(){
+		$season = $this->findByDate(new \DateTime('now'));
+		if(!$season){
+			$seasons = $this->findAllOrdered();
+			if(count($seasons) > 0){
+				$season = $seasons[0];
+			}
+		}
+		return $season;
 	}
 }

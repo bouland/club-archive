@@ -12,13 +12,17 @@
 {% block sidebar %}
 	<li  class="selected"><a href="{{ path('aueio_club_season_view', {"id": season.id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_season_edit', {"id": season.id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
-	<li><a href="{{ path('aueio_club_season_delete', {"id": season.id}) }}">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
+	<li><a href="{{ path('aueio_club_season_delete', {"id": season.id}) }}" onclick="return confirm('{{ 'sidebar.confirm'|trans({}, 'AueioClubBundle') }}')">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 	<li><a href="{{ path('aueio_club_season_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endblock %}
 
 {% block content %}
 	{% if season %}
+		<h3>{{ 'season.title.view'|trans({}, 'AueioClubBundle') }}</h3>
+		<h4>{{ 'season.title.date'|trans({}, 'AueioClubBundle') }}</h4>
 		{% include 'AueioClubBundle:Season:date.html.twig' %}
+		<h4>{{ 'season.title.color'|trans({}, 'AueioClubBundle') }}</h4>
+		{% include 'AueioClubBundle:Season:color.html.twig' %}
 	{% else %}
 		<p>{{ 'season.notfound'|trans({}, 'AueioClubBundle') }}</p>
 	{% endif %}

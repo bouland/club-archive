@@ -1,5 +1,5 @@
 aueio_club:
-    displayname:
-        already_used: "Ce nom est déjà pris."
+    name:
+        already_used: "Ces prénom nom sont déjà pris."
     phone:
         already_used: "Ce numéro de téléphone est déjà utilisé."

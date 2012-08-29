@@ -1,0 +1,26 @@
+{# src/Aueio/ClubBundle/Resources/views/Player/view.html.twig #}
+{% extends 'AueioClubBundle::layout.html.twig' %}
+
+{% block title %}
+	Login
+{% endblock %}
+
+{% block header_menu %}
+	{% include 'AueioClubBundle::tab.menu.html.twig' with {'selected': "player"} %}
+{% endblock %}
+
+{% block fos_user_content %}
+<p>{{ 'resetting.password_already_requested'|trans({}, 'FOSUserBundle') }}</p>
+{% endblock fos_user_content %}
+
+{% block content %}
+	<form action="{{ path('fos_user_resetting_reset', {'token': token}) }}" {{ form_enctype(form) }} method="POST" class="fos_user_resetting_reset">
+	    
+		{{ form_widget(form) }}
+	    <div>
+	        <input class="button button-submit" type="submit" value="{{ 'resetting.reset.submit'|trans({}, 'FOSUserBundle') }}" />
+	    </div>
+	    
+	</form>
+
+{% endblock %}

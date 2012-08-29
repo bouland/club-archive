@@ -1,27 +1,26 @@
 {# src/Aueio/ClubBundle/Resources/views/Team/form.html.twig #}
+{% form_theme form 'AueioClubBundle::form.theme.html.twig' %}
+
 <div class="full">
-	<div id="team-header">
-		<div id="team-desc" class="team-col">
-			<div id="team-avatar"
-				<img alt="team photo" title="photo" src="http://hand/bundles/aueioclub/images/logo.jpeg">
-			</div>
-			<p>
-				{{ form_errors(form.name) }}
-				{{ form_label(form.name, 'Club') }} {{ form_widget(form.name, { 'attr': { 'size' : 31, 'maxlength' : 50} }) }}
-			</p>
-		</div><div id="team-contact" class="team-col">
-			<p>
-				{{ form_errors(form.contacts) }}
-				{{ form_label(form.contacts, 'Contacts') }} {{ form_widget(form.contacts) }}
-			</p>
-			<h4>
-				{{ form_errors(form.adress) }}
-				{{ form_label(form.adress, 'Adresse') }}
-			</h4>
-			<p>
-				{{ form_widget(form.adress, { 'attr': { 'resize' : 'none', 'maxlength' : 255} }) }}
-			</p>
+	<div class="cols">
+		<h3>{{ 'team_team'|trans({}, 'AueioClubBundle') }}</h3>
+		{{ form_row(form.name, { 'attr': { 'size' : 31, 'maxlength' : 50} }) }}
+		{{ form_row(form.colors) }}
+		<div id="slot">
+			<h4>{{ 'team_slot'|trans({}, 'AueioClubBundle') }}</h4>
+			{{ form_row(form.slot_days) }}
+			{{ form_row(form.slot_start_time) }}
+			{{ form_row(form.slot_end_time) }}
+		</div>
+		{{ form_row(form.contacts) }}
+	</div><div id="gym" class="cols">
+		<h3>{{ 'team.gym'|trans({}, 'AueioClubBundle') }}</h3>
+		{{ form_row(form.gym_name) }}
+		{{ form_row(form.gym_phone) }}
+		<div id="slot">
+			{{ form_row(form.adress) }}
 		</div>
 	</div>
+	{% include 'AueioClubBundle::form.submit.html.twig' %}
 </div>
-{% include 'AueioClubBundle::form.submit.html.twig' %}
+

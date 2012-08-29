@@ -20,7 +20,29 @@ class Season
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+    
+    /**
+     * @var string $color
+     *
+     * @ORM\Column(name="color", type="integer", length=2)
+     */
+    private $color;
 	
+    
+    /**
+     * @var datetime $start_date
+     *
+     * @ORM\Column(name="start_date", type="date")
+     */
+    private $start_date;
+
+    /**
+     * @var datetime $end_date
+     *
+     * @ORM\Column(name="end_date", type="date")
+     */
+    private $end_date;
+    
     /**
      * @ORM\OneToMany(targetEntity="Game", mappedBy="season")
      */
@@ -49,20 +71,6 @@ class Season
     private $players;
     
     /**
-     * @var datetime $startDate
-     *
-     * @ORM\Column(name="startDate", type="date")
-     */
-    private $startDate;
-
-    /**
-     * @var datetime endDate
-     *
-     * @ORM\Column(name="endDate", type="date")
-     */
-    private $endDate;
-    
-    /**
      * Constructor
      */
     public function __construct()
@@ -73,7 +81,7 @@ class Season
     }
     
     public function __toString(){
-    	return $this->startDate->format("Y") . " - " . $this->endDate->format("Y");
+    	return $this->start_date->format("Y") . " - " . $this->end_date->format("Y");
     }
     /**
      * Get id
@@ -86,49 +94,49 @@ class Season
     }
 
     /**
-     * Set startDate
+     * Set start_date
      *
-     * @param \DateTime $startDate
+     * @param \DateTime $start_date
      * @return Season
      */
-    public function setStartDate($startDate)
+    public function setStartDate($start_date)
     {
-        $this->startDate = $startDate;
+        $this->start_date = $start_date;
     
         return $this;
     }
 
     /**
-     * Get startDate
+     * Get start_date
      *
      * @return \DateTime 
      */
     public function getStartDate()
     {
-        return $this->startDate;
+        return $this->start_date;
     }
 
     /**
-     * Set endDate
+     * Set end_date
      *
-     * @param \DateTime $endDate
+     * @param \DateTime $end_date
      * @return Season
      */
-    public function setEndDate($endDate)
+    public function setEndDate($end_date)
     {
-        $this->endDate = $endDate;
+        $this->end_date = $end_date;
     
         return $this;
     }
 
     /**
-     * Get endDate
+     * Get end_date
      *
      * @return \DateTime 
      */
     public function getEndDate()
     {
-        return $this->endDate;
+        return $this->end_date;
     }
 
     /**
@@ -320,5 +328,28 @@ class Season
     public function removePlayer(\Aueio\ClubBundle\Entity\Player $players)
     {
         $this->players->removeElement($players);
+    }
+
+    /**
+     * Set color
+     *
+     * @param string $color
+     * @return Season
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+    
+        return $this;
+    }
+
+    /**
+     * Get color
+     *
+     * @return string 
+     */
+    public function getColor()
+    {
+        return $this->color;
     }
 }

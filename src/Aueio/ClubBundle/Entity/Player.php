@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Entity\User;
+use Aueio\ClubBundle\Entity\Adress;
 
 /**
  * Aueio\ClubBundle\Entity\Player
@@ -26,11 +27,18 @@ class Player extends User
 	protected $id;
 	
     /**
-     * @var string $displayname
+     * @var string $firstname
      *
-     * @ORM\Column(name="displayname", type="string", length=50)
+     * @ORM\Column(name="firstname", type="string", length=50)
      */
-    private $displayname;
+    private $firstname;
+    
+    /**
+     * @var string $lastname
+     *
+     * @ORM\Column(name="lastname", type="string", length=50)
+     */
+    private $lastname;
     
     /**
      * @var string $gender
@@ -46,13 +54,12 @@ class Player extends User
     */
     private $phone;
     
-    /**
-    * @var string $adress
+	/**
+    * @var Adress $adress
     *
-    * @ORM\Column(name="adress", type="text")
+    * @ORM\ManyToOne(targetEntity="Adress")
     */
     private $adress;
-    
     
     /**
     * @var boolean $car
@@ -116,7 +123,7 @@ class Player extends User
     }
     
     public function __toString(){
-    	return "Player " . $this->getId() . " " . $this->getDisplayname();
+    	return $this->getFirstname() . " " . $this->getLastname();
     }
     /**
      * Get id
@@ -126,26 +133,6 @@ class Player extends User
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set firstname
-     *
-     * @param string $firstname
-     */
-    public function setDisplayname($displayname)
-    {
-        $this->displayname = $displayname;
-    }
-
-    /**
-     * Get firstname
-     *
-     * @return string 
-     */
-    public function getDisplayname()
-    {
-        return $this->displayname;
     }
 
     /**
@@ -186,26 +173,6 @@ class Player extends User
     public function getPhone()
     {
         return $this->phone;
-    }
-
-    /**
-     * Set adress
-     *
-     * @param text $adress
-     */
-    public function setAdress($adress)
-    {
-        $this->adress = $adress;
-    }
-
-    /**
-     * Get adress
-     *
-     * @return text 
-     */
-    public function getAdress()
-    {
-        return $this->adress;
     }
 
     /**
@@ -393,5 +360,74 @@ class Player extends User
     public function getSeasons()
     {
         return $this->seasons;
+    }
+
+    /**
+     * Set firstname
+     *
+     * @param string $firstname
+     * @return Player
+     */
+    public function setFirstname($firstname)
+    {
+        $this->firstname = $firstname;
+    
+        return $this;
+    }
+
+    /**
+     * Get firstname
+     *
+     * @return string 
+     */
+    public function getFirstname()
+    {
+        return $this->firstname;
+    }
+
+    /**
+     * Set lastname
+     *
+     * @param string $lastname
+     * @return Player
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+    
+        return $this;
+    }
+
+    /**
+     * Get lastname
+     *
+     * @return string 
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * Set adress
+     *
+     * @param Aueio\ClubBundle\Entity\Adress $adress
+     * @return Player
+     */
+    public function setAdress(Adress $adress = null)
+    {
+        $this->adress = $adress;
+    
+        return $this;
+    }
+
+    /**
+     * Get adress
+     *
+     * @return Aueio\ClubBundle\Entity\Adress 
+     */
+    public function getAdress()
+    {
+        return $this->adress;
     }
 }

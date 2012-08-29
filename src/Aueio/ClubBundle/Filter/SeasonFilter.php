@@ -12,7 +12,23 @@ class SeasonFilter extends SQLFilter
 	final public function __construct(EntityManager $em)
 	{
 		parent::__construct($em);
-		$this->setParameter('season_id', $em->getRepository('AueioClubBundle:Config')->find(1)->getSeasonCurrent()->getId(), DBALType::INTEGER);
+		
+		$config = $em->getRepository('AueioClubBundle:Config')->find(1);
+		if($config){
+			$season = $config->getSeasonCurrent();
+		}else{
+			$season = $em->getRepository('AueioClubBundle:Season')->findCurrent();
+		}
+		
+		if($season){
+			$season_id = $season->getId();
+		}else{
+			$season_id = 1;
+		}
+	
+		$this->setParameter('season_id',$season_id, DBALType::INTEGER);
+		
+		//$this->setParameter('season_id',1, DBALType::INTEGER);
 	}
 
 	public function addFilterConstraint(ClassMetadata $targetEntity, $targetTableAlias)

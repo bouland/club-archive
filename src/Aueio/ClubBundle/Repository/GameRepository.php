@@ -3,9 +3,6 @@
 namespace Aueio\ClubBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\DBAL\Types\Type as DBALType;
 
 /**
  * GameRepository

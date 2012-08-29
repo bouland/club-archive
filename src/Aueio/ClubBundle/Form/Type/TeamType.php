@@ -10,10 +10,23 @@ class TeamType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder->add('name', 'text');
-		$builder->add('adress', 'textarea');
+		$builder->add('colors', 'text');
+		$builder->add('slot_days', 'text');
+		$builder->add('slot_start_time', 'time', array(
+				'input'  => 'datetime',
+				'widget' => 'choice',
+				'with_seconds' => false,
+		));
+		$builder->add('slot_end_time', 'time', array(
+				'input'  => 'datetime',
+				'widget' => 'choice',
+				'with_seconds' => false,
+		));
+		$builder->add('gym_name', 'text');
+		$builder->add('gym_phone', 'text');
+		$builder->add('adress',  new AdressType());
 		$builder->add('contacts', 'entity', array(
 												'class' 		=> 'AueioClubBundle:Player',
-												'property'     	=> 'displayname',
 												'expanded'		=> true,
 												'multiple'		=> true,
 										));	}

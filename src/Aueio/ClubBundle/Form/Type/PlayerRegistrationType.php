@@ -6,7 +6,8 @@ use Symfony\Component\Form\FormError,
  	Symfony\Component\Form\FormInterface,
 	Symfony\Component\Form\FormBuilderInterface,
 	Symfony\Component\Form\CallbackValidator,
-	FOS\UserBundle\Form\Type\RegistrationFormType;
+	FOS\UserBundle\Form\Type\RegistrationFormType,
+	Aueio\ClubBundle\Form\Type\AdressType;
 
 class PlayerRegistrationType extends RegistrationFormType
 {
@@ -14,9 +15,10 @@ class PlayerRegistrationType extends RegistrationFormType
 	{
 		parent::buildForm($builder, $options);
 		
-		$builder->add('displayname', 'text');
+		$builder->add('firstname', 'text');
+		$builder->add('lastname', 'text');
 		$builder->add('phone', 'text');
-		$builder->add('adress', 'textarea');
+		$builder->add('adress',  new AdressType());
 		$builder->add('gender', 'choice', array(
 				'choices'   => array('M' => 'Homme', 'F' => 'Femme'),
 				'required'  => true,

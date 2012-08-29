@@ -106,5 +106,41 @@ class SeasonController extends Controller
     			    			'theme' => 'AueioClubBundle::form.theme.html.twig'
     	));
     }
-    
+    /**
+     * @Route("/switch")
+     **/
+    public function switchAction(Request $request)
+    {
+    	$season_id = $this->container->get('request')->getSession()->get('season_id');
+    	
+    	$em = $this->getDoctrine()->getEntityManager();
+    	
+    	if(!$season_id){
+    		$config = $em->getRepository('AueioClubBundle:Config')->find(1);
+    		if($config){
+    			$season = $config->getSeasonCurrent();
+    		}else{
+    			$season = $em->getRepository('AueioClubBundle:Season')->findCurrent();
+    		}
+    		$this->container->get('request')->getSession()->set('season_id', $season->getId());
+    		$this->container->get('request')->getSession()->set('season_color', $season->getColor());
+    	}else{
+    		$season = $em->getRepository('AueioClubBundle:Season')->find($season_id);
+    	}
+    	
+    	$form = $this->createFormBuilder(array('season_current' => $season))
+					->add('season_current', 'entity', array(
+												'class' 	=> 'AueioClubBundle:Season',
+												'expanded'		=> false))
+    				->getForm();
+
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+			$data = $form->getData();
+			$this->container->get('request')->getSession()->set('season_id', $data['season_current']->getId());
+			$this->container->get('request')->getSession()->set('season_color', $data['season_current']->getColor());
+			return $this->redirect($this->get('request')->headers->get('referer'));
+    	}
+        return $this->render('AueioClubBundle:Season:switch.html.twig', array('form' => $form->createView()));
+    }
 }

@@ -6,12 +6,12 @@
 
 {% block body_text %}
 {% autoescape false %}
-{{ 'email.message.hello'|trans({'%displayname%': user.displayname}, 'AueioClubBundle') }}
+{{ 'email.message.hello'|trans({'%firstname%': user.firstname}, 'AueioClubBundle') }}
 
 {{ 'email.message.registration'|trans({},'AueioClubBundle') }} {{ 'email.message.link'|trans({},'AueioClubBundle') }}
 {{ confirmationUrl }}
 
-{{ 'email.message.sign'|trans({'%displayname%': user.displayname}, 'AueioClubBundle') }}
+{{ 'email.message.sign'|trans({}, 'AueioClubBundle') }}
 {% endautoescape %}
 {% endblock %}
 

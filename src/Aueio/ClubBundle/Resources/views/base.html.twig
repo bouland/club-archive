@@ -12,4 +12,19 @@
 	%}
 		<link rel="stylesheet" href="{{ asset_url }}" />
 	{% endjavascripts %}
+	<style type="text/css">
+a{
+	color: hsl({{ app.session.get('season_color') }}, 25%, 48%);
+}
+#sidebar_menu > li.selected > a,
+#sidebar_menu > li:hover > a{
+	background-color: hsl({{ app.session.get('season_color') }}, 25%, 48%);
+	color: white;
+}
+#header_menu > li.selected > a,
+#header_menu > li:hover > a {
+    background-color: white;
+    color: hsl({{ app.session.get('season_color') }}, 25%, 48%);		
+}	
+	</style>
 {% endblock %}

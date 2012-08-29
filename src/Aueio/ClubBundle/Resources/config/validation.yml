@@ -2,13 +2,18 @@
 Aueio\ClubBundle\Entity\Player:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-                     fields: displayname
-                     message: aueio_club.displayname.already_used
+                     fields: [firstname, lastname]
+                     message: aueio_club.name.already_used
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
                      fields: phone
                      message: aueio_club.phone.already_used
     properties:
-        displayname:
+        firstname:
+            - NotBlank: ~
+            - MaxLength: 50
+            - Type:
+                 type: string
+        lastname:
             - NotBlank: ~
             - MaxLength: 50
             - Type:
@@ -22,11 +27,6 @@ Aueio\ClubBundle\Entity\Player:
                  type: string
             - MinLength: 10
             - MaxLength: 10
-        adress:
-            - NotBlank: ~
-            - Type:
-                 type: string
-            - MaxLength: 255
         position:
             - NotBlank: ~
             - Choice: [GOAL, PIVOT, CENTER, BACK, WING]
@@ -44,24 +44,50 @@ Aueio\ClubBundle\Entity\Team:
             - MaxLength: 50
             - Type:
                  type: string
-        adress:
+        slot_days:
+            - NotBlank: ~
+            - MaxLength: 255
+            - Type:
+                 type: string
+        slot_start_time:
+            - NotBlank: ~
+            - Type: \DateTime
+        slot_end_time:
+            - NotBlank: ~
+            - Type: \DateTime
+        colors:
+            - NotBlank: ~
+            - MaxLength: 255
+            - Type:
+                 type: string
+        gym_name:
+            - NotBlank: ~
+            - MaxLength: 50
+            - Type:
+                 type: string
+        gym_phone:
             - NotBlank: ~
             - Type:
                  type: string
-            - MaxLength: 255
+            - MinLength: 10
+            - MaxLength: 10
 
 Aueio\ClubBundle\Entity\Game:
     properties:
-        startTime:
+        date:
             - NotBlank: ~
             - Type: \DateTime
-        endTime:
+        start_time:
+            - NotBlank: ~
+            - Type: \DateTime
+        end_time:
             - NotBlank: ~
             - Type: \DateTime
         comment:
             - MaxLength: 500
             - Type:
                  type: string
+
 Aueio\ClubBundle\Entity\Role:
     properties:
         type:
@@ -70,6 +96,7 @@ Aueio\ClubBundle\Entity\Role:
         score:
             - Type:
                  type: integer
+
 Aueio\ClubBundle\Entity\Config:
     properties:
         secret:

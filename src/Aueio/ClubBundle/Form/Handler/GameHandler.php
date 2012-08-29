@@ -7,6 +7,7 @@ namespace Aueio\ClubBundle\Form\Handler;
 use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Aueio\ClubBundle\Entity\Game;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class GameHandler extends FormHandler
 {
@@ -14,7 +15,7 @@ class GameHandler extends FormHandler
 		$date = $game->getDate();
 		$season = $this->em->getRepository('AueioClubBundle:Season')->findByDate($date);
 		if (!$season) {
-			throw $this->createNotFoundException('No season found for date '. $date->format("Y-m-d"));
+			throw new NotFoundHttpException('No season found for date '. $date->format("Y-m-d"));
 		}
 		$game->setSeason($season);
 		

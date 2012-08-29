@@ -22,7 +22,11 @@ class PlayerRegistrationHandler extends RegistrationFormHandler
 		$this->em = $entityManager;
 	}
 	public function onSuccess(UserInterface $user, $confirmation){
-		$user->setTeam($this->em->getRepository('AueioClubBundle:Config')->find(1)->getTeamDefault());
+		$config = $this->em->getRepository('AueioClubBundle:Config')->find(1);
+		if ($config){
+			$user->setTeam($config->getTeamDefault());
+		}
+		$this->em->persist($user->getAdress());
 		parent::onSuccess($user, $confirmation);
 	}
 }

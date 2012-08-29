@@ -1,0 +1,3 @@
+<form name="form_switch_season" action="{{ path('aueio_club_season_switch') }}" {{ form_enctype(form) }} method="POST" class="season-switch">
+		<h3>{{ 'season.switch'|trans({}, 'AueioClubBundle') }}</h3>{{ form_widget(form.season_current, {'attr': {'onChange': "document.forms['form_switch_season'].submit();"} }) }}
+</form>

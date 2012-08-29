@@ -12,7 +12,7 @@
 {% block sidebar %}
 	<li><a href="{{ path('aueio_club_config_view', {"id": config.id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
 	<li class="selected"><a href="{{ path('aueio_club_config_edit', {"id": config.id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
-	<li><a href="{{ path('aueio_club_config_delete', {"id": config.id}) }}">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
+	<li><a href="{{ path('aueio_club_config_delete', {"id": config.id}) }}" onclick="return confirm('{{ 'sidebar.confirm'|trans({}, 'AueioClubBundle') }}')">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endblock %}
 
 {% block content %}

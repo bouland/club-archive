@@ -18,3 +18,17 @@
 #team > ul.list > li > div.short > div.link{
 	width:20%;
 }
+#team form .cols{
+	padding: 2%;
+	width: 46%;
+}
+#team form .cols > div{
+	margin-bottom: 15px;
+}
+#slot{
+	border: 1px dotted #9E8D99;
+	padding: 5px;
+}
+#slot > div{
+	margin-bottom: 15px;
+}

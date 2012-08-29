@@ -15,12 +15,12 @@ class GameType extends AbstractType
 					'input'  => 'datetime',
 					'widget' => 'choice',
 			));
-			$builder->add('startTime', 'time', array(
+			$builder->add('start_time', 'time', array(
 			    'input'  => 'datetime',
 			    'widget' => 'choice',
 					'with_seconds' => false,
 			));
-			$builder->add('endTime', 'time', array(
+			$builder->add('end_time', 'time', array(
 					'input'  => 'datetime',
 					'widget' => 'choice',
 					'with_seconds' => false,
