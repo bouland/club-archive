@@ -9,7 +9,7 @@ class ConfigType extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		$builder->add('team_default', 'entity', array(
+		$builder->add('team_focus', 'entity', array(
 					'class' 		=> 'AueioClubBundle:Team',
 					'property'     	=> 'name',
 					'expanded'		=> false,

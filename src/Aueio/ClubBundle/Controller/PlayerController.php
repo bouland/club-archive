@@ -45,11 +45,11 @@ class PlayerController extends Controller
     	$season_id = $this->container->get('request')->getSession()->get('season_id');
     	$config = $this->getDoctrine()->getEntityManager()->getRepository('AueioClubBundle:Config')->find(1);
     	if (!$config) {
-    		throw $this->createNotFoundException('No config found for id '.$id);
+    		throw $this->createNotFoundException('No config found');
     	}
     	$team_focus = $config->getTeamFocus();
     	if (!$team_focus) {
-    		throw $this->createNotFoundException('No focus team  found in config for id '.$id);
+    		throw $this->createNotFoundException('No focus team  found in config');
     	}
     	
     	$players = $this->getDoctrine()->getRepository('AueioClubBundle:Player')->findSeasonAll($team_focus, $season_id);
