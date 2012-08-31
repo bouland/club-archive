@@ -1,1 +1,1 @@
-<div class="name">{% if game.roles|length > 0 %}{% include 'AueioClubBundle:Team:link.html.twig' with {'team': game.roles[0].team} %}{% endif %} VS {% if game.roles|length > 1 %}{% include 'AueioClubBundle:Team:link.html.twig' with {'team': game.roles[1].team} %}{% endif %}</div>
+<div class="name">{% if game.roles|length > 0 %}{% include 'AueioClubBundle:Team:link.html.twig' with {'team': game.roles[0].team} %}{% endif %}<div class="vs">VS</div>{% if game.roles|length > 1 %}{% include 'AueioClubBundle:Team:link.html.twig' with {'team': game.roles[1].team} %}{% endif %}</div>

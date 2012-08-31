@@ -53,7 +53,7 @@ class Game implements SeasonAwareInterface
     private $roles;
 
     /**
-     * @ORM\OneToMany(targetEntity="Action", mappedBy="game")
+     * @ORM\OneToMany(targetEntity="Action", mappedBy="game", cascade={"persist", "remove"})
      */
     private $actions;
 

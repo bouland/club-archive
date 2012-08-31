@@ -11,11 +11,11 @@
 
 {% block sidebar %}
 	<li  class="selected"><a href="{{ path('aueio_club_player_view', {"id": player.id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
-{% if (player.id == app.user.id) %}
+{% if (player == app.user) %}
 	<li><a href="{{ path('fos_user_profile_edit') }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
-	<li><a href="{{ path('aueio_club_player_delete', {"id": player.id}) }}">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
+	<li><a href="{{ path('aueio_club_player_delete', {"id": player.id}) }}" onclick="return confirm('{{ 'sidebar.confirm'|trans({}, 'AueioClubBundle') }}')">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 {% elseif is_granted("ROLE_ADMIN") %}
-	<li><a href="{{ path('aueio_club_player_delete', {"id": player.id}) }}">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
+	<li><a href="{{ path('aueio_club_player_delete', {"id": player.id}) }}" onclick="return confirm('{{ 'sidebar.confirm'|trans({}, 'AueioClubBundle') }}')">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endif %}
 {% endblock %}
 
@@ -24,8 +24,8 @@
 	<div class="full">
 		<div id="player-header">
 			<div id="player-desc" class="cols">
-				<p>{{ 'player.name'|trans({}, 'AueioClubBundle') }} : {{ player.firstname }} {{ player.lastname }}</p>
-				{% if player.id == app.user.id %}
+				<p>{{ 'player.name'|trans({}, 'AueioClubBundle') }} : {{ player.firstname }}{% if is_granted("ROLE_USER") %} {{ player.lastname }}{% endif %}</p>
+				{% if (player == app.user) %}
 				<p>{{ 'player.username'|trans({}, 'AueioClubBundle') }} : {{ player.username }}</p>
 				{% endif %}
 				<p>{{ 'player.position'|trans({}, 'AueioClubBundle') }} : {{ ('player.' ~ player.position)|trans({}, 'AueioClubBundle') }}</p>
@@ -36,9 +36,11 @@
 				<p>{{ 'player.view.nocar'|trans({}, 'AueioClubBundle') }}</p>
 				{% endif %}
 			</div><div id="player-contact" class="cols">
+			{% if is_granted("ROLE_USER") %}
 				<p>{{ player.email }}</p>
 				<p>{{ player.phone }}</p>
 				<p>{{ player.adress}}</p>
+			{% endif %}
 			</div>
 		</div>
 		<div id="player-teams" class="cols">

@@ -27,10 +27,16 @@ class TeamType extends AbstractType
 		$builder->add('adress',  new AdressType());
 		$builder->add('contacts', 'entity', array(
 												'class' 		=> 'AueioClubBundle:Player',
-												'expanded'		=> true,
+												'expanded'		=> false,
 												'multiple'		=> true,
-										));	}
-
+										));
+		$builder->add('seasons', 'entity', array(
+				'class' 		=> 'AueioClubBundle:Season',
+				'expanded'		=> false,
+				'multiple'		=> true,
+		));
+	}
+	
 	public function getName()
 	{
 		return 'team';

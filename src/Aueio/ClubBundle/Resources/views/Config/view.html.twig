@@ -21,10 +21,10 @@
 
 {% block content %}
 	{% if config %}
-		<p> Team default : {{ config.teamDefault}}</p>
-		<p> Saison en cours : {{ config.seasonCurrent}}</p>
-		<p> Secret : {{ config.secret}}</p>
+		<p>{{ 'config.team'|trans({'%team%':config.teamFocus}, 'AueioClubBundle') }}</p>
+		<p>{{ 'config.season'|trans({'%season%':config.seasonCurrent}, 'AueioClubBundle') }}</p>
+		<p>{{ 'config.secret'|trans({'%secret%':config.secret}, 'AueioClubBundle') }}</p>
 	{% else %}
-		<p> Pas de config</p>
+		<p>{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }} Pas de config</p>
 	{% endif %}
 {% endblock %}

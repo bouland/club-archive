@@ -2,7 +2,10 @@
 
 namespace Aueio\ClubBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\EntityRepository,
+	Doctrine\ORM\Query\Expr,
+	Aueio\ClubBundle\Entity\Team,
+	Aueio\ClubBundle\Entity\Game;
 
 /**
  * PlayerRepository
@@ -12,7 +15,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class PlayerRepository extends EntityRepository
 {
-	public function findActionByGame($action_type, $game_id, $team_id){
+	public function findActionByGame(Game $game, $team_id, $action_type){
 		return $this->createQueryBuilder('p')
 			->join('p.team', 't')
 			->leftJoin('p.actions', 'a')
@@ -21,11 +24,64 @@ class PlayerRepository extends EntityRepository
 			->andWhere('g.id = :id_game')
 			->andWhere('t.id = :id_team')
 			->setParameters(array(
-					'type' => $action_type,
-					'id_game' => $game_id,
+					'id_game' => $game->getId(),
 					'id_team' => $team_id,
+					'type' => $action_type,
 			))
 			->getQuery()->getResult();
+	}
+	public function findWithoutActionByGame(Game $game, $team_id)
+	{
+		return $this->getEntityManager()->getConnection()->fetchAll("SELECT p.id, p.firstname, p.lastname FROM players p
+LEFT JOIN seasons_players s 
+ON p.id = s.player_id
+INNER JOIN teams t
+ON p.team_id = t.id
+LEFT JOIN roles r
+ON r.team_id = t.id
+INNER JOIN games g
+ON r.game_id = g.id
+LEFT JOIN actions a
+ON (a.player_id = p.id AND a.game_id = g.id)
+WHERE (s.season_id = g.season_id AND g.id = {$game->getId()} AND t.id = {$team_id} AND a.id IS NULL);");
+	}
+	public function findSeasonTeamContacts(Team $team, $season_id){
+		return $this->createQueryBuilder('p')
+		->leftJoin('p.seasons', 's')
+		->leftJoin('p.leads', 't')
+		->where('s.id = :id_season')
+		->andWhere('t.id = :id_team')
+		->setParameters(array(
+				'id_season' => $season_id,
+				'id_team' => $team->getId(),
+		))
+		->getQuery()->getResult();
+	}
+	public function findSeasonTeamMembers(Team $team, $season_id){
+		return $this->createQueryBuilder('p')
+		->leftJoin('p.seasons', 's')
+		->join('p.team', 't')
+		->where('t.id = :id_team')
+		->andWhere('s.id = :id_season')
+		->orderBy('p.firstname')
+		->setParameters(array(
+				'id_season' => $season_id,
+				'id_team' => $team->getId(),
+		))
+		->getQuery()->getResult();
+	}
+	public function findSeasonAll(Team $team, $season_id){
+		return $this->createQueryBuilder('p')
+		->join('p.team', 't')
+		->leftJoin('p.seasons', 's')
+		->where('s.id = :id_season')
+		->andWhere('t.id = :id_team')
+		->orderBy('p.firstname')
+		->setParameters(array(
+				'id_season' => $season_id,
+				'id_team' => $team->getId(),
+		))
+		->getQuery()->getResult();
 	}
 
 }

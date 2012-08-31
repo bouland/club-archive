@@ -25,7 +25,7 @@ class Config
      * @ORM\OneToOne(targetEntity="Team")
      * @ORM\JoinColumn(name="team_id", referencedColumnName="id", nullable=true)
     */
-    private $team_default;
+    private $team_focus;
 
     /**
      * @ORM\OneToOne(targetEntity="Season")
@@ -72,25 +72,25 @@ class Config
     }
 
     /**
-     * Set team_default
+     * Set team_focus
      *
      * @param Aueio\ClubBundle\Entity\Team $teamDefault
      */
-    public function setTeamDefault(\Aueio\ClubBundle\Entity\Team $teamDefault)
+    public function setTeamFocus(\Aueio\ClubBundle\Entity\Team $teamDefault)
     {
-        $this->team_default = $teamDefault;
+        $this->team_focus = $teamDefault;
     }
-	public function removeTeamDefault(){
-		$this->team_default = null;
+	public function removeTeamFocus(){
+		$this->team_focus = null;
 	}
     /**
-     * Get team_default
+     * Get team_focus
      *
      * @return Aueio\ClubBundle\Entity\Team 
      */
-    public function getTeamDefault()
+    public function getTeamFocus()
     {
-        return $this->team_default;
+        return $this->team_focus;
     }
 
     /**

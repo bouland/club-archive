@@ -3,7 +3,7 @@
 
 {% block body %}
 
-	<div id="header" style="background-color: hsl({{ app.session.get('season_color') }}, 25%, 48%);">
+	<div id="header" style="background-color: rgb({{ app.session.get('season_color') }});">
 		<div class="inner">
 			<div id="header_switch">
 			{% render 'AueioClubBundle:Season:switch' %}
@@ -34,8 +34,8 @@
 	</div>
 	<div id="wrapper">
 		<div class="inner">
-			<div id="layout">
-				<div id="sidebar" style="background-color: hsla({{ app.session.get('season_color') }}, 25%, 48%, 0.3);">
+			<div id="layout" style="background-color: rgba({{ app.session.get('season_color') }}, 0.3)">
+				<div id="sidebar">
 		       		 <ul id="sidebar_menu">
 		            {% block sidebar %}
 		            {% endblock %}
@@ -65,7 +65,7 @@
 	    </div>
      </div>
      
-     <div id="footer">
+     <div id="footer" style="background-color: rgb({{ app.session.get('season_color') }});">
 		<div class="inner">
 			<div id="footer_menu">
 				<ul>

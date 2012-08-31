@@ -1,4 +1,2 @@
 {# src/Aueio/ClubBundle/Resources/views/Player/tab.link.html.twig #}
-{% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
 <li {% if selected == "player" %}class="selected" {%  endif %}><a href="{{ path('aueio_club_player_list') }}">{{ 'tab.player'|trans({}, 'AueioClubBundle') }}</a></li>
-{% endif %}

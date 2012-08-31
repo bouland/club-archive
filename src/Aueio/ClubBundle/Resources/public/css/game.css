@@ -3,7 +3,7 @@
 ul.game-selection-cols > li{
 	display: inline-block;
 	vertical-align: top;
-	width: 158px;;	
+	width: 124px;;	
 	border-right: 1px dotted #9E8D99;
 	padding: 10px;
 	min-height: 150px;
@@ -39,7 +39,7 @@ ul.game-selection-menu > li {
 }
 
 #game ul.list div.short div.name{
-	width:50%;
+	width:58%;
 }
 .score {
 	font-size: 1.5em;
@@ -101,4 +101,9 @@ li.action{
 	float: left;
 	width: 30%;
 }
-
+#game div.name > div.vs{
+	width: 10%;
+}
+#game div.name > div.link{
+	width: 40%;
+}

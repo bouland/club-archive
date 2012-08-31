@@ -29,7 +29,8 @@ security:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/player, role: ROLE_USER }
+        - { path: ^/profile, role: ROLE_USER }
+        - { path: ^/player/delete, role: ROLE_USER }
         - { path: ^/game/selection, role: ROLE_USER }
         - { path: ^/game/sheet, role: ROLE_USER }
         - { path: ^/game/score, role: ROLE_USER }

@@ -26,15 +26,25 @@
 			<div class="cols">
 				<h3>{{ 'team.view.title.adress'|trans({}, 'AueioClubBundle') }}</h3>
 				<p>{{ team.adress}}</p>
-			</div><div class="cols">
 				<h3>{{ 'team.view.title.contact'|trans({}, 'AueioClubBundle') }}</h3>
 				<ul>
-			    {% for player in team.contacts %}
+			    {% for player in contacts %}
 					<li class="player">{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}</li>
 			    {% else %}
 			        <h4>{{ 'team.notfound'|trans({}, 'AueioClubBundle') }}</h4>
 			    {% endfor %}
 				</ul>
+			</div><div id="team-players" class="cols">
+				<h3>{{ 'team.view.title.player'|trans({'%count%': members|length}, 'AueioClubBundle') }}</h3>
+				<ul>
+				{% for player in members %}
+					<li class="player">
+					{% include 'AueioClubBundle:Player:short.html.twig' with {'player': player} %}
+					</li>
+				{% else %}
+			        <h3>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h3>
+			    {% endfor %}
+			    </ul>
 			</div>
 		</div>
 		<div class="stats">
@@ -60,26 +70,16 @@
 			</ul>
 	
 		</div>
-		<div id="team-games" class="cols">
-			<h3>{{ 'team.view.title.game'|trans({}, 'AueioClubBundle') }}</h3>
+		<div id="team-games">
+			{% set roles = team.roles %}
+			<h3>{{ 'team.view.title.game'|trans({'%count%': roles|length}, 'AueioClubBundle') }}</h3>
 			<ul>
-		    {% for role in team.roles %}
+		    {% for role in roles %}
 				<li class="role">{% include 'AueioClubBundle:Role:team.html.twig' with {'role': role, 'id': team.id} %}</li>
 		    {% else %}
 		        <h3>{{ 'game.notfound'|trans({}, 'AueioClubBundle') }}</h3>
 		    {% endfor %}
 			</ul>
-		</div><div id="team-players" class="cols">
-			<h3>{{ 'team.view.title.player'|trans({}, 'AueioClubBundle') }}</h3>
-			<ul>
-			{% for player in team.players %}
-				<li class="player">
-				{% include 'AueioClubBundle:Player:short.html.twig' with {'player': player} %}
-				</li>
-			{% else %}
-		        <h3>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h3>
-		    {% endfor %}
-		    </ul>
 		</div>
 	</div>
 </div>

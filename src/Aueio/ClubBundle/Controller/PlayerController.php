@@ -23,13 +23,8 @@ class PlayerController extends Controller
 	/**
 	* @Route("/view/{id}", requirements={"id" = "\d+"})
 	*/
-	public function viewAction($id)
+	public function viewAction(Player $player)
     {
-    	$em = $this->getDoctrine()->getEntityManager();
-    	$player = $em->getRepository('AueioClubBundle:Player')->find($id);
-    	if (!$player) {
-    		throw $this->createNotFoundException('No player found for id '.$id);
-    	}
     	return $this->render('AueioClubBundle:Player:view.html.twig', array('player' => $player));
     }
     /**
@@ -37,21 +32,26 @@ class PlayerController extends Controller
      */
     public function listAction()
     {
-    	$players = $this->getDoctrine()->getRepository('AueioClubBundle:Player')->findAll();
+    	$season_id = $this->container->get('request')->getSession()->get('season_id');
+    	$config = $this->getDoctrine()->getEntityManager()->getRepository('AueioClubBundle:Config')->find(1);
+    	if (!$config) {
+    		throw $this->createNotFoundException('No config found for id '.$id);
+    	}
+    	$team_focus = $config->getTeamFocus();
+    	if (!$team_focus) {
+    		throw $this->createNotFoundException('No focus team  found in config for id '.$id);
+    	}
+    	
+    	$players = $this->getDoctrine()->getRepository('AueioClubBundle:Player')->findSeasonAll($team_focus, $season_id);
     	return $this->render('AueioClubBundle:Player:list.html.twig', array('players' => $players));
     }
     /**
      * @Route("/delete/{id}", requirements={"id" = "\d+"})
      **/
-    public function deleteAction($id){
+    public function deleteAction(Player $player){
     	$em = $this->getDoctrine()->getEntityManager();
-    
-    	$player = $em->getRepository('AueioClubBundle:Player')->find($id);
-    	if (!$player) {
-    		throw $this->createNotFoundException('No player found for id '.$id);
-    	}
-    	if ( $player->getId() == $this->get('security.context')->getToken()->getUser()->getId() ) {
-	    	$em->remove($player);
+    	if ( $player == $this->get('security.context')->getToken()->getUser()) {
+    		$em->remove($player);
 	    	$em->flush();
 	    	return $this->redirect($this->generateUrl('fos_user_security_logout'));
     	}elseif($this->get('security.context')->isGranted('ROLE_ADMIN')){
@@ -62,17 +62,20 @@ class PlayerController extends Controller
     		return $this->redirect($this->get('request')->headers->get('referer'));
     	}
     }
-    public function statsAction($player)
+    public function statsAction(Player $player)
     {
     	$em = $this->getDoctrine()->getEntityManager();
-    	if (!$player) {
-    		throw $this->createNotFoundException('Need player to calculate stats');
-    	}
     	if($player->getTeam()){
     		$stats = $em->getRepository('AueioClubBundle:Action')->getStats($player->getId());
     		$stats['total'] = count($player->getTeam()->getRoles());
     	}else{
     		$stats = array('play' => 0,'total' => 0);
+    	}
+    	if($stats['total'] > ($stats['play']+$stats['miss']))
+    	{
+    		$stats['error'] = $em->getRepository('AueioClubBundle:Game')->findWithoutActionByPlayer($player->getId());
+    	}else{
+    		$stats['error'] = 0;
     	}
     	return $this->render('AueioClubBundle:Player:stats.html.twig', array('stats' =>$stats));
     }

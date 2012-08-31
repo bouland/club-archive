@@ -140,15 +140,15 @@ p
     padding-bottom: 5px;
 }
 #header {
-	background: url("/bundles/aueioclub/images/header_shadow.png") repeat-x scroll left bottom;
+	background: url("/bundles/aueioclub/images/header_shadow.png") repeat-x scroll left bottom  #86717F;
     position: relative;
     min-height: 90px;
     vertical-align: top;
 }
 #header_title{
-	width: 780px;
+	width: 600px;
 	top: 0;
-	left:220px;
+	left:200px;
 	position: absolute;
 }
 #header_title h1{
@@ -193,7 +193,7 @@ p
 }
 #header_switch{
 	display: inline-block;
-	width: 220px;
+	width: 200px;
 	position: absolute;
 	bottom: 0px;
 }
@@ -221,14 +221,15 @@ form.season-switch h3{
 }
 .inner {
 	position: relative;
-	width: 1000px;
+	width: 800px;
 	margin: 0 auto;
+	min-height:100%;
 }
 #header > .inner{
 	height: 90px;
 }
 #sidebar{
-	width: 200px;
+	width: 180px;
     float: left;
 	position: relative;
     padding: 20px 10px;
@@ -257,11 +258,12 @@ form.season-switch h3{
 	min-height: 100%;
 }		
 #content {
-	width:   720px;
+	width:   580px;
 	overflow:auto;
 	padding: 10px 10px 40px 10px;
-	margin:0 0 0 220px;
+	margin:0 0 0 200px;
 	min-height: 200px;
+	background: none repeat scroll 0 0 white;
 }  /* must be same height as the footer */
 #content-login{
 	text-align: right;
@@ -369,7 +371,9 @@ div.adress,
 div.team,
 div.phone,
 div.position,
-div.hand{
+div.hand,
+div.short-link,
+div.vs{
 	display: inline-block;
 }
 ul.list > li > div {
@@ -390,6 +394,9 @@ ul.list > li > div {
 .stats > ul {
     padding: 10px;
 }
+.stats > ul > li.error{
+	width: 50%;
+}
 .stats > ul > li {
 	display: inline-block;
 	vertical-align: top;
@@ -406,13 +413,14 @@ ul.list > li > div {
 .stats > ul > li > ul >.blue{
 	color: blue;
 }
+
 li.player > div.short {
 	width: 100%;
 }
 .full div.name{
 	width: 100%;
 	text-align: center;
-	font-size: 40px;
+	font-size: 25px;
 	margin-bottom: 20px;
 }
 #intro{

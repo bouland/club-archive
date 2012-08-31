@@ -38,7 +38,12 @@ class PlayerProfileType extends ProfileFormType
 		$builder->add('team', 'entity', array(
 												'class' 		=> 'AueioClubBundle:Team',
 												'property'     	=> 'name',
-												'expanded'	=> true,
+												'expanded'	=> false,
+										));
+		$builder->add('seasons', 'entity', array(
+												'class' 		=> 'AueioClubBundle:Season',
+												'expanded'		=> false,
+												'multiple'		=> true,
 										));
 		
 	}

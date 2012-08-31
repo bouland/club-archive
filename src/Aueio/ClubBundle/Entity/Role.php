@@ -42,14 +42,14 @@ class Role  implements SeasonAwareInterface
 	private $result;
 	
 	/**
-	 * @ORM\ManyToOne(targetEntity="Game")
-	 * @ORM\JoinColumn(name="game_id", referencedColumnName="id", onDelete="CASCADE")
+	 * @ORM\ManyToOne(targetEntity="Game", cascade={"persist", "remove"})
+	 * @ORM\JoinColumn(name="game_id", referencedColumnName="id")
 	 */
 	private $game;
 
 	/**
 	 * @ORM\ManyToOne(targetEntity="Team")
-	 * @ORM\JoinColumn(name="team_id", referencedColumnName="id", onDelete="CASCADE")
+	 * @ORM\JoinColumn(name="team_id", referencedColumnName="id")
 	 */
 	private $team;
 	

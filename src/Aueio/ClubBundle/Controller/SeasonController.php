@@ -19,12 +19,8 @@ class SeasonController extends Controller
 	/**
 	* @Route("/view/{id}", requirements={"id" = "\d+"}, defaults={"id"=1})
 	*/
-	public function viewAction($id)
+	public function viewAction(Season $season)
     {
-    	$season = $this->getDoctrine()
-				    	->getRepository('AueioClubBundle:Season')
-				    	->find($id);
-
     	return $this->render('AueioClubBundle:Season:view.html.twig', array('season' => $season));
     }
     /**
@@ -38,18 +34,12 @@ class SeasonController extends Controller
     /**
      * @Route("/delete/{id}", requirements={"id" = "\d+"})
      **/
-    public function deleteAction($id){
+    public function deleteAction(Season $season){
     	$em = $this->getDoctrine()->getEntityManager();
-    
-    	$season = $em->getRepository('AueioClubBundle:Season')->find($id);
-    	if (!$season) {
-    		throw $this->createNotFoundException('No season found for id '.$id);
-    	}
-    	 
     	$em->remove($season);
     	$em->flush();
     	 
-    	return $this->redirect($this->generateUrl('aueio_club_season_new'));
+    	return $this->redirect($this->generateUrl('aueio_club_season_list'));
     }
     /**
      * @Route("/new")
@@ -80,15 +70,10 @@ class SeasonController extends Controller
     /**
      * @Route("/edit/{id}", requirements={"id" = "\d+"})
      **/
-    public function editAction($id, Request $request)
+    public function editAction(Season $season, Request $request)
     {
     	$em = $this->getDoctrine()->getEntityManager();
     
-    	$season = $em->getRepository('AueioClubBundle:Season')->find($id);
-    	if (!$season) {
-    		throw $this->createNotFoundException('No season found for id '.$id);
-    	}
-    	
     	$form = $this->createForm(new SeasonType, $season);
     	 
     	$formHandler = new SeasonHandler($form, $request, $em);
@@ -98,7 +83,6 @@ class SeasonController extends Controller
     	{
     		return $this->redirect($this->generateUrl('aueio_club_season_view', array('id' => $season->getId())));
     	}
-    
     
     	return $this->render('AueioClubBundle:Season:edit.html.twig', array(
     			'season' => $season,

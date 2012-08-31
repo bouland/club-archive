@@ -96,13 +96,18 @@ class Player extends User
     private $team;
 
     /**
-     * @ORM\OneToMany(targetEntity="Action", mappedBy="player")
+     * @ORM\OneToMany(targetEntity="Action", mappedBy="player", cascade={"persist", "remove"})
      */
     private $actions;
     
-
     /**
-     * @ORM\ManyToMany(targetEntity="Season", mappedBy="players")
+     * @ORM\ManyToMany(targetEntity="Team" , mappedBy="contacts")
+     */
+	private $leads;
+	
+    /**
+     * @ORM\ManyToMany(targetEntity="Season", inversedBy="players")
+     * @ORM\JoinTable(name="seasons_players")
      */
     private $seasons;
 
@@ -118,13 +123,153 @@ class Player extends User
     public function __construct()
     {
         parent::__construct();
-        $this->games = new \Doctrine\Common\Collections\ArrayCollection();
         $this->actions = new \Doctrine\Common\Collections\ArrayCollection();
+    	$this->leads = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->seasons = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
     public function __toString(){
     	return $this->getFirstname() . " " . $this->getLastname();
     }
+    
+    /**
+     * Set team
+     *
+     * @param Aueio\ClubBundle\Entity\Team $team
+     */
+    public function setTeam(\Aueio\ClubBundle\Entity\Team $team)
+    {
+    	$team->addPlayer($this);
+        $this->team = $team;
+    }
+    public function removeTeam()
+    {
+    	$this->team->removePlayer($this);
+    	$this->team = null;
+    }
+    /**
+     * Get team
+     *
+     * @return Aueio\ClubBundle\Entity\Team 
+     */
+    public function getTeam()
+    {
+        return $this->team;
+    }
+    
+    /**
+     * Add leads
+     *
+     * @param Aueio\ClubBundle\Entity\Team $leads
+     * @return Player
+     */
+    public function addLead(\Aueio\ClubBundle\Entity\Team $team)
+    {
+    	$this->leads[] = $team;
+    	return $this;
+    }
+    
+    /**
+     * Remove lead
+     *
+     * @param Aueio\ClubBundle\Entity\Team $team
+     */
+    public function removeLead(\Aueio\ClubBundle\Entity\Team $team)
+    {
+    	$this->leads->removeElement($team);
+    }
+    /**
+     * Remove leads
+     */
+    public function removeLeads()
+    {
+    	foreach($this->leads as $team){
+    		$team->removeContact($this);
+    	}
+    }
+    /**
+     * Get leads
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getLeads()
+    {
+    	return $this->leads;
+    }
+    
+    /**
+     * Add actions
+     *
+     * @param Aueio\ClubBundle\Entity\Action $actions
+     */
+    public function addAction(\Aueio\ClubBundle\Entity\Action $actions)
+    {
+    	$this->actions[] = $actions;
+    }
+
+    /**
+     * Remove actions
+     *
+     * @param Aueio\ClubBundle\Entity\Action $actions
+     */
+    public function removeAction(\Aueio\ClubBundle\Entity\Action $actions)
+    {
+    	$this->actions->removeElement($actions);
+    }
+    
+    /**
+     * Get actions
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getActions()
+    {
+    	return $this->actions;
+    }
+    
+    /**
+     * Add seasons
+     *
+     * @param Aueio\ClubBundle\Entity\Season $seasons
+     * @return Player
+     */
+    public function addSeason(\Aueio\ClubBundle\Entity\Season $season)
+    {
+    	$season->addPlayer($this);
+    	$this->seasons[] = $season;
+    
+    	return $this;
+    }
+    
+    /**
+     * Remove seasons
+     *
+     * @param Aueio\ClubBundle\Entity\Season $seasons
+     */
+    public function removeSeason(\Aueio\ClubBundle\Entity\Season $season)
+    {
+    	$season->removePlayer($this);
+    	$this->seasons->removeElement($season);
+    }
+    /**
+     * Remove leads
+     */
+    public function removeSeasons()
+    {
+    	foreach($this->seasons as $season){
+    		$this->removeSeason($season);
+    	}
+    }
+    /**
+     * Get seasons
+     *
+     * @return Doctrine\Common\Collections\Collection
+     */
+    public function getSeasons()
+    {
+    	return $this->seasons;
+    }
+    
     /**
      * Get id
      *
@@ -236,80 +381,6 @@ class Player extends User
     }
 
     /**
-     * Get date_register
-     *
-     * @return date 
-     */
-    public function getDateRegister()
-    {
-        return $this->date_register;
-    }
-
-    /**
-     * Set team
-     *
-     * @param Aueio\ClubBundle\Entity\Team $team
-     */
-    public function setTeam(\Aueio\ClubBundle\Entity\Team $team)
-    {
-    	$team->addPlayer($this);
-        $this->team = $team;
-    }
-    public function removeTeam()
-    {
-    	$this->team = null;
-    }
-    /**
-     * Get team
-     *
-     * @return Aueio\ClubBundle\Entity\Team 
-     */
-    public function getTeam()
-    {
-        return $this->team;
-    }
-
-    /**
-     * Add games
-     *
-     * @param Aueio\ClubBundle\Entity\Game $games
-     */
-    public function addGame(\Aueio\ClubBundle\Entity\Game $games)
-    {
-        $this->games[] = $games;
-    }
-
-    /**
-     * Get games
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getGames()
-    {
-        return $this->games;
-    }
-
-    /**
-     * Add actions
-     *
-     * @param Aueio\ClubBundle\Entity\Action $actions
-     */
-    public function addAction(\Aueio\ClubBundle\Entity\Action $actions)
-    {
-        $this->actions[] = $actions;
-    }
-
-    /**
-     * Get actions
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getActions()
-    {
-        return $this->actions;
-    }
-
-    /**
      * Get created
      *
      * @return date 
@@ -319,49 +390,7 @@ class Player extends User
         return $this->created;
     }
 
-    /**
-     * Remove actions
-     *
-     * @param Aueio\ClubBundle\Entity\Action $actions
-     */
-    public function removeAction(\Aueio\ClubBundle\Entity\Action $actions)
-    {
-        $this->actions->removeElement($actions);
-    }
-
-    /**
-     * Add seasons
-     *
-     * @param Aueio\ClubBundle\Entity\Season $seasons
-     * @return Player
-     */
-    public function addSeason(\Aueio\ClubBundle\Entity\Season $seasons)
-    {
-        $this->seasons[] = $seasons;
     
-        return $this;
-    }
-
-    /**
-     * Remove seasons
-     *
-     * @param Aueio\ClubBundle\Entity\Season $seasons
-     */
-    public function removeSeason(\Aueio\ClubBundle\Entity\Season $seasons)
-    {
-        $this->seasons->removeElement($seasons);
-    }
-
-    /**
-     * Get seasons
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getSeasons()
-    {
-        return $this->seasons;
-    }
-
     /**
      * Set firstname
      *

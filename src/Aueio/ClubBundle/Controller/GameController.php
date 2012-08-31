@@ -28,14 +28,8 @@ class GameController extends Controller
 	/**
 	* @Route("/view/{id}", requirements={"id" = "\d+"})
 	*/
-	public function viewAction($id)
+	public function viewAction(Game $game)
     {
-    	$game = $this->getDoctrine()
-				    	->getRepository('AueioClubBundle:Game')
-				    	->find($id);
-    	if (!$game) {
-    		throw $this->createNotFoundException('No game found for id '.$id);
-    	}
         return $this->render('AueioClubBundle:Game:view.html.twig', array('game' => $game));
     }
     /**
@@ -43,28 +37,19 @@ class GameController extends Controller
      */
     public function listAction()
     {
+    	//$season_id = $this->container->get('request')->getSession()->get('season_id');
     	$em = $this->getDoctrine()->getEntityManager();
-    	 
+    	//$em->getFilters()->enable('season')->setParameter('season_id', $season_id);
     	$games = $em->getRepository('AueioClubBundle:Game')->findAll();
     	return $this->render('AueioClubBundle:Game:list.html.twig', array('games' => $games));
     }
     /**
      * @Route("/delete/{id}", requirements={"id" = "\d+"})
      **/
-    public function deleteAction($id){
+    public function deleteAction(Game $game){
     	$em = $this->getDoctrine()->getEntityManager();
-    
-    	$game = $em->getRepository('AueioClubBundle:Game')->find($id);
-    	if (!$game) {
-    		throw $this->createNotFoundException('No game found for id '.$id);
-    	}
-    	
-    	foreach ($game->getActions() AS $action) {
-    		$em->remove($action);
-    	}
     	$em->remove($game);
     	$em->flush();
-    	 
     	return $this->redirect($this->generateUrl('aueio_club_game_list'));
     }
     /**
@@ -91,6 +76,7 @@ class GameController extends Controller
     	$formHandler = new GameHandler($form, $request, $em);
     	if( $formHandler->process() )
         {
+        	$this->container->get('request')->getSession()->set('season_id', $game->getSeason()->getId());
     		return $this->redirect($this->generateUrl('aueio_club_game_view', array('id' => $game->getId())));
     	}
     
@@ -101,14 +87,10 @@ class GameController extends Controller
     /**
      * @Route("/edit/{id}", requirements={"id" = "\d+"})
      **/
-    public function editAction($id, Request $request)
+    public function editAction(Game $game, Request $request)
     {
     	$em = $this->getDoctrine()->getEntityManager();
-    
-    	$game = $em->getRepository('AueioClubBundle:Game')->find($id);
-    	if (!$game) {
-    		throw $this->createNotFoundException('No game found for id '.$id);
-    	}
+
     	$form = $this->createForm(new GameType(), $game, array('form' => 'new'));
     
     	$formHandler = new GameHandler($form, $request, $em);
@@ -122,14 +104,10 @@ class GameController extends Controller
     /**
      * @Route("/sheet/{id}", requirements={"id" = "\d+"})
      **/
-    public function sheetAction($id, Request $request)
+    public function sheetAction(Game $game, Request $request)
     {
     	$em = $this->getDoctrine()->getEntityManager();
-    
-    	$game = $em->getRepository('AueioClubBundle:Game')->find($id);
-    	if (!$game) {
-    		throw $this->createNotFoundException('No game found for id '.$id);
-    	}
+
     	$form = $this->createForm(new GameType(), $game, array('form' => 'result'));
     
     	$formHandler = new GameHandler($form, $request, $em);
@@ -143,77 +121,27 @@ class GameController extends Controller
     /**
      * @Route("/selection/{id}/{team_index}", requirements={"id" = "\d+"}, defaults={"team_index" = 0})
      **/
-    public function selectionAction($id, $team_index, Request $request)
+    public function selectionAction(Game $game, $team_index, Request $request)
     {
     	$em = $this->getDoctrine()->getEntityManager();
     	
-    	$game = $em->getRepository('AueioClubBundle:Game')->find($id);
-    	if (!$game) {
-    		throw $this->createNotFoundException('No game found for id '.$id);
-    	}
-
-    	$id_team = $this->getTeamFocus($game, $team_index);
-    	
-    	$play = array();
-    	$miss = array();
-    	$shop = array();
+    	$team_id = $this->getTeamFocus($game, $team_index);
     	
     	$repository = $em->getRepository('AueioClubBundle:Player');
     	foreach( array('miss','shop', 'play') as $action_type) {
-    		$players[$action_type] = $repository->findActionByGame($action_type, $game->getId(), $id_team);
+    		$players[$action_type] = $repository->findActionByGame($game, $team_id, $action_type);
     	}
-
-    	$query = $repository->createQueryBuilder('p')
-    	//->addSelect('count(p)')
-    	->join('p.team', 't')
-    	->leftJoin('t.roles', 'r')
-    	->join('r.game', 'g')
-    	//->leftJoin('p.actions', 'a')
-    	//->join('a.game', 'g2')
-    	->where('g.id = :id_game')
-    	->andWhere('t.id = :id_team')
-    	->setParameters(array(
-    			'id_game' => $id,
-    			'id_team' => $id_team,
-    	))
-    	->getQuery();
-    	$result = $query->getResult();
-    	if(is_array($result)){
-    		$players['wait'] = $result;
-    	}
-
-    	/*
-    	$query = $repository->createQueryBuilder('p')
-    	->join('p.team', 't')
-    	->leftJoin('t.roles', 'r')
-    	->join('r.game', 'g')
-    	->leftJoin('p.actions', 'a')
-    	->where('g.id = :id')
-    	->andWhere('a.id IS NULL')
-    	->setParameters(array(
-    			'id' => $id,
-    	))
-    	->getQuery();
-    	$wait2 = $query->getResult();
-    	
-    	
-    	*/
+    	$players['wait'] = $repository->findWithoutActionByGame($game, $team_id);
     	
     	return $this->render('AueioClubBundle:Game:selection.html.twig', array('game' => $game, 'players' => $players));
     }
     /**
      * @Route("/score/{id}/{id_goal}", requirements={"id" = "\d+", "id_goal" = "\d+"} , defaults={"id_goal" = "0"})
      **/
-    public function scoreAction($id, $id_goal, Request $request)
+    public function scoreAction(Game $game, $id_goal, Request $request)
     {
     	$em = $this->getDoctrine()->getEntityManager();
-    
-    	$game = $em->getRepository('AueioClubBundle:Game')->find($id);
-    	if (!$game) {
-    		throw $this->createNotFoundException('No game found for id '.$id);
-    	}
-    	
-    	
+       	
     	$players = array();
     	$repository = $em->getRepository('AueioClubBundle:Action');
     	

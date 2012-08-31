@@ -12,4 +12,14 @@ use Doctrine\ORM\EntityRepository;
  */
 class TeamRepository extends EntityRepository
 {
+	public function findSeasonAll($season_id){
+		return $this->createQueryBuilder('t')
+		->leftJoin('t.seasons', 's')
+		->where('s.id = :id_season')
+		->orderBy('t.name')
+		->setParameters(array(
+				'id_season' => $season_id,
+		))
+		->getQuery()->getResult();
+	}
 }

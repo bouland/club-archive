@@ -2,7 +2,8 @@
 
 namespace Aueio\ClubBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\EntityRepository,
+	Aueio\ClubBundle\Entity\Team;
 
 /**
  * ActionRepository
@@ -12,17 +13,17 @@ use Doctrine\ORM\EntityRepository;
  */
 class RoleRepository extends EntityRepository
 {
-	public function getStats($id)
+	public function getStats(Team $team)
 	{
 		$stats = array();
 		foreach ( array("local", "visitor", "giveup") as $type ){
-			$res = $this->findByType($id, $type);
+			$res = $this->findByType($team, $type);
 			if(is_array($res)){
 				$stats[$type] = count($res);
 			}
 		}
 		foreach ( array("win", "lost", "nul") as $result ){
-			$res = $this->findByResult($id, $result);
+			$res = $this->findByResult($team, $result);
 			if(is_array($res)){
 				$stats[$result] = count($res);
 			}
@@ -30,25 +31,25 @@ class RoleRepository extends EntityRepository
 		
 		return $stats;
 	}
-	public function findByType($id, $type){
+	public function findByType(Team $team, $type){
 		
 		return $this->createQueryBuilder('r')
 		->join('r.team', 't')
 		->where('t.id = :id_team')
 		->andWhere('r.type = :type')
 		->setParameters(array(
-				'id_team' => $id,
+				'id_team' => $team->getId(),
 				'type' => $type
 		))
 		->getQuery()->getResult();
 	}
-	public function findByResult($id, $result){
+	public function findByResult(Team $team, $result){
 		return $this->createQueryBuilder('r')
 		->join('r.team', 't')
 	 	->where('t.id = :id_team')
 		->andWhere('r.result = :result')
 		->setParameters(array(
-				'id_team' => $id,
+				'id_team' => $team->getId(),
 				'result' => $result
 		))
 		->getQuery()->getResult();

@@ -18,6 +18,10 @@ config:
         new: "Config nouvelle"
         edit: "Config modification"
         view: "Config vue"
+    team: "Team en focus : %team%"
+    season: "Saison en cours : %season%"
+    secret: "Réponses au secret du formulaire d'enrgistrement : %secret%"
+    notfound: "Aucune configuration"
 game:
     WIN: WIN
     LOST: LOST
@@ -77,7 +81,7 @@ player:
             team: "Son équipe"
     stats:
         title: Statistiques
-        error: "Matchs est en rouge car il doit etre à 100% sinon les stats sont biaisées. Tu n'as pas répondu à toutes les sélections"
+        error: "Matchs n'est pas à 100% car tu n'as pas répondu aux sélections suivantes :"
     name: Noms
     username: Login
     position: Poste
@@ -113,8 +117,8 @@ team:
         title:
             adress: "Adresse"
             contact: "Contacts"
-            game: "Matchs"
-            player: "Membres"
+            game: "Matchs (%count%)"
+            player: "Membres (%count%)"
         stats:
             title: "Statistiques"
             win: "%nb% (%percent%%) Victoires"
@@ -181,6 +185,7 @@ team_slot_days: Jour de la semaine
 team_slot_start_time: Heure de début
 team_slot_end_time: Heure de fin
 team_contacts: Contacts
+team_seasons: Saisons
 team_gym_name: Nom
 team_gym_phone: Téléphone
 team_adress_name: Rue

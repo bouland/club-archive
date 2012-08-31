@@ -12,4 +12,15 @@ use Doctrine\ORM\EntityRepository;
  */
 class GameRepository extends EntityRepository
 {
+	public function findWithoutActionByPlayer($player_id)
+	{
+		return $this->getEntityManager()->getConnection()->fetchAll("SELECT g.id, g.date
+FROM games g
+LEFT JOIN roles r ON r.game_id = g.id
+INNER JOIN teams t ON t.id = r.team_id
+LEFT JOIN players p ON p.team_id = t.id
+LEFT JOIN actions a ON (a.player_id = p.id AND a.game_id = g.id)
+WHERE ( 5 = g.season_id
+AND p.id = {$player_id} AND a.id IS NULL)");
+		}
 }

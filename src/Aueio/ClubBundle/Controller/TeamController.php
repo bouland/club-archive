@@ -21,44 +21,39 @@ class TeamController extends Controller
 	/**
 	* @Route("/view/{id}", requirements={"id" = "\d+"})
 	*/
-	public function viewAction($id)
+	public function viewAction(Team $team)
     {
     	$em = $this->getDoctrine()->getEntityManager();
-    	$team = $em->getRepository('AueioClubBundle:Team')->find($id);
-    	if (!$team) {
-    		throw $this->createNotFoundException('No team found for id '.$id);
-    	}
-    	$stats = $em->getRepository('AueioClubBundle:Role')->getStats($id);
+    	$season_id = $this->container->get('request')->getSession()->get('season_id');
+    	$contacts = $em->getRepository('AueioClubBundle:Player')->findSeasonTeamContacts($team, $season_id);
+    	$members = $em->getRepository('AueioClubBundle:Player')->findSeasonTeamMembers($team, $season_id);
+    	$stats = $em->getRepository('AueioClubBundle:Role')->getStats($team);
     	$stats['total'] = count($team->getRoles());
     	
-        return $this->render('AueioClubBundle:Team:view.html.twig', array('team' => $team, 'stats' => $stats));
+        return $this->render('AueioClubBundle:Team:view.html.twig', array('team' => $team, 'members' => $members, 'contacts' => $contacts, 'stats' => $stats));
     }
     /**
      * @Route("/list")
      */
     public function listAction()
     {
-    	$teams = $this->getDoctrine()->getRepository('AueioClubBundle:Team')->findAll();
+    	$season_id = $this->container->get('request')->getSession()->get('season_id');
+    	$teams = $this->getDoctrine()->getRepository('AueioClubBundle:Team')->findSeasonAll($season_id);
     	return $this->render('AueioClubBundle:Team:list.html.twig', array('teams' => $teams));
     }
     /**
      * @Route("/delete/{id}", requirements={"id" = "\d+"})
      **/
-    public function deleteAction($id){
+    public function deleteAction(Team $team){
     	$em = $this->getDoctrine()->getEntityManager();
     
-    	$team = $em->getRepository('AueioClubBundle:Team')->find($id);
-    	if (!$team) {
-    		throw $this->createNotFoundException('No team found for id '.$id);
-    	}
     	$config = $em->getRepository('AueioClubBundle:Config')->find(1);
-    	if($config->getTeamDefault()->getId() == $id){
-    		$config->removeTeamDefault();
+    	if($config->getTeamFocus() == $team){
+    		$config->removeTeamFocus();
     	}
-    	
     	$team->removePlayers();
-        foreach ($team->getRoles() AS $role) {
-    		$em->remove($role);
+    	foreach($team->getRoles() as $role){
+    		$em->remove($role->getGame());
     	}
     	$em->remove($team);
     	$em->flush();
@@ -71,11 +66,8 @@ class TeamController extends Controller
     public function newAction(Request $request)
     {
     	$em = $this->getDoctrine()->getEntityManager();
-    	// just setup a fresh $task object (remove the dummy data)
-    	$team = new Team();
     	
-    	 
-    	$form = $this->createForm(new TeamType(), $team);
+    	$form = $this->createForm(new TeamType(), new Team());
     
     	$formHandler = new TeamHandler($form, $request, $em);
     	if( $formHandler->process() )
@@ -90,19 +82,14 @@ class TeamController extends Controller
     /**
      * @Route("/edit/{id}", requirements={"id" = "\d+"})
      **/
-    public function editAction($id, Request $request)
+    public function editAction(Team $team, Request $request)
     {
     	$em = $this->getDoctrine()->getEntityManager();
-    
-    	$team = $em->getRepository('AueioClubBundle:Team')->find($id);
-    	if (!$team) {
-    		throw $this->createNotFoundException('No team found for id '.$id);
-    	}
+    	
     	$form = $this->createForm(new TeamType(), $team);
     
     	$formHandler = new TeamHandler($form, $request, $em);
     	
-    	// On exécute le traitement du formulaire. S'il retourne true, alors le formulaire a bien été traité
         if( $formHandler->process() )
         {
     		return $this->redirect($this->generateUrl('aueio_club_team_view', array('id' => $team->getId())));

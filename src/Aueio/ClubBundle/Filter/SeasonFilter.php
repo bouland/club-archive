@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping\ClassMetaData,
 	
 class SeasonFilter extends SQLFilter
 {
-	
+/*
 	final public function __construct(EntityManager $em)
 	{
 		parent::__construct($em);
@@ -30,7 +30,7 @@ class SeasonFilter extends SQLFilter
 		
 		//$this->setParameter('season_id',1, DBALType::INTEGER);
 	}
-
+*/
 	public function addFilterConstraint(ClassMetadata $targetEntity, $targetTableAlias)
 	{
 		// Check if the entity implements the LocalAware interface

@@ -85,10 +85,7 @@ class Team
 
     /**
      * @ORM\ManyToMany(targetEntity="Player")
-     * @ORM\JoinTable(name="teams_contacts",
-     *      joinColumns={@ORM\JoinColumn(name="team_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@ORM\JoinColumn(name="player_id", referencedColumnName="id")}
-     *      )
+     * @ORM\JoinTable(name="teams_contacts"),
      */
     private $contacts;
     
@@ -107,7 +104,8 @@ class Team
     private $roles;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Season", mappedBy="teams")
+     * @ORM\ManyToMany(targetEntity="Season", inversedBy="teams")
+     * @ORM\JoinTable(name="seasons_teams")
      */
     private $seasons;
 
@@ -119,6 +117,7 @@ class Team
         $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
 	    $this->players = new \Doctrine\Common\Collections\ArrayCollection();
 	    $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
+	    $this->seasons = new \Doctrine\Common\Collections\ArrayCollection();
     }
     /**
      * Get id
@@ -270,9 +269,10 @@ class Team
      * @param Aueio\ClubBundle\Entity\Season $seasons
      * @return Team
      */
-    public function addSeason(Season $seasons)
+    public function addSeason(Season $season)
     {
-        $this->seasons[] = $seasons;
+    	$season->addTeam($this);
+        $this->seasons[] = $season;
     
         return $this;
     }
@@ -282,9 +282,10 @@ class Team
      *
      * @param Aueio\ClubBundle\Entity\Season $seasons
      */
-    public function removeSeason(Season $seasons)
+    public function removeSeason(Season $season)
     {
-        $this->seasons->removeElement($seasons);
+    	$season->removeTeam($this);
+        $this->seasons->removeElement($season);
     }
 
     /**

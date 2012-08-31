@@ -24,7 +24,7 @@ class Season
     /**
      * @var string $color
      *
-     * @ORM\Column(name="color", type="integer", length=2)
+     * @ORM\Column(name="color", type="string", length=11)
      */
     private $color;
 	
@@ -44,29 +44,27 @@ class Season
     private $end_date;
     
     /**
-     * @ORM\OneToMany(targetEntity="Game", mappedBy="season")
+     * @ORM\OneToMany(targetEntity="Game", mappedBy="season", cascade={"persist", "remove"})
      */
     private $games;
 
     /**
-     * @ORM\OneToMany(targetEntity="Action", mappedBy="season")
+     * @ORM\OneToMany(targetEntity="Action", mappedBy="season", cascade={"persist", "remove"})
      */
     private $actions;
 
     /**
-     * @ORM\OneToMany(targetEntity="Role", mappedBy="season")
+     * @ORM\OneToMany(targetEntity="Role", mappedBy="season", cascade={"persist", "remove"})
      */
     private $roles;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Team", inversedBy="seasons")
-     * @ORM\JoinTable(name="seasons_teams")
+     * @ORM\ManyToMany(targetEntity="Team", mappedBy="seasons")
      */
     private $teams;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Player", inversedBy="seasons")
-     * @ORM\JoinTable(name="seasons_players")
+     * @ORM\ManyToMany(targetEntity="Player", mappedBy="seasons")
      */
     private $players;
     

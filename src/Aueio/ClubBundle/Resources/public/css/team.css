@@ -12,15 +12,14 @@
 	display: inline-block;
 	width: 33%;
 }
-#team-games > ul {
-	border-right: 1px dotted #9E8D99;
-}
-#team > ul.list > li > div.short > div.link{
-	width:20%;
-}
 #team form .cols{
 	padding: 2%;
 	width: 46%;
+}
+#team_seasons,
+#team_contacts{
+	display: block;
+	width: 100%;
 }
 #team form .cols > div{
 	margin-bottom: 15px;
