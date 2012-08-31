@@ -6,6 +6,7 @@ namespace Aueio\ClubBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -25,6 +26,15 @@ class PlayerController extends Controller
 	*/
 	public function viewAction(Player $player)
     {
+    	return $this->render('AueioClubBundle:Player:view.html.twig', array('player' => $player));
+    }
+    
+    public function showAction()
+    {
+    	$player = $this->container->get('security.context')->getToken()->getUser();
+        if (!is_object($player) || !$player instanceof Player) {
+            throw new AccessDeniedException('This user does not have access to this section.');
+        }
     	return $this->render('AueioClubBundle:Player:view.html.twig', array('player' => $player));
     }
     /**

@@ -18,11 +18,11 @@ class SeasonSubscriber implements EventSubscriberInterface
 		}
 		//  filter controllers that have not EntityManager. (i.e Assetic, Render, etc ..)
 		$class = get_class($controller[0]);
-		if (mb_strpos($class, 'Aueio\ClubBundle\Controller') === false ){
+		if (mb_strpos($class, 'Aueio\ClubBundle\Controller') === false){
 			return;
 		}
 		$em = $controller[0]->getDoctrine()->getEntityManager();
-		if($controller[1] == 'deleteAction'){
+		if($controller[1] == 'deleteAction' || $controller[1] == 'showAction'){
 			$em->getFilters()->disable('season');
 			return;
 		}
