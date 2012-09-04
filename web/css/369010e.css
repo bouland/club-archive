@@ -43,10 +43,7 @@ ul.game-selection-menu > li {
 #game ul.list div.short div.name{
 	width:58%;
 }
-.score {
-	font-size: 1.5em;
-	margin-bottom:20px;
-}
+
 #results > li > input{
 	width: 32px;
 	display: inline-block;
@@ -103,13 +100,18 @@ li.action{
 	float: left;
 	width: 30%;
 }
-#game div.name > div.vs{
-	width: 10%;
+#game div.name > div.score{
+	width: 20%;
 }
 #game div.name > div.link{
-	width: 40%;
+	width: 36%;
 }
-
+#game .list .short div.name > div.link{
+	padding: 0 2%;
+}
+#game .list .short div.name > div:first-child{
+	text-align: right;
+}
 @CHARSET "UTF-8";
 html{
 	color:#000;background:#FFF;
@@ -385,7 +387,6 @@ ul.list > li {
 	line-height: 25px;
 }
 ul.list {
-	border-top: 1px dotted #9E8D99;
     clear: both;
     margin: 5px 0;
 }
@@ -485,8 +486,32 @@ div.phone,
 div.position,
 div.hand,
 div.short-link,
-div.vs{
+div.vs,
+div.day,
+div.nb,
+div.month,
+div.year,
+div.scores,
+div.score{
 	display: inline-block;
+}
+div.scores{
+	width: 55px;
+	text-align:	center;
+}
+div.day{
+	width:65px;
+	text-align: right;
+}
+div.nb{
+	width:30px;
+	text-align:	center;
+}
+div.month{
+	width:80px;
+}
+div.year{
+	width:40px;
 }
 ul.list > li > div {
 	width: 100%;
@@ -564,13 +589,6 @@ li.player div.short > div{
 }
 
 @CHARSET "UTF-8";
-.LOST,
-.WIN,
-.NUL,
-.VISITOR,
-.LOCAL{
-	display:inline;
-}
 div.LOST{
 	color:red;
 }

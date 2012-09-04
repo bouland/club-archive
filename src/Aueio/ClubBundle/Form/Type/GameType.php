@@ -5,12 +5,13 @@ namespace Aueio\ClubBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Aueio\ClubBundle\Form\Type\RoleType;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class GameType extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		if($options['form'] == 'new' || $options['form'] == 'edit'){
+		if($options['intention'] == 'create' || $options['intention'] == 'edit'){
 			$builder->add('date', 'date', array(
 					'input'  => 'datetime',
 					'widget' => 'choice',
@@ -29,7 +30,7 @@ class GameType extends AbstractType
 			$builder->add('comment', 'textarea', array('required' => false));
 		}
 		$builder->add('roles', 'collection', array( 'type' => new RoleType(),
-													'options' => array('form' => $options['form']),
+													'options' => array('intention' => $options['intention']),
 												  ));
 	}
 
@@ -37,12 +38,11 @@ class GameType extends AbstractType
 	{
 		return 'game';
 	}
-	
-	public function getDefaultOptions(array $options)
+	public function setDefaultOptions(OptionsResolverInterface $resolver)
 	{
-		return array(
-				'form' => 'new',
+		$resolver->setDefaults(array(
+				'intention' => 'create',
 				'data_class' => 'Aueio\ClubBundle\Entity\Game',
-		);
+		));
 	}
 }

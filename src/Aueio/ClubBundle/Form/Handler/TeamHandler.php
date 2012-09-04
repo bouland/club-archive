@@ -10,9 +10,12 @@ use Aueio\ClubBundle\Entity\Team;
 
 class TeamHandler extends FormHandler
 {
-	public function onSuccess(Team $team){
+	public function onSuccess(Team $team)
+	{
+		$this->em->getRepository('AueioClubBundle:Adress');
 		$this->em->persist($team->getAdress());
 		$this->em->persist($team);
 		$this->em->flush();
+		return true;
 	}
 }

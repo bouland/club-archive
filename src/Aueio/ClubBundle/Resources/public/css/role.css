@@ -1,11 +1,4 @@
 @CHARSET "UTF-8";
-.LOST,
-.WIN,
-.NUL,
-.VISITOR,
-.LOCAL{
-	display:inline;
-}
 div.LOST{
 	color:red;
 }

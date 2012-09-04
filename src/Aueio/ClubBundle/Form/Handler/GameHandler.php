@@ -34,5 +34,6 @@ class GameHandler extends FormHandler
 		}
 		$this->em->persist($game);
 		$this->em->flush();
+		return true;
 	}
 }

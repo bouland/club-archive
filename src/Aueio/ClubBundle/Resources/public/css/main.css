@@ -273,7 +273,6 @@ ul.list > li {
 	line-height: 25px;
 }
 ul.list {
-	border-top: 1px dotted #9E8D99;
     clear: both;
     margin: 5px 0;
 }
@@ -373,8 +372,32 @@ div.phone,
 div.position,
 div.hand,
 div.short-link,
-div.vs{
+div.vs,
+div.day,
+div.nb,
+div.month,
+div.year,
+div.scores,
+div.score{
 	display: inline-block;
+}
+div.scores{
+	width: 55px;
+	text-align:	center;
+}
+div.day{
+	width:65px;
+	text-align: right;
+}
+div.nb{
+	width:30px;
+	text-align:	center;
+}
+div.month{
+	width:80px;
+}
+div.year{
+	width:40px;
 }
 ul.list > li > div {
 	width: 100%;

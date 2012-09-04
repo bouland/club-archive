@@ -32,7 +32,17 @@ class PlayerRepository extends EntityRepository
 	}
 	public function findWithoutActionByGame(Game $game, $team_id)
 	{
-		return $this->getEntityManager()->getConnection()->fetchAll("SELECT p.id, p.firstname, p.lastname FROM players p
+/*		$em = $this->getEntityManager();
+		$em->getFilters()->disable('season');
+		$query = $em->createQuery("SELECT p
+FROM Aueio\ClubBundle\Entity\Player p
+INNER JOIN Aueio\ClubBundle\Entity\Team t WHERE t = p.team 
+LEFT JOIN Aueio\ClubBundle\Entity\Role r WHERE r.team = t
+INNER JOIN Aueio\ClubBundle\Entity\Game g WHERE g = r.game
+LEFT JOIN Aueio\ClubBundle\Entity\Action a WHERE (a.player = p AND a.game = g)
+WHERE (t.id = {$team_id} AND a.id IS NULL)");
+		return $query->getResult();
+*/		return $this->getEntityManager()->getConnection()->fetchAll("SELECT p.id, p.firstname, p.lastname FROM players p
 LEFT JOIN seasons_players s 
 ON p.id = s.player_id
 INNER JOIN teams t
@@ -70,16 +80,13 @@ WHERE (s.season_id = g.season_id AND g.id = {$game->getId()} AND t.id = {$team_i
 		))
 		->getQuery()->getResult();
 	}
-	public function findSeasonAll(Team $team, $season_id){
+	public function findBySeason($season_id){
 		return $this->createQueryBuilder('p')
-		->join('p.team', 't')
 		->leftJoin('p.seasons', 's')
 		->where('s.id = :id_season')
-		->andWhere('t.id = :id_team')
 		->orderBy('p.firstname')
 		->setParameters(array(
 				'id_season' => $season_id,
-				'id_team' => $team->getId(),
 		))
 		->getQuery()->getResult();
 	}

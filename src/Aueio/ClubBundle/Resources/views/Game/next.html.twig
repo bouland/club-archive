@@ -1,0 +1,1 @@
+{% for r in game.roles%}{% if r.team.id != team.id %}{% include 'AueioClubBundle:Team:link.html.twig' with {'team': r.team} %}{%endif%}{% endfor %}<div class="link"><a href="{{ path('aueio_club_game_selection', {"id": game.id}) }}">{% include 'AueioClubBundle:Game:date.html.twig' %}</a></div>

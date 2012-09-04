@@ -11,7 +11,6 @@
 
 {% form_theme form 'AueioClubBundle::form.theme.html.twig' %}
 
-
 {% block content %}
 	<form action="{{ path('fos_user_registration_register') }}" {{ form_enctype(form) }} method="POST" class="fos_user_registration_register">
 	    {% include 'AueioClubBundle::form.submit.html.twig' %}

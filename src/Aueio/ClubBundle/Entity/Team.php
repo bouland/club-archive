@@ -109,6 +109,13 @@ class Team
      */
     private $seasons;
 
+    /**
+     * @param Player $from
+     * @param text $subject
+     * @param text $message
+     * 
+     */
+    
     public function __toString(){
     	return $this->name;
     }
@@ -208,11 +215,12 @@ class Team
      *
      * @return Doctrine\Common\Collections\Collection 
      */
+    /* don't use it, without season filter capability
     public function getPlayers()
     {
         return $this->players;
     }
-
+	*/
     /**
      * Add roles
      *

@@ -1,0 +1,12 @@
+{% block subject %}
+{% autoescape false %}
+{{ subject }}
+{% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+{% autoescape false %}
+	{{ message }}
+{% endautoescape %}
+	{{ 'email.message.sign'|trans({ '%name%': from.firstname}, 'AueioClubBundle') }}
+{% endblock %}

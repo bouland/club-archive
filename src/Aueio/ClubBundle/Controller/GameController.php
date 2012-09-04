@@ -71,7 +71,7 @@ class GameController extends Controller
     	$game->addRole($local);
     	$game->addRole($visitor);
     	
-    	$form = $this->createForm(new GameType(), $game, array('form' => 'new'));
+    	$form = $this->createForm(new GameType(), $game);
     	 
     	$formHandler = new GameHandler($form, $request, $em);
     	if( $formHandler->process() )
@@ -91,7 +91,7 @@ class GameController extends Controller
     {
     	$em = $this->getDoctrine()->getEntityManager();
 
-    	$form = $this->createForm(new GameType(), $game, array('form' => 'new'));
+    	$form = $this->createForm(new GameType(), $game, array('intention' => 'edit'));
     
     	$formHandler = new GameHandler($form, $request, $em);
     	if( $formHandler->process() )

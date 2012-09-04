@@ -1,4 +1,6 @@
 view: "Voir "
+layout:
+    title: Terrible Handball Club
 # Emails
 email:
     subject:
@@ -28,6 +30,8 @@ game:
     NUL: NUL
     VISITOR: Visiteurs
     LOCAL: Locaux
+    score: Scores
+    date: Date du match
     notfound: "Aucun match"
     title:
         new: "Nouveau match"
@@ -56,6 +60,7 @@ game:
 sidebar:
     view: Voir
     new: Créer
+    contact: Envoyer un mail
     edit: Modifier
     delete: Supprimer
     selection: Sélection des joueurs
@@ -82,6 +87,7 @@ player:
     stats:
         title: Statistiques
         error: "Matchs n'est pas à 100% car tu n'as pas répondu aux sélections suivantes :"
+        noavailable: "Ce joueur n'a pas participé à cette saison"
     name: Noms
     username: Login
     position: Poste
@@ -119,6 +125,9 @@ team:
             contact: "Contacts"
             game: "Matchs (%count%)"
             player: "Membres (%count%)"
+            news:
+                game: "Prochain match"
+                trainning: "Prochain entrainement"
         stats:
             title: "Statistiques"
             win: "%nb% (%percent%%) Victoires"
@@ -138,23 +147,24 @@ score:
 config_team_default: Team focus
 config_secret: Réponses au secret d'enregistrement
 
-fos_user_profile_form_user_username:             "Nom d'utilisateur"
-fos_user_profile_form_user_email:                "Adresse e-mail"
-fos_user_profile_form_user_plainPassword_first:  "Mot de passe"
-fos_user_profile_form_user_plainPassword_second: "Vérification"
-fos_user_registration_form_firstname: "Prénom"
-fos_user_registration_form_lastname: "NOM"
-fos_user_profile_form_user_phone: "Téléphone"
-fos_user_registration_form_adress: "Adresse"
-fos_user_registration_form_adress_name: "Rue"
-fos_user_registration_form_adress_code: "Code postale"
-fos_user_registration_form_adress_city: "Ville"
-fos_user_profile_form_user_gender: "Genre"
-fos_user_profile_form_user_car: "As tu une voiture ?"
-fos_user_profile_form_user_position: "De préférence à quel poste joues tu ?"
-fos_user_profile_form_user_hand: "Main de tir"
-fos_user_profile_form_user_secret: "Le prénom d'un de nos Gardiens"
-fos_user_profile_form_current: "Saisi ton mot de passe"
+fos_user_profile_form_username:             "Nom d'utilisateur"
+fos_user_profile_form_email:                "Adresse e-mail"
+fos_user_profile_form_plainPassword_first:  "Mot de passe"
+fos_user_profile_form_plainPassword_second: "Vérification"
+fos_user_profile_form_firstname: "Prénom"
+fos_user_profile_form_lastname: "NOM"
+fos_user_profile_form_phone: "Téléphone"
+fos_user_profile_form_adress: "Adresse"
+fos_user_profile_form_adress_name: "Rue"
+fos_user_profile_form_adress_code: "Code postale"
+fos_user_profile_form_adress_city: "Ville"
+fos_user_profile_form_gender: "Genre"
+fos_user_profile_form_car: "As tu une voiture ?"
+fos_user_profile_form_position: "De préférence à quel poste joues tu ?"
+fos_user_profile_form_hand: "Main de tir"
+fos_user_profile_form_secret: "Le prénom d'un de nos Gardiens"
+fos_user_profile_form_current_password: "Saisi ton mot de passe"
+fos_user_profile_form_team: "Equipe"
 
 fos_user_registration_form_username:             "Nom d'utilisateur"
 fos_user_registration_form_email:                "Adresse e-mail"
@@ -172,6 +182,7 @@ fos_user_registration_form_car: "As tu une voiture ?"
 fos_user_registration_form_position: "De préférence à quel poste joues tu ?"
 fos_user_registration_form_hand: "Main de tir"
 fos_user_registration_form_secret: "Le prénom d'un de nos Gardiens"
+fos_user_registration_form_team: "Equipe"
 
 season_color: Couleur format HTML
 season_start_date: début

@@ -16,7 +16,7 @@ class AdressType extends AbstractType
 
 	public function getName()
 	{
-		return 'config';
+		return 'adress';
 	}
 	
 	public function getDefaultOptions(array $options)

@@ -30,9 +30,7 @@ class FormHandler
 
 			if( $this->form->isValid() )
 			{
-				$this->onSuccess($this->form->getData());
-
-				return true;
+				return $this->onSuccess($this->form->getData());
 			}
 		}
 

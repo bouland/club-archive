@@ -3,7 +3,7 @@
 
 namespace Aueio\ClubBundle\Form\Handler;
 
-use FOS\UserBundle\Form\Handler\RegistrationFormHandler;
+use FOS\UserBundle\Form\Handler\ProfileFormHandler;
 use FOS\UserBundle\Model\UserInterface;
 use FOS\UserBundle\Model\UserManagerInterface;
 use FOS\UserBundle\Mailer\MailerInterface;
@@ -12,7 +12,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManager;
 
-class PlayerRegistrationHandler extends RegistrationFormHandler
+class PlayerProfileHandler extends ProfileFormHandler
 {
 	private $em;
 	
@@ -21,7 +21,7 @@ class PlayerRegistrationHandler extends RegistrationFormHandler
 		parent::__construct($form,$request,$userManager,$mailer,$tokenGenerator);
 		$this->em = $entityManager;
 	}
-	public function onSuccess(UserInterface $player, $confirmation){
+	public function onSuccess(UserInterface $player){
 		$adress_new = $player->getAdress();
 		$adress = $this->em->getRepository('AueioClubBundle:Adress')->findBy(array(	'name' => $adress_new->getName(),
 																					'code' => $adress_new->getCode(),
@@ -39,6 +39,6 @@ class PlayerRegistrationHandler extends RegistrationFormHandler
 			$player->addSeason($this->em->getRepository('AueioClubBundle:Season')->findCurrent());
 		}
 		
-		parent::onSuccess($player, $confirmation);
+		parent::onSuccess($player);
 	}
 }

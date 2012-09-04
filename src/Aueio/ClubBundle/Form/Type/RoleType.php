@@ -4,13 +4,14 @@ namespace Aueio\ClubBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class RoleType extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		
-		if($options['form'] == 'new' || $options['form'] == 'edit'){
+		if($options['intention'] == 'create' || $options['intention'] == 'edit'){
 			$builder->add('team', 'entity', array(
 					'class' 		=> 'AueioClubBundle:Team',
 					'property'     	=> 'name',
@@ -27,11 +28,11 @@ class RoleType extends AbstractType
 		return 'role';
 	}
 	
-	public function getDefaultOptions(array $options)
+	public function setDefaultOptions(OptionsResolverInterface $resolver)
 	{
-		return array(
-				'form' => 'new',
+		$resolver->setDefaults(array(
+				'intention' => 'create',
 				'data_class' => 'Aueio\ClubBundle\Entity\Role',
-		);
+		));
 	}
 }

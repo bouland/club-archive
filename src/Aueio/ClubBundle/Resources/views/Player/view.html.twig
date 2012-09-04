@@ -11,6 +11,7 @@
 
 {% block sidebar %}
 	<li  class="selected"><a href="{{ path('aueio_club_player_view', {"id": player.id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_player_contact', {"id": player.id}) }}">{{ 'sidebar.contact'|trans({}, 'AueioClubBundle') }}</a>
 {% if (player == app.user) %}
 	<li><a href="{{ path('fos_user_profile_edit') }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_player_delete', {"id": player.id}) }}" onclick="return confirm('{{ 'sidebar.confirm'|trans({}, 'AueioClubBundle') }}')">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>

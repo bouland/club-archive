@@ -23,6 +23,15 @@
             <tag name="form.type" alias="aueio_club_profile" />
             <argument>%fos_user.model.user.class%</argument>
         </service>
+        
+		<service id="aueio_club.form.handler.profile" class="Aueio\ClubBundle\Form\Handler\PlayerProfileHandler" scope="request" public="false">
+            <argument type="service" id="fos_user.profile.form" />
+            <argument type="service" id="request" />
+            <argument type="service" id="fos_user.user_manager" />
+            <argument type="service" id="fos_user.mailer" />
+            <argument type="service" id="fos_user.util.token_generator" />
+            <argument type="service" id="doctrine.orm.entity_manager" />
+        </service>
 <!--
 		<service id="kernel.listener.session_listener" class="Aueio\ClubBundle\Filter\SeasonListener">
             <tag name="kernel.event_listener" event="kernel.controller" method="onKernelController" />
@@ -32,6 +41,16 @@
             <tag name="kernel.event_subscriber"/>
         </service>
 
+		<service id="aueio_club.mailer" class="Aueio\ClubBundle\Service\Mailer">
+            <argument type="service" id="mailer" />
+        	<argument type="service" id="templating" />
+        	<argument type="service" id="doctrine.orm.entity_manager" />
+        	<argument type="service" id="session" />
+        </service>
+        
+        <service id="aueio.twig.aueio_extension" class="Aueio\ClubBundle\Twig\AueioExtension">
+        	<tag name="twig.extension" />
+    	</service>
     </services>
 
 </container>

@@ -12,7 +12,7 @@ use Doctrine\ORM\EntityRepository;
  */
 class TeamRepository extends EntityRepository
 {
-	public function findSeasonAll($season_id){
+	public function findBySeason($season_id){
 		return $this->createQueryBuilder('t')
 		->leftJoin('t.seasons', 's')
 		->where('s.id = :id_season')

@@ -8,11 +8,9 @@ use Symfony\Component\Form\Form;
 use Symfony\Component\HttpFoundation\Request;
 use Aueio\ClubBundle\Entity\Config;
 
-class ConfigHandler extends FormHandler
+class ContactHandler extends FormHandler
 {
-	public function onSuccess(Config $config){
-		$this->em->persist($config);
-		$this->em->flush();
-		return true;
+	public function onSuccess(Array $data){
+		
 	}
 }

@@ -97,9 +97,9 @@ class SeasonController extends Controller
     {
     	$season_id = $this->container->get('request')->getSession()->get('season_id');
     	
-    	$em = $this->getDoctrine()->getEntityManager();
     	
     	if(!$season_id){
+    		$em = $this->getDoctrine()->getEntityManager();
     		$config = $em->getRepository('AueioClubBundle:Config')->find(1);
     		if($config){
     			$season = $config->getSeasonCurrent();
@@ -109,6 +109,7 @@ class SeasonController extends Controller
     		$this->container->get('request')->getSession()->set('season_id', $season->getId());
     		$this->container->get('request')->getSession()->set('season_color', $season->getColor());
     	}else{
+    		$em = $this->getDoctrine()->getEntityManager();
     		$season = $em->getRepository('AueioClubBundle:Season')->find($season_id);
     	}
     	

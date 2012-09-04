@@ -1,6 +1,6 @@
 _welcome:
     pattern:  /
-    defaults: { _controller: AueioClubBundle:Game:list }
+    defaults: { _controller: AueioClubBundle:Team:welcome }
 
 AueioClubBundle:
     resource: "@AueioClubBundle/Controller/"

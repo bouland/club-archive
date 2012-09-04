@@ -11,16 +11,18 @@
 
 {% block sidebar %}
 	<li><a href="{{ path('aueio_club_team_view', {"id": team.id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
-	<li><a href="{{ path('aueio_club_team_contact', {"id": team.id}) }}">{{ 'sidebar.contact'|trans({}, 'AueioClubBundle') }}</a>
-	<li class="selected"><a href="{{ path('aueio_club_team_edit', {"id": team.id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
+	<li class="selected"><a href="{{ path('aueio_club_team_contact', {"id": team.id}) }}">{{ 'sidebar.contact'|trans({}, 'AueioClubBundle') }}</a>
+{% if is_granted("ROLE_ADMIN") %}
+	<li><a href="{{ path('aueio_club_team_edit', {"id": team.id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_team_delete', {"id": team.id}) }}" onclick="return confirm('{{ 'sidebar.confirm'|trans({}, 'AueioClubBundle') }}')">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 	<li><a href="{{ path('aueio_club_team_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>
+{% endif %}
 {% endblock %}
 
 {% block content %}
 <div id="team">
-	<form action="{{ path('aueio_club_team_edit', {"id": team.id}) }}" method="post" {{ form_enctype(form) }}>
-		{% include 'AueioClubBundle:Team:form.html.twig' %}
+	<form action="{{ path('aueio_club_team_contact', {"id": team.id}) }}" {{ form_enctype(form) }} method="POST" class="aueio_club_team_contact">
+		{% include 'AueioClubBundle::form.submit.html.twig' %}
 	</form>
 </div>
 {% endblock %}

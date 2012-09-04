@@ -41,10 +41,7 @@ ul.game-selection-menu > li {
 #game ul.list div.short div.name{
 	width:58%;
 }
-.score {
-	font-size: 1.5em;
-	margin-bottom:20px;
-}
+
 #results > li > input{
 	width: 32px;
 	display: inline-block;
@@ -101,9 +98,15 @@ li.action{
 	float: left;
 	width: 30%;
 }
-#game div.name > div.vs{
-	width: 10%;
+#game div.name > div.score{
+	width: 20%;
 }
 #game div.name > div.link{
-	width: 40%;
+	width: 36%;
+}
+#game .list .short div.name > div.link{
+	padding: 0 2%;
+}
+#game .list .short div.name > div:first-child{
+	text-align: right;
 }

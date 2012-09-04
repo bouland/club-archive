@@ -4,6 +4,7 @@ namespace Aueio\ClubBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class SeasonType extends AbstractType
 {
@@ -30,5 +31,11 @@ class SeasonType extends AbstractType
 		return array(
 				'data_class' => 'Aueio\ClubBundle\Entity\Season',
 		);
+	}
+	public function setDefaultOptions(OptionsResolverInterface $resolver)
+	{
+		$resolver->setDefaults(array(
+				'data_class' => 'Aueio\ClubBundle\Entity\Season',
+		));
 	}
 }

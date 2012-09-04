@@ -3,6 +3,7 @@
 namespace Aueio\ClubBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Aueio\ClubBundle\Entity\Team;
 
 /**
  * GameRepository
@@ -12,15 +13,49 @@ use Doctrine\ORM\EntityRepository;
  */
 class GameRepository extends EntityRepository
 {
-	public function findWithoutActionByPlayer($player_id)
+	public function findSeasonTeamNextGame(Team $team, $season_id){
+		$now = new \DateTime('now');
+		$query = $this->createQueryBuilder('g')
+		->join('g.season', 's')
+		->leftJoin('g.roles', 'r')
+		->join('r.team', 't')
+		->where('s.id = :id_season')
+		->andWhere('t.id = :id_team')
+		->andWhere('g.date > :date')
+		->setMaxResults(1)
+		->setParameters(array(
+				'id_season' => $season_id,
+				'id_team' => $team->getId(),
+				'date' => $now->format("Y-m-d"),
+		))
+		->getQuery();
+		try {
+			$game = $query->getSingleResult();
+		} catch (\Doctrine\Orm\NoResultException $e) {
+			$game = null;
+		}
+		return $game;
+	}
+	public function findWithoutActionByPlayer($player_id,$season_id)
 	{
+		/*		$em = $this->getEntityManager();
+		$em->getFilters()->disable('season');
+		$query = $em->createQuery("SELECT g
+FROM Aueio\ClubBundle\Entity\Game g
+LEFT JOIN Aueio\ClubBundle\Entity\Role r WHERE r.game = g
+INNER JOIN Aueio\ClubBundle\Entity\Team t WHERE t = r.team
+LEFT JOIN Aueio\ClubBundle\Entity\Player p WHERE p.team = t
+LEFT JOIN Aueio\ClubBundle\Entity\Action a WHERE (a.player = p AND a.game = g)
+WHERE (g.season = {$season_id} AND p.id = {$player_id} AND a.id IS NULL)");
+		return $query->getResult();	
+*/
 		return $this->getEntityManager()->getConnection()->fetchAll("SELECT g.id, g.date
 FROM games g
 LEFT JOIN roles r ON r.game_id = g.id
 INNER JOIN teams t ON t.id = r.team_id
 LEFT JOIN players p ON p.team_id = t.id
 LEFT JOIN actions a ON (a.player_id = p.id AND a.game_id = g.id)
-WHERE ( 5 = g.season_id
+WHERE ( {$season_id} = g.season_id
 AND p.id = {$player_id} AND a.id IS NULL)");
 		}
 }

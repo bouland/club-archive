@@ -9,7 +9,7 @@
 			{% render 'AueioClubBundle:Season:switch' %}
 			</div><div id="header_title">
 				<h1>		
-					<a href="{{ path('_welcome') }}">Meylan Handball Club</a>
+					<a href="{{ path('_welcome') }}">{{ 'layout.title'|trans({}, 'AueioClubBundle') }}</a>
 				</h1>
 			</div>
 			<ul id="header_menu" class="clearfix">
@@ -19,7 +19,8 @@
 		    <div>
 		    <script type="text/javascript">
 		    $(document).ready(function() {
-		    	$(".message").animate({opacity: '1.0'}, delay).fadeOut('slow');
+		    	$(".message").animate({opacity: '1.0'}, delay).fadeOut('slow')
+		    });
 		    </script>
 			
 				<ul class="system-messages">

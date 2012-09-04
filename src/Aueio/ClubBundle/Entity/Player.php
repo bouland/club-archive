@@ -119,7 +119,7 @@ class Player extends User
     {
         $this->created = new \DateTime('now');
     }
-
+    
     public function __construct()
     {
         parent::__construct();
@@ -413,7 +413,7 @@ class Player extends User
     {
         return $this->firstname;
     }
-
+	
     /**
      * Set lastname
      *

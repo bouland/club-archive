@@ -49,6 +49,7 @@ class Game implements SeasonAwareInterface
 
     /**
      * @ORM\OneToMany(targetEntity="Role", mappedBy="game", cascade={"persist", "remove"})
+     * @ORM\OrderBy({"type" = "ASC"})
      */
     private $roles;
 
@@ -251,9 +252,9 @@ class Game implements SeasonAwareInterface
      */
     public function getDate()
     {
-        return $this->date;
+    	return $this->date;
     }
-
+    
     /**
      * Remove roles
      *

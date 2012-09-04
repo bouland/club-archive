@@ -37,6 +37,13 @@ class PlayerRegistrationType extends RegistrationFormType
 		$builder->add('hand', 'choice', array(
 				'choices'   => array('RIGHT' => 'Droitier', 'LEFT' => 'Gaucher')
 		));
+		
+		$builder->add('team', 'entity', array(
+												'class' 		=> 'AueioClubBundle:Team',
+												'property'     	=> 'name',
+												'expanded'	=> false,
+										));
+		
 		$builder->add('secret', 'text', array('property_path' => false));
 		
 		$builder->addValidator(new CallbackValidator(function(FormInterface $form)

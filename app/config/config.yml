@@ -88,6 +88,7 @@ fos_user:
     profile:
         form:
             type: aueio_club_profile
+            handler: aueio_club.form.handler.profile
     resetting:
         email:
             template: AueioClubBundle:Player:resetting.email.txt.twig

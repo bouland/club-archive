@@ -10,7 +10,8 @@
 {% endblock %}
 
 {% block sidebar %}
-	<li class="selected"><a href="{{ path('aueio_club_player_view', {"id": team.id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
+	<li class="selected"><a href="{{ path('aueio_club_team_view', {"id": team.id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_team_contact', {"id": team.id}) }}">{{ 'sidebar.contact'|trans({}, 'AueioClubBundle') }}</a>
 {% if is_granted("ROLE_ADMIN") %}
 	<li><a href="{{ path('aueio_club_team_edit', {"id": team.id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_team_delete', {"id": team.id}) }}" onclick="return confirm('{{ 'sidebar.confirm'|trans({}, 'AueioClubBundle') }}')">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
@@ -22,29 +23,16 @@
 <div id="team">
 	<div class="full">
 		<h2>{{ team.name }}</h2>
-		<div id="team-desc">
+		<div class="news">
 			<div class="cols">
-				<h3>{{ 'team.view.title.adress'|trans({}, 'AueioClubBundle') }}</h3>
-				<p>{{ team.adress}}</p>
-				<h3>{{ 'team.view.title.contact'|trans({}, 'AueioClubBundle') }}</h3>
-				<ul>
-			    {% for player in contacts %}
-					<li class="player">{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}</li>
+				<h3>{{ 'team.view.title.news.game'|trans({}, 'AueioClubBundle') }}</h3>
+				{% if game_next %}
+					{% include 'AueioClubBundle:Game:next.html.twig' with {'game': game_next} %}
 			    {% else %}
-			        <h4>{{ 'team.notfound'|trans({}, 'AueioClubBundle') }}</h4>
-			    {% endfor %}
-				</ul>
-			</div><div id="team-players" class="cols">
-				<h3>{{ 'team.view.title.player'|trans({'%count%': members|length}, 'AueioClubBundle') }}</h3>
-				<ul>
-				{% for player in members %}
-					<li class="player">
-					{% include 'AueioClubBundle:Player:short.html.twig' with {'player': player} %}
-					</li>
-				{% else %}
-			        <h3>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h3>
-			    {% endfor %}
-			    </ul>
+			        <h4>{{ 'game.notfound'|trans({}, 'AueioClubBundle') }}</h4>
+			    {% endif %}
+			</div><div class="cols">
+				<h3>{{ 'team.view.title.news.trainning'|trans({}, 'AueioClubBundle') }}</h3>
 			</div>
 		</div>
 		<div class="stats">
@@ -70,16 +58,30 @@
 			</ul>
 	
 		</div>
-		<div id="team-games">
-			{% set roles = team.roles %}
-			<h3>{{ 'team.view.title.game'|trans({'%count%': roles|length}, 'AueioClubBundle') }}</h3>
-			<ul>
-		    {% for role in roles %}
-				<li class="role">{% include 'AueioClubBundle:Role:team.html.twig' with {'role': role, 'id': team.id} %}</li>
-		    {% else %}
-		        <h3>{{ 'game.notfound'|trans({}, 'AueioClubBundle') }}</h3>
-		    {% endfor %}
-			</ul>
+		<div id="team-desc">
+			<div class="cols">
+				<h3>{{ 'team.view.title.adress'|trans({}, 'AueioClubBundle') }}</h3>
+				<p>{{ team.adress}}</p>
+				<h3>{{ 'team.view.title.contact'|trans({}, 'AueioClubBundle') }}</h3>
+				<ul>
+			    {% for player in contacts %}
+					<li class="player">{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}</li>
+			    {% else %}
+			        <h4>{{ 'team.notfound'|trans({}, 'AueioClubBundle') }}</h4>
+			    {% endfor %}
+				</ul>
+			</div><div id="team-players" class="cols">
+				<h3>{{ 'team.view.title.player'|trans({'%count%': members|length}, 'AueioClubBundle') }}</h3>
+				<ul>
+				{% for player in members %}
+					<li class="player">
+					{% include 'AueioClubBundle:Player:short.html.twig' with {'player': player} %}
+					</li>
+				{% else %}
+			        <h3>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h3>
+			    {% endfor %}
+			    </ul>
+			</div>
 		</div>
 	</div>
 </div>

@@ -19,6 +19,24 @@
 <div id="game">
 	<h2>{{ 'game.title.list'|trans({}, 'AueioClubBundle') }}</h2>
 	<ul class="list">
+		<li>
+			<div class="short">
+				<div class="name">
+					<div class="link">
+						{{- 'game.LOCAL'|trans({}, 'AueioClubBundle') -}}
+					</div><div class="scores">
+						{{- 'game.score'|trans({}, 'AueioClubBundle') -}}
+					</div><div class="link">
+						{{- 'game.VISITOR'|trans({}, 'AueioClubBundle') -}}
+					</div>
+				</div>
+				<div class="short-link">
+					<div class="link">
+						{{ 'game.date'|trans({}, 'AueioClubBundle') }}
+					</div>
+				</div>
+			</div>
+		</li>
     {% for game in games %}
 		<li>
 			{% include 'AueioClubBundle:Game:short.html.twig' with {'game': game}  %}
