@@ -10,7 +10,7 @@ email:
     message:
         hello: "Salut %firstname% !"
         registration: "Pour valider ton compte, voici le "
-        resetting: "Pour réinitialiser ton mot de passe, voici le "
+        resetting: "Pour réinitialiser ton mot de passe associé au login %login%, voici le "
         link: "lien"
         sign: "A bientôt,<br/>Simon"
 resetting:

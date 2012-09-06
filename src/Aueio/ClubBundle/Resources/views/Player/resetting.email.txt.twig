@@ -7,7 +7,7 @@
 {% autoescape false %}
 {{ 'email.message.hello'|trans({'%firstname%': user.firstname}, 'AueioClubBundle') }}
 
-{{ 'email.message.resetting.'|trans({},'AueioClubBundle') }}{{ 'email.message.link'|trans({},'AueioClubBundle') }}.
+{{ 'email.message.resetting'|trans({'%login%': user.username},'AueioClubBundle') }}{{ 'email.message.link'|trans({},'AueioClubBundle') }}.
 {{ confirmationUrl }}
 
 {{ 'email.message.sign'|trans({}, 'AueioClubBundle') }}
