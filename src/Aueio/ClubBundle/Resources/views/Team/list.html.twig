@@ -19,6 +19,7 @@
 <div id="team">
 	<h2>{{ 'team.title.list'|trans({}, 'AueioClubBundle') }}</h2>
 	<ul class="list">
+		<li>&nbsp;</li>
     {% for team in teams %}
 		<li>{% include 'AueioClubBundle:Team:short.html.twig' with {'team': team}  %}</li>
     {% else %}

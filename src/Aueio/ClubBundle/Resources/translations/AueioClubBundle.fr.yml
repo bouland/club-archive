@@ -48,10 +48,19 @@ game:
     selection:
         shop: "Courses"
         noshop: "Besoin d'un volontaire"
+        referee: "Arbitres"
         wait: "En attente (%count%)"
         miss: "Absents (%count%)"
         play: "Présents (%count%)"
+        hurt: "Blessés"
         details: "Détails de la sélection actuelle"
+        link:
+            play: "Sera présent"
+            miss: "Sera absent"
+            hurt: "Pour cause de blessure"
+            referee: "Volontaire pour arbitrer"
+            shop: "Volontaire pour les courses"
+            modify: "Annuler"
     sheet:
         title:
             scores: "Les scores"

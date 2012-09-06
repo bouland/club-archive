@@ -128,11 +128,39 @@ class GameController extends Controller
     	$team_id = $this->getTeamFocus($game, $team_index);
     	
     	$repository = $em->getRepository('AueioClubBundle:Player');
-    	foreach( array('miss','shop', 'play') as $action_type) {
+    	foreach( array('miss','shop', 'play', 'hurt', 'referee') as $action_type) {
     		$players[$action_type] = $repository->findActionByGame($game, $team_id, $action_type);
     	}
     	$players['wait'] = $repository->findWithoutActionByGame($game, $team_id);
     	
+    	$positions =  array(array(),array(),array(),array(),array());
+		if(!empty($players['play']))
+    	{
+    		foreach($players['play'] as $player)
+    		{
+    			switch($player->getPosition()){
+    				case "BACK":
+    					$positions[0][] = $player;
+    					break;
+    				case "WING":
+    					$positions[1][] = $player;
+    					break;
+    				case "PIVOT":
+    					$positions[2][] = $player;
+    					break;
+    				case "CENTER":
+    					$positions[3][] = $player;
+    					break;
+    				case "GOAL":
+    					$positions[4][] = $player;
+    					break;
+    				default:
+    					$positions[0][] = $player;
+    			}	
+    		}
+	    	
+    	}
+    	$players['positions'] = $positions;
     	return $this->render('AueioClubBundle:Game:selection.html.twig', array('game' => $game, 'players' => $players));
     }
     /**

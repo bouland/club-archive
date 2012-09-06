@@ -13,7 +13,8 @@
 <div id="player">
 	<h2>{{ 'player.title.list'|trans({}, 'AueioClubBundle') }}</h2>
 	<ul class="list">
-    {% for player in players %}
+    	<li>&nbsp;</li>
+	{% for player in players %}
 		<li class="player">{% include 'AueioClubBundle:Player:long.html.twig' with {'player': player} %}</li>
     {% else %}
         <h3>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h3>

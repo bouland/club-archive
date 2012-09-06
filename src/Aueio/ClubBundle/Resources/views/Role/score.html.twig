@@ -1,1 +1,1 @@
-<div class="score{% if role.team.id == app.user.team.id %} {{ role.result }}{% endif %}" >{{ role.score }}</div>
+<div class="score{% if (is_granted("ROLE_USER") and (role.team.id == app.user.team.id)) %} {{ role.result }}{% endif %}" >{{ role.score }}</div>

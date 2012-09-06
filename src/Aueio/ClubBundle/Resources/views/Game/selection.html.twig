@@ -28,7 +28,7 @@
 	</div>
 	<div id="game-manage">
 		<ul class="game-selection-cols">
-			<li>
+			<li class="wait">
 				<h4>{{ 'game.selection.wait'|trans({'%count%': players['wait']|length}, 'AueioClubBundle') }}</h4>
 				<ul>
 			    {% for player in players['wait'] %}
@@ -36,12 +36,12 @@
 						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
 						<ul class="game-selection-menu">
 							<li>
-								<a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "play"}) }}" title="Selectionner">
+								<a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "play"}) }}" title="{{ 'game.selection.link.play'|trans({}, 'AueioClubBundle') }}">
 									<img src="/bundles/aueioclub/images/Crystal_Clear_action_apply.png" alt="valid logo">
 								</a>
 							</li>
 							<li>
-								<a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "miss"}) }}" title="Absent">
+								<a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "miss"}) }}" title="{{ 'game.selection.link.miss'|trans({}, 'AueioClubBundle') }}">
 									<img src="/bundles/aueioclub/images/Crystal_Clear_action_button_cancel.png" alt="cancel logo">
 								</a>
 							</li>
@@ -51,7 +51,7 @@
 			        <h4>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h4>
 			    {% endfor %}
 				</ul>
-			</li><li>
+			</li><li class="miss">
 				<h4>{{ 'game.selection.miss'|trans({'%count%': players['miss']|length}, 'AueioClubBundle')}}</h4>
 				<ul>
 			    {% for player in players['miss'] %}
@@ -59,7 +59,12 @@
 						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
 						<ul class="game-selection-menu">
 							<li>
-								<a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "miss"}) }}" title="Modifier">
+								<a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "hurt"}) }}" title="{{ 'game.selection.link.hurt'|trans({}, 'AueioClubBundle') }}">
+									<img style="height: 20px;margin-top: -2px;" src="/bundles/aueioclub/images/first_aid.png" alt="aid logo">
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "miss"}) }}" title="{{ 'game.selection.link.modify'|trans({}, 'AueioClubBundle') }}">
 									<img src="/bundles/aueioclub/images/Crystal_Clear_action_button_cancel.png" alt="cancel logo">
 								</a>
 							</li>
@@ -69,7 +74,24 @@
 			        <h4>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h4>
 			    {% endfor %}
 				</ul>
-			</li><li>
+				<h4>{{ 'game.selection.hurt'|trans({'%count%': players['hurt']|length}, 'AueioClubBundle')}}</h4>
+				<ul>
+			    {% for player in players['hurt'] %}
+					<li>
+						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
+						<ul class="game-selection-menu">
+							<li>
+								<a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "hurt"}) }}" title="{{ 'game.selection.link.modify'|trans({}, 'AueioClubBundle') }}">
+									<img src="/bundles/aueioclub/images/Crystal_Clear_action_button_cancel.png" alt="cancel logo">
+								</a>
+							</li>
+						</ul>
+					</li>
+			    {% else %}
+			        <h4>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h4>
+			    {% endfor %}
+				</ul>
+			</li><li class="shop">
 				<h4>{{ 'game.selection.shop'|trans({}, 'AueioClubBundle') }}</h4>
 				<ul>
 			    {% for player in players['shop'] %}
@@ -77,7 +99,7 @@
 						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
 						<ul class="game-selection-menu">
 							<li>
-								<a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "shop"}) }}" title="Modifier">
+								<a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "shop"}) }}" title="{{ 'game.selection.link.modify'|trans({}, 'AueioClubBundle') }}">
 									<img src="/bundles/aueioclub/images/Crystal_Clear_action_button_cancel.png" alt="cancel logo">
 								</a>
 							</li>
@@ -87,7 +109,24 @@
 			        <h4>{{ 'game.selection.noshop'|trans({}, 'AueioClubBundle') }}</h4>
 			    {% endfor %}
 			    </ul>
-			</li><li>
+			    <h4>{{ 'game.selection.referee'|trans({}, 'AueioClubBundle') }}</h4>
+				<ul>
+			    {% for player in players['referee'] %}
+					<li>
+						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
+						<ul class="game-selection-menu">
+							<li>
+								<a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "referee"}) }}" title="{{ 'game.selection.link.modify'|trans({}, 'AueioClubBundle') }}">
+									<img src="/bundles/aueioclub/images/Crystal_Clear_action_button_cancel.png" alt="cancel logo">
+								</a>
+							</li>
+						</ul>
+					</li>
+			    {% else %}
+			        <h4>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h4>
+			    {% endfor %}
+			    </ul>
+			</li><li class="play">
 				<h4>{{ 'game.selection.play'|trans({'%count%': players['play']|length}, 'AueioClubBundle') }}</h4>
 				<ul>
 			    {% for player in players['play'] %}
@@ -95,12 +134,17 @@
 						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
 						<ul class="game-selection-menu">
 							<li>
-								<a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "shop"}) }}" title="Courses">
+								<a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "referee"}) }}" title="{{ 'game.selection.link.referee'|trans({}, 'AueioClubBundle') }}">
+									<img  src="/bundles/aueioclub/images/icon_whistle.gif" alt="cancel logo">
+								</a>
+							</li>
+							<li>
+								<a href="{{ path('aueio_club_action_add', {"id_game": game.id, "id_player": player.id, "type": "shop"}) }}" title="{{ 'game.selection.link.shop'|trans({}, 'AueioClubBundle') }}">
 									<img style="height: 20px;margin-top: -2px;" src="/bundles/aueioclub/images/logo-panier.png" alt="cancel logo">
 								</a>
 							</li>
 							<li>
-								<a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "play"}) }}" title="Modifier">
+								<a href="{{ path('aueio_club_action_delete', {"id_game": game.id, "id_player": player.id, "type": "play"}) }}" title="{{ 'game.selection.link.modify'|trans({}, 'AueioClubBundle') }}">
 									<img src="/bundles/aueioclub/images/Crystal_Clear_action_button_cancel.png" alt="cancel logo">
 								</a>
 							</li>
@@ -113,17 +157,96 @@
 			</li>
 		</ul>
 	</div>
+	
 	<div id="game-selection">
 		<h4>{{ 'game.selection.details'|trans({}, 'AueioClubBundle') }}</h4>
-		<ul>
-		{% for player in players['play'] %}
-			<li class="player">
-			{% include 'AueioClubBundle:Player:short.html.twig' with {'player': player} %}
-			</li>
-		{% else %}
-	        <h4>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h4>
-	    {% endfor %}
-	    </ul>
+		<div id="game-background">
+			<div id="wing_left">
+				<ul>
+				{% for player in players['positions'][1] %}
+					{% if loop.index is divisibleby(2) %}
+						<li class="player">
+						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
+						</li>
+					{% endif %}
+				{% else %}
+			        <h4>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h4>
+			    {% endfor %}
+			    </ul>
+			</div>
+			<div id="back_left">
+				<ul>
+				{% for player in players['positions'][0] %}
+					{% if loop.index is divisibleby(2) %}
+						<li class="player">
+						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
+						</li>
+					{% endif %}
+				{% else %}
+			        <h4>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h4>
+			    {% endfor %}
+			    </ul>
+			</div>
+			<div id="goal">
+				<ul>
+				{% for player in players['positions'][4] %}
+					<li class="player">
+					{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
+					</li>
+				{% else %}
+			        <h4>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h4>
+			    {% endfor %}
+			    </ul>
+			</div>
+			<div id="pivot">
+				<ul>
+				{% for player in players['positions'][2] %}
+					<li class="player">
+					{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
+					</li>
+				{% else %}
+			        <h4>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h4>
+			    {% endfor %}
+			    </ul>
+			</div>
+			<div id="center">
+				<ul>
+				{% for player in players['positions'][3] %}
+					<li class="player">
+					{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
+					</li>
+				{% else %}
+			        <h4>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h4>
+			    {% endfor %}
+			    </ul>
+			</div>
+			<div id="back_right">
+				<ul>
+				{% for player in players['positions'][0] %}
+					{% if loop.index is not divisibleby(2) %}
+						<li class="player">
+						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
+						</li>
+					{% endif %}
+				{% else %}
+			        <h4>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h4>
+			    {% endfor %}
+			    </ul>
+			</div>
+			<div id="wing_right">
+				<ul>
+				{% for player in players['positions'][1] %}
+					{% if loop.index is not divisibleby(2) %}
+						<li class="player">
+						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
+						</li>
+					{% endif %}
+				{% else %}
+			        <h4>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h4>
+			    {% endfor %}
+			    </ul>
+			</div>
+	    </div>
 	</div>
 
 </div>
