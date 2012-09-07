@@ -61,6 +61,7 @@ game:
             referee: "Volontaire pour arbitrer"
             shop: "Volontaire pour les courses"
             modify: "Annuler"
+        title: "Joueurs sélectionnés"
     sheet:
         title:
             scores: "Les scores"

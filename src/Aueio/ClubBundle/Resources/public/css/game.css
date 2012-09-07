@@ -4,8 +4,8 @@ ul.game-selection-cols > li{
 	display: inline-block;
 	vertical-align: top;
 	border-right: 1px dotted #9E8D99;
-	padding: 8px;
-	min-height: 150px;
+	padding: 0 8px;
+	min-height: 300px;
 }
 ul.game-selection-cols > li.miss,
 ul.game-selection-cols > li.wait{
@@ -23,10 +23,7 @@ ul.game-selection-cols > li > ul > li{
 ul.game-selection-cols > li:last-child {
     border: none;
 }
-ul.game-selection-cols > li > h4 {
-	text-align: center;
-	padding:15px 0 8px 0;
-}
+
 .game-selection-cols img{
 	height: 16px;
 }
@@ -44,8 +41,16 @@ ul.game-selection-menu > li {
 #game-selection{
 	padding: 0;
 }
-#game h4{
-		text-align: center;
+#game h4,
+#game h5{
+	text-align: center;
+}
+#game div.time{
+	padding: 10px 0;
+}
+#game div.time,
+#game div.calendar{
+	text-align: center;
 }
 #game-selection > h4{
 	padding: 20px;

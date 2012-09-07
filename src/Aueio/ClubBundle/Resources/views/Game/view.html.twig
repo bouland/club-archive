@@ -27,12 +27,12 @@
 		{% include 'AueioClubBundle:Game:header.html.twig' %}
 		<ul>
 	{% for role in game.roles %}<li class="cols">
-			{% include 'AueioClubBundle:Role:score.html.twig' with {'role': role} %}
+			<h4>{{ 'game.selection.title'|trans({}, 'AueioClubBundle') }}</h4>
 			<ul>
 			{% for player in game.getPlayers(role.team.id) %}
 				<li class="player">{% include 'AueioClubBundle:Player:short.html.twig' with {'player': player} %}</li>
 	    	{% else %}
-	        	<h3>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h3>
+	        	<h4>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h4>
 			{% endfor %}
 			</ul>
 			</li>{% endfor %}
