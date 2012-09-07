@@ -36,7 +36,7 @@ class Mailer
 	public function emailTeam(Team $to, Player $from, Array $data)
 	{
 		$season_id = $this->_session->get('season_id');
-		$emails = $this->_em->getRepository('AueioClubBundle:Player')->findSeasonTeamEmails($to, $season_id);
+		$emails = $this->_em->getRepository('AueioClubBundle:Player')->findSeasonTeamContacts($to, $season_id);
 		$message = \Swift_Message::newInstance()
 		->setSubject($data['subject'])
 		->setFrom($from->getEmail())
