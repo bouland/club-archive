@@ -125,13 +125,13 @@ class GameController extends Controller
     {
     	$em = $this->getDoctrine()->getEntityManager();
     	
-    	$team_id = $this->getTeamFocus($game, $team_index);
+    	$teams = $this->getTeams($game, $team_index);
     	
     	$repository = $em->getRepository('AueioClubBundle:Player');
     	foreach( array('miss','shop', 'play', 'hurt', 'referee') as $action_type) {
-    		$players[$action_type] = $repository->findActionByGame($game, $team_id, $action_type);
+    		$players[$action_type] = $repository->findActionByGame($game, $teams['focus'], $action_type);
     	}
-    	$players['wait'] = $repository->findWithoutActionByGame($game, $team_id);
+    	$players['wait'] = $repository->findWithoutActionByGame($game, $teams['focus']);
     	
     	$positions =  array(array(),array(),array(),array(),array());
 		if(!empty($players['play']))
@@ -171,11 +171,11 @@ class GameController extends Controller
     	$em = $this->getDoctrine()->getEntityManager();
        	
     	$players = array();
+    	$opponents = array();
     	$repository = $em->getRepository('AueioClubBundle:Action');
     	
-    	$id_team = $this->getTeamFocus($game);
-    	$game_players = $game->getPlayers($id_team);
-    	foreach ($game_players as $player){
+    	$teams = $this->getTeams($game);
+    	foreach ($game->getPlayers($teams['focus']) as $player){
     		if($id_goal == 0){
     			if($player->getPosition() == 'GOAL'){
     				$id_goal = $player->getId();
@@ -191,35 +191,59 @@ class GameController extends Controller
 	    		}
     		}
     		$attributs = array();
-    		$attributs['isReferee'] = $repository->findByType($player->getId(),'referee');
-    		$attributs['action'] = $repository->findByType($player->getId(),$type);
+    		$attributs['isReferee'] = $repository->findByGameByType($player->getId(), $game->getId(), 'referee', true);
+    		$attributs['action'] = $repository->findByGameByType($player->getId(), $game->getId(), $type, true);
+    		$attributs['type'] = $type;
     		$attributs['object'] = $player;
     		$players[] = $attributs;
     	}
-    	$scores = array();
-    	foreach($game->getTeams() as $team){
-    		$actions = $em->getRepository('AueioClubBundle:Action')->getScores($game->getId(), $team->getId());
-    		$total = 0;
-    		foreach ($actions as $action){
-    			$total += $action->getValue();
+    	foreach ($em->getRepository('AueioClubBundle:Player')->findVirtualsByTeam($teams['opponent']) as $player){
+    		if($player->getFirstname() == 'goal'){
+    			$type = 'save';
+    		}else{
+    			$type = 'score';
     		}
-    		$scores[] = $total;
+    		
+    		$attributs = array();
+    		$attributs['number'] = $repository->findByGameByType($player->getId(), $game->getId(), 'play', true);
+    		$attributs['action'] = $repository->findByGameByType($player->getId(), $game->getId(), $type, true);
+    		$attributs['type'] = $type;
+    		$attributs['object'] = $player;
+    		$opponents[] = $attributs;
     	}
     	
-    	return $this->render('AueioClubBundle:Game:score.html.twig', array('game' => array('id' => $game->getId(), 'roles' => $game->getRoles(), 'scores' => $scores), 'id_goal' => $id_goal , 'players' => $players));
+    	$score_focus = $em->getRepository('AueioClubBundle:Action')->getScores($game->getId(), $teams['focus']);
+    	$score_opponent = $em->getRepository('AueioClubBundle:Action')->getScores($game->getId(), $teams['opponent']);
+
+    	return $this->render('AueioClubBundle:Game:score.html.twig', array(	'game_id' => $game->getId(),
+    																		'id_goal' => $id_goal ,
+    																		'teams' => $teams,
+    																		'score_focus' => $score_focus,
+    																		'score_opponent' => $score_opponent,
+    																		'players' => $players,
+    																		'opponents' => $opponents));
     }
     
-    function getTeamFocus($game, $team_index = 0){
-    	$game_teams = $game->getTeams()->toArray();
-    	
-    	$team = $this->get('security.context')->getToken()->getUser()->getTeam();
-    	if (!$team) {
+    function getTeams($game, $team_index = 0){
+    	$user_team = $this->get('security.context')->getToken()->getUser()->getTeam();
+    	if (!$user_team) {
     		throw $this->createNotFoundException('No team found');
     	}
-    	if (in_array($team, $game_teams)){
-    		return $team->getId();
-    	} else{
-    		return $game_teams[$team_index]->getId();
+    	$game_teams = $game->getTeams()->toArray();
+    	foreach( $game_teams as $team)
+    	{
+	    	if ($team == $user_team)
+	    	{
+	    		$teams['focus'] = $team;
+	    	}
+	    	else{
+	    		$teams['opponent'] = $team;
+	    	}
+	    	
     	}
+    	if($teams['focus'] == $teams['opponent']){
+    		$teams['focus'] = $game_teams[$team_index];
+    	}
+    	return $teams;
     }
 }

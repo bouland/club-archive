@@ -10,13 +10,13 @@
 {% endblock %}
 
 {% block sidebar %}
-	<li><a href="{{ path('aueio_club_game_view', {"id": game['id']}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
-	<li><a href="{{ path('aueio_club_game_selection', {"id": game['id']}) }}">{{ 'sidebar.selection'|trans({}, 'AueioClubBundle') }}</a>
-	<li class="selected"><a href="{{ path('aueio_club_game_score', {"id": game['id']}) }}">{{ 'sidebar.score'|trans({}, 'AueioClubBundle') }}</a>
-	<li><a href="{{ path('aueio_club_game_sheet', {"id": game['id']}) }}">{{ 'sidebar.sheet'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_game_view', {"id": game_id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_game_selection', {"id": game_id}) }}">{{ 'sidebar.selection'|trans({}, 'AueioClubBundle') }}</a>
+	<li class="selected"><a href="{{ path('aueio_club_game_score', {"id": game_id}) }}">{{ 'sidebar.score'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_game_sheet', {"id": game_id}) }}">{{ 'sidebar.sheet'|trans({}, 'AueioClubBundle') }}</a>
 {% if is_granted("ROLE_ADMIN") %}
-	<li><a href="{{ path('aueio_club_game_edit', {"id": game['id']}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
-	<li><a href="{{ path('aueio_club_game_delete', {"id": game['id']}) }}">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
+	<li><a href="{{ path('aueio_club_game_edit', {"id": game_id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_game_delete', {"id": game_id}) }}">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 	<li><a href="{{ path('aueio_club_game_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endif %}
 {% endblock %}
@@ -26,31 +26,75 @@
 	<div class="full">
 		<ul id="results">
 		    <li class="cols">
-			{% include 'AueioClubBundle:Role:type.html.twig' with {'role': game['roles'][0]} %}<div class="value">{{ game['scores'][0] }}</div>
+			{% include 'AueioClubBundle:Team:link.html.twig' with {'team': teams['focus']} %}<div class="value">{{ score_focus }}</div>
 			</li><li class="cols">
-			<div class="value">{{ game['scores'][1] }}</div>{% include 'AueioClubBundle:Role:type.html.twig' with {'role': game['roles'][1]} %}
+			<div class="value">{{ score_opponent }}</div>{% include 'AueioClubBundle:Team:link.html.twig' with {'team': teams['opponent']} %}
 			</li>
 		</ul>
 		<ul id="scores" class="cols">
 	    {% for player in players %}
-			<li><ul>
-			{% if player['object'].id == id_goal %}
-				<li class="goal selected"><a href="">G</a></li>
-			{% else %}
-				<li class="goal"><a href="{{ path('aueio_club_game_score', {"id":game['id'], "id_goal": player['object'].id}) }}" title="Gardien">G</a></li>
-			{% endif %}
-			{% if player['isReferee'] %}
-				<li class="referee delete"><a href="{{ path('aueio_club_action_delete', {"id_game": game['id'], "id_player": player['object'].id, "type": "referee"}) }}" title="Arbitre">A</a></li>
-			{% else %}
-				<li class="referee add"><a href="{{ path('aueio_club_action_add', {"id_game": game['id'], "id_player": player['object'].id, "type": "referee"}) }}" title="Arbitre">A</a></li>
-			{% endif %}
-			{% include 'AueioClubBundle:Player:link.html.twig' with {'player':player['object']} %}
-			{% if player['action'] %}
-				<li class="action">{% include 'AueioClubBundle:Action:score.update.html.twig' with {'action': player['action'][0]} %}</li>
-			{% else %}
-				<li class="action">{% include 'AueioClubBundle:Action:score.create.html.twig' with {'id_game': game['id'], 'player':player['object'], 'id_goal':id_goal} %}</li>
-			{% endif %}	
-			</ul></li>
+			<li>
+				<ul>
+				{% if player['type'] == 'save' %}
+					<li class="goal selected"><a href="">G</a></li>
+				{% else %}
+					<li class="goal"><a href="{{ path('aueio_club_game_score', {"id":game_id, "id_goal": player['object'].id}) }}" title="Gardien">G</a></li>
+				{% endif %}
+				{% if player['isReferee'] %}
+					<li class="referee delete"><a href="{{ path('aueio_club_action_delete', {"game_id": game_id, "player_id": player['object'].id, "type": "referee"}) }}" title="Arbitre">A</a></li>
+				{% else %}
+					<li class="referee add"><a href="{{ path('aueio_club_action_add', {"game_id": game_id, "player_id": player['object'].id, "type": "referee"}) }}" title="Arbitre">A</a></li>
+				{% endif %}
+					<li>{% include 'AueioClubBundle:Player:link.html.twig' with {'player':player['object']} %}</li>
+					<li>
+						<ul class="count">
+							<li>
+								<a href="{{ path('aueio_club_action_delete', {"game_id": game_id, "player_id": player['object'].id, "type": player['type']}) }}" title="{{ 'score.decrease'|trans({}, 'AueioClubBundle') }}">
+									<img  src="/bundles/aueioclub/images/Crystal_Clear_action_edit_remove.png" alt="minus logo">
+								</a>
+							</li><li class="value">{{  player['action'] }}</li><li>
+								<a href="{{ path('aueio_club_action_add', {"game_id": game_id, "player_id": player['object'].id, "type": player['type'] }) }}" title="{{ 'score.increase'|trans({}, 'AueioClubBundle') }}">
+									<img src="/bundles/aueioclub/images/Crystal_Clear_action_edit_add.png" alt="plus logo">
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+	    {% endfor %}
+		</ul><ul id="opponents" class="cols">
+	    {% for player in opponents %}
+			<li>
+				<ul>
+					<li>
+						<ul class="count">
+							<li>
+								<a href="{{ path('aueio_club_action_add', {"game_id": game_id, "player_id": player['object'].id, "type": player['type'] }) }}" title="{{ 'score.increase'|trans({}, 'AueioClubBundle') }}">
+									<img src="/bundles/aueioclub/images/Crystal_Clear_action_edit_add.png" alt="plus logo">
+								</a>
+							</li><li class="value">{{  player['action'] }}</li><li>
+								<a href="{{ path('aueio_club_action_delete', {"game_id": game_id, "player_id": player['object'].id, "type": player['type']}) }}" title="{{ 'score.decrease'|trans({}, 'AueioClubBundle') }}">
+									<img  src="/bundles/aueioclub/images/Crystal_Clear_action_edit_remove.png" alt="minus logo">
+								</a>
+							</li>
+						</ul>
+					</li>
+					<li>{% include 'AueioClubBundle:Player:link.html.twig' with {'player':player['object']} %}</li>
+					<li>
+						<ul class="count">
+							<li>
+								<a href="{{ path('aueio_club_action_add', {"game_id": game_id, "player_id": player['object'].id, "type": "play" }) }}" title="{{ 'score.increase'|trans({}, 'AueioClubBundle') }}">
+									<img src="/bundles/aueioclub/images/Crystal_Clear_action_edit_add.png" alt="plus logo">
+								</a>
+							</li><li class="value">{{  player['number'] }}</li><li>
+								<a href="{{ path('aueio_club_action_delete', {"game_id": game_id, "player_id": player['object'].id, "type": "play"}) }}" title="{{ 'score.decrease'|trans({}, 'AueioClubBundle') }}">
+									<img src="/bundles/aueioclub/images/Crystal_Clear_action_edit_remove.png" alt="minus logo">
+								</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</li>
 	    {% endfor %}
 		</ul>
 	</div>

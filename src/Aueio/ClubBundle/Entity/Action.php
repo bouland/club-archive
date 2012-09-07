@@ -44,16 +44,9 @@ class Action implements SeasonAwareInterface
     private $type;
     
     /**
-     * @var string $value
-     *
-     * @ORM\Column(name="value", type="string", length=10, nullable=true)
-     */
-    private $value;
-    
-    /**
      * @var datetime $date
      *
-     * @ORM\Column(name="created", type="date")
+     * @ORM\Column(name="created", type="datetime")
      */
     private $created;
     
@@ -97,27 +90,11 @@ class Action implements SeasonAwareInterface
     {
         return $this->type;
     }
-
-    /**
-     * Set date
-     *
-     * @param date $date
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
+    
+    public function isPlay(){
+    	return $this->type == 'play';
     }
-
-    /**
-     * Get date
-     *
-     * @return date 
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
+    
     /**
      * Set game
      *
@@ -157,29 +134,6 @@ class Action implements SeasonAwareInterface
     public function getPlayer()
     {
         return $this->player;
-    }
-
-    /**
-     * Set value
-     *
-     * @param string $value
-     */
-    public function setValue($value)
-    {
-        $this->value = $value;
-    }
-
-    /**
-     * Get value
-     *
-     * @return string 
-     */
-    public function getValue()
-    {
-        return $this->value;
-    }
-    public function isPlay(){
-    	return $this->type == 'play';
     }
 
     /**

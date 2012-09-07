@@ -5,12 +5,12 @@ namespace Aueio\ClubBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Aueio\ClubBundle\Entity\Entity;
 /**
- * Aueio\ClubBundle\Entity\Adress
+ * Aueio\ClubBundle\Entity\Address
  *
- * @ORM\Entity(repositoryClass="Aueio\ClubBundle\Repository\AdressRepository")
- * @ORM\Table(name="adresses")
+ * @ORM\Entity(repositoryClass="Aueio\ClubBundle\Repository\AddressRepository")
+ * @ORM\Table(name="addresses")
  */
-class Adress
+class Address
 {
     /**
      * @var integer $id

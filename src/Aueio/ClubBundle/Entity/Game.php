@@ -150,12 +150,12 @@ class Game implements SeasonAwareInterface
         return $this->actions;
     }
     
-    public function getPlayers($id_team){
+    public function getPlayers(Team $team){
     	$players = new \Doctrine\Common\Collections\ArrayCollection();
     	foreach($this->actions as $action){
     		if($action->isPlay()){
     			$player = $action->getPlayer();
-    			if($player->getTeam()->getId() == $id_team){
+    			if($player->getTeam() == $team){
     				$players[] = $player;
     			}
     		}
@@ -164,14 +164,14 @@ class Game implements SeasonAwareInterface
     }
     
 	/** 
-     * Get adress
+     * Get address
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getAdress(){
+    public function getAddress(){
 		foreach($this->roles as $role){
 			if($role->isLocal()){
-				return $role->getTeam()->getAdress();
+				return $role->getTeam()->getGymAddress();
 			}
 			
 		}

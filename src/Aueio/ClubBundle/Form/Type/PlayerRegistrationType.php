@@ -18,7 +18,7 @@ class PlayerRegistrationType extends RegistrationFormType
 		$builder->add('firstname', 'text');
 		$builder->add('lastname', 'text');
 		$builder->add('phone', 'text');
-		$builder->add('adress',  new AdressType());
+		$builder->add('address',  new AddressType());
 		$builder->add('gender', 'choice', array(
 				'choices'   => array('M' => 'Homme', 'F' => 'Femme'),
 				'required'  => true,

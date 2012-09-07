@@ -5,7 +5,7 @@ namespace Aueio\ClubBundle\Form\Type;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-class AdressType extends AbstractType
+class AddressType extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
@@ -16,13 +16,13 @@ class AdressType extends AbstractType
 
 	public function getName()
 	{
-		return 'adress';
+		return 'address';
 	}
 	
 	public function getDefaultOptions(array $options)
 	{
 		return array(
-				'data_class' => 'Aueio\ClubBundle\Entity\Adress',
+				'data_class' => 'Aueio\ClubBundle\Entity\Address',
 		);
 	}
 }

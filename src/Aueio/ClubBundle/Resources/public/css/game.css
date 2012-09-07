@@ -64,14 +64,20 @@ ul.game-selection-menu > li {
 	width: 32px;
 	display: inline-block;
 }
-div.value,
-#scores > li  ul > li{
+#scores > li > ul > li,
+#opponents > li > ul > li,
+ul.count > li{
 	display: inline-block;
 }
-#scores > li > ul{
+#scores > li > ul > li:last-child,
+#opponents > li > ul > li:last-child{
+	float:right;
+}
+#scores > li > ul,
+#opponents > li > ul{
 	height: 30px;
 }
-#scores img{
+.count img{
 	height: 16px;
 	vertical-align: middle;
 }
@@ -94,7 +100,7 @@ li.referee:hover > a{
     color: white;
 }
 #results div.value{
-	margin:20px;
+	margin:16px;
 }
 li.action{
 	float:right;
@@ -102,12 +108,15 @@ li.action{
 #results > li:first-child {
 	text-align: right;
 }
+#results > li > div {
+	display: inline-block;
+}
 #results{
 	margin-bottom: 30px;
 }
 #game-scores .cols{
-	width:48%;
-	padding:1%;
+	width:44%;
+	padding:3%;
 }
 #game form > div.cols > div {
 	margin-bottom: 15px;

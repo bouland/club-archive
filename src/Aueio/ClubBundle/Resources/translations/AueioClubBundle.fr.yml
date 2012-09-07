@@ -131,7 +131,7 @@ team:
         view: "Vue de léquipe"
     view:
         title:
-            adress: "Adresse"
+            address: "Adresse"
             contact: "Contacts"
             game: "Matchs (%count%)"
             player: "Membres (%count%)"
@@ -164,10 +164,10 @@ fos_user_profile_form_plainPassword_second: "Vérification"
 fos_user_profile_form_firstname: "Prénom"
 fos_user_profile_form_lastname: "NOM"
 fos_user_profile_form_phone: "Téléphone"
-fos_user_profile_form_adress: "Adresse"
-fos_user_profile_form_adress_name: "Rue"
-fos_user_profile_form_adress_code: "Code postale"
-fos_user_profile_form_adress_city: "Ville"
+fos_user_profile_form_address: "Adresse"
+fos_user_profile_form_address_name: "Rue"
+fos_user_profile_form_address_code: "Code postale"
+fos_user_profile_form_address_city: "Ville"
 fos_user_profile_form_gender: "Genre"
 fos_user_profile_form_car: "As tu une voiture ?"
 fos_user_profile_form_position: "De préférence à quel poste joues tu ?"
@@ -183,10 +183,10 @@ fos_user_registration_form_plainPassword_second: "Vérification"
 fos_user_registration_form_firstname: "Prénom"
 fos_user_registration_form_lastname: "NOM"
 fos_user_registration_form_phone: "Téléphone"
-fos_user_registration_form_adress: "Adresse"
-fos_user_registration_form_adress_name: "Rue"
-fos_user_registration_form_adress_code: "Code postal"
-fos_user_registration_form_adress_city: "Ville"
+fos_user_registration_form_address: "Adresse"
+fos_user_registration_form_address_name: "Rue"
+fos_user_registration_form_address_code: "Code postal"
+fos_user_registration_form_address_city: "Ville"
 fos_user_registration_form_gender: "Genre"
 fos_user_registration_form_car: "As tu une voiture ?"
 fos_user_registration_form_position: "De préférence à quel poste joues tu ?"
@@ -209,6 +209,6 @@ team_contacts: Contacts
 team_seasons: Saisons
 team_gym_name: Nom
 team_gym_phone: Téléphone
-team_adress_name: Rue
-team_adress_code: Code Postal
-team_adress_city: Ville
+team_address_name: Rue
+team_address_code: Code Postal
+team_address_city: Ville

@@ -15,7 +15,7 @@ use Doctrine\ORM\EntityRepository,
  */
 class PlayerRepository extends EntityRepository
 {
-	public function findActionByGame(Game $game, $team_id, $action_type){
+	public function findActionByGame(Game $game, Team $team, $action_type){
 		return $this->createQueryBuilder('p')
 			->join('p.team', 't')
 			->leftJoin('p.actions', 'a')
@@ -25,12 +25,12 @@ class PlayerRepository extends EntityRepository
 			->andWhere('t.id = :id_team')
 			->setParameters(array(
 					'id_game' => $game->getId(),
-					'id_team' => $team_id,
+					'id_team' => $team->getId(),
 					'type' => $action_type,
 			))
 			->getQuery()->getResult();
 	}
-	public function findWithoutActionByGame(Game $game, $team_id)
+	public function findWithoutActionByGame(Game $game, Team $team)
 	{
 /*		$em = $this->getEntityManager();
 		$em->getFilters()->disable('season');
@@ -53,7 +53,10 @@ INNER JOIN games g
 ON r.game_id = g.id
 LEFT JOIN actions a
 ON (a.player_id = p.id AND a.game_id = g.id)
-WHERE (s.season_id = g.season_id AND g.id = {$game->getId()} AND t.id = {$team_id} AND a.id IS NULL);");
+WHERE (s.season_id = g.season_id AND g.id = {$game->getId()} AND t.id = {$team->getId()} AND a.id IS NULL
+	AND p.firstname != 'girl'
+	AND p.firstname != 'goal'
+	AND p.firstname != 'boy');");
 	}
 	public function findSeasonTeamContacts(Team $team, $season_id){
 		return $this->createQueryBuilder('p')
@@ -73,9 +76,23 @@ WHERE (s.season_id = g.season_id AND g.id = {$game->getId()} AND t.id = {$team_i
 		->join('p.team', 't')
 		->where('t.id = :id_team')
 		->andWhere('s.id = :id_season')
+		->andWhere("p.firstname != 'girl'")
+		->andWhere("p.firstname != 'goal'")
+		->andWhere("p.firstname != 'boy'")
 		->orderBy('p.firstname')
 		->setParameters(array(
 				'id_season' => $season_id,
+				'id_team' => $team->getId(),
+		))
+		->getQuery()->getResult();
+	}
+	public function findVirtualsByTeam($team){
+		return $this->createQueryBuilder('p')
+		->join('p.team', 't')
+		->where('t.id = :id_team')
+		->andWhere("p.firstname = 'girl' OR p.firstname = 'goal' OR p.firstname = 'boy'")
+		->orderBy('p.firstname')
+		->setParameters(array(
 				'id_team' => $team->getId(),
 		))
 		->getQuery()->getResult();

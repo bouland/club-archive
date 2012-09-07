@@ -6,8 +6,8 @@ ul.game-selection-cols > li{
 	display: inline-block;
 	vertical-align: top;
 	border-right: 1px dotted #9E8D99;
-	padding: 8px;
-	min-height: 150px;
+	padding: 0 8px;
+	min-height: 300px;
 }
 ul.game-selection-cols > li.miss,
 ul.game-selection-cols > li.wait{
@@ -25,10 +25,7 @@ ul.game-selection-cols > li > ul > li{
 ul.game-selection-cols > li:last-child {
     border: none;
 }
-ul.game-selection-cols > li > h4 {
-	text-align: center;
-	padding:15px 0 8px 0;
-}
+
 .game-selection-cols img{
 	height: 16px;
 }
@@ -46,8 +43,16 @@ ul.game-selection-menu > li {
 #game-selection{
 	padding: 0;
 }
-#game h4{
-		text-align: center;
+#game h4,
+#game h5{
+	text-align: center;
+}
+#game div.time{
+	padding: 10px 0;
+}
+#game div.time,
+#game div.calendar{
+	text-align: center;
 }
 #game-selection > h4{
 	padding: 20px;
@@ -61,14 +66,20 @@ ul.game-selection-menu > li {
 	width: 32px;
 	display: inline-block;
 }
-div.value,
-#scores > li  ul > li{
+#scores > li > ul > li,
+#opponents > li > ul > li,
+ul.count > li{
 	display: inline-block;
 }
-#scores > li > ul{
+#scores > li > ul > li:last-child,
+#opponents > li > ul > li:last-child{
+	float:right;
+}
+#scores > li > ul,
+#opponents > li > ul{
 	height: 30px;
 }
-#scores img{
+.count img{
 	height: 16px;
 	vertical-align: middle;
 }
@@ -91,7 +102,7 @@ li.referee:hover > a{
     color: white;
 }
 #results div.value{
-	margin:20px;
+	margin:16px;
 }
 li.action{
 	float:right;
@@ -99,12 +110,15 @@ li.action{
 #results > li:first-child {
 	text-align: right;
 }
+#results > li > div {
+	display: inline-block;
+}
 #results{
 	margin-bottom: 30px;
 }
 #game-scores .cols{
-	width:48%;
-	padding:1%;
+	width:44%;
+	padding:3%;
 }
 #game form > div.cols > div {
 	margin-bottom: 15px;
@@ -314,6 +328,12 @@ h3
     margin-top: 20px;
     padding:          2px 4px;
 }
+h4{
+	font-weight:   bold;
+	padding:          2px 4px;
+	margin-top: 10px;
+	margin-bottom:    5px;
+}
 
 p
 {
@@ -504,7 +524,7 @@ input[type="submit"]{
 .fos_user_login > div,
 .fos_user_profile_edit > div,
 .fos_user_registration_register > div,
-#fos_user_registration_form_adress > div,
+#fos_user_registration_form_address > div,
 .fos_user_resetting_request > div,
 .fos_user_resetting_reset > div > div,
 .fos_user_registration_form > div {
@@ -547,7 +567,7 @@ div.short,
 div.link,
 div.name,
 div.date,
-div.adress,
+div.address,
 div.team,
 div.phone,
 div.position,
@@ -676,7 +696,7 @@ div.sample{
 #team ul.list div.short div.link{
 	width:30%;
 }
-#team ul.list div.short div.adress{
+#team ul.list div.short div.address{
 	width:70%;
 }
 .full h2{

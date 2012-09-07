@@ -6,7 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Entity\User;
-use Aueio\ClubBundle\Entity\Adress;
+use Aueio\ClubBundle\Entity\Address;
 
 /**
  * Aueio\ClubBundle\Entity\Player
@@ -50,35 +50,36 @@ class Player extends User
     /**
     * @var string $phone
     *
-    * @ORM\Column(name="phone", type="string", unique=true, length=10)
+    * @ORM\Column(name="phone", type="string", unique=true, length=10, nullable=true)
     */
     private $phone;
     
 	/**
-    * @var Adress $adress
+    * @var Address $address
     *
-    * @ORM\ManyToOne(targetEntity="Adress")
+    * @ORM\ManyToOne(targetEntity="Address")
+    * @ORM\JoinColumn(name="address_id", referencedColumnName="id", nullable=true)
     */
-    private $adress;
+    private $address;
     
     /**
     * @var boolean $car
     *
-    * @ORM\Column(name="car", type="boolean")
+    * @ORM\Column(name="car", type="boolean", nullable=true)
     */
     private $car;
     
     /**
     * @var string $position
     *
-    * @ORM\Column(name="position", type="string", length=6)
+    * @ORM\Column(name="position", type="string", length=6, nullable=true)
     */
     private $position;
     
     /**
     * @var string $hand;
     *
-    * @ORM\Column(name="hand", type="string", length=5)
+    * @ORM\Column(name="hand", type="string", length=5, nullable=true)
     */
     private $hand;
     
@@ -438,25 +439,25 @@ class Player extends User
     }
 
     /**
-     * Set adress
+     * Set address
      *
-     * @param Aueio\ClubBundle\Entity\Adress $adress
+     * @param Aueio\ClubBundle\Entity\Address $address
      * @return Player
      */
-    public function setAdress(Adress $adress = null)
+    public function setAddress(Address $address = null)
     {
-        $this->adress = $adress;
+        $this->address = $address;
     
         return $this;
     }
 
     /**
-     * Get adress
+     * Get address
      *
-     * @return Aueio\ClubBundle\Entity\Adress 
+     * @return Aueio\ClubBundle\Entity\Address 
      */
-    public function getAdress()
+    public function getAddress()
     {
-        return $this->adress;
+        return $this->address;
     }
 }

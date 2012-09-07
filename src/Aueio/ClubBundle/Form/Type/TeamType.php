@@ -25,7 +25,7 @@ class TeamType extends AbstractType
 		));
 		$builder->add('gym_name', 'text');
 		$builder->add('gym_phone', 'text');
-		$builder->add('adress',  new AdressType());
+		$builder->add('gym_address',  new AddressType());
 		$builder->add('contacts', 'entity', array(
 												'class' 		=> 'AueioClubBundle:Player',
 												'expanded'		=> false,

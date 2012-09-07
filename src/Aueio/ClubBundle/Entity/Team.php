@@ -77,11 +77,11 @@ class Team
     
 		
 	/**
-    * @var string $adress
+    * @var string $address
     *
-    * @ORM\ManyToOne(targetEntity="Adress")
+    * @ORM\ManyToOne(targetEntity="Address")
     */
-    private $adress;
+    private $gym_address;
 
     /**
      * @ORM\ManyToMany(targetEntity="Player")
@@ -157,23 +157,23 @@ class Team
     }
 
     /**
-     * Set adress
+     * Set address
      *
-     * @param text $adress
+     * @param text $address
      */
-    public function setAdress($adress)
+    public function setGymAddress($address)
     {
-        $this->adress = $adress;
+        $this->gym_address = $address;
     }
 
     /**
-     * Get adress
+     * Get address
      *
      * @return text 
      */
-    public function getAdress()
+    public function getGymAddress()
     {
-        return $this->adress;
+        return $this->gym_address;
     }
 
     /**
