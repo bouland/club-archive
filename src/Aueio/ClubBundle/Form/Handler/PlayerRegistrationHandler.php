@@ -22,13 +22,13 @@ class PlayerRegistrationHandler extends RegistrationFormHandler
 		$this->em = $entityManager;
 	}
 	public function onSuccess(UserInterface $player, $confirmation){
-		$address_new = $player->getAdress();
-		$address = $this->em->getRepository('AueioClubBundle:Adress')->findBy(array(	'name' => $address_new->getName(),
+		$address_new = $player->getAddress();
+		$address = $this->em->getRepository('AueioClubBundle:Address')->findBy(array(	'name' => $address_new->getName(),
 																					'code' => $address_new->getCode(),
 																					'city' => $address_new->getCity()));
-		if(is_array($address))
+		if(is_array($address) && count($address) > 0)
 		{
-			$player->setAdress($address[0]);
+			$player->setAddress($address[0]);
 		}else{
 			$this->em->persist($address_new);
 		}

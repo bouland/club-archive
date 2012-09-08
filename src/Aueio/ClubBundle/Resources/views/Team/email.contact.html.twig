@@ -7,8 +7,9 @@
 {% block body_text %}
 {% autoescape false %}
 {{ message }}
-
+<br /><br />
 {{ 'email.message.form'|trans({}, 'AueioClubBundle') }}
+<br />
 {{ from.firstname }}
 {% endautoescape %}
 {% endblock %}
