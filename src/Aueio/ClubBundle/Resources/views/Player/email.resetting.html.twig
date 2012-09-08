@@ -3,6 +3,7 @@
 {{ 'email.subject.tag'|trans({},'AueioClubBundle') }}{{ 'email.subject.resetting'|trans({},'AueioClubBundle') }}
 {% endautoescape %}
 {% endblock %}
+
 {% block body_text %}
 {% autoescape false %}
 {{ 'email.message.hello'|trans({'%firstname%': user.firstname}, 'AueioClubBundle') }}
@@ -10,10 +11,18 @@
 {{ 'email.message.resetting'|trans({'%login%': user.username},'AueioClubBundle') }}{{ 'email.message.link'|trans({},'AueioClubBundle') }}.
 {{ confirmationUrl }}
 
+{{ 'email.message.form'|trans({}, 'AueioClubBundle') }}
 {{ 'email.message.sign'|trans({}, 'AueioClubBundle') }}
 {% endautoescape %}
 {% endblock %}
 
 {% block body_html %}
-{% include 'AueioClubBundle:Player:resetting.email.html.twig' %}
+{% autoescape false %}
+{{ 'email.message.hello'|trans({'%firstname%': user.firstname}, 'AueioClubBundle') }}
+
+{{ 'email.message.resetting'|trans({'%login%': user.username},'AueioClubBundle') }} <a href="{{confirmationUrl}}">{{ 'email.message.link'|trans({},'AueioClubBundle') }}</a>
+
+{{ 'email.message.form'|trans({}, 'AueioClubBundle') }}
+{{ 'email.message.sign'|trans({}, 'AueioClubBundle') }}
+{% endautoescape %}
 {% endblock %}

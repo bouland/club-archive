@@ -115,10 +115,10 @@ class PlayerController extends Controller
     	
     		if( $form->isValid() )
     		{
-    			$this->get('aueio_club.mailer')->emailPlayer($player, $from, $form->getData());
+    			$this->get('aueio_club.mailer')->sendContactEmailToPlayer($player, $from, $form->getData());
     			$this->get('session')->setFlash('notice', $this->get('translator')->trans('message.email.ok'));
     			
-    			return $this->redirect($this->generateUrl('aueio_club_team_view', array('id' => $player->getId())));
+    			return $this->redirect($this->generateUrl('aueio_club_player_view', array('id' => $player->getId())));
     		}
     	}
 

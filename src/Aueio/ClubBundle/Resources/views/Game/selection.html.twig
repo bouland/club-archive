@@ -178,7 +178,7 @@
 			</div>
 			<div id="back_left">
 				<ul>
-				{% if players['positions'][1]|length > 1 %}
+				{% if players['positions'][0]|length > 1 %}
 					{% for player in players['positions'][0] %}
 						{% if loop.index is divisibleby(2) %}
 							<li class="player">

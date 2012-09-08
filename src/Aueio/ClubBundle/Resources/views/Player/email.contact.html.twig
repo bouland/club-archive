@@ -1,0 +1,23 @@
+{% block subject %}
+{% autoescape false %}
+{{ 'email.subject.tag'|trans({},'AueioClubBundle') }}{{ subject }}
+{% endautoescape %}
+{% endblock %}
+
+{% block body_text %}
+{% autoescape false %}
+{{ message }}
+
+{{ 'email.message.form'|trans({}, 'AueioClubBundle') }}
+{{ from.firstname }}
+{% endautoescape %}
+{% endblock %}
+
+{% block body_html %}
+{% autoescape false %}
+{{ message }}
+
+{{ 'email.message.form'|trans({}, 'AueioClubBundle') }}
+{{ from.firstname }}
+{% endautoescape %}
+{% endblock %}

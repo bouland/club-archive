@@ -23,7 +23,7 @@ class AueioExtension extends Twig_Extension
 			return $player['firstname'] . ' ' . substr($player['lastname'], 0, 1);
 		}
 	}
-	public function dateFormatFRFilter($date)
+	public function dateFormatFRFilter($date, $format = null)
 	{
 	
     	$dateFormatter = \IntlDateFormatter::create(
@@ -37,15 +37,20 @@ class AueioExtension extends Twig_Extension
     	if(! $date instanceof \DateTime){
     		$date = new \DateTime($date);
     	}
-    	$dateFormatter->setPattern('EEEE');
-    	$day = "<div class=\"day\">{$dateFormatter->format($date)}</div>";
-    	$dateFormatter->setPattern('dd');
-    	$nb = "<div class=\"nb\">{$dateFormatter->format($date)}</div>";
-    	$dateFormatter->setPattern('MMMM');
-    	$month = "<div class=\"month\">{$dateFormatter->format($date)}</div>";
-    	$dateFormatter->setPattern('yyyy');
-    	$year = "<div class=\"year\">{$dateFormatter->format($date)}</div>";
-    	return $day . $nb . $month . $year;
+    	if(!$format){
+	    	$dateFormatter->setPattern('EEEE');
+	    	$day = "<div class=\"day\">{$dateFormatter->format($date)}</div>";
+	    	$dateFormatter->setPattern('dd');
+	    	$nb = "<div class=\"nb\">{$dateFormatter->format($date)}</div>";
+	    	$dateFormatter->setPattern('MMMM');
+	    	$month = "<div class=\"month\">{$dateFormatter->format($date)}</div>";
+	    	$dateFormatter->setPattern('yyyy');
+	    	$year = "<div class=\"year\">{$dateFormatter->format($date)}</div>";
+	    	return $day . $nb . $month . $year;
+    	}else{
+    		$dateFormatter->setPattern($format);
+    		return $dateFormatter->format($date);
+    	}
     }
 
 	public function getName()

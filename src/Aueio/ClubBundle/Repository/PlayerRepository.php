@@ -58,8 +58,39 @@ WHERE (s.season_id = g.season_id AND g.id = {$game->getId()} AND t.id = {$team->
 	AND p.firstname != 'goal'
 	AND p.firstname != 'boy');");
 	}
+	public function findTeamNextGameEmails(Team $team, Game $game)
+	{
+		return $this->getEntityManager()->getConnection()->fetchAll("SELECT p.email FROM players p
+				LEFT JOIN seasons_players s
+				ON p.id = s.player_id
+				INNER JOIN teams t
+				ON p.team_id = t.id
+				LEFT JOIN roles r
+				ON r.team_id = t.id
+				INNER JOIN games g
+				ON r.game_id = g.id
+				LEFT JOIN actions a
+				ON (a.player_id = p.id AND a.game_id = g.id)
+				WHERE (s.season_id = g.season_id AND g.id = {$game->getId()} AND t.id = {$team->getId()} AND a.id IS NULL
+				AND p.firstname != 'girl'
+				AND p.firstname != 'goal'
+			AND p.firstname != 'boy');");
+	}
 	public function findSeasonTeamContacts(Team $team, $season_id){
 		return $this->createQueryBuilder('p')
+		->leftJoin('p.seasons', 's')
+		->leftJoin('p.leads', 't')
+		->where('s.id = :id_season')
+		->andWhere('t.id = :id_team')
+		->setParameters(array(
+				'id_season' => $season_id,
+				'id_team' => $team->getId(),
+		))
+		->getQuery()->getResult();
+	}
+	public function findSeasonTeamEmails(Team $team, $season_id){
+		return $this->createQueryBuilder('p')
+		->select('p.email')
 		->leftJoin('p.seasons', 's')
 		->leftJoin('p.leads', 't')
 		->where('s.id = :id_season')

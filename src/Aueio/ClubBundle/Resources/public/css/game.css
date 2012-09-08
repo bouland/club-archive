@@ -105,7 +105,7 @@ li.referee:hover > a{
 li.action{
 	float:right;
 }
-#results > li:first-child {
+#game-scores #results > li:first-child {
 	text-align: right;
 }
 #results > li > div {

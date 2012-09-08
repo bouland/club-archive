@@ -134,12 +134,25 @@ class TeamController extends Controller
     		 
     		if( $form->isValid() )
     		{
-    			$this->get('aueio_club.mailer')->emailTeam($team, $from, $form->getData());
+    			$this->get('aueio_club.mailer')->sendContactEmailToTeam($team, $from, $form->getData());
     			$this->get('session')->setFlash('notice', $this->get('translator')->trans('message.email.ok'));
     			return $this->redirect($this->generateUrl('aueio_club_team_view', array('id' => $team->getId())));
     		}
     	}
     
     	return $this->render('AueioClubBundle:Team:contact.html.twig', array('team' => $team, 'form' => $form->createView()));
+    }
+    /**
+     * @Route("/call/{id}", requirements={"id" = "\d+"})
+     */
+    public function callAction(Team $team)
+    {
+    	$from = $this->container->get('security.context')->getToken()->getUser();
+    	if (!is_object($from) || !$from instanceof Player) {
+    		throw new AccessDeniedException('This user does not have access to this section.');
+    	}
+    	$this->get('aueio_club.mailer')->sendRecallEmailToTeam($team, $from);
+    	$this->get('session')->setFlash('notice', $this->get('translator')->trans('message.email.ok'));
+    	return $this->redirect($this->generateUrl('aueio_club_team_view', array('id' => $team->getId())));
     }
 }

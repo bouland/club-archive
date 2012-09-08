@@ -11,38 +11,65 @@ use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface,
 class Mailer
 {
 	private $_mailer;
-	private $_templating;
 	private $_em;
 	private $_session;
+	private $_twig;
 	
-	public function __construct(\Swift_Mailer $mailer, EngineInterface $templating, EntityManager $em, SessionInterface $session)
+	public function __construct(\Swift_Mailer $mailer, EntityManager $em, SessionInterface $session, \Twig_Environment $twig)
 	{
 		$this->_mailer = $mailer;
-		$this->_templating = $templating;
 		$this->_em = $em;
 		$this->_session = $session;
+		$this->_twig = $twig;
 	}
 	
-	public function emailPlayer(Player $to, Player $from, Array $data)
+	public function sendContactEmailToPlayer(Player $to, Player $from, Array $context)
 	{
-		$message = \Swift_Message::newInstance()
-		->setSubject($data['subject'])
-		->setFrom($from->getEmail())
-		->setTo($player->getEmail())
-		->setBody($this->renderView('AueioClubBundle:Player:contact.email.html.twig', array('from' => $from, 'subject' => $data['subject'], 'message' => $data['message'])));
-		$this->_mailer->send($message);
+		array_merge($context, array('to' => $to, 'from'=> $from));
+		$this->sendMessage('AueioClubBundle:Player:email.contact.html.twig', $context, $from->getEmail(), $to_emails);
 	}
 	
-	public function emailTeam(Team $to, Player $from, Array $data)
+	public function sendContactEmailToTeam(Team $to, Player $from, Array $context)
 	{
 		$season_id = $this->_session->get('season_id');
-		$emails = $this->_em->getRepository('AueioClubBundle:Player')->findSeasonTeamContacts($to, $season_id);
-		$message = \Swift_Message::newInstance()
-		->setSubject($data['subject'])
-		->setFrom($from->getEmail())
-		->setTo($emails)
-		->setBody($this->_templating->render('AueioClubBundle:Player:contact.email.html.twig', array('from' => $from, 'subject' => $data['subject'], 'message' => $data['message'])));
-		$this->_mailer->send($message);
+		$to_emails = $this->_em->getRepository('AueioClubBundle:Player')->findSeasonTeamEmails($to, $season_id);
+		array_merge($context, array('to' => $to, 'from'=> $from));
+		$this->sendMessage('AueioClubBundle:Team:email.contact.html.twig', $context, $from->getEmail(), $to_emails);
 	}
 	
+	public function sendRecallEmailToTeam(Team $to, Player $from)
+	{
+		$season_id = $this->_session->get('season_id');
+		$next_game = $this->_em->getRepository('AueioClubBundle:Game')->findSeasonTeamNextGame($to, $season_id);
+		//$selection_link = $this->router->generateUrl('aueio_club_game_selection', array('id' => $next_game->getId()));
+		$to_emails = $this->_em->getRepository('AueioClubBundle:Player')->findTeamNextGameEmails($to, $next_game);
+		$context = array(
+				'game' => $next_game,
+				'to' => $to,
+				'from' => $from
+		);
+		$this->sendMessage('AueioClubBundle:Team:email.recall.html.twig', $context, $from->getEmail(), array_values($to_emails[0]));
+	}
+	
+	protected function sendMessage($templateName, $context, $fromEmail, $toEmail)
+	{
+		$template = $this->_twig->loadTemplate($templateName);
+		$subject = $template->renderBlock('subject', $context);
+		$textBody = $template->renderBlock('body_text', $context);
+		$htmlBody = $template->renderBlock('body_html', $context);
+	
+		$message = \Swift_Message::newInstance()
+		->setSubject($subject)
+		->setFrom($fromEmail)
+		->setTo($toEmail);
+	
+		if (!empty($htmlBody)) {
+			$message->setBody($htmlBody, 'text/html')
+			->addPart($textBody, 'text/plain');
+		} else {
+			$message->setBody($textBody);
+		}
+	
+		$this->_mailer->send($message);
+	}
 }

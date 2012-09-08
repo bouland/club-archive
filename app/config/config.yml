@@ -78,7 +78,7 @@ fos_user:
     registration:
         confirmation:
             enabled:    true
-            template: AueioClubBundle:Player:registration.email.txt.twig
+            template: AueioClubBundle:Player:email.registration.html.twig
             from_email:
                 address:        registration@bouland.org
                 sender_name:    "[HandBall] Registration"
@@ -91,7 +91,7 @@ fos_user:
             handler: aueio_club.form.handler.profile
     resetting:
         email:
-            template: AueioClubBundle:Player:resetting.email.txt.twig
+            template: AueioClubBundle:Player:email.resetting.html.twig
             from_email:
                 address:        resetting@bouland.org
                 sender_name:    "[HandBall] Reset Password"

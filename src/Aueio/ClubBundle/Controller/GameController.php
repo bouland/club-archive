@@ -108,7 +108,7 @@ class GameController extends Controller
     {
     	$em = $this->getDoctrine()->getEntityManager();
 
-    	$form = $this->createForm(new GameType(), $game, array('form' => 'result'));
+    	$form = $this->createForm(new GameType(), $game, array('intention' => 'result'));
     
     	$formHandler = new GameHandler($form, $request, $em);
     	if( $formHandler->process() )

@@ -5,14 +5,19 @@ layout:
 email:
     subject:
         tag: "[HandBall]"
+        recall: "%date% à %city%"
         resetting: Reset du mot de passe
         registration: Validation du compte
     message:
         hello: "Salut %firstname% !"
         registration: "Pour valider ton compte, voici le "
         resetting: "Pour réinitialiser ton mot de passe associé au login %login%, voici le "
+        recall:
+            date: "Le prochain match sera à %city% le %date%."
+            link: "Ca serait sympa de donner ta résponse sur la page "
         link: "lien"
-        sign: "A bientôt,<br/>Simon"
+        form: "A bientôt,"
+        sign: "Simon"
 resetting:
     lost: "Mot de passe oublié ?"
 config:
@@ -77,6 +82,7 @@ sidebar:
     sheet: Feuille de match
     score: Table de marque
     confirm: Tu es sûr de toi ?
+    recall: Envoyer un rappel
 tab:
     config: Configuration
     game: Matchs

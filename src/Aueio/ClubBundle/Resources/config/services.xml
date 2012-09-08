@@ -43,9 +43,9 @@
 
 		<service id="aueio_club.mailer" class="Aueio\ClubBundle\Service\Mailer">
             <argument type="service" id="mailer" />
-        	<argument type="service" id="templating" />
         	<argument type="service" id="doctrine.orm.entity_manager" />
         	<argument type="service" id="session" />
+        	<argument type="service" id="twig" />
         </service>
         
         <service id="aueio.twig.aueio_extension" class="Aueio\ClubBundle\Twig\AueioExtension">
