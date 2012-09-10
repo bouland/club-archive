@@ -91,7 +91,7 @@
 			        <h5>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h5>
 			    {% endfor %}
 				</ul>
-			</li><li class="shop">
+			</li><li class="shop">{% if players['shop'] %}
 				<h4>{{ 'game.selection.shop'|trans({}, 'AueioClubBundle') }}</h4>
 				<ul>
 			    {% for player in players['shop'] %}
@@ -108,7 +108,7 @@
 			    {% else %}
 			        <h5>{{ 'game.selection.noshop'|trans({}, 'AueioClubBundle') }}</h5>
 			    {% endfor %}
-			    </ul>
+			    </ul>{% endif %}
 			    <h4>{{ 'game.selection.referee'|trans({}, 'AueioClubBundle') }}</h4>
 				<ul>
 			    {% for player in players['referee'] %}
@@ -138,11 +138,13 @@
 									<img  src="/bundles/aueioclub/images/icon_whistle.gif" alt="cancel logo">
 								</a>
 							</li>
+							{% if players['shop'] %}
 							<li>
 								<a href="{{ path('aueio_club_action_add', {"game_id": game.id, "player_id": player.id, "type": "shop"}) }}" title="{{ 'game.selection.link.shop'|trans({}, 'AueioClubBundle') }}">
 									<img style="height: 20px;margin-top: -2px;" src="/bundles/aueioclub/images/logo-panier.png" alt="cancel logo">
 								</a>
 							</li>
+							{% endif %}
 							<li>
 								<a href="{{ path('aueio_club_action_delete', {"game_id": game.id, "player_id": player.id, "type": "play"}) }}" title="{{ 'game.selection.link.modify'|trans({}, 'AueioClubBundle') }}">
 									<img src="/bundles/aueioclub/images/Crystal_Clear_action_button_cancel.png" alt="cancel logo">

@@ -40,7 +40,7 @@ class GameController extends Controller
     	//$season_id = $this->container->get('request')->getSession()->get('season_id');
     	$em = $this->getDoctrine()->getEntityManager();
     	//$em->getFilters()->enable('season')->setParameter('season_id', $season_id);
-    	$games = $em->getRepository('AueioClubBundle:Game')->findAll();
+    	$games = $em->getRepository('AueioClubBundle:Game')->findBy(array(), array('date' => 'asc'));
     	return $this->render('AueioClubBundle:Game:list.html.twig', array('games' => $games));
     }
     /**
@@ -128,7 +128,14 @@ class GameController extends Controller
     	$teams = $this->getTeams($game, $team_index);
     	
     	$repository = $em->getRepository('AueioClubBundle:Player');
-    	foreach( array('miss','shop', 'play', 'hurt', 'referee') as $action_type) {
+    	if($game->isLocal($teams['focus'])){
+    		$action_types = array('miss', 'play', 'hurt', 'referee', 'shop');
+    	}else{
+    		$action_types = array('miss', 'play', 'hurt', 'referee');
+    		$players['shop'] = false;
+    	}
+    	
+    	foreach( $action_types as $action_type) {
     		$players[$action_type] = $repository->findActionByGame($game, $teams['focus'], $action_type);
     	}
     	$players['wait'] = $repository->findWithoutActionByGame($game, $teams['focus']);
@@ -191,8 +198,8 @@ class GameController extends Controller
 	    		}
     		}
     		$attributs = array();
-    		$attributs['isReferee'] = $repository->findByGameByType($player->getId(), $game->getId(), 'referee', true);
-    		$attributs['action'] = $repository->findByGameByType($player->getId(), $game->getId(), $type, true);
+    		$attributs['isReferee'] = $repository->findTypeByPlayerByGame($player, $game, 'referee', true);
+    		$attributs['action'] = $repository->findTypeByPlayerByGame($player, $game, $type, true);
     		$attributs['type'] = $type;
     		$attributs['object'] = $player;
     		$players[] = $attributs;
@@ -205,15 +212,15 @@ class GameController extends Controller
     		}
     		
     		$attributs = array();
-    		$attributs['number'] = $repository->findByGameByType($player->getId(), $game->getId(), 'play', true);
-    		$attributs['action'] = $repository->findByGameByType($player->getId(), $game->getId(), $type, true);
+    		$attributs['number'] = $repository->findTypeByPlayerByGame($player, $game, 'play', true);
+    		$attributs['action'] = $repository->findTypeByPlayerByGame($player, $game, $type, true);
     		$attributs['type'] = $type;
     		$attributs['object'] = $player;
     		$opponents[] = $attributs;
     	}
     	
-    	$score_focus = $em->getRepository('AueioClubBundle:Action')->getScores($game->getId(), $teams['focus']);
-    	$score_opponent = $em->getRepository('AueioClubBundle:Action')->getScores($game->getId(), $teams['opponent']);
+    	$score_focus = $em->getRepository('AueioClubBundle:Action')->getScores($game, $teams['focus']);
+    	$score_opponent = $em->getRepository('AueioClubBundle:Action')->getScores($game, $teams['opponent']);
 
     	return $this->render('AueioClubBundle:Game:score.html.twig', array(	'game_id' => $game->getId(),
     																		'id_goal' => $id_goal ,

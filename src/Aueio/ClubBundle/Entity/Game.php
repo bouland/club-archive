@@ -123,7 +123,18 @@ class Game implements SeasonAwareInterface
     {
         return $this->roles;
     }
-
+	public function isLocal(Team $team){
+		//remminber roles are ordered by type ([0] is LOCAL  [1] is VISITOR)
+		if ($team ==  $this->roles[0]->getTeam())
+		{
+			return true;
+		}else
+		{
+			return false;
+		}
+		
+	}
+    
     /**
      * Add actions
      *

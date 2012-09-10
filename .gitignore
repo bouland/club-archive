@@ -1,6 +1,7 @@
 .buildpath
 .project
 .settings
+.externalToolBuilders/
 *~
 composer.phar
 /web/bundles/

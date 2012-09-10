@@ -32,17 +32,23 @@ class PlayerRepository extends EntityRepository
 	}
 	public function findWithoutActionByGame(Game $game, Team $team)
 	{
-/*		$em = $this->getEntityManager();
+		$em = $this->getEntityManager();
 		$em->getFilters()->disable('season');
 		$query = $em->createQuery("SELECT p
 FROM Aueio\ClubBundle\Entity\Player p
 INNER JOIN Aueio\ClubBundle\Entity\Team t WHERE t = p.team 
 LEFT JOIN Aueio\ClubBundle\Entity\Role r WHERE r.team = t
 INNER JOIN Aueio\ClubBundle\Entity\Game g WHERE g = r.game
-LEFT JOIN Aueio\ClubBundle\Entity\Action a WHERE (a.player = p AND a.game = g)
-WHERE (t.id = {$team_id} AND a.id IS NULL)");
+LEFT JOIN Aueio\ClubBundle\Entity\Action a WITH (a.player = p AND a.game = g)
+WHERE (g.season MEMBER OF p.seasons
+	AND g.id = {$game->getId()}
+	AND t.id = {$team->getId()}
+	AND p.firstname != 'girl'
+	AND p.firstname != 'goal'
+	AND p.firstname != 'boy'
+	AND a.id IS NULL)");
 		return $query->getResult();
-*/		return $this->getEntityManager()->getConnection()->fetchAll("SELECT p.id, p.firstname, p.lastname FROM players p
+/*		return $this->getEntityManager()->getConnection()->fetchAll("SELECT p.id, p.firstname, p.lastname FROM players p
 LEFT JOIN seasons_players s 
 ON p.id = s.player_id
 INNER JOIN teams t
@@ -57,9 +63,27 @@ WHERE (s.season_id = g.season_id AND g.id = {$game->getId()} AND t.id = {$team->
 	AND p.firstname != 'girl'
 	AND p.firstname != 'goal'
 	AND p.firstname != 'boy');");
+		*/
 	}
 	public function findTeamNextGameEmails(Team $team, Game $game)
 	{
+		$em = $this->getEntityManager();
+		$em->getFilters()->disable('season');
+		$query = $em->createQuery("SELECT p.firstname, p.lastname, p.email
+				FROM Aueio\ClubBundle\Entity\Player p
+				INNER JOIN Aueio\ClubBundle\Entity\Team t WHERE t = p.team
+				LEFT JOIN Aueio\ClubBundle\Entity\Role r WHERE r.team = t
+				INNER JOIN Aueio\ClubBundle\Entity\Game g WHERE g = r.game
+				LEFT JOIN Aueio\ClubBundle\Entity\Action a WITH (a.player = p AND a.game = g)
+				WHERE (g.season MEMBER OF p.seasons
+				AND g.id = {$game->getId()}
+				AND t.id = {$team->getId()}
+				AND p.firstname != 'girl'
+				AND p.firstname != 'goal'
+				AND p.firstname != 'boy'
+				AND a.id IS NULL)");
+		return $query->getResult();
+		/*
 		return $this->getEntityManager()->getConnection()->fetchAll("SELECT p.email FROM players p
 				LEFT JOIN seasons_players s
 				ON p.id = s.player_id
@@ -75,6 +99,7 @@ WHERE (s.season_id = g.season_id AND g.id = {$game->getId()} AND t.id = {$team->
 				AND p.firstname != 'girl'
 				AND p.firstname != 'goal'
 			AND p.firstname != 'boy');");
+			*/
 	}
 	public function findSeasonTeamContacts(Team $team, $season_id){
 		return $this->createQueryBuilder('p')

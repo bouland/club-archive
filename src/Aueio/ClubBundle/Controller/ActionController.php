@@ -100,8 +100,6 @@ class ActionController extends Controller
     	))
     	->getQuery()->getResult();
 
-    	
-    	
     	if (count($actions) > 0) {
     		$em->remove($actions[count($actions)-1]);
     		$em->flush();

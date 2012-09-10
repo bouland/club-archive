@@ -2,7 +2,10 @@
 
 namespace Aueio\ClubBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\EntityRepository,
+	Aueio\ClubBundle\Entity\Game,
+	Aueio\ClubBundle\Entity\Player,
+	Aueio\ClubBundle\Entity\Team;
 
 /**
  * ActionRepository
@@ -13,45 +16,28 @@ use Doctrine\ORM\EntityRepository;
 class ActionRepository extends EntityRepository
 {
 	
-	public function getStats($player_id)
+	public function getPlayerStats(Player $player)
 	{
 		$stats = array();
 		foreach ( array("play", "miss", "shop", "referee","score", "save") as $type ){
-			$stats[$type] = $this->findByType($player_id, $type, true);
+			$stats[$type] = $this->findTypeByPlayer($player, $type, true);
 		}
 		foreach ( array("win", "lost", "nul") as $result ){
-			$stats[$result] = $this->findPlayByResult($player_id, $result, true);
+			$stats[$result] = $this->findPlayResultByPlayer($player, $result, true);
 		}
-		
 		return $stats;
 	}
-	public function findByType($player_id, $type, $count = false){
-		$builder = $this->createQueryBuilder('a')
-		->join('a.player', 'p')
-		->where('p.id = :id_player')
-		->andWhere('a.type = :type')
-		->setParameters(array(
-				'id_player' => $player_id,
-				'type' => $type
-		));
-		if($count){
-			$builder->select('count(a.id)')->setMaxResults(1);
-			return $builder->getQuery()->getSingleScalarResult();
-		}else{
-			return $builder->getQuery()->getResult();
-		}
-	}
-	public function findByGameByType($player_id, $game_id,  $type, $count = false){
+	public function findTypeByPlayer(Player $player, $type, $count = false){
 		$builder = $this->createQueryBuilder('a')
 		->join('a.player', 'p')
 		->join('a.game', 'g')
 		->where('p.id = :id_player')
-		->andWhere('g.id = :id_game')
 		->andWhere('a.type = :type')
+		->andWhere('g.date < :now')
 		->setParameters(array(
-				'id_player' => $player_id,
-				'id_game' => $game_id,
-				'type' => $type
+				'id_player' => $player->getId(),
+				'type' => $type,
+				'now' => new \Datetime('now')
 		));
 		if($count){
 			$builder->select('count(a.id)')->setMaxResults(1);
@@ -60,18 +46,41 @@ class ActionRepository extends EntityRepository
 			return $builder->getQuery()->getResult();
 		}
 	}
-	public function findPlayByResult($player_id, $result, $count = false){
+	public function findTypeByPlayerByGame(Player $player, Game $game,  $type, $count = false){
+		$builder = $this->createQueryBuilder('a')
+		->join('a.player', 'p')
+		->join('a.game', 'g')
+		->where('p.id = :id_player')
+		->andWhere('g.date < :now')
+		->andWhere('g.id = :id_game')
+		->andWhere('a.type = :type')
+		->setParameters(array(
+				'id_player' => $player->getId(),
+				'id_game' => $game->getId(),
+				'type' => $type,
+				'now' => new \Datetime('now')
+		));
+		if($count){
+			$builder->select('count(a.id)')->setMaxResults(1);
+			return $builder->getQuery()->getSingleScalarResult();
+		}else{
+			return $builder->getQuery()->getResult();
+		}
+	}
+	public function findPlayResultByPlayer(Player $player, $result, $count = false){
 		$builder = $this->createQueryBuilder('a')
 		->join('a.player', 'p')
 	 	->join('a.game', 'g')
 	 	->leftJoin('g.roles', 'r')
 	 	->where('p.id = :id_player')
+		->andWhere('g.date < :now')
 		->andWhere("p.team = r.team")
 		->andWhere("a.type = 'play'")
 		->andWhere('r.result = :type')
 		->setParameters(array(
-				'id_player' => $player_id,
-				'type' => $result
+				'id_player' => $player->getId(),
+				'type' => $result,
+				'now' => new \Datetime('now')		
 		));
 		if($count){
 			$builder->select('count(a.id)')->setMaxResults(1);
@@ -80,20 +89,37 @@ class ActionRepository extends EntityRepository
 			return $builder->getQuery()->getResult();
 		}
 	}
-	public function getScores($game_id, $team_id){
-		return $this->createQueryBuilder('a')
-		->select('count(a.id)')
-		->join('a.game', 'g')
-		->join('a.player', 'p')
-		->join('p.team', 't')
-		->where('g.id = :game_id')
-		->andWhere("a.type = 'score'")
-		->andWhere("t.id = :team_id")
-		->setMaxResults(1)
-		->setParameters(array(
-				'game_id' => $game_id,
-				'team_id' => $team_id
-		))->getQuery()->getSingleScalarResult();
+	public function getScores(Game $game, Team $team){
+		 $boy = $this->createQueryBuilder('a')
+					->select('count(a.id)')
+					->join('a.game', 'g')
+					->join('a.player', 'p')
+					->join('p.team', 't')
+					->where('g.id = :game_id')
+					->andWhere("a.type = 'score'")
+					->andWhere("t.id = :team_id")
+					->andWhere("p.gender = 'M'")
+					->setMaxResults(1)
+					->setParameters(array(
+							'game_id' => $game->getId(),
+							'team_id' => $team->getId()
+					))->getQuery()->getSingleScalarResult();
+		 
+		 $girl = $this->createQueryBuilder('a')
+					 ->select('count(a.id)')
+					 ->join('a.game', 'g')
+					 ->join('a.player', 'p')
+					 ->join('p.team', 't')
+					 ->where('g.id = :game_id')
+					 ->andWhere("a.type = 'score'")
+					 ->andWhere("t.id = :team_id")
+					 ->andWhere("p.gender = 'F'")
+					 ->setMaxResults(1)
+					 ->setParameters(array(
+					 		'game_id' => $game->getId(),
+					 		'team_id' => $team->getId()
+					 ))->getQuery()->getSingleScalarResult();
+		 return $boy + $girl * 2;
 	}
 	
 }

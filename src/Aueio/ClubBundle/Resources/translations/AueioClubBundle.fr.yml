@@ -1,6 +1,9 @@
 view: "Voir "
 layout:
     title: Terrible Handball Club
+    contact:
+        link: Contacter l'administrateur.
+        email: simon.bouland@gmail.com
 # Emails
 email:
     subject:

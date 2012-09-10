@@ -42,13 +42,18 @@ class Mailer
 		$season_id = $this->_session->get('season_id');
 		$next_game = $this->_em->getRepository('AueioClubBundle:Game')->findSeasonTeamNextGame($to, $season_id);
 		//$selection_link = $this->router->generateUrl('aueio_club_game_selection', array('id' => $next_game->getId()));
-		$to_emails = $this->_em->getRepository('AueioClubBundle:Player')->findTeamNextGameEmails($to, $next_game);
+		$to_players = $this->_em->getRepository('AueioClubBundle:Player')->findTeamNextGameEmails($to, $next_game);
+		$to_emails = array();
+		foreach ($to_players as $player)
+		{
+			$to_emails[$player['firstname'] . ' ' . $player['lastname']] = $player['email'];
+		}
 		$context = array(
 				'game' => $next_game,
 				'to' => $to,
 				'from' => $from
 		);
-		$this->sendMessage('AueioClubBundle:Team:email.recall.html.twig', $context, $from->getEmail(), array_values($to_emails[0]));
+		$this->sendMessage('AueioClubBundle:Team:email.recall.html.twig', $context, $from->getEmail(), array_values($to_emails));
 	}
 	
 	protected function sendMessage($templateName, $context, $fromEmail, $toEmail)

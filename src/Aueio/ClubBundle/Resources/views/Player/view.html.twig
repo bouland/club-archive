@@ -47,7 +47,7 @@
 		<div id="player-teams" class="cols">
 			<h3>{{ 'player.view.title.team'|trans({}, 'AueioClubBundle') }}</h3>{% if player.team %}{% include 'AueioClubBundle:Team:link.html.twig' with {'team': player.team} %}{% else %}{{ 'team.notfound'|trans({}, 'AueioClubBundle') }}{%  endif %}</p>
 		</div>
-		{% render "AueioClubBundle:Player:stats"  with {'player': player}%}
+		{% include 'AueioClubBundle:Player:stats.html.twig' %}
 	</div>
 </div>
 {% endblock %}

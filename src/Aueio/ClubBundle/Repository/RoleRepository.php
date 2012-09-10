@@ -13,46 +13,73 @@ use Doctrine\ORM\EntityRepository,
  */
 class RoleRepository extends EntityRepository
 {
-	public function getStats(Team $team)
+	public function getTeamStats(Team $team)
 	{
 		$stats = array();
 		foreach ( array("local", "visitor", "giveup") as $type ){
-			$res = $this->findByType($team, $type);
-			if(is_array($res)){
-				$stats[$type] = count($res);
-			}
+			$stats[$type] = $this->findTypeByTeam($team, $type, true);
 		}
 		foreach ( array("win", "lost", "nul") as $result ){
-			$res = $this->findByResult($team, $result);
-			if(is_array($res)){
-				$stats[$result] = count($res);
-			}
+			$stats[$result] = $this->findResultByTeam($team, $result, true);
 		}
+		$stats['total'] = $this->findPlayedGameByTeam($team, true);
 		
 		return $stats;
 	}
-	public function findByType(Team $team, $type){
+	public function findTypeByTeam(Team $team, $type, $count = false){
 		
-		return $this->createQueryBuilder('r')
+		$builder = $this->createQueryBuilder('r')
 		->join('r.team', 't')
+		->join('r.game', 'g')
 		->where('t.id = :id_team')
 		->andWhere('r.type = :type')
+		->andWhere('g.date < :now')
 		->setParameters(array(
 				'id_team' => $team->getId(),
-				'type' => $type
-		))
-		->getQuery()->getResult();
+				'type' => $type,
+				'now' => new \Datetime('now')
+		));
+		if($count){
+			$builder->select('count(r.id)')->setMaxResults(1);
+			return $builder->getQuery()->getSingleScalarResult();
+		}else{
+			return $builder->getQuery()->getResult();
+		}
 	}
-	public function findByResult(Team $team, $result){
-		return $this->createQueryBuilder('r')
+	public function findResultByTeam(Team $team, $result, $count = false){
+		$builder = $this->createQueryBuilder('r')
 		->join('r.team', 't')
-	 	->where('t.id = :id_team')
+	 	->join('r.game', 'g')
+		->where('t.id = :id_team')
 		->andWhere('r.result = :result')
+		->andWhere('g.date < :now')
 		->setParameters(array(
 				'id_team' => $team->getId(),
-				'result' => $result
-		))
-		->getQuery()->getResult();
+				'result' => $result,
+				'now' => new \Datetime('now')
+		));
+		if($count){
+			$builder->select('count(r.id)')->setMaxResults(1);
+			return $builder->getQuery()->getSingleScalarResult();
+		}else{
+			return $builder->getQuery()->getResult();
+		}
 	}
-	
+	public function findPlayedGameByTeam(Team $team, $count = false){
+		$builder = $this->createQueryBuilder('r')
+		->join('r.team', 't')
+		->join('r.game' , 'g')
+		->where('t.id = :id_team')
+		->andWhere('g.date < :now')
+		->setParameters(array(
+				'id_team' => $team->getId(),
+				'now' => new \DateTime('now')
+		));
+		if($count){
+			$builder->select('count(r.id)')->setMaxResults(1);
+			return $builder->getQuery()->getSingleScalarResult();
+		}else{
+			return $builder->getQuery()->getResult();
+		}
+	}
 }

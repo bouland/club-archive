@@ -2,8 +2,9 @@
 
 namespace Aueio\ClubBundle\Repository;
 
-use Doctrine\ORM\EntityRepository;
-use Aueio\ClubBundle\Entity\Team;
+use Doctrine\ORM\EntityRepository,
+	Aueio\ClubBundle\Entity\Team,
+	Aueio\ClubBundle\Entity\Player;
 
 /**
  * GameRepository
@@ -36,7 +37,7 @@ class GameRepository extends EntityRepository
 		}
 		return $game;
 	}
-	public function findWithoutActionByPlayer($player_id,$season_id)
+	public function findWithoutActionByPlayer(Player $player, $season_id)
 	{
 		/*		$em = $this->getEntityManager();
 		$em->getFilters()->disable('season');
@@ -56,6 +57,6 @@ INNER JOIN teams t ON t.id = r.team_id
 LEFT JOIN players p ON p.team_id = t.id
 LEFT JOIN actions a ON (a.player_id = p.id AND a.game_id = g.id)
 WHERE ( {$season_id} = g.season_id
-AND p.id = {$player_id} AND a.id IS NULL)");
+AND p.id = {$player->getId()} AND a.id IS NULL)");
 		}
 }

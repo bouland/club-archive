@@ -44,8 +44,7 @@ class TeamController extends Controller
     	$game_next = $em->getRepository('AueioClubBundle:Game')->findSeasonTeamNextGame($team, $season_id);
     	$contacts = $em->getRepository('AueioClubBundle:Player')->findSeasonTeamContacts($team, $season_id);
     	$members = $em->getRepository('AueioClubBundle:Player')->findSeasonTeamMembers($team, $season_id);
-    	$stats = $em->getRepository('AueioClubBundle:Role')->getStats($team);
-    	$stats['total'] = count($team->getRoles());
+    	$stats = $em->getRepository('AueioClubBundle:Role')->getTeamStats($team);
     	
         return $this->render('AueioClubBundle:Team:view.html.twig', array('team' => $team, 'game_next' => $game_next,'members' => $members, 'contacts' => $contacts, 'stats' => $stats));
     }

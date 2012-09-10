@@ -29,7 +29,27 @@ class PlayerController extends Controller
 	*/
 	public function viewAction(Player $player)
     {
-    	return $this->render('AueioClubBundle:Player:view.html.twig', array('player' => $player));
+    	$season_id = $this->container->get('request')->getSession()->get('season_id');
+    	$em = $this->getDoctrine()->getEntityManager();
+    	$season = $em->getRepository('AueioClubBundle:Season')->find($season_id);
+    	if($player->getSeasons()->contains($season)){
+    		if($player->getTeam()){
+    			$stats = $em->getRepository('AueioClubBundle:Action')->getPlayerStats($player);
+    			$stats['total'] = $em->getRepository('AueioClubBundle:Role')->findPlayedGameByTeam($player->getTeam(), true);
+    		}else{
+    			$stats = array('play' => 0,'total' => 0);
+    		}
+    		if($stats['total'] > ($stats['play']+$stats['miss']))
+    		{
+    			$stats['error'] = $em->getRepository('AueioClubBundle:Game')->findWithoutActionByPlayer($player, $season_id);
+    		}else{
+    			$stats['error'] = FALSE;
+    		}
+    		$stats['available'] = TRUE;
+    	}else{
+    		$stats['available'] = FALSE;
+    	}
+    	return $this->render('AueioClubBundle:Player:view.html.twig', array('player' => $player, 'stats' =>$stats));
     }
     
     public function showAction()
@@ -73,27 +93,7 @@ class PlayerController extends Controller
     }
     public function statsAction(Player $player)
     {
-    	$season_id = $this->container->get('request')->getSession()->get('season_id');
-    	$em = $this->getDoctrine()->getEntityManager();
-    	$season = $em->getRepository('AueioClubBundle:Season')->find($season_id);
-    	if($player->getSeasons()->contains($season)){
-	    	if($player->getTeam()){
-	    		$stats = $em->getRepository('AueioClubBundle:Action')->getStats($player->getId());
-	    		$stats['total'] = count($player->getTeam()->getRoles());
-	    	}else{
-	    		$stats = array('play' => 0,'total' => 0);
-	    	}
-	    	if($stats['total'] > ($stats['play']+$stats['miss']))
-	    	{
-	    		$stats['error'] = $em->getRepository('AueioClubBundle:Game')->findWithoutActionByPlayer($player->getId(), $season_id);
-	    	}else{
-	    		$stats['error'] = FALSE;
-	    	}
-	    	$stats['available'] = TRUE;
-    	}else{
-    		$stats['available'] = FALSE;
-    	}
-    	return $this->render('AueioClubBundle:Player:stats.html.twig', array('stats' =>$stats));
+    	
     		
     }
     /**

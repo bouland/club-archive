@@ -17,17 +17,16 @@
 			{% endblock %}
 		    </ul>
 		    <div>
-		    <script type="text/javascript">
-		    $(document).ready(function() {
-		    	$(".message").animate({opacity: '1.0'}, delay).fadeOut('slow')
-		    });
-		    </script>
-			
+			    <script type="text/javascript">
+			    $(document).ready(function() {
+			    	$(".message").animate({opacity: '1.0'}, delay).fadeOut('slow')
+			    });
+			    </script>
 				<ul class="system-messages">
 		        {% for key, message in app.session.getFlashes() %}
-		        <li class="{{ key }} message" style="opacity: 0.9; display: none;">
-		            {{ message|trans({}, 'FOSUserBundle') }}
-		        </li>
+			        <li class="{{ key }} message" style="opacity: 0.9; display: none;">
+			            {{ message|trans({}, 'AueioClubBundle') }}
+			        </li>
 		        {% endfor %}
 		        </ul>
 			</div>
@@ -70,6 +69,11 @@
 		<div class="inner">
 			<div id="footer_menu">
 				<ul>
+					<li>
+						<a href="mailto:{{ 'layout.contact.email'|trans({}, 'AueioClubBundle') }}?subject=[HandBall]+Admin">
+							{{- 'layout.contact.link'|trans({}, 'AueioClubBundle') -}}
+				        </a>
+			         </li>
 				{% block footer_menu %}
 			    {% endblock %}
 			    </ul>
