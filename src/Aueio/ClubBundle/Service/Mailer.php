@@ -32,7 +32,12 @@ class Mailer
 	public function sendContactEmailToTeam(Team $to, Player $from, Array $context)
 	{
 		$season_id = $this->_session->get('season_id');
-		$to_emails = $this->_em->getRepository('AueioClubBundle:Player')->findSeasonTeamEmails($to, $season_id);
+		$to_players = $this->_em->getRepository('AueioClubBundle:Player')->findSeasonTeamEmails($to, $season_id);
+		$to_emails = array();
+		foreach ($to_players as $player)
+		{
+			$to_emails[$player['firstname'] . ' ' . $player['lastname']] = $player['email'];
+		}
 		array_merge($context, array('to' => $to, 'from'=> $from));
 		$this->sendMessage('AueioClubBundle:Team:email.contact.html.twig', $context, $from->getEmail(), $to_emails);
 	}
@@ -53,7 +58,7 @@ class Mailer
 				'to' => $to,
 				'from' => $from
 		);
-		$this->sendMessage('AueioClubBundle:Team:email.recall.html.twig', $context, $from->getEmail(), array_values($to_emails));
+		$this->sendMessage('AueioClubBundle:Team:email.recall.html.twig', $context, $from->getEmail(), $to_emails);
 	}
 	
 	protected function sendMessage($templateName, $context, $fromEmail, $toEmail)

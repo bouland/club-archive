@@ -115,7 +115,7 @@ WHERE (s.season_id = g.season_id AND g.id = {$game->getId()} AND t.id = {$team->
 	}
 	public function findSeasonTeamEmails(Team $team, $season_id){
 		return $this->createQueryBuilder('p')
-		->select('p.email')
+		->select('p.email, p.firstname, p.lastname')
 		->leftJoin('p.seasons', 's')
 		->leftJoin('p.leads', 't')
 		->where('s.id = :id_season')
@@ -157,6 +157,9 @@ WHERE (s.season_id = g.season_id AND g.id = {$game->getId()} AND t.id = {$team->
 		return $this->createQueryBuilder('p')
 		->leftJoin('p.seasons', 's')
 		->where('s.id = :id_season')
+		->andWhere("p.firstname != 'girl'")
+		->andWhere("p.firstname != 'goal'")
+		->andWhere("p.firstname != 'boy'")
 		->orderBy('p.firstname')
 		->setParameters(array(
 				'id_season' => $season_id,
