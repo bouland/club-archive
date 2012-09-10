@@ -398,6 +398,9 @@ p
 	position: absolute;
 	bottom: 0px;
 }
+#footer_menu a{
+	color: white;
+}
 form.season-switch{
 	padding-bottom: 10px;
 	text-align: center;
