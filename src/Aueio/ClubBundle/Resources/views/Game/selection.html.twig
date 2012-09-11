@@ -91,7 +91,7 @@
 			        <h5>{{ 'player.notfound'|trans({}, 'AueioClubBundle') }}</h5>
 			    {% endfor %}
 				</ul>
-			</li><li class="shop">{% if players['shop'] %}
+			</li><li class="shop">{% if not players['noshop'] %}
 				<h4>{{ 'game.selection.shop'|trans({}, 'AueioClubBundle') }}</h4>
 				<ul>
 			    {% for player in players['shop'] %}
@@ -138,7 +138,7 @@
 									<img  src="/bundles/aueioclub/images/icon_whistle.gif" alt="cancel logo">
 								</a>
 							</li>
-							{% if players['shop'] %}
+							{% if not players['noshop'] %}
 							<li>
 								<a href="{{ path('aueio_club_action_add', {"game_id": game.id, "player_id": player.id, "type": "shop"}) }}" title="{{ 'game.selection.link.shop'|trans({}, 'AueioClubBundle') }}">
 									<img style="height: 20px;margin-top: -2px;" src="/bundles/aueioclub/images/logo-panier.png" alt="cancel logo">

@@ -136,9 +136,10 @@ class GameController extends Controller
     	$repository = $em->getRepository('AueioClubBundle:Player');
     	if($game->isLocal($teams['focus'])){
     		$action_types = array('miss', 'play', 'hurt', 'referee', 'shop');
+    		$players['noshop'] = false;
     	}else{
     		$action_types = array('miss', 'play', 'hurt', 'referee');
-    		$players['shop'] = false;
+    		$players['noshop'] = true;
     	}
     	
     	foreach( $action_types as $action_type) {

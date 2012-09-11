@@ -400,6 +400,7 @@ p
 }
 #footer_menu a{
 	color: white;
+	font-weight: bold;
 }
 form.season-switch{
 	padding-bottom: 10px;
@@ -510,18 +511,19 @@ input[type="submit"]{
 .system-messages {
     max-width: 500px;
     position: fixed;
-    right: 20px;
-    top: 24px;
+    right: 30%;
+    top: 120px;
     z-index: 2000;
-    border-radius: 8px 8px 8px 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45);
-    color: white;
     cursor: pointer;
     display: block;
     font-weight: bold;
-    opacity: 0.9;
+}
+ul.system-messages > li.notice{
+    border-radius: 8px 8px 8px 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45);
     padding: 3px 10px;
-
+	color: white;
+	background-color: orange;
 }
 .aueio_club_config_form > div > div,
 .fos_user_login > div,
