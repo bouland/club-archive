@@ -107,7 +107,13 @@ class GameController extends Controller
     public function sheetAction(Game $game, Request $request)
     {
     	$em = $this->getDoctrine()->getEntityManager();
-
+    	//update game roles with scores from page score
+    	foreach($game->getRoles() as $role)
+    	{
+    		$score = $em->getRepository('AueioClubBundle:Action')->getScores($game, $role->getTeam());
+    		$role->setScore($score);
+    	}
+    	
     	$form = $this->createForm(new GameType(), $game, array('intention' => 'result'));
     
     	$formHandler = new GameHandler($form, $request, $em);
@@ -175,6 +181,9 @@ class GameController extends Controller
      **/
     public function scoreAction(Game $game, $id_goal, Request $request)
     {
+    	if(new \DateTime('now') < $game->getDate() ){
+    		$this->get('session')->getFlashBag()->add('notice', 'Tu es en avance cette page ne fonctionnera pas correctement !!');
+    	}
     	$em = $this->getDoctrine()->getEntityManager();
        	
     	$players = array();

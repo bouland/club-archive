@@ -27,6 +27,7 @@
 		{% include 'AueioClubBundle:Game:header.html.twig' %}
 		<form action="{{ path('aueio_club_game_sheet', {"id": game.id}) }}" method="post" {{ form_enctype(form) }}>
 			<h3>{{ 'game.sheet.title.scores'|trans({}, 'AueioClubBundle') }}</h3>
+			<p>{{ 'game.sheet.info.scores'|trans({}, 'AueioClubBundle') }}</p>
 		    <ul id="results">
 		    {% for role in form.roles %}<li class="cols">
 						{{ form_errors(role.score) }}

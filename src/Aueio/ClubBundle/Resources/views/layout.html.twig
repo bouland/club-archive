@@ -17,18 +17,23 @@
 			{% endblock %}
 		    </ul>
 		    <div>
-			    <script type="text/javascript">
-			    $(document).ready(function() {
-			    	$(".message").animate({opacity: '1.0'}, delay).fadeOut('slow')
-			    });
-			    </script>
 				<ul class="system-messages">
+				{% for flashMessage in app.session.flashbag.get('notice') %}
+				    <li class="message notice">
+				        {{ flashMessage }}
+				    </li>
+				{% endfor %}
 		        {% for key, message in app.session.getFlashes() %}
 			        <li class="{{ key }} message" style="opacity: 0.9; display: none;">
 			            {{ message|trans({}, 'AueioClubBundle') }}
 			        </li>
 		        {% endfor %}
 		        </ul>
+		        <script>
+					  $("ul").click(function () {
+						  $(this).fadeOut("slow");
+					  });
+			  	</script>
 			</div>
 	    </div>
 	</div>

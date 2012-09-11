@@ -71,6 +71,8 @@ game:
             modify: "Annuler"
         title: "Joueurs sélectionnés"
     sheet:
+        info:
+            scores: "les scores suivants sont calculés par la page table de marque. Il peut arriver qu'elle soit erronée. Dans ce cas veuillez saisir les scores officiels."
         title:
             scores: "Les scores"
             comment: "Commentaire"
