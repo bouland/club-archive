@@ -34,6 +34,9 @@ class AueioExtension extends Twig_Extension
     			\IntlDateFormatter::GREGORIAN,
     			null
     	);
+    	if(is_long($date)){
+    		$date = new \DateTime("@{$date}");
+    	}
     	if(! $date instanceof \DateTime){
     		$date = new \DateTime($date);
     	}

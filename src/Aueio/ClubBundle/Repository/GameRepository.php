@@ -14,9 +14,8 @@ use Doctrine\ORM\EntityRepository,
  */
 class GameRepository extends EntityRepository
 {
-	public function findSeasonTeamNextGame(Team $team, $season_id){
-		$now = new \DateTime('now');
-		$query = $this->createQueryBuilder('g')
+	public function findSeasonTeamNextGame(Team $team, \DateTime $date, $season_id, $count = false){
+		$builder = $this->createQueryBuilder('g')
 		->join('g.season', 's')
 		->leftJoin('g.roles', 'r')
 		->join('r.team', 't')
@@ -27,15 +26,68 @@ class GameRepository extends EntityRepository
 		->setParameters(array(
 				'id_season' => $season_id,
 				'id_team' => $team->getId(),
-				'date' => $now->format("Y-m-d"),
-		))
-		->getQuery();
-		try {
-			$game = $query->getSingleResult();
-		} catch (\Doctrine\Orm\NoResultException $e) {
-			$game = null;
+				'date' => $date,
+		));
+		if($count){
+			$builder->select('count(g.id)')->setMaxResults(1);
+			return $builder->getQuery()->getSingleScalarResult();
+		}else{
+			try {
+				$game = $builder->getQuery()->getSingleResult();
+			} catch (\Doctrine\Orm\NoResultException $e) {
+				$game = null;
+			}
+			return $game;
 		}
-		return $game;
+	}
+	public function findGameByTeamByDate(Team $team, $timestamp, $season_id, $count = false){
+		$builder = $this->createQueryBuilder('g')
+		->join('g.season', 's')
+		->leftJoin('g.roles', 'r')
+		->join('r.team', 't')
+		->where('s.id = :id_season')
+		->andWhere('t.id = :id_team')
+		->andWhere('g.date = :date')
+		->setMaxResults(1)
+		->setParameters(array(
+				'id_season' => $season_id,
+				'id_team' => $team->getId(),
+				'date' => date("Y-m-d",$timestamp),
+		));
+		if($count){
+			$builder->select('count(g.id)')->setMaxResults(1);
+			return $builder->getQuery()->getSingleScalarResult();
+		}else{
+			try {
+				$game = $builder->getQuery()->getSingleResult();
+			} catch (\Doctrine\Orm\NoResultException $e) {
+				$game = null;
+			}
+			return $game;
+		}
+	}
+	public function findNextTrainByTeam(Team $team, $now, $season_id)
+	{
+		$dates = array();
+		foreach ($team->getSlotDays() as $slot)
+		{
+			$timestamp = strtotime("next {$slot}", $now);
+			$game = $this->findGameByTeamByDate($team, $timestamp, $season_id, true);
+			if( $game == false)
+			{
+				$dates[] = $timestamp;
+			}
+		}
+		if(count($dates) == 1)
+		{
+			return $dates[0];
+		}elseif(count($dates) > 1){
+			sort($dates);
+			return $dates[0];
+		}else{
+			return $this->findNextTrainByTeam($team, strtotime("+1 week", $now), $season_id);
+		}
+		
 	}
 	public function findWithoutActionByPlayer(Player $player, $season_id)
 	{

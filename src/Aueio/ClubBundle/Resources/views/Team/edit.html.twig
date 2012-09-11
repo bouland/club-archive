@@ -12,7 +12,7 @@
 {% block sidebar %}
 	<li><a href="{{ path('aueio_club_team_view', {"id": team.id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_team_contact', {"id": team.id}) }}">{{ 'sidebar.contact'|trans({}, 'AueioClubBundle') }}</a>
-	<li><a href="{{ path('aueio_club_game_recall', {"id": team.id}) }}">{{ 'sidebar.recall'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_team_call', {"id": team.id}) }}">{{ 'sidebar.recall'|trans({}, 'AueioClubBundle') }}</a>
 	<li class="selected"><a href="{{ path('aueio_club_team_edit', {"id": team.id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_team_delete', {"id": team.id}) }}" onclick="return confirm('{{ 'sidebar.confirm'|trans({}, 'AueioClubBundle') }}')">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 	<li><a href="{{ path('aueio_club_team_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>
@@ -20,7 +20,7 @@
 
 {% block content %}
 <div id="team">
-	<form action="{{ path('aueio_club_team_edit', {"id": team.id}) }}" method="post" {{ form_enctype(form) }}>
+	<form action="{{ path('aueio_club_team_edit', {"id": team.id}) }}" method="post" {{ form_enctype(form) }} id="aueio_club_team_edit_form">
 		{% include 'AueioClubBundle:Team:form.html.twig' %}
 	</form>
 </div>

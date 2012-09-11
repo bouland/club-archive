@@ -12,7 +12,14 @@ class TeamType extends AbstractType
 	{
 		$builder->add('name', 'text');
 		$builder->add('colors', 'text');
-		$builder->add('slot_days', 'text');
+		$builder->add('slot_days', 'choice', array( 'choices' => array(	'monday' => 'lundi',
+																		'tuesday' => 'mardi',
+																		'wednesday' => 'mercredi',
+																		'thursday' => 'jeudi',
+																		'friday' => 'vendredi',),
+													'multiple'  => true,
+													//'expanded'  => true,
+												 ));
 		$builder->add('slot_start_time', 'time', array(
 				'input'  => 'datetime',
 				'widget' => 'choice',

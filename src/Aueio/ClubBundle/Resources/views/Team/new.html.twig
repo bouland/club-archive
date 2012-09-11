@@ -15,7 +15,7 @@
 
 {% block content %}
 <div id="team">
-	<form action="{{ path('aueio_club_team_new') }}" method="post" {{ form_enctype(form) }}>
+	<form action="{{ path('aueio_club_team_new') }}" method="post" {{ form_enctype(form) }} id="aueio_club_team_new_form">
 		{% include 'AueioClubBundle:Team:form.html.twig' %}
 	</form>
 </div>

@@ -13,24 +13,26 @@ class TeamHandler extends FormHandler
 {
 	public function onSuccess(Team $team)
 	{
-		foreach (array('boy', 'girl', 'goal') as $type){
-			$player = new Player();
-			$player->setUsername($team->getName() . $type);
-			$player->setEmail($team->getName() . $type);
-			$player->setPassword(sha1($type . time()));
-			$player->setFirstname($type);
-			$player->setLastname($team->getName());
-			if($type == 'girl'){
-				$player->setGender('F');
-			}else{
-				$player->setGender('M');
+		if($this->request->getPathInfo() == '/team/new')
+		{
+			foreach (array('boy', 'girl', 'goal') as $type){
+				$player = new Player();
+				$player->setUsername($team->getName() . $type);
+				$player->setEmail($team->getName() . $type);
+				$player->setPassword(sha1($type . time()));
+				$player->setFirstname($type);
+				$player->setLastname($team->getName());
+				if($type == 'girl'){
+					$player->setGender('F');
+				}else{
+					$player->setGender('M');
+				}
+				$player->setTeam($team);
+				$this->em->persist($player);
 			}
-			$player->setTeam($team);
-			$this->em->persist($player);
-		}
-		
-		$this->em->getRepository('AueioClubBundle:Adress');
-		$this->em->persist($team->getAdress());
+		}	
+		$this->em->getRepository('AueioClubBundle:Address');
+		$this->em->persist($team->getGymAddress());
 		$this->em->persist($team);
 		$this->em->flush();
 		return true;

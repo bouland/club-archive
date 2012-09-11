@@ -16,6 +16,7 @@
 	padding: 2%;
 	width: 46%;
 }
+#team_slot_days,
 #team_seasons,
 #team_contacts{
 	display: block;
@@ -30,4 +31,10 @@
 }
 #slot > div{
 	margin-bottom: 15px;
+}
+#team_slot_days > label{
+	width: 100%;
+}
+#trainning{
+	text-align:center;
 }

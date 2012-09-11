@@ -218,6 +218,11 @@ team_contacts: Contacts
 team_seasons: Saisons
 team_gym_name: Nom
 team_gym_phone: Téléphone
-team_address_name: Rue
-team_address_code: Code Postal
-team_address_city: Ville
+team_gym_address_name: Rue
+team_gym_address_code: Code Postal
+team_gym_address_city: Ville
+team_slot_days_0: lundi
+team_slot_days_1: mardi
+team_slot_days_2: mercredi
+team_slot_days_3: jeudi
+team_slot_days_4: vendredi

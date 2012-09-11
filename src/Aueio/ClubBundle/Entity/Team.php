@@ -44,7 +44,7 @@ class Team
     /**
     * @var integer $slot_day
     *
-    * @ORM\Column(name="slot_day", type="string", length=255)
+    * @ORM\Column(name="slot_day", type="array")
     */
     private $slot_days;
     /**

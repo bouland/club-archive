@@ -22,16 +22,9 @@ class PlayerProfileHandler extends ProfileFormHandler
 		$this->em = $entityManager;
 	}
 	public function onSuccess(UserInterface $player){
-		$address_new = $player->getAdress();
-		$address = $this->em->getRepository('AueioClubBundle:Adress')->findBy(array(	'name' => $address_new->getName(),
-																					'code' => $address_new->getCode(),
-																					'city' => $address_new->getCity()));
-		if(is_array($address))
-		{
-			$player->setAdress($address[0]);
-		}else{
-			$this->em->persist($address_new);
-		}
+		
+		$this->em->persist($player->getAddress());
+		
 		$seasons = $player->getSeasons();
 		if($player->getSeasons()->isEmpty())
 		{
