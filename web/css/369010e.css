@@ -536,6 +536,8 @@ input[type="submit"]{
 .fos_user_success{
 	 background-color: black;
 }
+#aueio_club_team_new_form div ul > li,
+#aueio_club_team_edit_form div ul > li,
 .aueio_club_config_form div ul > li,
 .fos_user_profile_edit div ul > li,
 .fos_user_registration_register div  ul > li,
@@ -713,6 +715,7 @@ div.sample{
 	padding: 2%;
 	width: 46%;
 }
+#team_slot_days,
 #team_seasons,
 #team_contacts{
 	display: block;
@@ -727,4 +730,10 @@ div.sample{
 }
 #slot > div{
 	margin-bottom: 15px;
+}
+#team_slot_days > label{
+	width: 100%;
+}
+#trainning{
+	text-align:center;
 }
