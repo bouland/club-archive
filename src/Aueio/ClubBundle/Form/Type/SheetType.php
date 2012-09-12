@@ -11,7 +11,7 @@ class GameType extends AbstractType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		if($options['intention'] == 'create'){
+		if($options['intention'] == 'create' || $options['intention'] == 'edit'){
 			$builder->add('date', 'date', array(
 					'input'  => 'datetime',
 					'widget' => 'choice',
@@ -28,6 +28,9 @@ class GameType extends AbstractType
 			));
 		}else{
 			$builder->add('comment', 'textarea', array('required' => false));
+			$builder->add('cost', 'money', array(
+						  'precision' => 2,
+			));
 		}
 		$builder->add('roles', 'collection', array( 'type' => new RoleType(),
 													'options' => array('intention' => $options['intention']),

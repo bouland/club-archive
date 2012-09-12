@@ -11,7 +11,7 @@ class RoleType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		
-		if($options['intention'] == 'create' || $options['intention'] == 'edit'){
+		if($options['intention'] == 'create'){
 			$builder->add('team', 'entity', array(
 					'class' 		=> 'AueioClubBundle:Team',
 					'property'     	=> 'name',

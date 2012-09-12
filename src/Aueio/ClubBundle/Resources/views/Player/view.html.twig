@@ -15,7 +15,7 @@
 {% if (player == app.user) %}
 	<li><a href="{{ path('fos_user_profile_edit') }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_player_delete', {"id": player.id}) }}" onclick="return confirm('{{ 'sidebar.confirm'|trans({}, 'AueioClubBundle') }}')">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
-{% elseif is_granted("ROLE_ADMIN") %}
+{% elseif (is_granted("ROLE_LEADER") and (player.team == app.user.team)) or is_granted("ROLE_ADMIN") %}
 	<li><a href="{{ path('aueio_club_player_delete', {"id": player.id}) }}" onclick="return confirm('{{ 'sidebar.confirm'|trans({}, 'AueioClubBundle') }}')">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endif %}
 {% endblock %}
@@ -25,19 +25,22 @@
 	<div class="full">
 		<div id="player-header">
 			<div id="player-desc" class="cols">
-				<p>{{ 'player.name'|trans({}, 'AueioClubBundle') }} : {{ player.firstname }}{% if is_granted("ROLE_USER") %} {{ player.lastname }}{% endif %}</p>
-				{% if (player == app.user) %}
-				<p>{{ 'player.username'|trans({}, 'AueioClubBundle') }} : {{ player.username }}</p>
-				{% endif %}
+				<p>{{ 'player.name'|trans({}, 'AueioClubBundle') }} : {{ player.firstname }}{% if is_granted("ROLE_PLAYER") %} {{ player.lastname }}{% endif %}</p>
 				<p>{{ 'player.position'|trans({}, 'AueioClubBundle') }} : {{ ('player.' ~ player.position)|trans({}, 'AueioClubBundle') }}</p>
 				<p>{{ 'player.hand'|trans({}, 'AueioClubBundle') }} : {{ ('player.' ~ player.hand)|trans({}, 'AueioClubBundle') }}</p>
-				{% if player.car %}
+			{% if (player == app.user) %}
+				<p>{{ 'player.username'|trans({}, 'AueioClubBundle') }} : {{ player.username }}</p>
+			{% endif %}
+			{% if (is_granted("ROLE_LEADER") and (player.team == app.user.team)) or (player == app.user) %}
+				<p>{{ 'player.credit'|trans({'%credit%':player.credit}, 'AueioClubBundle') }}</p>
+			{% endif %}
+			{% if player.car %}
 				<p>{{ 'player.view.car'|trans({}, 'AueioClubBundle') }}</p>
-				{% else %}
+			{% else %}
 				<p>{{ 'player.view.nocar'|trans({}, 'AueioClubBundle') }}</p>
-				{% endif %}
+			{% endif %}
 			</div><div id="player-contact" class="cols">
-			{% if is_granted("ROLE_USER") %}
+			{% if is_granted("ROLE_PLAYER") %}
 				<p>{{ player.email }}</p>
 				<p>{{ player.phone }}</p>
 				<p>{{ player.address}}</p>

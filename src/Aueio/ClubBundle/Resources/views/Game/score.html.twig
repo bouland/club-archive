@@ -13,8 +13,8 @@
 	<li><a href="{{ path('aueio_club_game_view', {"id": game_id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_game_selection', {"id": game_id}) }}">{{ 'sidebar.selection'|trans({}, 'AueioClubBundle') }}</a>
 	<li class="selected"><a href="{{ path('aueio_club_game_score', {"id": game_id}) }}">{{ 'sidebar.score'|trans({}, 'AueioClubBundle') }}</a>
+{% if is_granted("ROLE_LEADER") %}
 	<li><a href="{{ path('aueio_club_game_sheet', {"id": game_id}) }}">{{ 'sidebar.sheet'|trans({}, 'AueioClubBundle') }}</a>
-{% if is_granted("ROLE_ADMIN") %}
 	<li><a href="{{ path('aueio_club_game_edit', {"id": game_id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_game_delete', {"id": game_id}) }}">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 	<li><a href="{{ path('aueio_club_game_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>

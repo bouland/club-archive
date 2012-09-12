@@ -14,11 +14,9 @@
 	<li><a href="{{ path('aueio_club_game_selection', {"id": game.id}) }}">{{ 'sidebar.selection'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_game_score', {"id": game.id}) }}">{{ 'sidebar.score'|trans({}, 'AueioClubBundle') }}</a>
 	<li class="selected"><a href="{{ path('aueio_club_game_sheet', {"id": game.id}) }}">{{ 'sidebar.sheet'|trans({}, 'AueioClubBundle') }}</a>
-{% if is_granted("ROLE_ADMIN") %}
 	<li><a href="{{ path('aueio_club_game_edit', {"id": game.id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_game_delete', {"id": game.id}) }}" onclick="return confirm('{{ 'sidebar.confirm'|trans({}, 'AueioClubBundle') }}')">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 	<li><a href="{{ path('aueio_club_game_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>
-{% endif %}
 {% endblock %}
 
 {% block content %}
@@ -29,16 +27,22 @@
 			<h3>{{ 'game.sheet.title.scores'|trans({}, 'AueioClubBundle') }}</h3>
 			<p>{{ 'game.sheet.info.scores'|trans({}, 'AueioClubBundle') }}</p>
 		    <ul id="results">
-		    {% for role in form.roles %}<li class="cols">
+		    {% for role in form.game.roles %}<li class="cols">
 						{{ form_errors(role.score) }}
 						{{ form_widget(role.score) }}
 						pour les  {% include 'AueioClubBundle:Role:type.html.twig' with {'role':role.vars.value} %} ({% include 'AueioClubBundle:Team:link.html.twig' with {'team': role.vars.value.team} %})
 		        </li>{% endfor %}
 		    </ul>
+		<div id="game-shio" >
+			<h3>{{ 'game.sheet.title.shop'|trans({}, 'AueioClubBundle') }}</h3>
+			<p>{{ 'game.sheet.info.shop'|trans({}, 'AueioClubBundle') }}{% include 'AueioClubBundle:Player:link.html.twig' with {'player': form.vars.value.volunteer} %}</p>
+			{{ form_errors(form.cost) }}
+			{{ form_widget(form.cost) }}
+		</div>
 		<div id="game-comment" >
 			<h3>{{ 'game.sheet.title.comment'|trans({}, 'AueioClubBundle') }}</h3>
-			{{ form_errors(form.comment) }}
-			{{ form_widget(form.comment) }}
+			{{ form_errors(form.game.comment) }}
+			{{ form_widget(form.game.comment) }}
 		</div>
 		{% include 'AueioClubBundle::form.submit.html.twig' %}
 	</div>

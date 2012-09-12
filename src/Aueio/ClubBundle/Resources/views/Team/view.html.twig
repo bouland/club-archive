@@ -13,8 +13,10 @@
 	<li class="selected"><a href="{{ path('aueio_club_team_view', {"id": team.id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_team_contact', {"id": team.id}) }}">{{ 'sidebar.contact'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_team_call', {"id": team.id}) }}">{{ 'sidebar.recall'|trans({}, 'AueioClubBundle') }}</a>
-{% if is_granted("ROLE_ADMIN") %}
+{% if is_granted("ROLE_LEADER") %}
 	<li><a href="{{ path('aueio_club_team_edit', {"id": team.id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
+{% endif %}
+{% if is_granted("ROLE_ADMIN") %}
 	<li><a href="{{ path('aueio_club_team_delete', {"id": team.id}) }}" onclick="return confirm('{{ 'sidebar.confirm'|trans({}, 'AueioClubBundle') }}')">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 	<li><a href="{{ path('aueio_club_team_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endif %}
@@ -62,6 +64,10 @@
 		</div>
 		<div id="team-desc">
 			<div class="cols">
+				{% if is_granted("ROLE_PLAYER") and (app.user.team == team) %}
+				<h3>{{ 'team.view.title.cash'|trans({}, 'AueioClubBundle') }}</h3>
+				<p>{{ 'team.view.cash'|trans({'%cash%':team.cash}, 'AueioClubBundle') }}</p>
+				{% endif %}
 				<h3>{{ 'team.view.title.address'|trans({}, 'AueioClubBundle') }}</h3>
 				<p>{{ team.gymAddress}}</p>
 				<h3>{{ 'team.view.title.contact'|trans({}, 'AueioClubBundle') }}</h3>
@@ -72,6 +78,7 @@
 			        <h4>{{ 'team.notfound'|trans({}, 'AueioClubBundle') }}</h4>
 			    {% endfor %}
 				</ul>
+				
 			</div><div id="team-players" class="cols">
 				<h3>{{ 'team.view.title.player'|trans({'%count%': members|length}, 'AueioClubBundle') }}</h3>
 				<ul>

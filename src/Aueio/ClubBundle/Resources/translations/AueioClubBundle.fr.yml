@@ -72,8 +72,10 @@ game:
         title: "Joueurs sélectionnés"
     sheet:
         info:
+            shop: "Le montant réel des courses qui sera crédité sur le compte de "
             scores: "les scores suivants sont calculés par la page table de marque. Il peut arriver qu'elle soit erronée. Dans ce cas veuillez saisir les scores officiels."
         title:
+            shop: "Les courses"
             scores: "Les scores"
             comment: "Commentaire"
     time: "%startTime% à %endTime%"
@@ -111,6 +113,7 @@ player:
         noavailable: "Ce joueur n'a pas participé à cette saison"
     name: Noms
     username: Login
+    credit: "L'équipe te doit %credit% euro"
     position: Poste
     hand: Main de tir
     WING: Ailier
@@ -140,8 +143,11 @@ team:
         list: "Liste des équipes"
         edit: "Modification de l'équipe"
         view: "Vue de léquipe"
+        
     view:
+        cash: "Nous avons %cash% euro en caisse"
         title:
+            cash: "Comptabilité"
             address: "Adresse"
             contact: "Contacts"
             game: "Matchs (%count%)"

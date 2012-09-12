@@ -3,11 +3,24 @@
 namespace Aueio\ClubBundle\Form\Type;
 
 use Symfony\Component\Form\FormBuilderInterface,
+	Symfony\Component\HttpFoundation\Session\SessionInterface,
 	FOS\UserBundle\Form\Type\ProfileFormType,
 	Aueio\ClubBundle\Form\Type\AdressType;
 
 class PlayerProfileType extends ProfileFormType
 {
+	private $_session;
+	
+	/**
+	 * @param string $class The User class name
+	 */
+	public function __construct($class, SessionInterface $session)
+	{
+		parent::__construct($class);
+		$this->_session = $session;
+	
+	}
+	
 	public function buildUserForm(FormBuilderInterface $builder, array $options)
 	{
 		parent::buildUserForm($builder, $options);
@@ -40,6 +53,11 @@ class PlayerProfileType extends ProfileFormType
 												'property'     	=> 'name',
 												'expanded'	=> false,
 										));
+		if ($this->_session->get('context')->isGranted('ROLE_ADMIN')) {
+			$builder->add('roles', 'choice', array(
+					'choices'   => array('RIGHT' => 'Droitier', 'LEFT' => 'Gaucher')
+			));
+		}
 		
 	}
 

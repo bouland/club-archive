@@ -4,20 +4,22 @@ namespace Aueio\ClubBundle\Controller;
 
 
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-use Symfony\Component\Validator\Constraints\DateTime;
-use Aueio\ClubBundle\Entity\Game;
-use Aueio\ClubBundle\Form\Type\GameType;
-use Aueio\ClubBundle\Form\Handler\GameHandler;
-use Aueio\ClubBundle\Entity\Role;
-use Aueio\ClubBundle\Entity\Action;
-use Aueio\ClubBundle\Entity\Config;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\ORM\Query\Expr;
+use Symfony\Component\HttpFoundation\Request,
+	 Symfony\Component\HttpFoundation\Response,
+	 Symfony\Bundle\FrameworkBundle\Controller\Controller,
+	 Symfony\Component\Security\Core\Exception\AccessDeniedException,
+	 Sensio\Bundle\FrameworkExtraBundle\Configuration\Route,
+	 Sensio\Bundle\FrameworkExtraBundle\Configuration\Template,
+	 Symfony\Component\Validator\Constraints\DateTime,
+	 Aueio\ClubBundle\Entity\Game,
+	 Aueio\ClubBundle\Form\Type\GameType,
+	 Aueio\ClubBundle\Form\Handler\GameHandler,
+	 Aueio\ClubBundle\Entity\Role,
+	 Aueio\ClubBundle\Entity\Action,
+	 Aueio\ClubBundle\Entity\Config,
+	 Aueio\ClubBundle\Entity\Player,
+	 Doctrine\Common\Collections\ArrayCollection,
+	 Doctrine\ORM\Query\Expr;
 /**
 * @Route("/game")
 */
@@ -74,7 +76,7 @@ class GameController extends Controller
     	$form = $this->createForm(new GameType(), $game);
     	 
     	$formHandler = new GameHandler($form, $request, $em);
-    	if( $formHandler->process() )
+    	if( $formHandler->process(true) )
         {
         	$this->container->get('request')->getSession()->set('season_id', $game->getSeason()->getId());
     		return $this->redirect($this->generateUrl('aueio_club_game_view', array('id' => $game->getId())));
@@ -91,10 +93,10 @@ class GameController extends Controller
     {
     	$em = $this->getDoctrine()->getEntityManager();
 
-    	$form = $this->createForm(new GameType(), $game, array('intention' => 'edit'));
+    	$form = $this->createForm(new GameType(), $game);
     
     	$formHandler = new GameHandler($form, $request, $em);
-    	if( $formHandler->process() )
+    	if( $formHandler->process(true) )
         {
     		return $this->redirect($this->generateUrl('aueio_club_game_view', array('id' => $game->getId())));
     	}
@@ -108,17 +110,37 @@ class GameController extends Controller
     {
     	$em = $this->getDoctrine()->getEntityManager();
     	//update game roles with scores from page score
+    	$game_teams = array();
     	foreach($game->getRoles() as $role)
     	{
-    		$score = $em->getRepository('AueioClubBundle:Action')->getScores($game, $role->getTeam());
+    		$team = $role->getTeam();
+    		$game_teams[] = $team;
+    		$score = $em->getRepository('AueioClubBundle:Action')->getScores($game, $team);
     		$role->setScore($score);
     	}
+    	$player = $this->container->get('security.context')->getToken()->getUser();
+    	if (!is_object($player) || !$player instanceof Player) {
+    		throw new AccessDeniedException('This user does not have access to this section.');
+    	}
+    	if(!in_array($player->getTeam(), $game_teams) && !$this->get('security.context')->isGranted('ROLE_ADMIN') ){
+    		return $this->redirect($this->get('request')->headers->get('referer'));
+    	}
+    	$volunteer = $em->getRepository('AueioClubBundle:Player')->findActionByGame($game, $game_teams[0], 'shop');
+    	$form = $this->createFormBuilder(array('game' => $game, 'volunteer' => $volunteer[0]))
+    			->add('game', new GameType(), array('intention' => 'update'))
+    			->add('cost', 'money', array('precision' => 2))
+    			->getForm();
     	
-    	$form = $this->createForm(new GameType(), $game, array('intention' => 'result'));
-    
-    	$formHandler = new GameHandler($form, $request, $em);
-    	if( $formHandler->process() )
-    	{
+    	if ($request->getMethod() == 'POST') {
+    		$form->bindRequest($request);
+    		$data = $form->getData();
+    		$formHandler = new GameHandler($form, $request, $em);
+    		$formHandler->onSuccess($game, false);
+    		if($volonteer){
+    			$volonteer->setCredit($data['cost']);
+    			$game_teams[0]->setCash($game_teams[0]->getCash() - $data['cost']);
+    		}
+    		
     		return $this->redirect($this->generateUrl('aueio_club_game_view', array('id' => $game->getId())));
     	}
     

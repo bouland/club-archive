@@ -39,6 +39,14 @@ class Player extends User
      * @ORM\Column(name="lastname", type="string", length=50)
      */
     private $lastname;
+   
+    /**
+     * @var string $gender
+     *
+     * @ORM\Column(name="credit", type="decimal", precision=4,scale=2)
+     */
+    private $credit;
+
     
     /**
      * @var string $gender
@@ -459,5 +467,28 @@ class Player extends User
     public function getAddress()
     {
         return $this->address;
+    }
+
+    /**
+     * Set credit
+     *
+     * @param float $credit
+     * @return Player
+     */
+    public function setCredit($credit)
+    {
+        $this->credit = $credit;
+    
+        return $this;
+    }
+
+    /**
+     * Get credit
+     *
+     * @return decimal
+     */
+    public function getCredit()
+    {
+        return $this->credit;
     }
 }

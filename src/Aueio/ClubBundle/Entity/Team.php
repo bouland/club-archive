@@ -34,6 +34,13 @@ class Team
     private $name;
 
     /**
+     * @var string $gender
+     *
+     * @ORM\Column(name="cash", type="decimal", precision=5,scale=2)
+     */
+    private $cash;
+    
+    /**
      * @var string $colors
      *
      * @ORM\Column(name="colors", type="string", length=255)
@@ -465,5 +472,38 @@ class Team
     public function getSlotDays()
     {
         return $this->slot_days;
+    }
+
+    /**
+     * Get players
+     *
+     * @return Doctrine\Common\Collections\Collection 
+     */
+    public function getPlayers()
+    {
+        return $this->players;
+    }
+
+    /**
+     * Set cash
+     *
+     * @param float $cash
+     * @return Team
+     */
+    public function setCash($cash)
+    {
+        $this->cash = $cash;
+    
+        return $this;
+    }
+
+    /**
+     * Get cash
+     *
+     * @return float 
+     */
+    public function getCash()
+    {
+        return $this->cash;
     }
 }
