@@ -5,7 +5,8 @@ namespace Aueio\ClubBundle\Repository;
 use Doctrine\ORM\EntityRepository,
 	Doctrine\ORM\Query\Expr,
 	Aueio\ClubBundle\Entity\Team,
-	Aueio\ClubBundle\Entity\Game;
+	Aueio\ClubBundle\Entity\Game,
+	Aueio\ClubBundle\Entity\Season;
 
 /**
  * PlayerRepository
@@ -101,19 +102,19 @@ WHERE (s.season_id = g.season_id AND g.id = {$game->getId()} AND t.id = {$team->
 			AND p.firstname != 'boy');");
 			*/
 	}
-	public function findSeasonTeamContacts(Team $team, $season_id){
+	public function findSeasonTeamContacts(Team $team, Season $season){
 		return $this->createQueryBuilder('p')
 		->leftJoin('p.seasons', 's')
 		->leftJoin('p.leads', 't')
 		->where('s.id = :id_season')
 		->andWhere('t.id = :id_team')
 		->setParameters(array(
-				'id_season' => $season_id,
+				'id_season' => $season->getId(),
 				'id_team' => $team->getId(),
 		))
 		->getQuery()->getResult();
 	}
-	public function findSeasonTeamEmails(Team $team, $season_id){
+	public function findSeasonTeamEmails(Team $team, Season $season){
 		return $this->createQueryBuilder('p')
 		->select('p.email, p.firstname, p.lastname')
 		->leftJoin('p.seasons', 's')
@@ -121,12 +122,12 @@ WHERE (s.season_id = g.season_id AND g.id = {$game->getId()} AND t.id = {$team->
 		->where('s.id = :id_season')
 		->andWhere('t.id = :id_team')
 		->setParameters(array(
-				'id_season' => $season_id,
+				'id_season' => $season->getId(),
 				'id_team' => $team->getId(),
 		))
 		->getQuery()->getResult();
 	}
-	public function findSeasonTeamMembers(Team $team, $season_id){
+	public function findSeasonTeamMembers(Team $team, Season $season){
 		return $this->createQueryBuilder('p')
 		->leftJoin('p.seasons', 's')
 		->join('p.team', 't')
@@ -137,7 +138,7 @@ WHERE (s.season_id = g.season_id AND g.id = {$game->getId()} AND t.id = {$team->
 		->andWhere("p.firstname != 'boy'")
 		->orderBy('p.firstname')
 		->setParameters(array(
-				'id_season' => $season_id,
+				'id_season' => $season->getId(),
 				'id_team' => $team->getId(),
 		))
 		->getQuery()->getResult();
@@ -153,7 +154,7 @@ WHERE (s.season_id = g.season_id AND g.id = {$game->getId()} AND t.id = {$team->
 		))
 		->getQuery()->getResult();
 	}
-	public function findBySeason($season_id){
+	public function findBySeason(Season $season){
 		return $this->createQueryBuilder('p')
 		->leftJoin('p.seasons', 's')
 		->where('s.id = :id_season')
@@ -162,7 +163,7 @@ WHERE (s.season_id = g.season_id AND g.id = {$game->getId()} AND t.id = {$team->
 		->andWhere("p.firstname != 'boy'")
 		->orderBy('p.firstname')
 		->setParameters(array(
-				'id_season' => $season_id,
+				'id_season' => $season->getId(),
 		))
 		->getQuery()->getResult();
 	}

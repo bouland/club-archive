@@ -29,9 +29,8 @@ class PlayerController extends Controller
 	*/
 	public function viewAction(Player $player)
     {
-    	$season_id = $this->container->get('request')->getSession()->get('season_id');
+    	$season = $this->get('context.season');
     	$em = $this->getDoctrine()->getEntityManager();
-    	$season = $em->getRepository('AueioClubBundle:Season')->find($season_id);
     	if($player->getSeasons()->contains($season)){
     		if($player->getTeam()){
     			$stats = $em->getRepository('AueioClubBundle:Action')->getPlayerStats($player);
@@ -41,7 +40,7 @@ class PlayerController extends Controller
     		}
     		if($stats['total'] > ($stats['play']+$stats['miss']))
     		{
-    			$stats['error'] = $em->getRepository('AueioClubBundle:Game')->findWithoutActionByPlayer($player, $season_id);
+    			$stats['error'] = $em->getRepository('AueioClubBundle:Game')->findWithoutActionByPlayer($player, $season);
     		}else{
     			$stats['error'] = FALSE;
     		}
@@ -54,7 +53,7 @@ class PlayerController extends Controller
     
     public function showAction()
     {
-    	$player = $this->container->get('security.context')->getToken()->getUser();
+    	$player = $this->get('context.player');
         if (!is_object($player) || !$player instanceof Player) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
@@ -65,12 +64,12 @@ class PlayerController extends Controller
      */
     public function listAction()
     {
-    	$season_id = $this->container->get('request')->getSession()->get('season_id');
-    	$player = $this->container->get('security.context')->getToken()->getUser();
+    	$season = $this->get('context.season');
+    	$player = $this->get('context.player');
     	if (is_object($player) || $player instanceof Player) {
-    		$players = $this->getDoctrine()->getRepository('AueioClubBundle:Player')->findSeasonTeamMembers($player->getTeam(), $season_id);
+    		$players = $this->getDoctrine()->getRepository('AueioClubBundle:Player')->findSeasonTeamMembers($player->getTeam(), $season);
     	}else{
-    		$players = $this->getDoctrine()->getRepository('AueioClubBundle:Player')->findBySeason($season_id);
+    		$players = $this->getDoctrine()->getRepository('AueioClubBundle:Player')->findBySeason($season);
     	}
     	return $this->render('AueioClubBundle:Player:list.html.twig', array('players' => $players));
     }
@@ -79,7 +78,7 @@ class PlayerController extends Controller
      **/
     public function deleteAction(Player $player){
     	$em = $this->getDoctrine()->getEntityManager();
-    	if ( $player == $this->get('security.context')->getToken()->getUser()) {
+    	if ( $player == $this->get('context.player')) {
     		$em->remove($player);
 	    	$em->flush();
 	    	return $this->redirect($this->generateUrl('fos_user_security_logout'));
@@ -91,17 +90,13 @@ class PlayerController extends Controller
     		return $this->redirect($this->get('request')->headers->get('referer'));
     	}
     }
-    public function statsAction(Player $player)
-    {
-    	
-    		
-    }
+    
     /**
      * @Route("/contact/{id}", requirements={"id" = "\d+"})
      */
     public function contactAction(Player $player, Request $request)
     {
-    	$from = $this->container->get('security.context')->getToken()->getUser();
+    	$from = $this->get('context.player');
     	if (!is_object($from) || !$from instanceof Player) {
     		throw new AccessDeniedException('This user does not have access to this section.');
     	}

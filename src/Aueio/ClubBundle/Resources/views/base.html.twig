@@ -14,17 +14,21 @@
 	{% endjavascripts %}
 	<style type="text/css">
 a{
-	color: rgb({{ app.session.get('season_color') }});
+	color: rgb({{ app.session.get('context.season_color') }});
 }
 #sidebar_menu > li.selected > a,
 #sidebar_menu > li:hover > a{
-	background-color: rgb({{ app.session.get('season_color') }});
+	background-color: rgb({{ app.session.get('context.season_color') }});
 	color: white;
 }
 #header_menu > li.selected > a,
 #header_menu > li:hover > a {
     background-color: white;
-    color: rgb({{ app.session.get('season_color') }});		
-}	
+    color: rgb({{ app.session.get('context.season_color') }});		
+}
+input[type="submit"] {
+	background-color: rgb({{ app.session.get('context.season_color') }});
+	border-color: rgb({{ app.session.get('context.season_color') }});
+}
 	</style>
 {% endblock %}

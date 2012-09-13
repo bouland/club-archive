@@ -95,24 +95,7 @@ class SeasonController extends Controller
      **/
     public function switchAction(Request $request)
     {
-    	$season_id = $this->container->get('request')->getSession()->get('season_id');
-    	
-    	
-    	if(!$season_id){
-    		$em = $this->getDoctrine()->getEntityManager();
-    		$config = $em->getRepository('AueioClubBundle:Config')->find(1);
-    		if($config){
-    			$season = $config->getSeasonCurrent();
-    		}else{
-    			$season = $em->getRepository('AueioClubBundle:Season')->findCurrent();
-    		}
-    		$this->container->get('request')->getSession()->set('season_id', $season->getId());
-    		$this->container->get('request')->getSession()->set('season_color', $season->getColor());
-    	}else{
-    		$em = $this->getDoctrine()->getEntityManager();
-    		$season = $em->getRepository('AueioClubBundle:Season')->find($season_id);
-    	}
-    	
+    	$season  = $this->get('context.season');
     	$form = $this->createFormBuilder(array('season_current' => $season))
 					->add('season_current', 'entity', array(
 												'class' 	=> 'AueioClubBundle:Season',
@@ -122,8 +105,9 @@ class SeasonController extends Controller
         if ($request->getMethod() == 'POST') {
             $form->bindRequest($request);
 			$data = $form->getData();
-			$this->container->get('request')->getSession()->set('season_id', $data['season_current']->getId());
-			$this->container->get('request')->getSession()->set('season_color', $data['season_current']->getColor());
+			$session = $this->container->get('request')->getSession();
+			$session->set('context.season_id', $data['season_current']->getId());
+			$session->set('context.season_color', $data['season_current']->getColor());
 			return $this->redirect($this->get('request')->headers->get('referer'));
     	}
         return $this->render('AueioClubBundle:Season:switch.html.twig', array('form' => $form->createView()));

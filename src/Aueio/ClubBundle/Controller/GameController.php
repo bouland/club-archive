@@ -39,9 +39,7 @@ class GameController extends Controller
      */
     public function listAction()
     {
-    	//$season_id = $this->container->get('request')->getSession()->get('season_id');
     	$em = $this->getDoctrine()->getEntityManager();
-    	//$em->getFilters()->enable('season')->setParameter('season_id', $season_id);
     	$games = $em->getRepository('AueioClubBundle:Game')->findBy(array(), array('date' => 'asc'));
     	return $this->render('AueioClubBundle:Game:list.html.twig', array('games' => $games));
     }
@@ -75,17 +73,34 @@ class GameController extends Controller
     	
     	$form = $this->createForm(new GameType(), $game);
     	 
-    	$formHandler = new GameHandler($form, $request, $em);
-    	if( $formHandler->process(true) )
-        {
-        	$this->container->get('request')->getSession()->set('season_id', $game->getSeason()->getId());
-    		return $this->redirect($this->generateUrl('aueio_club_game_view', array('id' => $game->getId())));
-    	}
-    
-    	return $this->render('AueioClubBundle:Game:new.html.twig', array(
+    	if($request->getMethod() == 'POST' )
+		{
+			$form->bindRequest($request);
+	
+			if( $form->isValid() )
+			{
+				$game = $form->getData();
+				$date = $game->getDate();
+				$season = $em->getRepository('AueioClubBundle:Season')->findByDate($date);
+				if (!$season) {
+					throw new NotFoundHttpException('No season found for date '. $date->format("Y-m-d"));
+				}
+				$game->setSeason($season);
+				$session = $this->container->get('session');
+				$session->set('context.season_id', $season->getId());
+				$session->set('context.season_color', $season->getId());
+				
+				$em->persist($game);
+				$em->flush();
+				return $this->redirect($this->generateUrl('aueio_club_game_view', array('id' => $game->getId())));
+			}
+		}
+	
+		return $this->render('AueioClubBundle:Game:new.html.twig', array(
     			'form' => $form->createView(),
     	));
-    }
+	}
+	
     /**
      * @Route("/edit/{id}", requirements={"id" = "\d+"})
      **/
@@ -95,11 +110,28 @@ class GameController extends Controller
 
     	$form = $this->createForm(new GameType(), $game);
     
-    	$formHandler = new GameHandler($form, $request, $em);
-    	if( $formHandler->process(true) )
-        {
-    		return $this->redirect($this->generateUrl('aueio_club_game_view', array('id' => $game->getId())));
-    	}
+    	if( $request->getMethod() == 'POST' )
+		{
+			$form->bindRequest($request);
+	
+			if( $form->isValid() )
+			{
+				$game = $form->getData();
+				$date = $game->getDate();
+				$season = $em->getRepository('AueioClubBundle:Season')->findByDate($date);
+				if (!$season) {
+					throw new NotFoundHttpException('No season found for date '. $date->format("Y-m-d"));
+				}
+				$game->setSeason($season);
+				$session = $this->container->get('session');
+				$session->set('context.season_id', $season->getId());
+				$session->set('context.season_color', $season->getColor());
+				
+				$em->persist($game);
+				$em->flush();
+				return $this->redirect($this->generateUrl('aueio_club_game_view', array('id' => $game->getId())));
+			}
+		}
     
     	return $this->render('AueioClubBundle:Game:edit.html.twig', array('game' => $game, 'form' => $form->createView()));
     }
@@ -118,30 +150,58 @@ class GameController extends Controller
     		$score = $em->getRepository('AueioClubBundle:Action')->getScores($game, $team);
     		$role->setScore($score);
     	}
-    	$player = $this->container->get('security.context')->getToken()->getUser();
+    	$player = $this->get('context.player');
     	if (!is_object($player) || !$player instanceof Player) {
     		throw new AccessDeniedException('This user does not have access to this section.');
     	}
-    	if(!in_array($player->getTeam(), $game_teams) && !$this->get('security.context')->isGranted('ROLE_ADMIN') ){
-    		return $this->redirect($this->get('request')->headers->get('referer'));
+    	if( (!in_array($player->getTeam(), $game_teams) | !$this->get('security.context')->isGranted('ROLE_LEADER'))
+    			& !$this->get('security.context')->isGranted('ROLE_ADMIN') )
+    	{
+    		return $this->redirect($request->headers->get('referer'));
     	}
-    	$volunteer = $em->getRepository('AueioClubBundle:Player')->findActionByGame($game, $game_teams[0], 'shop');
-    	$form = $this->createFormBuilder(array('game' => $game, 'volunteer' => $volunteer[0]))
-    			->add('game', new GameType(), array('intention' => 'update'))
-    			->add('cost', 'money', array('precision' => 2))
-    			->getForm();
+    	$volunteers = $em->getRepository('AueioClubBundle:Player')->findActionByGame($game, $game_teams[0], 'shop');
+    	if(count($volunteers) == 1){
+    		$volunteer = $volunteers[0];
+    	}else{
+    		$volunteer = null;
+    	}
+    	$builder = $this->createFormBuilder(array('game' => $game, 'volunteer' => $volunteer))
+    			->add('game', new GameType(), array('intention' => 'update'));
+    	if ($volunteer){
+    		$builder->add('cost', 'money', array('precision' => 2));
+    	}
+    	$form = $builder->getForm();
     	
     	if ($request->getMethod() == 'POST') {
     		$form->bindRequest($request);
-    		$data = $form->getData();
-    		$formHandler = new GameHandler($form, $request, $em);
-    		$formHandler->onSuccess($game, false);
-    		if($volonteer){
-    			$volonteer->setCredit($data['cost']);
-    			$game_teams[0]->setCash($game_teams[0]->getCash() - $data['cost']);
-    		}
     		
-    		return $this->redirect($this->generateUrl('aueio_club_game_view', array('id' => $game->getId())));
+    		if( $form->isValid() )
+    		{
+    			$data = $form->getData();
+    			$game = $data['game'];
+	    		$roles = $game->getRoles();
+	    		$score_team_0 = $roles[0]->getScore();
+	    		$score_team_1 = $roles[1]->getScore();
+	    		if($score_team_0 > $score_team_1){
+	    			$roles[0]->setResult('WIN');
+	    			$roles[1]->setResult('LOST');
+	    		}elseif($score_team_1 > $score_team_0){
+	    			$roles[1]->setResult('WIN');
+	    			$roles[0]->setResult('LOST');
+	    		}else{
+	    			$roles[1]->setResult('NUL');
+	    			$roles[0]->setResult('NUL');
+	    		}
+	    		if($volunteer){
+	    			$volunteer->setCredit($data['cost']);
+	    			$game_teams[0]->setCash($game_teams[0]->getCash() - $data['cost']);
+	    			$em->persist($volunteer);
+	    		}
+	    		
+	    		$em->persist($game);
+	    		$em->flush();
+    			return $this->redirect($this->generateUrl('aueio_club_game_view', array('id' => $game->getId())));
+    		}
     	}
     
     	return $this->render('AueioClubBundle:Game:sheet.html.twig', array('game' => $game, 'form' => $form->createView()));

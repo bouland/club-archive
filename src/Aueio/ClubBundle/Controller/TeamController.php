@@ -25,12 +25,8 @@ class TeamController extends Controller
 	 */
 	public function welcomeAction()
 	{
-		$player = $this->container->get('security.context')->getToken()->getUser();
-		if (is_object($player) && $player instanceof Player) {
-			$team = $player->getTeam();
-			if($team){
+		if($team = $this->get('context.team')){
 				return $this->viewAction($team);
-			}
 		}
 		return $this->listAction();
 	}
@@ -40,11 +36,11 @@ class TeamController extends Controller
 	public function viewAction(Team $team)
     {
     	$em = $this->getDoctrine()->getEntityManager();
-    	$season_id = $this->container->get('request')->getSession()->get('season_id');
-    	$game_next = $em->getRepository('AueioClubBundle:Game')->findSeasonTeamNextGame($team, new \DateTime('now'), $season_id);
-    	$trainning_next = $em->getRepository('AueioClubBundle:Game')->findNextTrainByTeam($team, time(), $season_id);
-    	$contacts = $em->getRepository('AueioClubBundle:Player')->findSeasonTeamContacts($team, $season_id);
-    	$members = $em->getRepository('AueioClubBundle:Player')->findSeasonTeamMembers($team, $season_id);
+    	$season = $this->get('context.season');
+    	$game_next = $em->getRepository('AueioClubBundle:Game')->findSeasonTeamNextGame($team, new \DateTime('now'), $season);
+    	$trainning_next = $em->getRepository('AueioClubBundle:Game')->findNextTrainByTeam($team, time(), $season);
+    	$contacts = $em->getRepository('AueioClubBundle:Player')->findSeasonTeamContacts($team, $season);
+    	$members = $em->getRepository('AueioClubBundle:Player')->findSeasonTeamMembers($team, $season);
     	$stats = $em->getRepository('AueioClubBundle:Role')->getTeamStats($team);
     	
         return $this->render('AueioClubBundle:Team:view.html.twig', array('team' => $team, 'game_next' => $game_next, 'trainning_next' => $trainning_next, 'members' => $members, 'contacts' => $contacts, 'stats' => $stats));
@@ -54,8 +50,8 @@ class TeamController extends Controller
      */
     public function listAction()
     {
-    	$season_id = $this->container->get('request')->getSession()->get('season_id');
-    	$teams = $this->getDoctrine()->getRepository('AueioClubBundle:Team')->findBySeason($season_id);
+    	$season = $this->get('context.season');
+    	$teams = $this->getDoctrine()->getRepository('AueioClubBundle:Team')->findBySeason($season);
     	return $this->render('AueioClubBundle:Team:list.html.twig', array('teams' => $teams));
     }
     /**
@@ -120,7 +116,7 @@ class TeamController extends Controller
      */
     public function contactAction(Team $team, Request $request)
     {
-    	$from = $this->container->get('security.context')->getToken()->getUser();
+    	$from = $this->get('context.player');
     	if (!is_object($from) || !$from instanceof Player) {
     		throw new AccessDeniedException('This user does not have access to this section.');
     	}
@@ -147,7 +143,7 @@ class TeamController extends Controller
      */
     public function callAction(Team $team)
     {
-    	$from = $this->container->get('security.context')->getToken()->getUser();
+    	$from = $this->get('context.player');
     	if (!is_object($from) || !$from instanceof Player) {
     		throw new AccessDeniedException('This user does not have access to this section.');
     	}

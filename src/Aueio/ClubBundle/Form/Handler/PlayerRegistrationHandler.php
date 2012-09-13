@@ -38,7 +38,8 @@ class PlayerRegistrationHandler extends RegistrationFormHandler
 			$season = $this->em->getRepository('AueioClubBundle:Season')->findCurrent();
 			$player->addSeason($this->em->getRepository('AueioClubBundle:Season')->findCurrent());
 		}
-		
+		$player->setCredit(0);
+		$player->addRole('ROLE_PLAYER');
 		parent::onSuccess($player, $confirmation);
 	}
 }

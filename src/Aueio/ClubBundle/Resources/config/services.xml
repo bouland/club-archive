@@ -22,7 +22,7 @@
         <service id="aueio_club.profile.form.type" class="Aueio\ClubBundle\Form\Type\PlayerProfileType">
             <tag name="form.type" alias="aueio_club_profile" />
             <argument>%fos_user.model.user.class%</argument>
-            <argument type="service" id="session" />
+            <property name="security_context"  type="service" id="security.context" />
         </service>
         
 		<service id="aueio_club.form.handler.profile" class="Aueio\ClubBundle\Form\Handler\PlayerProfileHandler" scope="request" public="false">
@@ -45,13 +45,48 @@
 		<service id="aueio_club.mailer" class="Aueio\ClubBundle\Service\Mailer">
             <argument type="service" id="mailer" />
         	<argument type="service" id="doctrine.orm.entity_manager" />
-        	<argument type="service" id="session" />
+        	<argument type="service" id="context.season" />
         	<argument type="service" id="twig" />
         </service>
         
         <service id="aueio.twig.aueio_extension" class="Aueio\ClubBundle\Twig\AueioExtension">
         	<tag name="twig.extension" />
     	</service>
-    </services>
+    	
+		<!-- Current User Factory -->
+		<service id="aueio_club.player_factory" class="Aueio\ClubBundle\Factory\PlayerFactory">
+			<argument type="service" id="security.context"/>
+		</service>
 
+		<!--TheCurrentUser-->
+		<service id="context.player" class="Aueio\ClubBundle\Entity\Player"
+			factory-service="aueio_club.player_factory"
+			factory-method="get">
+		</service>
+		
+		<!-- Current Team Factory -->
+    	<service id="aueio_club.team_factory" class="Aueio\ClubBundle\Factory\TeamFactory">
+        	<argument type="service" id="context.player" />
+    	</service>
+
+    	<!-- The Current Team -->
+    	<service id="context.team" class="Aueio\ClubBundle\Entity\Team"
+         	factory-service="aueio_club.team_factory"
+         	factory-method="get">
+    	</service>
+
+		<!-- Current Season Factory -->
+    	<service id="aueio_club.season_factory" class="Aueio\ClubBundle\Factory\SeasonFactory">
+        	<argument type="service" id="context.player" />
+    		<argument type="service" id="doctrine.orm.entity_manager" />
+        	<argument type="service" id="session" />
+        </service>
+
+    	<!-- The Current Season -->
+    	<service id="context.season" class="Aueio\ClubBundle\Entity\Season"
+         	factory-service="aueio_club.season_factory"
+         	factory-method="get">
+    	</service>
+    	
+    </services>
 </container>

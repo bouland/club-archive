@@ -14,6 +14,9 @@
 	<li><a href="{{ path('aueio_club_player_contact', {"id": player.id}) }}">{{ 'sidebar.contact'|trans({}, 'AueioClubBundle') }}</a>
 {% if (player == app.user) %}
 	<li><a href="{{ path('fos_user_profile_edit') }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
+{% elseif (is_granted("ROLE_ADMIN")) %}
+	<li><a href="{{ path('aueio_club_player_edit') }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
+{% endif %}
 	<li><a href="{{ path('aueio_club_player_delete', {"id": player.id}) }}" onclick="return confirm('{{ 'sidebar.confirm'|trans({}, 'AueioClubBundle') }}')">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 {% elseif (is_granted("ROLE_LEADER") and (player.team == app.user.team)) or is_granted("ROLE_ADMIN") %}
 	<li><a href="{{ path('aueio_club_player_delete', {"id": player.id}) }}" onclick="return confirm('{{ 'sidebar.confirm'|trans({}, 'AueioClubBundle') }}')">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
@@ -50,7 +53,9 @@
 		<div id="player-teams" class="cols">
 			<h3>{{ 'player.view.title.team'|trans({}, 'AueioClubBundle') }}</h3>{% if player.team %}{% include 'AueioClubBundle:Team:link.html.twig' with {'team': player.team} %}{% else %}{{ 'team.notfound'|trans({}, 'AueioClubBundle') }}{%  endif %}</p>
 		</div>
-		{% include 'AueioClubBundle:Player:stats.html.twig' %}
+		{% if stats is defined %}
+			{% include 'AueioClubBundle:Player:stats.html.twig' %}
+		{% endif %}
 	</div>
 </div>
 {% endblock %}

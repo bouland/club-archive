@@ -33,12 +33,14 @@
 						pour les  {% include 'AueioClubBundle:Role:type.html.twig' with {'role':role.vars.value} %} ({% include 'AueioClubBundle:Team:link.html.twig' with {'team': role.vars.value.team} %})
 		        </li>{% endfor %}
 		    </ul>
-		<div id="game-shio" >
+{% if form.cost is defined %}    
+		<div id="game-shop" >
 			<h3>{{ 'game.sheet.title.shop'|trans({}, 'AueioClubBundle') }}</h3>
 			<p>{{ 'game.sheet.info.shop'|trans({}, 'AueioClubBundle') }}{% include 'AueioClubBundle:Player:link.html.twig' with {'player': form.vars.value.volunteer} %}</p>
 			{{ form_errors(form.cost) }}
 			{{ form_widget(form.cost) }}
 		</div>
+{% endif %}
 		<div id="game-comment" >
 			<h3>{{ 'game.sheet.title.comment'|trans({}, 'AueioClubBundle') }}</h3>
 			{{ form_errors(form.game.comment) }}

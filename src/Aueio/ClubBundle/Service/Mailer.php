@@ -3,7 +3,7 @@
 namespace Aueio\ClubBundle\Service;
 
 use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface,
-	Symfony\Component\HttpFoundation\Session\SessionInterface,
+	Aueio\ClubBundle\Entity\Season,
 	Doctrine\ORM\EntityManager,
 	Aueio\ClubBundle\Entity\Player,
 	Aueio\ClubBundle\Entity\Team;
@@ -12,14 +12,14 @@ class Mailer
 {
 	private $_mailer;
 	private $_em;
-	private $_session;
+	private $season;
 	private $_twig;
 	
-	public function __construct(\Swift_Mailer $mailer, EntityManager $em, SessionInterface $session, \Twig_Environment $twig)
+	public function __construct(\Swift_Mailer $mailer, EntityManager $em, Season $season, \Twig_Environment $twig)
 	{
 		$this->_mailer = $mailer;
 		$this->_em = $em;
-		$this->_session = $session;
+		$this->season = $season;
 		$this->_twig = $twig;
 	}
 	
@@ -31,7 +31,7 @@ class Mailer
 	
 	public function sendContactEmailToTeam(Team $to, Player $from, Array $context)
 	{
-		$season_id = $this->_session->get('season_id');
+		$season = $this->season;
 		$to_players = $this->_em->getRepository('AueioClubBundle:Player')->findSeasonTeamEmails($to, $season_id);
 		$to_emails = array();
 		foreach ($to_players as $player)
@@ -44,21 +44,24 @@ class Mailer
 	
 	public function sendRecallEmailToTeam(Team $to, Player $from)
 	{
-		$season_id = $this->_session->get('season_id');
-		$next_game = $this->_em->getRepository('AueioClubBundle:Game')->findSeasonTeamNextGame($to, $season_id);
-		//$selection_link = $this->router->generateUrl('aueio_club_game_selection', array('id' => $next_game->getId()));
-		$to_players = $this->_em->getRepository('AueioClubBundle:Player')->findTeamNextGameEmails($to, $next_game);
-		$to_emails = array();
-		foreach ($to_players as $player)
+		$season = $this->season;
+		$next_game = $this->_em->getRepository('AueioClubBundle:Game')->findSeasonTeamNextGame($to, new \DateTime('now'), $season);
+		if($next_game)
 		{
-			$to_emails[$player['email']] = $player['firstname'] . ' ' . $player['lastname'];
+			$to_players = $this->_em->getRepository('AueioClubBundle:Player')->findTeamNextGameEmails($to, $next_game);
+			$to_emails = array();
+			foreach ($to_players as $player)
+			{
+				$to_emails[$player['email']] = $player['firstname'] . ' ' . $player['lastname'];
+			}
+			$context = array(
+					'game' => $next_game,
+					'to' => $to,
+					'from' => $from
+			);
+			$this->sendMessage('AueioClubBundle:Team:email.recall.html.twig', $context, $from->getEmail(), $to_emails);
 		}
-		$context = array(
-				'game' => $next_game,
-				'to' => $to,
-				'from' => $from
-		);
-		$this->sendMessage('AueioClubBundle:Team:email.recall.html.twig', $context, $from->getEmail(), $to_emails);
+		
 	}
 	
 	protected function sendMessage($templateName, $context, $fromEmail, $toEmail)

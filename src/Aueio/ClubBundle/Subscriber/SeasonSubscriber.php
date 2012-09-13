@@ -26,7 +26,7 @@ class SeasonSubscriber implements EventSubscriberInterface
 			$em->getFilters()->disable('season');
 			return;
 		}
-		$season_id = $event->getRequest()->getSession()->get('season_id');
+		$season_id = $event->getRequest()->getSession()->get('context.season_id');
 		$em->getFilters()->enable('season')->setParameter('season_id', $season_id);
 	}
 

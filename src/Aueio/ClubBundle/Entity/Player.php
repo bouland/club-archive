@@ -472,7 +472,7 @@ class Player extends User
     /**
      * Set credit
      *
-     * @param float $credit
+     * @param decimal $credit
      * @return Player
      */
     public function setCredit($credit)

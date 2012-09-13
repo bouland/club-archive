@@ -4,7 +4,8 @@ namespace Aueio\ClubBundle\Repository;
 
 use Doctrine\ORM\EntityRepository,
 	Aueio\ClubBundle\Entity\Team,
-	Aueio\ClubBundle\Entity\Player;
+	Aueio\ClubBundle\Entity\Player,
+	Aueio\ClubBundle\Entity\Season;
 
 /**
  * GameRepository
@@ -14,7 +15,7 @@ use Doctrine\ORM\EntityRepository,
  */
 class GameRepository extends EntityRepository
 {
-	public function findSeasonTeamNextGame(Team $team, \DateTime $date, $season_id, $count = false){
+	public function findSeasonTeamNextGame(Team $team, \DateTime $date, Season $season, $count = false){
 		$builder = $this->createQueryBuilder('g')
 		->join('g.season', 's')
 		->leftJoin('g.roles', 'r')
@@ -24,7 +25,7 @@ class GameRepository extends EntityRepository
 		->andWhere('g.date > :date')
 		->setMaxResults(1)
 		->setParameters(array(
-				'id_season' => $season_id,
+				'id_season' => $season->getId(),
 				'id_team' => $team->getId(),
 				'date' => $date,
 		));

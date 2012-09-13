@@ -15,13 +15,15 @@ class TeamHandler extends FormHandler
 	{
 		if($this->request->getPathInfo() == '/team/new')
 		{
-			foreach (array('boy', 'girl', 'goal') as $type){
+			$team->setCash(0);
+    		foreach (array('boy', 'girl', 'goal') as $type){
 				$player = new Player();
 				$player->setUsername($team->getName() . $type);
 				$player->setEmail($team->getName() . $type);
 				$player->setPassword(sha1($type . time()));
 				$player->setFirstname($type);
 				$player->setLastname($team->getName());
+				$player->setCredit(0);
 				if($type == 'girl'){
 					$player->setGender('F');
 				}else{
