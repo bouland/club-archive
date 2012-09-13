@@ -2,8 +2,15 @@
 div.sample{
 	width: 80px;
 }
+div.sample{
+	margin: 2px 5px;
+}
+#season
+div.color{
+	margin: 10px;
+}
 div.color,
 div.sample{
 	display:inline-block;
-	margin: 2px 15px;
+	
 }

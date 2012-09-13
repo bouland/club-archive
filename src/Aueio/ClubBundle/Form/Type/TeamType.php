@@ -11,7 +11,13 @@ class TeamType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder->add('name', 'text');
-		$builder->add('colors', 'text');
+		$builder->add('colors', 'collection',array(
+							'type'   => 'text',
+							'allow_add' => true,
+							'prototype' => true,
+    						'options'  => array(
+							        'required'  => false,
+    						),));
 		$builder->add('slot_days', 'choice', array( 'choices' => array(	'monday' => 'lundi',
 																		'tuesday' => 'mardi',
 																		'wednesday' => 'mercredi',

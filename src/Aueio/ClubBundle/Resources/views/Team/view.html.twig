@@ -70,8 +70,10 @@
 				<h3>{{ 'team.view.title.cash'|trans({}, 'AueioClubBundle') }}</h3>
 				<p>{{ 'team.view.cash'|trans({'%cash%':team.cash}, 'AueioClubBundle') }}</p>
 				{% endif %}
+				<h3>{{ 'team.view.title.colors'|trans({}, 'AueioClubBundle') }}</h3>
+				{% include 'AueioClubBundle:Team:colors.html.twig' %}
 				<h3>{{ 'team.view.title.address'|trans({}, 'AueioClubBundle') }}</h3>
-				<p>{{ team.gymAddress}}</p>
+				<p>{{ team.gymName}}<br />{{ team.gymAddress.name}}<br />{{ team.gymAddress.code}} {{ team.gymAddress.city}}</p>
 				<h3>{{ 'team.view.title.contact'|trans({}, 'AueioClubBundle') }}</h3>
 				<ul>
 			    {% for player in contacts %}

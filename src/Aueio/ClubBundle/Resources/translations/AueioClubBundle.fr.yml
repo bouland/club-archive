@@ -150,6 +150,7 @@ team:
         cash: "Nous avons %cash% euro en caisse"
         title:
             cash: "Comptabilité"
+            colors: "Couleurs"
             address: "Adresse"
             contact: "Contacts"
             game: "Matchs (%count%)"
@@ -167,6 +168,8 @@ team:
             giveup: "%nb% (%percent%%) Forfaits"
             total: "%nb% Matchs"
     gym: Gymnase
+    color:
+        add: "Ajouter une couleur"
 
 form:
     submit: Enregistrer
@@ -236,6 +239,10 @@ team_slot_days_1: mardi
 team_slot_days_2: mercredi
 team_slot_days_3: jeudi
 team_slot_days_4: vendredi
+team_colors_0: Première
+team_colors_1: Seconde
+team_colors_2: Troisième
+
 
 form_team: "Changer son équipe"
 form_seasons: "Modifier les saisons aux quelles ce joueur à participé."

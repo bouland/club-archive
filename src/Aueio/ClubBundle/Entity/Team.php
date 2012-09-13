@@ -43,7 +43,7 @@ class Team
     /**
      * @var string $colors
      *
-     * @ORM\Column(name="colors", type="string", length=255)
+     * @ORM\Column(name="colors", type="array")
      */
     private $colors;
     
@@ -313,51 +313,6 @@ class Team
         return $this->seasons;
     }
 
-    /**
-     * Set colors
-     *
-     * @param string $colors
-     * @return Team
-     */
-    public function setColors($colors)
-    {
-        $this->colors = $colors;
-    
-        return $this;
-    }
-
-    /**
-     * Get colors
-     *
-     * @return string 
-     */
-    public function getColors()
-    {
-        return $this->colors;
-    }
-
-    /**
-     * Set slot_day
-     *
-     * @param integer $slotDay
-     * @return Team
-     */
-    public function setSlotDay($slotDay)
-    {
-        $this->slot_day = $slotDay;
-    
-        return $this;
-    }
-
-    /**
-     * Get slot_day
-     *
-     * @return integer 
-     */
-    public function getSlotDay()
-    {
-        return $this->slot_day;
-    }
 
     /**
      * Set slot_start_time
@@ -505,5 +460,28 @@ class Team
     public function getCash()
     {
         return $this->cash;
+    }
+
+    /**
+     * Set colors
+     *
+     * @param array $colors
+     * @return Team
+     */
+    public function setColors($colors)
+    {
+        $this->colors = $colors;
+    
+        return $this;
+    }
+
+    /**
+     * Get colors
+     *
+     * @return array 
+     */
+    public function getColors()
+    {
+        return $this->colors;
     }
 }

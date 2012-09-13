@@ -32,7 +32,7 @@ class TeamHandler extends FormHandler
 				$player->setTeam($team);
 				$this->em->persist($player);
 			}
-		}	
+		}
 		$this->em->getRepository('AueioClubBundle:Address');
 		$this->em->persist($team->getGymAddress());
 		$this->em->persist($team);
