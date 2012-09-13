@@ -25,8 +25,8 @@ class Mailer
 	
 	public function sendContactEmailToPlayer(Player $to, Player $from, Array $context)
 	{
-		array_merge($context, array('to' => $to, 'from'=> $from));
-		$this->sendMessage('AueioClubBundle:Player:email.contact.html.twig', $context, $from->getEmail(), $to_emails);
+		$context = array_merge($context, array('to' => $to, 'from'=> $from));
+		$this->sendMessage('AueioClubBundle:Player:email.contact.html.twig', $context, $from->getEmail(), array( $to->getEmail() => $to->getFirstname() . ' ' . $to->getLastname()));
 	}
 	
 	public function sendContactEmailToTeam(Team $to, Player $from, Array $context)
@@ -36,9 +36,9 @@ class Mailer
 		$to_emails = array();
 		foreach ($to_players as $player)
 		{
-			$to_emails[$player['firstname'] . ' ' . $player['lastname']] = $player['email'];
+			$to_emails[$player['email']] = $player['firstname'] . ' ' . $player['lastname'];
 		}
-		array_merge($context, array('to' => $to, 'from'=> $from));
+		$context = array_merge($context, array('to' => $to, 'from'=> $from));
 		$this->sendMessage('AueioClubBundle:Team:email.contact.html.twig', $context, $from->getEmail(), $to_emails);
 	}
 	
@@ -51,7 +51,7 @@ class Mailer
 		$to_emails = array();
 		foreach ($to_players as $player)
 		{
-			$to_emails[$player['firstname'] . ' ' . $player['lastname']] = $player['email'];
+			$to_emails[$player['email']] = $player['firstname'] . ' ' . $player['lastname'];
 		}
 		$context = array(
 				'game' => $next_game,
