@@ -21,6 +21,7 @@
 
 {% block content %}
 <div id="team">
+	<h2>{{ 'email.message.title'|trans({'%to%': team.name}, 'AueioClubBundle') }}</h2>
 	<form action="{{ path('aueio_club_team_contact', {"id": team.id}) }}" {{ form_enctype(form) }} method="POST" class="aueio_club_team_contact">
 		{% include 'AueioClubBundle::form.submit.html.twig' %}
 	</form>

@@ -131,7 +131,7 @@ class TeamController extends Controller
     		if( $form->isValid() )
     		{
     			$this->get('aueio_club.mailer')->sendContactEmailToTeam($team, $from, $form->getData());
-    			$this->get('session')->setFlash('notice', $this->get('translator')->trans('message.email.ok'));
+    			$this->get('session')->setFlash('notice', $this->get('translator')->trans('email.message.send',array(),'AueioClubBundle'));
     			return $this->redirect($this->generateUrl('aueio_club_team_view', array('id' => $team->getId())));
     		}
     	}
@@ -148,7 +148,7 @@ class TeamController extends Controller
     		throw new AccessDeniedException('This user does not have access to this section.');
     	}
     	$this->get('aueio_club.mailer')->sendRecallEmailToTeam($team, $from);
-    	$this->get('session')->setFlash('notice', $this->get('translator')->trans('message.email.ok'));
+    	$this->get('session')->setFlash('notice', $this->get('translator')->trans('email.message.send',array(),'AueioClubBundle'));
     	return $this->redirect($this->generateUrl('aueio_club_team_view', array('id' => $team->getId())));
     }
 }

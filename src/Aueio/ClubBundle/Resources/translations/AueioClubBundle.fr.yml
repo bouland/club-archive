@@ -21,6 +21,8 @@ email:
         link: "lien"
         form: "A bientôt,"
         sign: "Simon"
+        send: "Email(s) envoyés"
+        title: "Envoyer un email à %to%"
 resetting:
     lost: "Mot de passe oublié ?"
 config:
@@ -72,7 +74,7 @@ game:
         title: "Joueurs sélectionnés"
     sheet:
         info:
-            shop: "Le montant réel des courses qui sera crédité sur le compte de "
+            shop: "Le montant réel des courses que l'équipe doit rembourser à "
             scores: "les scores suivants sont calculés par la page table de marque. Il peut arriver qu'elle soit erronée. Dans ce cas veuillez saisir les scores officiels."
         title:
             shop: "Les courses"
@@ -234,3 +236,9 @@ team_slot_days_1: mardi
 team_slot_days_2: mercredi
 team_slot_days_3: jeudi
 team_slot_days_4: vendredi
+
+form_team: "Changer son équipe"
+form_seasons: "Modifier les saisons aux quelles ce joueur à participé."
+form_roles_0: "Donner les droits"
+form_roles_1: "Donner les droits"
+form_roles_2: "Donner les droits"

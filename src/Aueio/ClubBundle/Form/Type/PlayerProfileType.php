@@ -9,7 +9,6 @@ use Symfony\Component\Form\FormBuilderInterface,
 
 class PlayerProfileType extends ProfileFormType
 {
-	public $security_context;
 	
 	public function buildUserForm(FormBuilderInterface $builder, array $options)
 	{
@@ -43,20 +42,6 @@ class PlayerProfileType extends ProfileFormType
 												'property'     	=> 'name',
 												'expanded'	=> false,
 										));
-		if ($this->security_context->isGranted('ROLE_ADMIN')) {
-			$builder->add('roles', 'collection', array(
-					'type'   => 'choice',
-					'allow_add' => false,
-					'options'  => array(
-							'choices'  => array(
-									'ROLE_PLAYER' => 'Joueur',
-									'ROLE_LEADER' => 'Capitaine',
-									'ROLE_ADMIN' => 'Admin')
-							),
-					)
-			);
-		}
-		
 	}
 
 	public function getName()

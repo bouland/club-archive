@@ -50,7 +50,49 @@ class PlayerController extends Controller
     	}
     	return $this->render('AueioClubBundle:Player:view.html.twig', array('player' => $player, 'stats' =>$stats));
     }
-    
+    /**
+     * @Route("/edit/{id}", requirements={"id" = "\d+"})
+     */
+    public function editAction(Player $player, Request $request)
+    {
+    	$builder = $this->createFormBuilder($player);
+   		$builder->add('team', 'entity', array(
+   				'class' 		=> 'AueioClubBundle:Team',
+   				'property'     	=> 'name',
+   				'expanded'	=> false));
+   		$builder->add('seasons', 'entity', array(
+   				'class' 		=> 'AueioClubBundle:Season',
+   				'expanded'		=> false,
+   				'multiple'		=> true,
+   		));
+		if($this->get('security.context')->isGranted('ROLE_ADMIN'))
+		{
+   			$builder->add('roles', 'collection', array(
+   					'type'   => 'choice',
+   					'allow_add' => false,
+   					'options'  => array(
+   							'choices'  => array(
+   									'ROLE_PLAYER' => 'Joueur',
+   									'ROLE_LEADER' => 'Capitaine',
+   									'ROLE_ADMIN' => 'Admin')
+   							),
+   					));
+		}
+   		$form =	$builder->getForm();
+		
+        if ($request->getMethod() == 'POST') {
+            $form->bindRequest($request);
+            if( $form->isValid() )
+            {
+				$player = $form->getData();
+				$em = $this->getDoctrine()->getEntityManager();
+    			$em->persist($player);
+				$em->flush();
+				return $this->redirect($this->generateUrl('aueio_club_player_view', array('id' => $player->getId())));
+            }
+    	}
+    	return $this->render('AueioClubBundle:Player:edit.html.twig', array('form' => $form->createView()));
+    }
     public function showAction()
     {
     	$player = $this->get('context.player');
@@ -111,7 +153,7 @@ class PlayerController extends Controller
     		if( $form->isValid() )
     		{
     			$this->get('aueio_club.mailer')->sendContactEmailToPlayer($player, $from, $form->getData());
-    			$this->get('session')->setFlash('notice', $this->get('translator')->trans('message.email.ok'));
+    			$this->get('session')->setFlash('notice', $this->get('translator')->trans('email.message.send',array(),'AueioClubBundle'));
     			
     			return $this->redirect($this->generateUrl('aueio_club_player_view', array('id' => $player->getId())));
     		}

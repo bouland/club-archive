@@ -36,7 +36,9 @@
 {% if form.cost is defined %}    
 		<div id="game-shop" >
 			<h3>{{ 'game.sheet.title.shop'|trans({}, 'AueioClubBundle') }}</h3>
-			<p>{{ 'game.sheet.info.shop'|trans({}, 'AueioClubBundle') }}{% include 'AueioClubBundle:Player:link.html.twig' with {'player': form.vars.value.volunteer} %}</p>
+			<div id="game-shop-info">{{ 'game.sheet.info.shop'|trans({}, 'AueioClubBundle') }}</div>
+			{% include 'AueioClubBundle:Player:link.html.twig' with {'player': form.vars.value.volunteer} %}
+			<br />
 			{{ form_errors(form.cost) }}
 			{{ form_widget(form.cost) }}
 		</div>

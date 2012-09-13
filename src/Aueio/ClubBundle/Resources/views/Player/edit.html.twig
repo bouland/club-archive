@@ -1,0 +1,30 @@
+{# src/Aueio/ClubBundle/Resources/views/Player/edit.html.twig #}
+{% extends 'AueioClubBundle::layout.html.twig' %}
+
+{% set id = form.vars.value.id %}
+
+{% block title %}
+	{{ 'player.title.view'|trans({}, 'AueioClubBundle') }}
+{% endblock %}
+
+{% block header_menu %}
+	{% include 'AueioClubBundle::tab.menu.html.twig' with {'selected': "player"} %}
+{% endblock %}
+
+{% block sidebar %}
+	<li><a href="{{ path('aueio_club_player_contact', {"id": id}) }}">{{ 'sidebar.contact'|trans({}, 'AueioClubBundle') }}</a>
+	<li class="selected"><a href="{{ path('aueio_club_player_edit', {"id": id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
+{% if (is_granted("ROLE_LEADER") and (form.vars.value.team == app.user.team)) or is_granted("ROLE_ADMIN") %}
+	<li><a href="{{ path('aueio_club_player_delete', {"id": id}) }}" onclick="return confirm('{{ 'sidebar.confirm'|trans({}, 'AueioClubBundle') }}')">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
+{% endif %}
+{% endblock %}
+
+{% form_theme form 'AueioClubBundle::form.theme.html.twig' %}
+
+{% block content %}
+	<div id="player">
+		<form action="{{ path('aueio_club_player_edit', {"id": id}) }}" {{ form_enctype(form) }} method="POST" id="aueio_club_player_edit_form">
+		  	{% include 'AueioClubBundle::form.submit.html.twig' %}
+		</form>
+	</div>
+{% endblock %}

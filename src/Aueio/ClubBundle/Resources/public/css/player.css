@@ -20,3 +20,6 @@ li.player div.short > div{
 #player-teams div.link{
 	float:	right;
 }
+#aueio_club_player_edit_form #form_seasons{
+	display: block;
+}

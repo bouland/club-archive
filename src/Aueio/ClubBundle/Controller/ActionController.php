@@ -70,7 +70,7 @@ class ActionController extends Controller
     	return $this->redirect($this->get('request')->headers->get('referer'));
     }
 	/**
-     * @Route("/delete/{type}/{game_id}/{player_id}", requirements={"game_id" = "\d+", "player_id" = "\d+", "action"="play|miss|shop"})
+     * @Route("/delete/{type}/{game_id}/{player_id}", requirements={"game_id" = "\d+", "player_id" = "\d+", "action"="play|miss|shop|referee|score|save|hurt"})
      **/
     public function deleteAction(Request $request, $type, $game_id, $player_id)
     {
@@ -85,25 +85,25 @@ class ActionController extends Controller
     	if (!$player) {
     		throw $this->createNotFoundException('No player found for id '.$player_id);
     	}
+    	$this->remove($player, $game, $type, $em);
+    	switch($type){
+    		case "play":
+    			$this->remove($player, $game, 'referee', $em);
+    			$this->remove($player, $game, 'shop', $em);
+    			break;
+    		case "miss":
+    			$this->remove($player, $game, 'hurt', $em);
+    			break;
+    	}
     	
-    	$repository = $em->getRepository('AueioClubBundle:Action');
-    	$actions = $repository->createQueryBuilder('a')
-    	->join('a.game', 'g')
-    	->join('a.player', 'p')
-    	->Where('a.type = :type')
-    	->andWhere('p.id = :player_id')
-    	->andWhere('g.id = :game_id')
-    	->setParameters(array(
-    			'player_id' => $player_id,
-    			'game_id' => $game_id,
-    	    	'type' => $type,
-    	))
-    	->getQuery()->getResult();
-
+    	return $this->redirect($this->get('request')->headers->get('referer'));
+    }
+    public function remove($player, $game, $type, $em){
+    	$actions = $em->getRepository('AueioClubBundle:Action')->getTypeByPlayerByGame($player, $game,  $type);
     	if (count($actions) > 0) {
     		$em->remove($actions[count($actions)-1]);
     		$em->flush();
     	}
-    	return $this->redirect($this->get('request')->headers->get('referer'));
+    	
     }
 }

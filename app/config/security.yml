@@ -30,6 +30,7 @@ security:
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/profile, role: ROLE_PLAYER }
+        - { path: ^/player/edit, role: ROLE_LEADER }
         - { path: ^/player/contact, role: ROLE_PLAYER }
         - { path: ^/player/delete, role: ROLE_PLAYER }
         - { path: ^/game/selection, role: ROLE_PLAYER }

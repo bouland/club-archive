@@ -10,9 +10,9 @@
 {% endblock %}
 
 {% block sidebar %}
-	<li ><a href="{{ path('aueio_club_player_view', {"id": app.user.id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
+	<li><a href="{{ path('aueio_club_player_view', {"id": app.user.id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_player_contact', {"id": app.user.id}) }}">{{ 'sidebar.contact'|trans({}, 'AueioClubBundle') }}</a>
-	<li  class="selected"><a href="{{ path('fos_user_profile_edit') }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
+	<li class="selected"><a href="{{ path('fos_user_profile_edit', {"id": app.user.id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_player_delete', {"id": app.user.id}) }}" onclick="return confirm('{{ 'sidebar.confirm'|trans({}, 'AueioClubBundle') }}')">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endblock %}
 

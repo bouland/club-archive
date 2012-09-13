@@ -324,7 +324,7 @@ class GameController extends Controller
     }
     
     function getTeams($game, $team_index = 0){
-    	$user_team = $this->get('security.context')->getToken()->getUser()->getTeam();
+    	$user_team = $this->get('context.team');
     	if (!$user_team) {
     		throw $this->createNotFoundException('No team found');
     	}

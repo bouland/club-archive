@@ -67,6 +67,25 @@ class ActionRepository extends EntityRepository
 			return $builder->getQuery()->getResult();
 		}
 	}
+	public function getTypeByPlayerByGame(Player $player, Game $game,  $type, $count = false){
+		$builder = $this->createQueryBuilder('a')
+		->join('a.player', 'p')
+		->join('a.game', 'g')
+		->where('p.id = :id_player')
+		->andWhere('g.id = :id_game')
+		->andWhere('a.type = :type')
+		->setParameters(array(
+				'id_player' => $player->getId(),
+				'id_game' => $game->getId(),
+				'type' => $type,
+		));
+		if($count){
+			$builder->select('count(a.id)')->setMaxResults(1);
+			return $builder->getQuery()->getSingleScalarResult();
+		}else{
+			return $builder->getQuery()->getResult();
+		}
+	}
 	public function findPlayResultByPlayer(Player $player, $result, $count = false){
 		$builder = $this->createQueryBuilder('a')
 		->join('a.player', 'p')

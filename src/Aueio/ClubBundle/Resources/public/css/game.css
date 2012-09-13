@@ -191,3 +191,9 @@ li.action{
 #center{
 	top:250px;
 }
+#game-shop > div{
+	display: inline-block;
+}
+#form_cost{
+	width: 60px;
+}

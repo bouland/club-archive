@@ -193,6 +193,13 @@ li.action{
 #center{
 	top:250px;
 }
+#game-shop > div{
+	display: inline-block;
+}
+#form_cost{
+	width: 60px;
+}
+
 @CHARSET "UTF-8";
 html{
 	color:#000;background:#FFF;
@@ -526,6 +533,7 @@ ul.system-messages > li.notice{
 	background-color: orange;
 }
 .aueio_club_config_form > div > div,
+#aueio_club_player_edit_form > div,
 .fos_user_login > div,
 .fos_user_profile_edit > div,
 .fos_user_registration_register > div,
@@ -538,6 +546,7 @@ ul.system-messages > li.notice{
 .fos_user_success{
 	 background-color: black;
 }
+#aueio_club_player_edit_form div ul > li,
 #aueio_club_team_new_form div ul > li,
 #aueio_club_team_edit_form div ul > li,
 .aueio_club_config_form div ul > li,
@@ -560,7 +569,8 @@ ul.system-messages > li.notice{
 .fos_user_registration_register,
 .fos_user_resetting_request,
 .fos_user_resetting_reset,
-.fos_user_registration_form {
+.fos_user_registration_form,
+#aueio_club_player_edit_form {
 	width: 350px;
 	padding:20px;
 	margin: 50px auto;
@@ -678,7 +688,9 @@ li.player div.short > div{
 #player-teams div.link{
 	float:	right;
 }
-
+#aueio_club_player_edit_form #form_seasons{
+	display: block;
+}
 @CHARSET "UTF-8";
 div.LOST{
 	color:red;

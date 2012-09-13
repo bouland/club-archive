@@ -32,7 +32,7 @@ class Mailer
 	public function sendContactEmailToTeam(Team $to, Player $from, Array $context)
 	{
 		$season = $this->season;
-		$to_players = $this->_em->getRepository('AueioClubBundle:Player')->findSeasonTeamEmails($to, $season_id);
+		$to_players = $this->_em->getRepository('AueioClubBundle:Player')->findSeasonTeamEmails($to, $season);
 		$to_emails = array();
 		foreach ($to_players as $player)
 		{
