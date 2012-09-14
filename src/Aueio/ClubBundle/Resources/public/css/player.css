@@ -23,3 +23,28 @@ li.player div.short > div{
 #aueio_club_player_edit_form #form_seasons{
 	display: block;
 }
+.aueio_club_player_contact {
+	padding: 10px;
+	width:		560px !important;
+	min-width:	560px !important;
+	max-width:	560px !important;
+}
+.aueio_club_player_contact label{
+	margin-top: 15px;
+	margin-bottom: 10px;
+}
+.aueio_club_player_contact #subject > div{
+	display: inline-block;
+	margin-right: 3px;
+}
+.aueio_club_player_contact #subject > input{
+	width: auto;
+	padding: 5px;
+}
+
+.aueio_club_player_contact textarea{
+	width:		100% !important;
+	min-width:	100% !important;
+	max-width:	100% !important;
+	min-height: 250px;
+}

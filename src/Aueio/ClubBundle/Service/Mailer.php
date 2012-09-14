@@ -26,7 +26,7 @@ class Mailer
 	public function sendContactEmailToPlayer(Player $to, Player $from, Array $context)
 	{
 		$context = array_merge($context, array('to' => $to, 'from'=> $from));
-		$this->sendMessage('AueioClubBundle:Player:email.contact.html.twig', $context, $from->getEmail(), array( $to->getEmail() => $to->getFirstname() . ' ' . $to->getLastname()));
+		$this->sendMessage('AueioClubBundle:Player:email.contact.html.twig', $context, array( $from->getEmail() => $from->getFirstname() . ' ' . $from->getLastname()), array( $to->getEmail() => $to->getFirstname() . ' ' . $to->getLastname()));
 	}
 	
 	public function sendContactEmailToTeam(Team $to, Player $from, Array $context)
@@ -39,7 +39,7 @@ class Mailer
 			$to_emails[$player['email']] = $player['firstname'] . ' ' . $player['lastname'];
 		}
 		$context = array_merge($context, array('to' => $to, 'from'=> $from));
-		$this->sendMessage('AueioClubBundle:Team:email.contact.html.twig', $context, $from->getEmail(), $to_emails);
+		$this->sendMessage('AueioClubBundle:Team:email.contact.html.twig', $context, array( $from->getEmail() => $from->getFirstname() . ' ' . $from->getLastname()), $to_emails);
 	}
 	
 	public function sendRecallEmailToTeam(Team $to, Player $from)
@@ -59,7 +59,7 @@ class Mailer
 					'to' => $to,
 					'from' => $from
 			);
-			$this->sendMessage('AueioClubBundle:Team:email.recall.html.twig', $context, $from->getEmail(), $to_emails);
+			$this->sendMessage('AueioClubBundle:Team:email.recall.html.twig', $context, array( $from->getEmail() => $from->getFirstname() . ' ' . $from->getLastname()), $to_emails);
 		}
 		
 	}

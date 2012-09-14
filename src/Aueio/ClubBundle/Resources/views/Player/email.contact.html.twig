@@ -18,6 +18,6 @@
 <br /><br />
 {{ 'email.message.form'|trans({}, 'AueioClubBundle') }}
 <br />
-{{ from.firstname }}
+{% include 'AueioClubBundle:Player:link.html.twig' with {'player': from} %}
 {% endautoescape %}
 {% endblock %}

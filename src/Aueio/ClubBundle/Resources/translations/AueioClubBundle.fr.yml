@@ -6,6 +6,7 @@ layout:
         email: simon.bouland@gmail.com
 # Emails
 email:
+    send: "Envoyer"
     subject:
         tag: "[HandBall]"
         recall: "%date% à %city%"
@@ -145,7 +146,7 @@ team:
         list: "Liste des équipes"
         edit: "Modification de l'équipe"
         view: "Vue de léquipe"
-        
+        contact: "Envoyer un email"
     view:
         cash: "Nous avons %cash% euro en caisse"
         title:

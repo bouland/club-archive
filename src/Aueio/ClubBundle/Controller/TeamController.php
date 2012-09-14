@@ -120,8 +120,11 @@ class TeamController extends Controller
     	if (!is_object($from) || !$from instanceof Player) {
     		throw new AccessDeniedException('This user does not have access to this section.');
     	}
-    	$form = $this->createForm(new ContactType(), array());
-    
+    	$form = $this->createFormBuilder()
+    					->add('subject', 'text')
+    					->add('message', 'textarea')
+    					->getForm();
+    	
     	$em = $this->getDoctrine()->getEntityManager();
     	 
     	if( $request->getMethod() == 'POST' )

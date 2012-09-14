@@ -691,6 +691,31 @@ li.player div.short > div{
 #aueio_club_player_edit_form #form_seasons{
 	display: block;
 }
+.aueio_club_player_contact {
+	padding: 10px;
+	width:		560px !important;
+	min-width:	560px !important;
+	max-width:	560px !important;
+}
+.aueio_club_player_contact label{
+	margin-top: 15px;
+	margin-bottom: 10px;
+}
+.aueio_club_player_contact #subject > div{
+	display: inline-block;
+	margin-right: 3px;
+}
+.aueio_club_player_contact #subject > input{
+	width: auto;
+	padding: 5px;
+}
+
+.aueio_club_player_contact textarea{
+	width:		100% !important;
+	min-width:	100% !important;
+	max-width:	100% !important;
+	min-height: 250px;
+}
 @CHARSET "UTF-8";
 div.LOST{
 	color:red;
@@ -706,11 +731,19 @@ div.NUL{
 div.sample{
 	width: 80px;
 }
+div.sample{
+	margin: 2px 5px;
+}
+#season
+div.color{
+	margin: 10px;
+}
 div.color,
 div.sample{
 	display:inline-block;
-	margin: 2px 15px;
+	
 }
+
 @CHARSET "UTF-8";
 #team ul.list div.short div.link{
 	width:30%;
@@ -750,4 +783,12 @@ div.sample{
 }
 #trainning{
 	text-align:center;
+}
+#team div.sample{
+	maring: 0;
+	width: 60px;
+	height: 20px;
+}
+#team #colors{
+	padding: 0 10px;
 }

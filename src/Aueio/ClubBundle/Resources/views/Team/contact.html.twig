@@ -23,7 +23,17 @@
 <div id="team">
 	<h2>{{ 'email.message.title'|trans({'%to%': team.name}, 'AueioClubBundle') }}</h2>
 	<form action="{{ path('aueio_club_team_contact', {"id": team.id}) }}" {{ form_enctype(form) }} method="POST" class="aueio_club_team_contact">
-		{% include 'AueioClubBundle::form.submit.html.twig' %}
+		{{ form_label(form.subject) }}
+        {{ form_errors(form.subject) }}
+		<div id="subject"><div id="tag">{{ 'email.subject.tag'|trans({},'AueioClubBundle') }} </div>{{ form_widget(form.subject, { 'attr': { 'size' : 40, 'maxlength' : 40} }) }}</div>
+		{{ form_row(form.message) }}
+		<br />
+		<div>{{ 'email.message.form'|trans({}, 'AueioClubBundle') }}</div>
+		{% include 'AueioClubBundle:Player:link.html.twig' with {'player': app.user} %}
+		<div>
+			<input type="submit" value="{{ 'email.send'|trans({}, 'AueioClubBundle') }}" />
+		</div>
+		{{ form_rest(form) }}
 	</form>
 </div>
 {% endblock %}
