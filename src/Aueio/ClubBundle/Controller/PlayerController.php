@@ -56,7 +56,21 @@ class PlayerController extends Controller
     public function editAction(Player $player, Request $request)
     {
     	$builder = $this->createFormBuilder($player);
-   		$builder->add('team', 'entity', array(
+   		$builder->add('gender', 'choice', array(
+				'choices'   => array('M' => 'Homme', 'F' => 'Femme'),
+				'required'  => true,
+		));
+		$builder->add('position', 'choice', array(
+				'choices'   => array(	'GOAL' => 'Gardien',
+										'PIVOT' => 'Pivot',
+										'CENTER' => 'Demi',
+										'BACK' => 'Arrière',
+										'WING' => 'Ailier')
+		));
+		$builder->add('hand', 'choice', array(
+				'choices'   => array('RIGHT' => 'Droitier', 'LEFT' => 'Gaucher')
+		));
+		$builder->add('team', 'entity', array(
    				'class' 		=> 'AueioClubBundle:Team',
    				'property'     	=> 'name',
    				'expanded'	=> false));

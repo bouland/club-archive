@@ -42,6 +42,12 @@ class PlayerProfileType extends ProfileFormType
 												'property'     	=> 'name',
 												'expanded'	=> false,
 										));
+		$builder->add('seasons', 'entity', array(
+				'class' 		=> 'AueioClubBundle:Season',
+				'expanded'		=> false,
+				'multiple'		=> true,
+		));
+		
 	}
 
 	public function getName()

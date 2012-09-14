@@ -197,6 +197,7 @@ fos_user_profile_form_hand: "Main de tir"
 fos_user_profile_form_secret: "Le prénom d'un de nos Gardiens"
 fos_user_profile_form_current_password: "Saisi ton mot de passe"
 fos_user_profile_form_team: "Equipe"
+fos_user_profile_form_seasons: "Saisons"
 
 fos_user_registration_form_username:             "Nom d'utilisateur"
 fos_user_registration_form_email:                "Adresse e-mail"
@@ -246,6 +247,9 @@ team_colors_2: Troisième
 
 form_team: "Changer son équipe"
 form_seasons: "Modifier les saisons aux quelles ce joueur à participé."
+form_gender: "Genre"
+form_hand: "Main de tir"
+form_position: "Position"
 form_roles_0: "Donner les droits"
 form_roles_1: "Donner les droits"
 form_roles_2: "Donner les droits"
