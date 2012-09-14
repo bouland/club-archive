@@ -13,9 +13,14 @@
 #player ul.list div.long > div.phone{
 	width:20%;
 }
-li.player div.short > div{
-	width: 33%;
+li.player div.short > div.link{
+	width: 44%;
 }
+li.player div.short > div.position,
+li.player div.short > div.handn{
+	width: 28%;
+}
+
 
 #player-teams div.link{
 	float:	right;

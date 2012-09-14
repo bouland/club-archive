@@ -197,3 +197,6 @@ li.action{
 #form_cost{
 	width: 60px;
 }
+#game ul.list > li div {
+	vertical-align: middle;
+}

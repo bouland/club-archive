@@ -199,6 +199,9 @@ li.action{
 #form_cost{
 	width: 60px;
 }
+#game ul.list > li div {
+	vertical-align: middle;
+}
 
 @CHARSET "UTF-8";
 html{
@@ -577,7 +580,7 @@ ul.system-messages > li.notice{
 	border: 1px dotted #9E8D99;
 }
 .full{
-	margin:20px;
+	margin:10px;
 }
 div.long,
 div.short,
@@ -627,7 +630,10 @@ ul.list > li > div {
 
 .cols > ul,
 .cols > p  {
-	padding: 10px;
+	padding: 2px;
+}
+li.player {
+	padding:4px;
 }
 .stats > ul {
     padding: 10px;
@@ -681,9 +687,14 @@ li.player > div.short {
 #player ul.list div.long > div.phone{
 	width:20%;
 }
-li.player div.short > div{
-	width: 33%;
+li.player div.short > div.link{
+	width: 44%;
 }
+li.player div.short > div.position,
+li.player div.short > div.handn{
+	width: 28%;
+}
+
 
 #player-teams div.link{
 	float:	right;
