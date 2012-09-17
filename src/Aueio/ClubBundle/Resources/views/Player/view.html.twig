@@ -33,7 +33,7 @@
 			{% if (player == app.user) %}
 				<p>{{ 'player.username'|trans({}, 'AueioClubBundle') }} : {{ player.username }}</p>
 			{% endif %}
-			{% if (is_granted("ROLE_LEADER") and (player.team == app.user.team)) or (player == app.user) %}
+			{% if (player.credit > 0) and ( (is_granted("ROLE_LEADER") and (player.team == app.user.team)) or (player == app.user) ) %}
 				<p>{{ 'player.credit'|trans({'%credit%':player.credit}, 'AueioClubBundle') }}</p>
 			{% endif %}
 			{% if player.car %}
