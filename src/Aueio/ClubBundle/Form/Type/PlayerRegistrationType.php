@@ -2,7 +2,8 @@
 // src/Auieo/ClubBundle/Form/Type/PlayerType.php
 namespace Aueio\ClubBundle\Form\Type;
 
-use Symfony\Component\Form\FormError,
+use Doctrine\ORM\EntityManager,
+	Symfony\Component\Form\FormError,
  	Symfony\Component\Form\FormInterface,
 	Symfony\Component\Form\FormBuilderInterface,
 	Symfony\Component\Form\CallbackValidator,
@@ -11,6 +12,13 @@ use Symfony\Component\Form\FormError,
 
 class PlayerRegistrationType extends RegistrationFormType
 {
+	private $em;
+	
+	public function __construct($class, EntityManager $em){
+		parent::__construct($class);
+		$this->em = $em;
+	}
+	
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		parent::buildForm($builder, $options);
@@ -37,11 +45,17 @@ class PlayerRegistrationType extends RegistrationFormType
 		$builder->add('hand', 'choice', array(
 				'choices'   => array('RIGHT' => 'Droitier', 'LEFT' => 'Gaucher')
 		));
-		
+		$config = $this->em->getRepository('AueioClubBundle:Config')->find(1);
+		if($config){
+			$preferred = array($config->getTeamFocus());
+		}else{
+			$preferred = array();
+		}
 		$builder->add('team', 'entity', array(
 												'class' 		=> 'AueioClubBundle:Team',
 												'property'     	=> 'name',
 												'expanded'	=> false,
+												'preferred_choices' => $preferred,
 										));
 		
 		$builder->add('secret', 'text', array('property_path' => false));

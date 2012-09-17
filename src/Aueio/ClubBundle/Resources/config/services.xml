@@ -8,6 +8,7 @@
         <service id="aueio_club.registration.form.type" class="Aueio\ClubBundle\Form\Type\PlayerRegistrationType">
             <tag name="form.type" alias="aueio_club_registration" />
             <argument>%fos_user.model.user.class%</argument>
+            <argument type="service" id="doctrine.orm.entity_manager" />
         </service>
 
         <service id="aueio_club.form.handler.registration" class="Aueio\ClubBundle\Form\Handler\PlayerRegistrationHandler" scope="request" public="false">
