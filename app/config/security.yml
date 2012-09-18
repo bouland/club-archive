@@ -7,9 +7,9 @@ security:
         FOS\UserBundle\Model\UserInterface: sha512
 
     role_hierarchy:
-        ROLE_PLAYER:   ROLE_USER
-        ROLE_LEADER: ROLE_PLAYER
-        ROLE_ADMIN:  ROLE_LEADER
+        ROLE_PLAYER:    ROLE_USER
+        ROLE_LEADER:    ROLE_PLAYER
+        ROLE_ADMIN:     ROLE_LEADER
 
     providers:
         fos_userbundle:
@@ -32,15 +32,15 @@ security:
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/profile, role: ROLE_USER }
         - { path: ^/player/edit, role: ROLE_LEADER }
-        - { path: ^/player/contact, role: ROLE_PLAYER }
-        - { path: ^/player/delete, role: ROLE_PLAYER }
-        - { path: ^/game/selection, role: ROLE_PLAYER }
+        - { path: ^/player/contact, role: ROLE_USER }
+        - { path: ^/player/delete, role: ROLE_USER }
+        - { path: ^/game/selection, role: ROLE_USER }
         - { path: ^/game/sheet, role: ROLE_LEADER }
-        - { path: ^/game/score, role: ROLE_PLAYER }
+        - { path: ^/game/score, role: ROLE_USER }
         - { path: ^/game/new, role: ROLE_LEADER }
         - { path: ^/game/edit, role: ROLE_LEADER }
         - { path: ^/game/delete, role: ROLE_LEADER }
         - { path: ^/team/new, role: ROLE_ADMIN }
         - { path: ^/team/edit, role: ROLE_LEADER }
-        - { path: ^/team/contact, role: ROLE_PLAYER }
+        - { path: ^/team/contact, role: ROLE_USER }
         - { path: ^/team/delete, role: ROLE_ADMIN }
