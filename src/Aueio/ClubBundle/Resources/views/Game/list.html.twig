@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block sidebar %}
-{% if is_granted("ROLE_ADMIN") %}
+{% if is_granted("ROLE_LEADER") %}
 <li><a href="{{ path('aueio_club_game_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endif %}
 {% endblock %}
