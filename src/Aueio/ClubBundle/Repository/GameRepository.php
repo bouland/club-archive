@@ -15,19 +15,19 @@ use Doctrine\ORM\EntityRepository,
  */
 class GameRepository extends EntityRepository
 {
-	public function findSeasonTeamNextGame(Team $team, \DateTime $date, Season $season, $count = false){
+	public function findSeasonTeamNextGame(Team $team, $timestamp, Season $season, $count = false){
 		$builder = $this->createQueryBuilder('g')
 		->join('g.season', 's')
 		->leftJoin('g.roles', 'r')
 		->join('r.team', 't')
 		->where('s.id = :id_season')
 		->andWhere('t.id = :id_team')
-		->andWhere('g.date > :date')
+		->andWhere('g.date >= :date')
 		->setMaxResults(1)
 		->setParameters(array(
 				'id_season' => $season->getId(),
 				'id_team' => $team->getId(),
-				'date' => $date,
+				'date' => date("Y-m-d",$timestamp),
 		));
 		if($count){
 			$builder->select('count(g.id)')->setMaxResults(1);

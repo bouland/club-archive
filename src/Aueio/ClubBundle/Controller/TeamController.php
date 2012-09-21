@@ -37,7 +37,7 @@ class TeamController extends Controller
     {
     	$em = $this->getDoctrine()->getEntityManager();
     	$season = $this->get('context.season');
-    	$game_next = $em->getRepository('AueioClubBundle:Game')->findSeasonTeamNextGame($team, new \DateTime('now'), $season);
+    	$game_next = $em->getRepository('AueioClubBundle:Game')->findSeasonTeamNextGame($team, time(), $season);
     	$trainning_next = $em->getRepository('AueioClubBundle:Game')->findNextTrainByTeam($team, time(), $season);
     	$contacts = $em->getRepository('AueioClubBundle:Player')->findSeasonTeamContacts($team, $season);
     	$members = $em->getRepository('AueioClubBundle:Player')->findSeasonTeamMembers($team, $season);
