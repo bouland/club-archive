@@ -33,7 +33,7 @@ class ActionRepository extends EntityRepository
 		->join('a.game', 'g')
 		->where('p.id = :id_player')
 		->andWhere('a.type = :type')
-		->andWhere('g.date < :now')
+		->andWhere('g.date <= :now')
 		->setParameters(array(
 				'id_player' => $player->getId(),
 				'type' => $type,
@@ -51,7 +51,7 @@ class ActionRepository extends EntityRepository
 		->join('a.player', 'p')
 		->join('a.game', 'g')
 		->where('p.id = :id_player')
-		->andWhere('g.date < :now')
+		->andWhere('g.date <= :now')
 		->andWhere('g.id = :id_game')
 		->andWhere('a.type = :type')
 		->setParameters(array(
@@ -92,7 +92,7 @@ class ActionRepository extends EntityRepository
 	 	->join('a.game', 'g')
 	 	->leftJoin('g.roles', 'r')
 	 	->where('p.id = :id_player')
-		->andWhere('g.date < :now')
+		->andWhere('g.date <= :now')
 		->andWhere("p.team = r.team")
 		->andWhere("a.type = 'play'")
 		->andWhere('r.result = :type')

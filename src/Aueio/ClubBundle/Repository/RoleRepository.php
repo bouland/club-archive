@@ -33,7 +33,7 @@ class RoleRepository extends EntityRepository
 		->join('r.game', 'g')
 		->where('t.id = :id_team')
 		->andWhere('r.type = :type')
-		->andWhere('g.date < :now')
+		->andWhere('g.date <= :now')
 		->setParameters(array(
 				'id_team' => $team->getId(),
 				'type' => $type,
@@ -52,7 +52,7 @@ class RoleRepository extends EntityRepository
 	 	->join('r.game', 'g')
 		->where('t.id = :id_team')
 		->andWhere('r.result = :result')
-		->andWhere('g.date < :now')
+		->andWhere('g.date <= :now')
 		->setParameters(array(
 				'id_team' => $team->getId(),
 				'result' => $result,
@@ -70,7 +70,7 @@ class RoleRepository extends EntityRepository
 		->join('r.team', 't')
 		->join('r.game' , 'g')
 		->where('t.id = :id_team')
-		->andWhere('g.date < :now')
+		->andWhere('g.date <= :now')
 		->setParameters(array(
 				'id_team' => $team->getId(),
 				'now' => new \DateTime('now')
