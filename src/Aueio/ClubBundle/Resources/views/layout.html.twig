@@ -29,11 +29,6 @@
 			        </li>
 		        {% endfor %}
 		        </ul>
-		        <script>
-			        $('li.notice').click(function () {
-			        	  $('li.notice').fadeOut('slow');
-			        	  });
-		        </script>
 			</div>
 	    </div>
 	</div>
@@ -85,4 +80,13 @@
 		    </div>
 	    </div>
 	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent () }}
+	<script>
+	    $('li.notice').click(function () {
+	    	  $('li.notice').fadeOut('slow');
+	    	  });
+	</script>
 {% endblock %}

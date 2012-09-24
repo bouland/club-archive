@@ -59,6 +59,8 @@ game:
     header:
         where: Où
         when:    Quand
+        gmap:
+            link: Voir sur Gmap.
     selection:
         shop: "Courses"
         noshop: "Besoin d'un volontaire"
