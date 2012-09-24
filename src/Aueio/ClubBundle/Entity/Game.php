@@ -179,14 +179,14 @@ class Game implements SeasonAwareInterface
      *
      * @return Doctrine\Common\Collections\Collection 
      */
-    public function getAddress(){
-		foreach($this->roles as $role){
-			if($role->isLocal()){
-				return $role->getTeam()->getGymAddress();
-			}
-			
-		}
+    public function getLocal(){
+    	return $this->roles->get(0)->getTeam();
 	}
+	public function getAddress(){
+		$local = $this->getLocal();
+		return "{$local->getGymName()} {$local->getGymAddress()}";
+	}
+	
     /**
      * Set startTime
      *

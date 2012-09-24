@@ -1,5 +1,5 @@
 {# src/Aueio/ClubBundle/Resources/views/Game/view.html.twig #}
-{% extends 'AueioClubBundle::layout.html.twig' %}
+{% extends 'AueioClubBundle:Game:header.html.twig' %}
 
 {% block title %}
 	{{ 'game.title.view'|trans({}, 'AueioClubBundle') }}
@@ -22,9 +22,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="game">
-	<div class="full">
-		{% include 'AueioClubBundle:Game:header.html.twig' %}
+	{{ parent() }}
 		<ul>
 	{% for role in game.roles %}<li class="cols">
 			<h4>{{ 'game.selection.title'|trans({}, 'AueioClubBundle') }}</h4>

@@ -1,5 +1,5 @@
 {# src/Aueio/ClubBundle/Resources/views/Game/view.html.twig #}
-{% extends 'AueioClubBundle::layout.html.twig' %}
+{% extends 'AueioClubBundle:Game:header.html.twig' %}
 
 {% block title %}
 	{{ 'game.title.selection'|trans({}, 'AueioClubBundle') }}
@@ -22,10 +22,8 @@
 {% endblock %}
 
 {% block content %}
-<div id="game">
-	<div class="full">
-		{% include 'AueioClubBundle:Game:header.html.twig' %}
-	</div>
+	{{ parent() }}
+
 	<div id="game-manage">
 		<ul class="game-selection-cols">
 			<li class="wait">
@@ -254,6 +252,5 @@
 			</div>
 	    </div>
 	</div>
-
 </div>
 {% endblock %}

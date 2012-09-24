@@ -56,6 +56,9 @@ game:
         title:
             date: Quand
             team: Qui
+    header:
+        where: Où
+        when:    Quand
     selection:
         shop: "Courses"
         noshop: "Besoin d'un volontaire"

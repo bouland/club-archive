@@ -314,7 +314,7 @@ class GameController extends Controller
     	$score_focus = $em->getRepository('AueioClubBundle:Action')->getScores($game, $teams['focus']);
     	$score_opponent = $em->getRepository('AueioClubBundle:Action')->getScores($game, $teams['opponent']);
 
-    	return $this->render('AueioClubBundle:Game:score.html.twig', array(	'game_id' => $game->getId(),
+    	return $this->render('AueioClubBundle:Game:score.html.twig', array(	'game' => $game,
     																		'id_goal' => $id_goal ,
     																		'teams' => $teams,
     																		'score_focus' => $score_focus,

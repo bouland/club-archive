@@ -1,5 +1,5 @@
 {# src/Aueio/ClubBundle/Resources/views/Game/result.html.twig #}
-{% extends 'AueioClubBundle::layout.html.twig' %}
+{% extends 'AueioClubBundle:Game:header.html.twig' %}
 
 {% block title %}
 	{{ 'game.title.sheet'|trans({}, 'AueioClubBundle') }}
@@ -20,9 +20,7 @@
 {% endblock %}
 
 {% block content %}
-<div id="game">
-	<div class="full">
-		{% include 'AueioClubBundle:Game:header.html.twig' %}
+	{{ parent() }}
 		<form action="{{ path('aueio_club_game_sheet', {"id": game.id}) }}" method="post" {{ form_enctype(form) }}>
 			<h3>{{ 'game.sheet.title.scores'|trans({}, 'AueioClubBundle') }}</h3>
 			<p>{{ 'game.sheet.info.scores'|trans({}, 'AueioClubBundle') }}</p>

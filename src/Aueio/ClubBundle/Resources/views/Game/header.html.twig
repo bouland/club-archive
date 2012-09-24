@@ -1,10 +1,36 @@
-<div id="intro">
-	{% include 'AueioClubBundle:Game:name.html.twig' %}
-	<div class="cols">
-		<div class="address">{{ game.address }}</div>
-	</div><div class="cols">
-		{% include 'AueioClubBundle:Game:date.html.twig' %}
-		{% include 'AueioClubBundle:Game:time.html.twig' %}
-		{% include 'AueioClubBundle:Game:calendar.html.twig' %}
-	</div>
-</div>
+{% extends 'AueioClubBundle::layout.html.twig' %}
+
+{% block content %}
+<div id="game">
+	<div class="full">
+		<div id="intro" class="clearfix">
+			{% include 'AueioClubBundle:Game:name.html.twig' %}
+			<div class="left">
+				<div id="where">
+					<h4>{{ 'game.header.where'|trans({}, 'AueioClubBundle') }}</h4>
+					{% set local = game.local%}
+					<p>{{ local.gymName }}</p>
+					<p>{{ local.gymAddress.name }}</p>
+					<p>{{ local.gymAddress.code }} {{ local.gymAddress.city }}</p>
+					
+				</div>
+			</div><div class="right">
+				<div id="when">
+					<h4>{{ 'game.header.when'|trans({}, 'AueioClubBundle') }}</h4>
+					<div>
+						<div id="when-text">
+							{% include 'AueioClubBundle:Game:date.html.twig' %}
+							<div>&nbsp;</div>
+							{% include 'AueioClubBundle:Game:time.html.twig' %}
+						</div>
+						{% include 'AueioClubBundle:Game:calendar.html.twig' %}
+					</div>
+				</div>
+			</div>
+		</div>
+{% endblock %}
+
+{% block javascripts %}
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript" src="gmap3.min.js"></script>
+{% endblock %}

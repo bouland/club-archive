@@ -41,16 +41,28 @@ ul.game-selection-menu > li {
 #game-selection{
 	padding: 0;
 }
-#game h4,
-#game h5{
+#game-selection > h4,
+#game ul h4,
+#game ul h5{
 	text-align: center;
 }
-#game div.time{
-	padding: 10px 0;
+.left{
+	float:left;
 }
-#game div.time,
+.right{
+	float: right;
+}
+#when-text,
 #game div.calendar{
+	vertical-align: middle;
+	display: inline-block;
+}
+.time{
 	text-align: center;
+}
+#when-text{
+	position:relative;
+	top:0;
 }
 #game-selection > h4{
 	padding: 20px;
@@ -105,7 +117,7 @@ li.referee:hover > a{
 li.action{
 	float:right;
 }
-#game-scores #results > li:first-child {
+#results > li:first-child {
 	text-align: right;
 }
 #results > li > div {
@@ -114,7 +126,9 @@ li.action{
 #results{
 	margin-bottom: 30px;
 }
-#game-scores .cols{
+#scores,
+#opponents,
+#results .cols{
 	width:44%;
 	padding:3%;
 }
