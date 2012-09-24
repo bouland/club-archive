@@ -43,16 +43,28 @@ ul.game-selection-menu > li {
 #game-selection{
 	padding: 0;
 }
-#game h4,
-#game h5{
+#game-selection > h4,
+#game ul h4,
+#game ul h5{
 	text-align: center;
 }
-#game div.time{
-	padding: 10px 0;
+.left{
+	float:left;
 }
-#game div.time,
+.right{
+	float: right;
+}
+#when-text,
 #game div.calendar{
+	vertical-align: middle;
+	display: inline-block;
+}
+.time{
 	text-align: center;
+}
+#when-text{
+	position:relative;
+	top:0;
 }
 #game-selection > h4{
 	padding: 20px;
@@ -107,7 +119,7 @@ li.referee:hover > a{
 li.action{
 	float:right;
 }
-#game-scores #results > li:first-child {
+#results > li:first-child {
 	text-align: right;
 }
 #results > li > div {
@@ -116,7 +128,9 @@ li.action{
 #results{
 	margin-bottom: 30px;
 }
-#game-scores .cols{
+#scores,
+#opponents,
+#results .cols{
 	width:44%;
 	padding:3%;
 }
@@ -201,6 +215,56 @@ li.action{
 }
 #game ul.list > li div {
 	vertical-align: middle;
+}
+#where > a,
+#where > h4{
+	display: inline-block;
+}
+#where > a{
+	margin-left: 10px;
+}
+#gmap{
+	height: 350px;
+	width: 600px;
+}
+
+#fade { /*--Masque opaque noir de fond--*/
+	display: none; /*--masqué par défaut--*/
+	background: #000;
+	position: fixed; left: 0; top: 0;
+	width: 100%; height: 100%;
+	opacity: .80;
+	z-index: 9999;
+}
+.popup_block{
+	display: none; /*--masqué par défaut--*/
+	background: #fff;
+	padding: 20px;
+	border: 20px solid #ddd;
+	float: left;
+	font-size: 1.2em;
+	position: fixed;
+	top: 50%; left: 50%;
+	z-index: 99999;
+	/*--Les différentes définitions de Box Shadow en CSS3--*/
+	-webkit-box-shadow: 0px 0px 20px #000;
+	-moz-box-shadow: 0px 0px 20px #000;
+	box-shadow: 0px 0px 20px #000;
+	/*--Coins arrondis en CSS3--*/
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}
+img.btn_close {
+	float: right;
+	margin: -55px -55px 0 0;
+}
+/*--Gérer la position fixed pour IE6--*/
+*html #fade {
+position: absolute;
+}
+*html .popup_block {
+position: absolute;
 }
 
 @CHARSET "UTF-8";
