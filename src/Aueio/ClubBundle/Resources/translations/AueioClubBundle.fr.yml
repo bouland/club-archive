@@ -61,6 +61,8 @@ game:
         when:    Quand
         gmap:
             link: Voir sur Gmap.
+    calendar:
+        link: Ajouter sur Calendar
     selection:
         shop: "Courses"
         noshop: "Besoin d'un volontaire"
@@ -88,6 +90,7 @@ game:
             comment: "Commentaire"
     time: "%startTime% à %endTime%"
 sidebar:
+    mobile: Version mobile
     view: Voir
     new: Créer
     contact: Envoyer un mail

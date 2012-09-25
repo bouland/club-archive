@@ -4,8 +4,9 @@
 <div id="game">
 	<div class="full">
 		<div id="intro" class="clearfix">
-			{% include 'AueioClubBundle:Game:name.html.twig' %}
+			{%  set roles = game.roles  %}
 			<div class="left">
+				{% if roles|length > 0 %}{% include 'AueioClubBundle:Team:link.html.twig' with {'team': roles[0].team} %}{% endif %}
 				<div id="where">
 					<h4>{{ 'game.header.where'|trans({}, 'AueioClubBundle') }}</h4><a href="#?w=600" rel="popup_gmap" class="poplight">{{ 'game.header.gmap.link'|trans({}, 'AueioClubBundle') }}</a>
 					{% set local = game.local%}
@@ -17,16 +18,16 @@
 						<div id="gmap"></div>
 					</div>
 				</div>
-			</div><div class="right">
+			</div><div class="scores">{% include 'AueioClubBundle:Role:score.html.twig' with {'role': roles[0]} %} - {% include 'AueioClubBundle:Role:score.html.twig' with {'role': roles[1]} %}</div><div class="right">
+				{% if roles|length > 1 %}{% include 'AueioClubBundle:Team:link.html.twig' with {'team': roles[1].team} %}{% endif %}
 				<div id="when">
-					<h4>{{ 'game.header.when'|trans({}, 'AueioClubBundle') }}</h4>
+					<h4>{{ 'game.header.when'|trans({}, 'AueioClubBundle') }}</h4>{% include 'AueioClubBundle:Game:calendar.html.twig' %}
 					<div>
 						<div id="when-text">
 							{% include 'AueioClubBundle:Game:date.html.twig' %}
 							<div>&nbsp;</div>
 							{% include 'AueioClubBundle:Game:time.html.twig' %}
 						</div>
-						{% include 'AueioClubBundle:Game:calendar.html.twig' %}
 					</div>
 				</div>
 			</div>

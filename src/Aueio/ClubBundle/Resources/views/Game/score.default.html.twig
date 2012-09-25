@@ -19,6 +19,8 @@
 	<li><a href="{{ path('aueio_club_game_delete', {"id": game.id}) }}">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 	<li><a href="{{ path('aueio_club_game_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endif %}
+	<li class="mobile"><a href="{{ path('aueio_club_game_score', {"id": game.id, "browser": "mobile"}) }}">{{ 'sidebar.mobile'|trans({}, 'AueioClubBundle') }}</a>
+	
 {% endblock %}
 
 {% block content %}

@@ -1,21 +1,23 @@
 @CHARSET "UTF-8";
-
+#game .short > div.name{
+	text-align: center;
+}
 ul.game-selection-cols > li{
 	display: inline-block;
 	vertical-align: top;
 	border-right: 1px dotted #9E8D99;
-	padding: 0 8px;
+	padding: 0 5px;
 	min-height: 300px;
 }
 ul.game-selection-cols > li.miss,
 ul.game-selection-cols > li.wait{
-	width: 128px;
+	width: 130px;
 }
 ul.game-selection-cols > li.shop{
-	width: 104px;
+	width: 110px;
 }
 ul.game-selection-cols > li.play{
-	width: 144px;
+	width: 165px;
 }
 ul.game-selection-cols > li > ul > li{
 	height: 25px;
@@ -27,7 +29,9 @@ ul.game-selection-cols > li:last-child {
 .game-selection-cols img{
 	height: 16px;
 }
-
+#game #sheet{
+	padding: 20px;
+}
 #game a > img {
 	vertical-align: top;
 }
@@ -36,6 +40,7 @@ ul.game-selection-menu {
 }
 ul.game-selection-menu > li {
 	display: inline-block;
+	margin: 0 2px;
 	vertical-align: top;
 }
 #game-selection{
@@ -46,17 +51,47 @@ ul.game-selection-menu > li {
 #game ul h5{
 	text-align: center;
 }
+.left,
+.right{
+	display: inline-block;
+	vertical-align: top;
+	width: 40%;
+}
 .left{
-	float:left;
+	text-align: right;
 }
 .right{
-	float: right;
+	text-align: left;
 }
-#when-text,
-#game div.calendar{
-	vertical-align: middle;
+#where,
+#when{
+	text-align: center;
+}
+#game #intro .link,
+#game #intro .scores{
+	font-size: 25px;
+	margin: 20px 0;
+}
+#game #intro .scores{
+	width: 20%;
+}
+#game #intro{
+	text-align: center;
+}
+
+#where > a,
+#where > h4{
 	display: inline-block;
 }
+#when div.calendar,
+#where > a{
+	margin-left: 10px;
+}
+#when > h4,
+#when div.calendar{
+	display: inline-block;
+}
+
 .time{
 	text-align: center;
 }
@@ -112,7 +147,7 @@ li.referee:hover > a{
     color: white;
 }
 #results div.value{
-	margin:16px;
+	margin: 0 16px;
 }
 li.action{
 	float:right;
@@ -122,9 +157,6 @@ li.action{
 }
 #results > li > div {
 	display: inline-block;
-}
-#results{
-	margin-bottom: 30px;
 }
 #scores,
 #opponents,
@@ -148,12 +180,18 @@ li.action{
 #game .list .short div.name > div.link{
 	padding: 0 2%;
 }
+
+#game .list .short div.name > div.link{
+	text-align: left;
+}
 #game .list .short div.name > div:first-child{
 	text-align: right;
 }
 #game .list div.scores{
-	width: 55px;
 	text-align:	center;
+}
+#game .list div.scores > div.score{
+	width: 25px;
 }
 #game-background{
 	position: relative;
@@ -214,13 +252,7 @@ li.action{
 #game ul.list > li div {
 	vertical-align: middle;
 }
-#where > a,
-#where > h4{
-	display: inline-block;
-}
-#where > a{
-	margin-left: 10px;
-}
+
 #gmap{
 	height: 350px;
 	width: 600px;

@@ -37,8 +37,7 @@
 								<a href="{{ path('aueio_club_action_add', {"game_id": game.id, "player_id": player.id, "type": "play"}) }}" title="{{ 'game.selection.link.play'|trans({}, 'AueioClubBundle') }}">
 									<img src="/bundles/aueioclub/images/Crystal_Clear_action_apply.png" alt="valid logo">
 								</a>
-							</li>
-							<li>
+							</li><li>
 								<a href="{{ path('aueio_club_action_add', {"game_id": game.id, "player_id": player.id, "type": "miss"}) }}" title="{{ 'game.selection.link.miss'|trans({}, 'AueioClubBundle') }}">
 									<img src="/bundles/aueioclub/images/Crystal_Clear_action_button_cancel.png" alt="cancel logo">
 								</a>
@@ -60,8 +59,7 @@
 								<a href="{{ path('aueio_club_action_add', {"game_id": game.id, "player_id": player.id, "type": "hurt"}) }}" title="{{ 'game.selection.link.hurt'|trans({}, 'AueioClubBundle') }}">
 									<img style="height: 20px;margin-top: -2px;" src="/bundles/aueioclub/images/first_aid.png" alt="aid logo">
 								</a>
-							</li>
-							<li>
+							</li><li>
 								<a href="{{ path('aueio_club_action_delete', {"game_id": game.id, "player_id": player.id, "type": "miss"}) }}" title="{{ 'game.selection.link.modify'|trans({}, 'AueioClubBundle') }}">
 									<img src="/bundles/aueioclub/images/Crystal_Clear_action_button_cancel.png" alt="cancel logo">
 								</a>
@@ -135,15 +133,11 @@
 								<a href="{{ path('aueio_club_action_add', {"game_id": game.id, "player_id": player.id, "type": "referee"}) }}" title="{{ 'game.selection.link.referee'|trans({}, 'AueioClubBundle') }}">
 									<img  src="/bundles/aueioclub/images/icon_whistle.gif" alt="cancel logo">
 								</a>
-							</li>
-							{% if not players['noshop'] %}
-							<li>
+							</li>{% if not players['noshop'] %}<li>
 								<a href="{{ path('aueio_club_action_add', {"game_id": game.id, "player_id": player.id, "type": "shop"}) }}" title="{{ 'game.selection.link.shop'|trans({}, 'AueioClubBundle') }}">
 									<img style="height: 20px;margin-top: -2px;" src="/bundles/aueioclub/images/logo-panier.png" alt="cancel logo">
 								</a>
-							</li>
-							{% endif %}
-							<li>
+							</li>{% endif %}<li>
 								<a href="{{ path('aueio_club_action_delete', {"game_id": game.id, "player_id": player.id, "type": "play"}) }}" title="{{ 'game.selection.link.modify'|trans({}, 'AueioClubBundle') }}">
 									<img src="/bundles/aueioclub/images/Crystal_Clear_action_button_cancel.png" alt="cancel logo">
 								</a>

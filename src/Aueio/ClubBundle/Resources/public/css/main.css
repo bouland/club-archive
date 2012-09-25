@@ -374,9 +374,6 @@ ul.system-messages > li.notice{
 	margin: 50px auto;
 	border: 1px dotted #9E8D99;
 }
-.full{
-	margin:10px;
-}
 div.long,
 div.short,
 div.link,
@@ -465,4 +462,6 @@ li.player > div.short {
 #intro{
 	margin-bottom: 20px;
 }
-
+li.mobile{
+	margin-top: 35px;
+}

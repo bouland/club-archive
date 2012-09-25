@@ -21,6 +21,7 @@
 
 {% block content %}
 	{{ parent() }}
+	<div id="sheet">
 		<form action="{{ path('aueio_club_game_sheet', {"id": game.id}) }}" method="post" {{ form_enctype(form) }}>
 			<h3>{{ 'game.sheet.title.scores'|trans({}, 'AueioClubBundle') }}</h3>
 			<p>{{ 'game.sheet.info.scores'|trans({}, 'AueioClubBundle') }}</p>
@@ -28,7 +29,7 @@
 		    {% for role in form.game.roles %}<li class="cols">
 						{{ form_errors(role.score) }}
 						{{ form_widget(role.score) }}
-						pour les  {% include 'AueioClubBundle:Role:type.html.twig' with {'role':role.vars.value} %} ({% include 'AueioClubBundle:Team:link.html.twig' with {'team': role.vars.value.team} %})
+						pour les  {% include 'AueioClubBundle:Role:type.html.twig' with {'role':role.vars.value} %}<br />({% include 'AueioClubBundle:Team:link.html.twig' with {'team': role.vars.value.team} %})
 		        </li>{% endfor %}
 		    </ul>
 {% if form.cost is defined %}    
@@ -47,6 +48,7 @@
 			{{ form_widget(form.game.comment) }}
 		</div>
 		{% include 'AueioClubBundle::form.submit.html.twig' %}
+	</div>
 	</div>
 </div>
 {% endblock %}

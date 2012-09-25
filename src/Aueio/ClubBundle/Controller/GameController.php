@@ -260,9 +260,9 @@ class GameController extends Controller
     	return $this->render('AueioClubBundle:Game:selection.html.twig', array('game' => $game, 'players' => $players));
     }
     /**
-     * @Route("/score/{id}/{id_goal}", requirements={"id" = "\d+", "id_goal" = "\d+"} , defaults={"id_goal" = "0"})
+     * @Route("/score/{id}/{browser}/{id_goal}", requirements={"id" = "\d+", "id_goal" = "\d+", "browser" = "default|mobile"} , defaults={"id_goal" = "0", "browser" = "default"})
      **/
-    public function scoreAction(Game $game, $id_goal, Request $request)
+    public function scoreAction(Game $game, $id_goal, Request $request, $browser)
     {
     	if(new \DateTime('now') < $game->getDate() ){
     		$this->get('session')->getFlashBag()->add('notice', 'Tu es en avance cette page ne fonctionnera pas correctement !!');
@@ -314,7 +314,7 @@ class GameController extends Controller
     	$score_focus = $em->getRepository('AueioClubBundle:Action')->getScores($game, $teams['focus']);
     	$score_opponent = $em->getRepository('AueioClubBundle:Action')->getScores($game, $teams['opponent']);
 
-    	return $this->render('AueioClubBundle:Game:score.html.twig', array(	'game' => $game,
+    	return $this->render("AueioClubBundle:Game:score.{$browser}.html.twig", array(	'game' => $game,
     																		'id_goal' => $id_goal ,
     																		'teams' => $teams,
     																		'score_focus' => $score_focus,
