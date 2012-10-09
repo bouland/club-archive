@@ -2,7 +2,7 @@
 {% extends 'AueioClubBundle::layout.html.twig' %}
 
 {% block title %}
-	{{ 'game.title.list'|trans({}, 'AueioClubBundle') }}
+	{{ 'game.title.list'|trans({'%count%': games|length}, 'AueioClubBundle') }}
 {% endblock %}
 
 {% block header_menu %}
@@ -17,7 +17,7 @@
 
 {% block content %}
 <div id="game">
-	<h2>{{ 'game.title.list'|trans({}, 'AueioClubBundle') }}</h2>
+	<h2>{{ 'game.title.list'|trans({'%count%': games|length}, 'AueioClubBundle') }}</h2>
 	<ul class="list">
 		<li>
 			<div class="short">

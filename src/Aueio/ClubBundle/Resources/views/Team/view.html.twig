@@ -47,8 +47,8 @@
 	{% if stats['total'] > 0 %}
 				<li>
 					<ul class="stats-results">
-						<li class="games-win {% if stats['win'] >= (stats['total']-stats['win']) %}green{% endif %}">{{ 'team.view.stats.win'|trans({'%nb%':stats['win'], '%percent%':(stats['win']*100)//stats['total'] }, 'AueioClubBundle') }}</li>
-						<li class="games-lost {% if stats['lost'] >= (stats['total']-stats['lost']) %}red{% endif %}">{{ 'team.view.stats.lost'|trans({'%nb%':stats['lost'], '%percent%':(stats['lost']*100)//stats['total'] }, 'AueioClubBundle') }}</li>
+						<li class="games-win {% if stats['win'] > (stats['total']-stats['win']) %}green{% endif %}">{{ 'team.view.stats.win'|trans({'%nb%':stats['win'], '%percent%':(stats['win']*100)//stats['total'] }, 'AueioClubBundle') }}</li>
+						<li class="games-lost {% if stats['lost'] > (stats['total']-stats['lost']) %}red{% endif %}">{{ 'team.view.stats.lost'|trans({'%nb%':stats['lost'], '%percent%':(stats['lost']*100)//stats['total'] }, 'AueioClubBundle') }}</li>
 						<li class="games-nul {% if stats['nul'] >= (stats['total']-stats['nul']) %}blue{% endif %}">{{ 'team.view.stats.nul'|trans({'%nb%':stats['nul'], '%percent%':(stats['nul']*100)//stats['total'] }, 'AueioClubBundle') }}</li>
 					</ul>
 				</li>

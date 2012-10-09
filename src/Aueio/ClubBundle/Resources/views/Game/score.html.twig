@@ -1,0 +1,86 @@
+<ul id="results">
+    <li class="cols">
+	{% include 'AueioClubBundle:Team:link.html.twig' with {'team': teams['focus']} %}<div class="value">{{ score_focus }}</div>
+	</li><li class="cols">
+	<div class="value">{{ score_opponent }}</div>{% include 'AueioClubBundle:Team:link.html.twig' with {'team': teams['opponent']} %}
+	</li>
+</ul>
+<ul id="scores" class="cols">
+{% for player_id, actions in actions_focus %}
+	<li>
+		<ul>
+		{% if actions['goal_current'] is defined %}
+			{% set action_type = 'save' %}
+			<li class="goal selected"><a href="{{ path('aueio_club_game_removegoal', {"id": game.id, "goal_id": player_id, "browser":browser}) }}" title="supprimer l'action Gardien">G</a></li>
+		{% elseif actions['goal'] is defined %}
+			{% set action_type = 'score' %}
+			<li class="goal unselected"><a href="{{ path('aueio_club_game_score', {"id":game.id, "id_goal": player_id, "browser":browser}) }}" title="passer Gardien">G</a></a></li>
+		{% else %}
+			{% set action_type = 'score' %}
+			<li class="goal"><a href="{{ path('aueio_club_game_score', {"id":game.id, "id_goal": player_id, "browser":browser}) }}" title="passer Gardien">G</a></li>
+		{% endif %}
+		{% if actions['referee'] is defined %}
+			<li class="referee delete"><a href="{{ path('aueio_club_action_delete', {"game_id": game.id, "player_id": player_id, "type": "referee"}) }}" title="Arbitre">A</a></li>
+		{% else %}
+			<li class="referee add"><a href="{{ path('aueio_club_action_add', {"game_id": game.id, "player_id": player_id, "type": "referee"}) }}" title="Arbitre">A</a></li>
+		{% endif %}
+			<li>{% include 'AueioClubBundle:Player:link.html.twig' with {'player':actions['player']} %}</li>
+			<li>
+				<ul class="count">
+					<li>
+						<a href="{{ path('aueio_club_action_delete', {"game_id": game.id, "player_id": player_id, "type": action_type}) }}" title="{{ 'score.decrease'|trans({}, 'AueioClubBundle') }}">
+							<img  src="/bundles/aueioclub/images/Crystal_Clear_action_edit_remove.png" alt="minus logo">
+						</a>
+					</li><li class="value">
+						{% if actions[action_type] is defined %}
+							{{- actions[action_type] -}}
+						{% else %}0{% endif %}
+					</li><li>
+						<a href="{{ path('aueio_club_action_add', {"game_id": game.id, "player_id": player_id, "type": action_type }) }}" title="{{ 'score.increase'|trans({}, 'AueioClubBundle') }}">
+							<img src="/bundles/aueioclub/images/Crystal_Clear_action_edit_add.png" alt="plus logo">
+						</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+{% endfor %}
+</ul><ul id="opponents" class="cols">
+{% for player_id, actions in actions_opponent %}
+	<li>
+		<ul>
+			<li>
+				<ul class="count">
+					<li>
+						<a href="{{ path('aueio_club_action_add', {"game_id": game.id, "player_id": player_id, "type": actions['type'] }) }}" title="{{ 'score.increase'|trans({}, 'AueioClubBundle') }}">
+							<img src="/bundles/aueioclub/images/Crystal_Clear_action_edit_add.png" alt="plus logo">
+						</a>
+					</li><li class="value">
+						{% if actions[actions['type']] is defined %}
+							{{- actions[actions['type']] -}}
+						{% else %}0{% endif %}
+					</li><li>
+						<a href="{{ path('aueio_club_action_delete', {"game_id": game.id, "player_id": player_id, "type": actions['type']}) }}" title="{{ 'score.decrease'|trans({}, 'AueioClubBundle') }}">
+							<img  src="/bundles/aueioclub/images/Crystal_Clear_action_edit_remove.png" alt="minus logo">
+						</a>
+					</li>
+				</ul>
+			</li>
+			<li>{% include 'AueioClubBundle:Player:link.html.twig' with {'player':actions['player']} %}</li>
+			<li>
+				<ul class="count">
+					<li>
+						<a href="{{ path('aueio_club_action_add', {"game_id": game.id, "player_id": player_id, "type": "play" }) }}" title="{{ 'score.increase'|trans({}, 'AueioClubBundle') }}">
+							<img src="/bundles/aueioclub/images/Crystal_Clear_action_edit_add.png" alt="plus logo">
+						</a>
+					</li><li class="value">{{  actions['play'] }}</li><li>
+						<a href="{{ path('aueio_club_action_delete', {"game_id": game.id, "player_id": player_id, "type": "play"}) }}" title="{{ 'score.decrease'|trans({}, 'AueioClubBundle') }}">
+							<img src="/bundles/aueioclub/images/Crystal_Clear_action_edit_remove.png" alt="minus logo">
+						</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</li>
+{% endfor %}
+</ul>

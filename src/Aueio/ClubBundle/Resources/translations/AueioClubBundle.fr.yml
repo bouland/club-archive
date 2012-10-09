@@ -46,7 +46,7 @@ game:
     notfound: "Aucun match"
     title:
         new: "Nouveau match"
-        list: "Liste des matchs"
+        list: "Liste des %count% matchs"
         edit: "Modification du match"
         view: "Vue du match"
         score: "Table de marque"
@@ -109,7 +109,7 @@ tab:
     season: Saisons
 player:
     title:
-        list: "Liste des joueurs"
+        list: "Liste des %count% joueurs"
         edit: "Modification du profile"
         view: "Profile du joueur"
         register: "Nouveau profile"
@@ -151,7 +151,7 @@ team:
     notfound: "Aucune équipe"
     title:
         new: "Nouvelle équipe"
-        list: "Liste des équipes"
+        list: "Liste des %count% équipes"
         edit: "Modification de l'équipe"
         view: "Vue de léquipe"
         contact: "Envoyer un email"

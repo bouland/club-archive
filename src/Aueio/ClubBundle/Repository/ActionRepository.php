@@ -19,7 +19,7 @@ class ActionRepository extends EntityRepository
 	public function getPlayerStats(Player $player)
 	{
 		$stats = array();
-		foreach ( array("play", "miss", "shop", "referee","score", "save") as $type ){
+		foreach ( array("play", "miss", "shop", "referee","score", "save", "goal") as $type ){
 			$stats[$type] = $this->findTypeByPlayer($player, $type, true);
 		}
 		foreach ( array("win", "lost", "nul") as $result ){
@@ -108,7 +108,26 @@ class ActionRepository extends EntityRepository
 			return $builder->getQuery()->getResult();
 		}
 	}
-	public function getScores(Game $game, Team $team){
+	public function findScoreActionByTeamByGame(Team $team, Game $game, $count = false){
+		$builder = $this->createQueryBuilder('a')
+		->join('a.player', 'p')
+		->join('p.team', 't')
+		->join('a.game', 'g')
+		->where('g.id = :id_game')
+		->andWhere('t.id = :id_team')
+		->andWhere("a.type = 'play' OR a.type = 'goal' OR a.type = 'referee' OR a.type = 'score' OR a.type = 'save'")
+		->setParameters(array(
+				'id_game' => $game->getId(),
+				'id_team' => $team->getId(),
+		));
+		if($count){
+			$builder->select('count(a.id)')->setMaxResults(1);
+			return $builder->getQuery()->getSingleScalarResult();
+		}else{
+			return $builder->getQuery()->getResult();
+		}
+	}
+	public function getScores(){
 		 $boy = $this->createQueryBuilder('a')
 					->select('count(a.id)')
 					->join('a.game', 'g')

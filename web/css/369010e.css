@@ -141,12 +141,17 @@ ul.count > li{
 }
 #scores > li > ul,
 #opponents > li > ul{
-	height: 30px;
+	padding: 10px;
+}
+#scores > li > ul > li > a,
+#opponents > li > ul > li > a{
+	margin-top: 5px;
 }
 .count img{
 	height: 16px;
 	vertical-align: middle;
 }
+#scores li.selected:hover >a,
 li.goal > a,
 li.referee > a,
 li.value,
@@ -154,17 +159,23 @@ div.value {
     background-color: white;
     border-radius: 8px 8px 8px 8px;
     border: 1px solid #86717F;
+    color: #86717F;
     margin: 0 0 3px;
     padding: 2px 8px 3px 8px;
     text-decoration: none;
 }
+#scores li.unselected > a{
+	background-color: rgba(151, 130, 144, 0.3);
+}
 #scores li.selected >a,
+#scores li.unselected:hover > a,
 li.delete > a,
 li.goal:hover > a,
 li.referee:hover > a{
     background-color: #86717F;
     color: white;
 }
+
 #results div.value{
 	margin: 0 16px;
 }
@@ -425,7 +436,6 @@ em
 
 h1, h2, h3
 {
-    font-family:    Georgia, "Times New Roman", Times, serif;
     color:          #404040;
 }
 
@@ -474,6 +484,9 @@ p
 	top: 0;
 	left:200px;
 	position: absolute;
+}
+#header_switch h3{
+	font-size: 18px;
 }
 #header_title h1{
     font-family: Georgia,times,serif;

@@ -268,59 +268,127 @@ class GameController extends Controller
     		$this->get('session')->getFlashBag()->add('notice', 'Tu es en avance cette page ne fonctionnera pas correctement !!');
     	}
     	$em = $this->getDoctrine()->getEntityManager();
-       	
-    	$players = array();
-    	$opponents = array();
-    	$repository = $em->getRepository('AueioClubBundle:Action');
+       	$repository = $em->getRepository('AueioClubBundle:Action');
     	
-    	$teams = $this->getTeams($game);
-    	foreach ($game->getPlayers($teams['focus']) as $player){
-    		if($id_goal == 0){
-    			if($player->getPosition() == 'GOAL'){
-    				$id_goal = $player->getId();
-    				$type = 'save';
-    			}else{
-    				$type = 'score';
-    			}
-    		}else{
-	    		if($player->getId() == $id_goal){
-	    			$type = 'save';
-	    		}else{
-	    			$type = 'score';
-	    		}
-    		}
-    		$attributs = array();
-    		$attributs['isReferee'] = $repository->findTypeByPlayerByGame($player, $game, 'referee', true);
-    		$attributs['action'] = $repository->findTypeByPlayerByGame($player, $game, $type, true);
-    		$attributs['type'] = $type;
-    		$attributs['object'] = $player;
-    		$players[] = $attributs;
-    	}
-    	foreach ($em->getRepository('AueioClubBundle:Player')->findVirtualsByTeam($teams['opponent']) as $player){
-    		if($player->getFirstname() == 'goal'){
-    			$type = 'save';
-    		}else{
-    			$type = 'score';
-    		}
-    		
-    		$attributs = array();
-    		$attributs['number'] = $repository->findTypeByPlayerByGame($player, $game, 'play', true);
-    		$attributs['action'] = $repository->findTypeByPlayerByGame($player, $game, $type, true);
-    		$attributs['type'] = $type;
-    		$attributs['object'] = $player;
-    		$opponents[] = $attributs;
-    	}
+       	$teams = $this->getTeams($game);
     	
-    	$score_focus = $em->getRepository('AueioClubBundle:Action')->getScores($game, $teams['focus']);
-    	$score_opponent = $em->getRepository('AueioClubBundle:Action')->getScores($game, $teams['opponent']);
+    	$actions_focus = array();
+    	$score_focus = 0;
+    	$actions = $repository->findScoreActionByTeamByGame($teams['focus'], $game);
+    	foreach( $actions as $action)
+    	{
+    		$player_id = $action->getPlayer()->getId();
+    		$action_type = $action->getType();
+    		if(!isset($actions_focus[$player_id])){
+    			$actions_focus[$player_id] = array();
+    		}
+    		if(!isset($actions_focus[$player_id][$action_type])){
+    			$actions_focus[$player_id][$action_type] = 0;
+    		}
+    		switch($action_type)
+    		{
+    		    case 'score':
+    		    	$score_focus++;
+    		    	if($action->getPlayer()->getGender() == 'F'){
+    		    		$score_focus++;
+    		    	}
+    		    case 'save':
+    		    	$actions_focus[$player_id][$action_type]++;
+    				break;
+    			case 'referee':
+    			case 'goal':
+    				$actions_focus[$player_id][$action_type] = 1;
+    				break;
+    			case 'play':
+    				$player = $action->getPlayer();
+    				if($player_id == $id_goal){
+    					$actions_focus[$player_id]['goal_current'] = 1;
+    					
+    					$goal = $em->getRepository('AueioClubBundle:Action')->findBy(array(
+    							'player'=>	$player,
+    							'game'	=>	$game,
+    							'type'	=>	'goal'),
+    							null,
+    							1);
+    					if(!is_array($goal) || !count($goal) == 1){
+    						$a = new Action();
+	    					$a->setGame($game);
+	    					$a->setPlayer($player);
+	    					$a->setType('goal');
+	    					$em->persist($a);
+	    					$em->flush();
+    					}
+    				}
+    				$actions_focus[$player_id]['player'] = $player;
+    				break;
+    			default:
+    				break;
+    		}
+    	}
+    	$actions_opponent = array();
+    	$score_opponent = 0;
+    	foreach($repository->findScoreActionByTeamByGame($teams['opponent'], $game) as $action)
+    	{
+    		$player_id = $action->getPlayer()->getId();
+    		$action_type = $action->getType();
+    		if(!isset($actions_opponent[$player_id])){
+    			$actions_opponent[$player_id] = array();
+    		}
+    		if(!isset($actions_opponent[$player_id][$action_type])){
+    			$actions_opponent[$player_id][$action_type] = 0;
+    		}
+    		switch($action_type)
+    		{
+    			case 'score':
+    				$score_opponent++;
+    				if($action->getPlayer()->getGender() == 'F'){
+    					$score_opponent++;
+    				}
+    			case 'save':
+    				$actions_opponent[$player_id][$action_type]++;
+    				break;
+    			case 'play':
+    				if($action->getPlayer()->getFirstname() == 'goal'){
+    					$actions_opponent[$player_id]['type'] = 'save';
+    				}else{
+    					$actions_opponent[$player_id]['type'] = 'score';
+    				}
+    				$actions_opponent[$player_id][$action_type]++;
+    				$actions_opponent[$player_id]['player'] = $action->getPlayer();
+    				break;
+    			default:
+    				break;
+    		}
+    	}
 
     	return $this->render("AueioClubBundle:Game:score.{$browser}.html.twig", array(	'game' => $game,
+    																		'browser' => $browser,
     																		'id_goal' => $id_goal ,
     																		'teams' => $teams,
     																		'score_focus' => $score_focus,
     																		'score_opponent' => $score_opponent,
-    																		'players' => $players,
-    																		'opponents' => $opponents));
+    																		'actions_focus' => $actions_focus,
+    																		'actions_opponent' => $actions_opponent));
+    }
+    /**
+     * @Route("/removeGoal/{id}/{browser}/{goal_id}", requirements={"id" = "\d+", "goal_id" = "\d+", "browser" = "default|mobile"} , defaults={"goal_id" = "0", "browser" = "default"})
+     **/
+    public function removeGoalAction(Game $game, $browser, $goal_id, Request $request)
+    {
+    	$em = $this->getDoctrine()->getEntityManager();
+    	$player = $em->getRepository('AueioClubBundle:Player')->find($goal_id);
+    	if (!$player) {
+    		throw $this->createNotFoundException('No player found for id '.$goal_id);
+    	}
+    	$actions = $em->getRepository('AueioClubBundle:Action')->findBy(array(
+    			'player'=>	$player,
+    			'game'	=>	$game,
+    			'type'	=>	'goal'));
+    	if (count($actions) > 0) {
+    		$em->remove($actions[count($actions)-1]);
+    		$em->flush();
+    	}
+    	return $this->redirect($this->generateUrl('aueio_club_game_score', array('id' => $game->getId(), 'browser' => $browser)));
     }
     
     function getTeams($game, $team_index = 0){
