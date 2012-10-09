@@ -91,7 +91,7 @@ class Team
     private $gym_address;
 
     /**
-     * @ORM\ManyToMany(targetEntity="Player")
+     * @ORM\ManyToMany(targetEntity="Player", inversedBy="leads")
      * @ORM\JoinTable(name="teams_contacts"),
      */
     private $contacts;

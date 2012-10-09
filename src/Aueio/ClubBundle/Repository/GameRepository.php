@@ -90,7 +90,7 @@ class GameRepository extends EntityRepository
 		}
 		
 	}
-	public function findWithoutActionByPlayer(Player $player, $season_id)
+	public function findWithoutActionByPlayer(Player $player, Season $season)
 	{
 		/*		$em = $this->getEntityManager();
 		$em->getFilters()->disable('season');
@@ -109,7 +109,7 @@ LEFT JOIN roles r ON r.game_id = g.id
 INNER JOIN teams t ON t.id = r.team_id
 LEFT JOIN players p ON p.team_id = t.id
 LEFT JOIN actions a ON (a.player_id = p.id AND a.game_id = g.id)
-WHERE ( {$season_id} = g.season_id
+WHERE ( {$season->getId()} = g.season_id
 AND p.id = {$player->getId()} AND a.id IS NULL)");
 		}
 }

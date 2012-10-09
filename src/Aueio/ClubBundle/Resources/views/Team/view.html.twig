@@ -38,7 +38,7 @@
 			    {% endif %}
 			</div><div class="cols">
 				<h3>{{ 'team.view.title.news.trainning'|trans({}, 'AueioClubBundle') }}</h3>
-				<div id="trainning">{{ trainning_next|dateFormatFR('EEEE dd MMMM') }}</div>
+				<div id="trainning">{{ trainning_next|localizeddate('full', 'none') }}</div>
 			</div>
 		</div>
 		<div class="stats">

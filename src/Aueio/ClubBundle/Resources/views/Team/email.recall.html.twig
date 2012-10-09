@@ -1,6 +1,6 @@
 {% block subject %}
 {% autoescape false %}
-{{ 'email.subject.tag'|trans({},'AueioClubBundle') }} {{ 'email.subject.recall'|trans({'%date%':game.date|dateFormatFR('EEEE'), '%city%': game.address.city}, 'AueioClubBundle') }}
+{{ 'email.subject.tag'|trans({},'AueioClubBundle') }} {{ 'email.subject.recall'|trans({'%date%':game.date|localizeddate('full', 'none'), '%city%': game.address.city}, 'AueioClubBundle') }}
 {% endautoescape %}
 {% endblock %}
 
@@ -20,7 +20,7 @@
 {% autoescape false %}
 {{ 'email.message.hello'|trans({'%firstname%': ''}, 'AueioClubBundle') }}
 <br /><br />
-{{ 'email.message.recall.date'|trans({'%date%':game.date|dateFormatFR('EEEE dd MMMM'), '%city%': game.address.city}, 'AueioClubBundle') }}
+{{ 'email.message.recall.date'|trans({'%date%':game.date|localizeddate('full', 'none'), '%city%': game.address.city}, 'AueioClubBundle') }}
 {% include 'AueioClubBundle:Game:time.html.twig' %}
 <br />
 {{ 'email.message.recall.link'|trans({}, 'AueioClubBundle') }}
