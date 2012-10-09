@@ -1,5 +1,5 @@
 {# src/Aueio/ClubBundle/Resources/views/Game/edit.html.twig #}
-{% extends 'AueioClubBundle::layout.html.twig' %}
+{% extends 'AueioClubBundle:Game:header.html.twig' %}
 
 {% block title %}
 	{{ 'game.title.edit'|trans({}, 'AueioClubBundle') }}
@@ -20,10 +20,8 @@
 {% endblock %}
 
 {% block content %}
-<div id="game">
-	<div class="full">
-		{% include 'AueioClubBundle:Game:header.html.twig' %}
-		<form action="{{ path('aueio_club_game_edit', {"id": game.id}) }}" method="post" {{ form_enctype(form) }}>
+	{{ parent() }}
+		<form action="{{ path('aueio_club_game_edit', {"id": game.id}) }}" method="post" {{ form_enctype(form) }} id="aueio_club_game_form_edit">
 			{% include 'AueioClubBundle:Game:form.html.twig' %}
 		</form>
 	</div>

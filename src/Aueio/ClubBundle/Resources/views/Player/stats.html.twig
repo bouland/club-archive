@@ -15,8 +15,8 @@
 	{% if stats['play'] > 0 %}
 				<li>
 					<ul class="stats-results">
-						<li class="games-win {% if stats['win'] >= (stats['play']-stats['win']) %}green{% endif %}">{{ stats['win'] }} ({{ (stats['win']*100)//stats['play'] }}%) Victoires</li>
-						<li class="games-lost {% if stats['lost'] >= (stats['play']-stats['lost']) %}red{% endif %}">{{ stats['lost'] }} ({{ (stats['lost']*100)//stats['play'] }}%) Défaites</li>
+						<li class="games-win {% if stats['win'] > (stats['play']-stats['win']) %}green{% endif %}">{{ stats['win'] }} ({{ (stats['win']*100)//stats['play'] }}%) Victoires</li>
+						<li class="games-lost {% if stats['lost'] > (stats['play']-stats['lost']) %}red{% endif %}">{{ stats['lost'] }} ({{ (stats['lost']*100)//stats['play'] }}%) Défaites</li>
 						<li class="games-nul {% if stats['nul'] >= (stats['play']-stats['nul']) %}blue{% endif %}">{{ stats['nul'] }} ({{ (stats['nul']*100)//stats['play'] }}%) Nuls</li>
 					</ul>
 				</li>
@@ -24,7 +24,7 @@
 	{% if stats['total'] > 0 %}
 				<li>
 					<ul class="stats-games">
-						<li class="games-play {% if stats['play'] >= (stats['total']-stats['play']) %}green{% endif %}">{{ stats['play'] }} ({{ (stats['play']*100)//stats['total'] }}%) Présent</li>
+						<li class="games-play {% if stats['play'] > (stats['total']-stats['play']) %}green{% endif %}">{{ stats['play'] }} ({{ (stats['play']*100)//stats['total'] }}%) Présent</li>
 						<li class="games-miss {% if stats['miss'] >= (stats['total']-stats['miss']) %}red{% endif %}">{{ stats['miss'] }} ({{ (stats['miss']*100)//stats['total'] }}%) Absent</li>
 						<li class="games-total {% if stats['total'] != (stats['play']+stats['miss']) %}red{% endif %}">{{ stats['total'] }} ({{ ((stats['play']+stats['miss'])*100)//stats['total'] }}%) Matchs</li>
 					</ul>

@@ -1,20 +1,25 @@
 {# src/Aueio/ClubBundle/Resources/views/Game/form.html.twig #}
-<div class="cols">
-	<h3>{{ 'game.form.title.date'|trans({}, 'AueioClubBundle') }}</h3>
-	{{ form_row(form.date) }}
-	{{ form_row(form.start_time) }}
-	{{ form_row(form.end_time) }}
-</div><div class="cols">
-	<h3>{{ 'game.form.title.team'|trans({}, 'AueioClubBundle') }}</h3>
-    <ul class="team">
-    {% for role in form.roles %}
-        <li>
-        	<div class="role-team">
-        		{% include 'AueioClubBundle:Role:type.html.twig' with {'role': role.vars.value } %}
-        		{{ form_row(role.team) }}
-			</div>
-        </li>
-    {% endfor %}
-    </ul>
+<div>
+	<div>
+		<h3>{{ 'game.form.title.team'|trans({}, 'AueioClubBundle') }}</h3>
+	    <ul class="team">
+	    {% for role in form.roles %}
+	        <li>
+	        	<div class="role-team">
+	        		{% include 'AueioClubBundle:Role:type.html.twig' with {'role': role.vars.value } %}
+	        		{{ form_row(role.team) }}
+				</div>
+	        </li>
+	    {% endfor %}
+	    </ul>
+    </div>
+</div>
+<div>
+	<div>
+		<h3>{{ 'game.form.title.date'|trans({}, 'AueioClubBundle') }}</h3>
+		{{ form_row(form.date) }}
+		{{ form_row(form.start_time) }}
+		{{ form_row(form.end_time) }}
+	</div>
 </div>
 {% include 'AueioClubBundle::form.submit.html.twig' %}

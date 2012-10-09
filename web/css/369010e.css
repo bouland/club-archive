@@ -45,6 +45,19 @@ ul.game-selection-menu > li {
 	margin: 0 2px;
 	vertical-align: top;
 }
+#aueio_club_game_form_new > div,
+#aueio_club_game_form_edit > div{
+	padding-bottom: 20px;
+	text-align: center;
+}
+#aueio_club_game_form_new > div > div,
+#aueio_club_game_form_edit > div > div{
+	display: 	inline-block;
+	width:		400px;
+	margin:		0px auto;
+	text-align: left;
+}
+
 #game-selection{
 	padding: 0;
 }
