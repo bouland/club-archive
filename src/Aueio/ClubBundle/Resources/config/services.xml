@@ -49,11 +49,7 @@
         	<argument type="service" id="twig" />
         </service>
         
-        <service id="aueio.twig.aueio_extension" class="Aueio\ClubBundle\Twig\AueioExtension">
-        	<tag name="twig.extension" />
-    	</service>
-    	
-		<!-- Current User Factory -->
+       <!-- Current User Factory -->
 		<service id="aueio_club.player_factory" class="Aueio\ClubBundle\Factory\PlayerFactory">
 			<argument type="service" id="security.context"/>
 		</service>

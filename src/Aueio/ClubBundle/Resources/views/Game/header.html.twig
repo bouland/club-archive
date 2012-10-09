@@ -9,11 +9,12 @@
 				{% if roles|length > 0 %}{% include 'AueioClubBundle:Team:link.html.twig' with {'team': roles[0].team} %}{% endif %}
 				<div id="where">
 					<h4>{{ 'game.header.where'|trans({}, 'AueioClubBundle') }}</h4><a href="#?w=600" rel="popup_gmap" class="poplight">{{ 'game.header.gmap.link'|trans({}, 'AueioClubBundle') }}</a>
-					{% set local = game.local%}
-					<p>{{ local.gymName }}</p>
-					<p>{{ local.gymAddress.name }}</p>
-					<p>{{ local.gymAddress.code }} {{ local.gymAddress.city }}</p>
-					
+					<div id="address">
+						{% set local = game.local%}
+						{{ local.gymName }}<br />
+						{{ local.gymAddress.name }}<br />
+						{{ local.gymAddress.code }} {{ local.gymAddress.city }}
+					</div>
 					<div id="popup_gmap" class="popup_block">
 						<div id="gmap"></div>
 					</div>

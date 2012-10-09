@@ -1,1 +1,1 @@
-<div class="date">{% autoescape false %}{{ game.date|dateFormatFR() }}{% endautoescape %}</div>
+<div class="date">{% autoescape false %}{{ game.date|localizeddate('full', 'none') }}{% endautoescape %}</div>

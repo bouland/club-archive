@@ -63,9 +63,13 @@ ul.game-selection-menu > li {
 .right{
 	text-align: left;
 }
-#where,
 #when{
 	text-align: center;
+}
+#address
+{
+	display: inline-block;
+	text-align: left;
 }
 #game #intro .link,
 #game #intro .scores{
