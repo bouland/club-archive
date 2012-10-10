@@ -14,9 +14,13 @@
 						{{ local.gymName }}<br />
 						{{ local.gymAddress.name }}<br />
 						{{ local.gymAddress.code }} {{ local.gymAddress.city }}
+						<div class="geo" style="display:none;">
+							<div class="longitude">{{ local.gymAddress.longitude }}</div>
+							<div class="latitude">{{ local.gymAddress.latitude }}</div>
+						</div>
 					</div>
 					<div id="popup_gmap" class="popup_block">
-						<div id="gmap"></div>
+						<div id="map_canvas"></div>
 					</div>
 				</div>
 			</div><div class="scores">{% include 'AueioClubBundle:Role:score.html.twig' with {'role': roles[0]} %} - {% include 'AueioClubBundle:Role:score.html.twig' with {'role': roles[1]} %}</div><div class="right">
@@ -43,8 +47,28 @@
 	{% endjavascripts %}
 	<script type="text/javascript">
 	$(document).ready(function(){
-		$("#gmap").googleMaps();
+		//var map = null;
+		var longitude = parseFloat($('div.longitude').html());
+		var latitude = parseFloat($('div.latitude').html());
 	
+		var point = new google.maps.LatLng(latitude, longitude);
+		
+		var options = {
+	            zoom : 18,
+	            center: point,
+	            mapTypeId : google.maps.MapTypeId.HYBRID
+	    };
+		
+		var map = new google.maps.Map(document.getElementById('map_canvas'), options);
+	        
+	    // Creating and adding a marker in Google Maps
+		var marker = new google.maps.Marker({
+				position: point,
+				map: map
+		});
+	        
+		
+    	 
 		//When you click on a link with class of poplight and the href starts with a #
 		$('a.poplight[href^=#]').click(function() {
 			var popID = $(this).attr('rel'); //Get Popup Name
@@ -56,7 +80,7 @@
 			var popWidth = dim[0].split('=')[1]; //Gets the first query string value
 			
 			//Fade in the Popup and add close button
-			$('#' + popID).fadeIn().css({ 'width': Number( popWidth ) }).prepend('<a href="#" class="close"><img src="/bundles/aueioclub/images/close_pop.png" class="btn_close" title="Close Window" alt="Close" /></a>');
+			$('#' + popID).fadeIn().css({ 'height': 400, 'width': Number( popWidth ) }).prepend('<a href="#" class="close"><img src="/bundles/aueioclub/images/close_pop.png" class="btn_close" title="Close Window" alt="Close" /></a>');
 			
 			//Define margin for center alignment (vertical + horizontal) - we add 80 to the height/width to accomodate for the padding + border width defined in the css
 			var popMargTop = ($('#' + popID).height() + 80) / 2;
@@ -68,9 +92,14 @@
 			'margin-left' : -popMargLeft
 			});
 			
+			
 			//Fade in Background
 			$('body').append('<div id="fade"></div>'); //Add the fade layer to bottom of the body tag.
 			$('#fade').css({'filter' : 'alpha(opacity=80)'}).fadeIn(); //Fade in the fade layer
+			
+            google.maps.event.trigger(map, 'resize');
+        	map.setCenter(point);
+        	
 			return false;
 		});
 			

@@ -63,6 +63,8 @@ game:
             link: Voir sur Gmap.
     calendar:
         link: Ajouter sur Calendar
+    link:
+        selection: "Aller à la page de sélection des joueurs pour ce match."
     selection:
         shop: "Courses"
         noshop: "Besoin d'un volontaire"
@@ -162,8 +164,8 @@ team:
             colors: "Couleurs"
             address: "Adresse"
             contact: "Contacts"
-            game: "Matchs (%count%)"
-            player: "Membres (%count%)"
+            game: "%count% matchs"
+            player: "%count% membres"
             news:
                 game: "Prochain match"
                 trainning: "Prochain entrainement"
@@ -244,6 +246,8 @@ team_gym_phone: Téléphone
 team_gym_address_name: Rue
 team_gym_address_code: Code Postal
 team_gym_address_city: Ville
+team_gym_address_latitude: Latitude
+team_gym_address_longitude: Longitude
 team_slot_days_0: lundi
 team_slot_days_1: mardi
 team_slot_days_2: mercredi

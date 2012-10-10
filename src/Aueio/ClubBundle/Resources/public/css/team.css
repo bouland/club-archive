@@ -38,8 +38,14 @@
 #trainning{
 	text-align:center;
 }
+#news div.link{
+	display: block;
+	text-align: center;
+	padding-bottom: 10px;
+}
 #team div.sample{
 	maring: 0;
+	border: 1px solid black;
 	width: 60px;
 	height: 20px;
 }

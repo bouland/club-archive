@@ -2,12 +2,11 @@
 // src/Auieo/ClubBundle/Form/Type/GameType.php
 namespace Aueio\ClubBundle\Form\Type;
 
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Aueio\ClubBundle\Form\Type\RoleType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class GameType extends AbstractType
+class GameType extends FormType
 {
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
@@ -29,7 +28,7 @@ class GameType extends AbstractType
 		}else{
 			$builder->add('comment', 'textarea', array('required' => false));
 		}
-		$builder->add('roles', 'collection', array( 'type' => new RoleType(),
+		$builder->add('roles', 'collection', array( 'type' => new RoleType($this->em),
 													'options' => array('intention' => $options['intention']),
 												  ));
 	}

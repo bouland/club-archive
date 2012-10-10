@@ -42,6 +42,20 @@ class Address
      */
     private $city;
     
+    /**
+     * @var float $longitude
+     *
+     * @ORM\Column(type="float")
+     */
+    private $longitude;
+    
+    /**
+     * @var float $latitude
+     *
+     * @ORM\Column(type="float")
+     */
+    private $latitude;
+    
     public function __toString(){
     	return $this->name . " " . $this->code . " " . $this->city;
     }
@@ -122,5 +136,51 @@ class Address
     public function getCity()
     {
         return $this->city;
+    }
+
+    /**
+     * Set longitude
+     *
+     * @param float $longitude
+     * @return Address
+     */
+    public function setLongitude($longitude)
+    {
+        $this->longitude = $longitude;
+    
+        return $this;
+    }
+
+    /**
+     * Get longitude
+     *
+     * @return float 
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * Set latitude
+     *
+     * @param float $latitude
+     * @return Address
+     */
+    public function setLatitude($latitude)
+    {
+        $this->latitude = $latitude;
+    
+        return $this;
+    }
+
+    /**
+     * Get latitude
+     *
+     * @return float 
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
     }
 }

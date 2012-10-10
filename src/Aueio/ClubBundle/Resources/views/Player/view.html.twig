@@ -44,7 +44,7 @@
 			</div><div id="player-contact" class="cols">
 			{% if is_granted("ROLE_PLAYER") %}
 				<p>{{ player.email }}</p>
-				<p>{{ player.phone }}</p>
+				<p class="tel">{{ player.phone }}</p>
 				<p>{{ player.address}}</p>
 			{% endif %}
 			</div>

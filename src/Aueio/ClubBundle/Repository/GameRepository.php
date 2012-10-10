@@ -15,7 +15,7 @@ use Doctrine\ORM\EntityRepository,
  */
 class GameRepository extends EntityRepository
 {
-	public function findSeasonTeamNextGame(Team $team, $timestamp, Season $season, $count = false){
+	public function findNextGameByTeam(Team $team, $timestamp, Season $season, $count = false){
 		$builder = $this->createQueryBuilder('g')
 		->join('g.season', 's')
 		->leftJoin('g.roles', 'r')
@@ -41,7 +41,7 @@ class GameRepository extends EntityRepository
 			return $game;
 		}
 	}
-	public function findGameByTeamByDate(Team $team, $timestamp, $season_id, $count = false){
+	public function findGameByTeamByDate(Team $team, $timestamp, Season $season, $count = false){
 		$builder = $this->createQueryBuilder('g')
 		->join('g.season', 's')
 		->leftJoin('g.roles', 'r')
@@ -51,7 +51,7 @@ class GameRepository extends EntityRepository
 		->andWhere('g.date = :date')
 		->setMaxResults(1)
 		->setParameters(array(
-				'id_season' => $season_id,
+				'id_season' => $season->getId(),
 				'id_team' => $team->getId(),
 				'date' => date("Y-m-d",$timestamp),
 		));
@@ -67,13 +67,17 @@ class GameRepository extends EntityRepository
 			return $game;
 		}
 	}
-	public function findNextTrainByTeam(Team $team, $now, $season_id)
+	public function findNextTrainByTeam(Team $team, $now, Season $season)
 	{
 		$dates = array();
 		foreach ($team->getSlotDays() as $slot)
 		{
-			$timestamp = strtotime("next {$slot}", $now);
-			$game = $this->findGameByTeamByDate($team, $timestamp, $season_id, true);
+			if(date("L",$now) == $slot){
+				$timestamp = $now;
+			}else{
+				$timestamp = strtotime("next {$slot}", $now);
+			}
+			$game = $this->findGameByTeamByDate($team, $timestamp, $season, true);
 			if( $game == false)
 			{
 				$dates[] = $timestamp;
@@ -86,7 +90,7 @@ class GameRepository extends EntityRepository
 			sort($dates);
 			return $dates[0];
 		}else{
-			return $this->findNextTrainByTeam($team, strtotime("+1 week", $now), $season_id);
+			return $this->findNextTrainByTeam($team, strtotime("+1 week", $now), $season);
 		}
 		
 	}
