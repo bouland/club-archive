@@ -45,7 +45,7 @@ class Mailer
 	public function sendRecallEmailToTeam(Team $to, Player $from)
 	{
 		$season = $this->season;
-		$next_game = $this->_em->getRepository('AueioClubBundle:Game')->findSeasonTeamNextGame($to, new \DateTime('now'), $season);
+		$next_game = $this->_em->getRepository('AueioClubBundle:Game')->findNextGameByTeam($to, time(), $season);
 		if($next_game)
 		{
 			$to_players = $this->_em->getRepository('AueioClubBundle:Player')->findTeamNextGameEmails($to, $next_game);

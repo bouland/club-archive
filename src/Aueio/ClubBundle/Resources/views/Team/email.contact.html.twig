@@ -15,9 +15,6 @@
 {% block body_html %}
 {% autoescape false %}
 {{ message }}
-<br /><br />
-{{ 'email.message.form'|trans({}, 'AueioClubBundle') }}
-<br />
-{% include 'AueioClubBundle:Player:link.html.twig' with {'player': from} %}
+{% include 'AueioClubBundle:Player:email.signature.html.twig' with {'player': from} %}
 {% endautoescape %}
 {% endblock %}

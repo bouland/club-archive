@@ -1,6 +1,6 @@
 {% block subject %}
 {% autoescape false %}
-{{ 'email.subject.tag'|trans({},'AueioClubBundle') }} {{ 'email.subject.recall'|trans({'%date%':game.date|localizeddate('full', 'none'), '%city%': game.address.city}, 'AueioClubBundle') }}
+{{ 'email.subject.tag'|trans({},'AueioClubBundle') }} {{ 'email.subject.recall'|trans({'%date%':game.date|localizeddate('full', 'none')}, 'AueioClubBundle') }}
 {% endautoescape %}
 {% endblock %}
 
@@ -12,7 +12,7 @@
 {{ url('aueio_club_game_selection', {"id": game.id}) }}
 
 {{ 'email.message.form'|trans({}, 'AueioClubBundle') }}
-{{ from.firstname }}
+{{ from.firstname }} {{ from.lastname }}
 {% endautoescape %}
 {% endblock %}
 
@@ -20,16 +20,13 @@
 {% autoescape false %}
 {{ 'email.message.hello'|trans({'%firstname%': ''}, 'AueioClubBundle') }}
 <br /><br />
-{{ 'email.message.recall.date'|trans({'%date%':game.date|localizeddate('full', 'none'), '%city%': game.address.city}, 'AueioClubBundle') }}
+{{ 'email.message.recall.date'|trans({}, 'AueioClubBundle') }}
+{% include 'AueioClubBundle:Game:date.html.twig' %}
 {% include 'AueioClubBundle:Game:time.html.twig' %}
+{% include 'AueioClubBundle:Game:calendar.html.twig' %}
 <br />
 {{ 'email.message.recall.link'|trans({}, 'AueioClubBundle') }}
 <a href="{{ url('aueio_club_game_selection', {"id": game.id}) }}">{{ 'sidebar.selection'|trans({}, 'AueioClubBundle') }}</a>
-<br /><br />
-{{ 'email.message.form'|trans({}, 'AueioClubBundle') }}
-<br />
-{{ from.firstname }}
-<br /><br />
-{% include 'AueioClubBundle:Game:calendar.html.twig' %}
+{% include 'AueioClubBundle:Player:email.signature.html.twig' with {'player': from} %}
 {% endautoescape %}
 {% endblock %}

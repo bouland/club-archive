@@ -9,7 +9,7 @@ email:
     send: "Envoyer"
     subject:
         tag: "[HandBall]"
-        recall: "%date% à %city%"
+        recall: "%date%"
         resetting: Reset du mot de passe
         registration: Validation du compte
     message:
@@ -17,7 +17,7 @@ email:
         registration: "Pour valider ton compte, voici le "
         resetting: "Pour réinitialiser ton mot de passe associé au login %login%, voici le "
         recall:
-            date: "Le prochain match sera à %city% le %date%."
+            date: "Le prochain match sera le :"
             link: "Ca serait sympa de donner ta résponse sur la page "
         link: "lien"
         form: "A bientôt,"
