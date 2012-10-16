@@ -1,5 +1,5 @@
 {# src/Aueio/ClubBundle/Resources/views/Team/new.html.twig #}
-{% extends 'AueioClubBundle::layout.html.twig' %}
+{% extends 'AueioClubBundle:Team:form.html.twig' %}
 
 {% block title %}
 	{{ 'team.title.edit'|trans({}, 'AueioClubBundle') }}
@@ -13,10 +13,6 @@
 	<li class="selected"><a href="{{ path('aueio_club_team_new') }}">{{ 'sidebar.new'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endblock %}
 
-{% block content %}
-<div id="team">
+{% block form %}
 	<form action="{{ path('aueio_club_team_new') }}" method="post" {{ form_enctype(form) }} id="aueio_club_team_new_form">
-		{% include 'AueioClubBundle:Team:form.html.twig' %}
-	</form>
-</div>
 {% endblock %}

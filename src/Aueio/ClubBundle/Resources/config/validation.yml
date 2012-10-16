@@ -51,7 +51,6 @@ Aueio\ClubBundle\Entity\Team:
             - NotBlank: ~
             - Type: \DateTime
         colors:
-            - NotBlank: ~
             - Type:
                  type: array
         gym_name:

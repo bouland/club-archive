@@ -1,26 +1,59 @@
 {# src/Aueio/ClubBundle/Resources/views/Team/form.html.twig #}
+{% extends 'AueioClubBundle::layout.html.twig' %}
 {% form_theme form 'AueioClubBundle::form.theme.html.twig' %}
 
-<div class="full">
-	<div class="cols">
-		<h3>{{ 'team_team'|trans({}, 'AueioClubBundle') }}</h3>
-		{{ form_row(form.name, { 'attr': { 'size' : 31, 'maxlength' : 50} }) }}
-		<ul id="color-fields-list" data-prototype="{{ form_widget(form.colors.vars.prototype) | e }}">
-	    {% for colorField in form.colors %}
-	        <li>
-	            {{ form_errors(colorField) }}
-	            {{ form_widget(colorField) }}
-	        </li>
-	    {% endfor %}
-	    </ul>
-		<a href="#" id="add-another-color">{{ 'team.color.add'|trans({}, 'AueioClubBundle') }}</a>
-		<script type="text/javascript">
-	    // keep track of how many email fields have been rendered
-	    var colorCount = '{{ form.colors | length }}';
-	
-	    jQuery(document).ready(function() {
-	        jQuery('#add-another-color').click(function() {
-	            var colorList = jQuery('#color-fields-list');
+{% block content %}
+	<div id="team">
+		{% block form %}
+		{% endblock %}
+			<div class="full">
+				{{ form_errors(form) }}
+				<div class="cols">
+					<h3>{{ 'team_team'|trans({}, 'AueioClubBundle') }}</h3>
+					{{ form_row(form.name, { 'attr': { 'size' : 31, 'maxlength' : 50} }) }}
+					<div id="color">
+						<h4>{{ 'team_colors'|trans({}, 'AueioClubBundle') }}</h4>
+						<button id="add-another-color">{{ 'team.color.add'|trans({}, 'AueioClubBundle') }}</button><button id="del-color">{{ 'team.color.del'|trans({}, 'AueioClubBundle') }}</button>
+						<ul id="color-fields-list" data-prototype="{{ form_widget(form.colors.vars.prototype) | e }}">
+					    {% for colorField in form.colors %}
+					        <li>
+					            {{ form_errors(colorField) }}
+					            {{ form_widget(colorField) }}
+					        </li>
+					    {% endfor %}
+					    </ul>
+					</div>
+					<div id="slot">
+						<h4>{{ 'team_slot'|trans({}, 'AueioClubBundle') }}</h4>
+						{{ form_row(form.slot_days) }}
+						{{ form_row(form.slot_start_time) }}
+						{{ form_row(form.slot_end_time) }}
+					</div>
+					{{ form_row(form.contacts) }}
+					{{ form_row(form.seasons) }}
+				</div><div id="gym" class="cols">
+					<h3>{{ 'team.gym'|trans({}, 'AueioClubBundle') }}</h3>
+					{{ form_row(form.gym_name) }}
+					{{ form_row(form.gym_phone) }}
+					<div id="slot">
+						{{ form_row(form.gym_address) }}
+					</div>
+				</div>
+				<input type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
+			</div>
+		</form>
+	</div>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent () }}
+	<script type="text/javascript">
+		$(document).ready(function(){
+		    // keep track of how many email fields have been rendered
+		    var colorCount = {{ form.colors | length }};
+		
+	        $('#add-another-color').click(function() {
+	            var colorList = $('#color-fields-list');
 	
 	            // grab the prototype template
 	            var newWidget = colorList.attr('data-prototype');
@@ -28,32 +61,18 @@
 	            // with a number that's unique to our emails
 	            // end name attribute looks like name="contact[emails][2]"
 	            newWidget = newWidget.replace(/__name__/g, colorCount);
-	            colorCount++;
-	
 	            // create a new list element and add it to our list
-	            var newLi = jQuery('<li></li>').html(newWidget);
-	            newLi.appendTo(jQuery('#color-fields-list'));
+	            var newLi = jQuery('<li id="color' + colorCount + '"></li>').html(newWidget);
+	            colorCount++;
+	            newLi.appendTo(colorList);
 	
 	            return false;
 	        });
-	    })
+	        $('#del-color').click(function() {
+	        	colorCount--;
+	        	$('#color' + colorCount).remove();
+	           	return false;
+	        });
+	     });
 	</script>
-		<div id="slot">
-			<h4>{{ 'team_slot'|trans({}, 'AueioClubBundle') }}</h4>
-			{{ form_row(form.slot_days) }}
-			{{ form_row(form.slot_start_time) }}
-			{{ form_row(form.slot_end_time) }}
-		</div>
-		{{ form_row(form.contacts) }}
-		{{ form_row(form.seasons) }}
-	</div><div id="gym" class="cols">
-		<h3>{{ 'team.gym'|trans({}, 'AueioClubBundle') }}</h3>
-		{{ form_row(form.gym_name) }}
-		{{ form_row(form.gym_phone) }}
-		<div id="slot">
-			{{ form_row(form.gym_address) }}
-		</div>
-	</div>
-	{% include 'AueioClubBundle::form.submit.html.twig' %}
-</div>
-
+{% endblock %}

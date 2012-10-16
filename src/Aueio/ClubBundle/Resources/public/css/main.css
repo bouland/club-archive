@@ -347,8 +347,8 @@ ul.system-messages > li.notice{
 	 background-color: black;
 }
 #aueio_club_player_edit_form div ul > li,
-#aueio_club_team_new_form div ul > li,
-#aueio_club_team_edit_form div ul > li,
+#aueio_club_team_new_form div ul:not(#color-fields-list) > li,
+#aueio_club_team_edit_form div ul:not(#color-fields-list) > li,
 .aueio_club_config_form div ul > li,
 .fos_user_profile_edit div ul > li,
 .fos_user_registration_register div  ul > li,

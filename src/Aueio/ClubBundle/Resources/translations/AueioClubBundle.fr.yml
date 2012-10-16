@@ -81,7 +81,7 @@ game:
             referee: "Volontaire pour arbitrer"
             shop: "Volontaire pour les courses"
             modify: "Annuler"
-        title: "Joueurs sélectionnés"
+        title: "%count% joueurs sélectionnés"
     sheet:
         info:
             shop: "Le montant réel des courses que l'équipe doit rembourser à "
@@ -180,7 +180,8 @@ team:
             total: "%nb% Matchs"
     gym: Gymnase
     color:
-        add: "Ajouter une couleur"
+        add: "Ajouter"
+        del: "Retirer"
 
 form:
     submit: Enregistrer
@@ -253,6 +254,7 @@ team_slot_days_1: mardi
 team_slot_days_2: mercredi
 team_slot_days_3: jeudi
 team_slot_days_4: vendredi
+team_colors: Couleurs
 team_colors_0: Première
 team_colors_1: Seconde
 team_colors_2: Troisième

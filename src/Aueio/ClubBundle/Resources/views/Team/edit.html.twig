@@ -1,5 +1,5 @@
 {# src/Aueio/ClubBundle/Resources/views/Team/edit.html.twig #}
-{% extends 'AueioClubBundle::layout.html.twig' %}
+{% extends 'AueioClubBundle:Team:form.html.twig' %}
 
 {% block title %}
 	{{ 'team.title.edit'|trans({}, 'AueioClubBundle') }}
@@ -22,10 +22,6 @@
 {% endif %}
 {% endblock %}
 
-{% block content %}
-<div id="team">
+{% block form %}
 	<form action="{{ path('aueio_club_team_edit', {"id": team.id}) }}" method="post" {{ form_enctype(form) }} id="aueio_club_team_edit_form">
-		{% include 'AueioClubBundle:Team:form.html.twig' %}
-	</form>
-</div>
 {% endblock %}

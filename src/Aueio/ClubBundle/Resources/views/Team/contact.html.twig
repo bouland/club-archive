@@ -2,7 +2,7 @@
 {% extends 'AueioClubBundle::layout.html.twig' %}
 
 {% block title %}
-	{{ 'team.title.edit'|trans({}, 'AueioClubBundle') }}
+	{{ 'email.message.title'|trans({'%to%': team.name}, 'AueioClubBundle') }}
 {% endblock %}
 
 {% block header_menu %}
