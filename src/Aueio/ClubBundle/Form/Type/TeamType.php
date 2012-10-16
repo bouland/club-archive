@@ -2,6 +2,8 @@
 // src/Auieo/ClubBundle/Form/Type/TeamType.php
 namespace Aueio\ClubBundle\Form\Type;
 
+use Doctrine\ORM\EntityRepository;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -14,6 +16,7 @@ class TeamType extends AbstractType
 		$builder->add('colors', 'collection',array(
 							'type'   => 'text',
 							'allow_add' => true,
+							'allow_delete' => true,
 							'prototype' => true,
     						'options'  => array(
 							        'required'  => false,
@@ -41,11 +44,22 @@ class TeamType extends AbstractType
 		$builder->add('gym_address',  new AddressType());
 		$builder->add('contacts', 'entity', array(
 												'class' 		=> 'AueioClubBundle:Player',
+												'query_builder' => function(EntityRepository $er) {
+																		return $er->createQueryBuilder('p')
+																		->where("p.firstname != 'girl'")
+																		->andWhere("p.firstname != 'goal'")
+																		->andWhere("p.firstname != 'boy'")
+																		->orderBy('p.lastname', 'ASC');
+																	},
 												'expanded'		=> false,
 												'multiple'		=> true,
 										));
 		$builder->add('seasons', 'entity', array(
 				'class' 		=> 'AueioClubBundle:Season',
+				'query_builder' => function(EntityRepository $er) {
+				return $er->createQueryBuilder('s')
+					->orderBy('s.start_date', 'DESC');
+				},
 				'expanded'		=> false,
 				'multiple'		=> true,
 		));

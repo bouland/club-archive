@@ -39,6 +39,7 @@
 						{{ form_row(form.gym_address) }}
 					</div>
 				</div>
+				{{ form_widget(form._token) }}
 				<input type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
 			</div>
 		</form>
