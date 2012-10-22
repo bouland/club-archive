@@ -90,23 +90,27 @@ class GameController extends Controller
 				$session->set('context.season_id', $season->getId());
 				$session->set('context.season_color', $season->getId());
 				
-				$team = $this->get('context.team');
+				$team_context = $this->get('context.team');
 				foreach($game->getRoles() as $role){
-					if($team != $role->getTeam()){
-						$virtuals = $em->getRepository('AueioClubBundle:Player')->findVirtualsByTeam($team);
+					$team_role = $role->getTeam();
+					if($team_context != $team_role){
+						$virtuals = $em->getRepository('AueioClubBundle:Player')->findVirtualsByTeam($team_role);
 						foreach($virtuals as $virtual){
-							if($virtual->getFirstname() == 'boy'){
-								$max = 7;
-							}else{
-								$max = 1;
+							if(!$em->getRepository('AueioClubBundle:Action')->getTypeByPlayerByGame($virtual, $game, 'play', false)){
+								if($virtual->getFirstname() == 'boy'){
+									$max = 5;
+								}else{
+									$max = 1;
+								}
+								for($i = 0 ; $i < $max; $i++){
+									$action = new Action();
+									$action->setType('play');
+									$action->setPlayer($virtual);
+									$action->setSeason($season);
+									$game->addAction($action);
+								}
 							}
-							for($i = 0 ; $i < $max; $i++){
-								$action = new Action();
-								$action->setType('play');
-								$action->setPlayer($virtual);
-								$action->setSeason($season);
-								$game->addAction($action);
-							}
+							
 						}
 							
 					}
@@ -155,18 +159,21 @@ class GameController extends Controller
 					if($team_context != $team_role){
 						$virtuals = $em->getRepository('AueioClubBundle:Player')->findVirtualsByTeam($team_role);
 						foreach($virtuals as $virtual){
-							if($virtual->getFirstname() == 'boy'){
-								$max = 7;
-							}else{
-								$max = 1;
+							if(!$em->getRepository('AueioClubBundle:Action')->getTypeByPlayerByGame($virtual, $game, 'play', false)){
+								if($virtual->getFirstname() == 'boy'){
+									$max = 5;
+								}else{
+									$max = 1;
+								}
+								for($i = 0 ; $i < $max; $i++){
+									$action = new Action();
+									$action->setType('play');
+									$action->setPlayer($virtual);
+									$action->setSeason($season);
+									$game->addAction($action);
+								}
 							}
-							for($i = 0 ; $i < $max; $i++){
-								$action = new Action();
-								$action->setType('play');
-								$action->setPlayer($virtual);
-								$action->setSeason($season);
-								$game->addAction($action);
-							}
+							
 						}
 							
 					}
