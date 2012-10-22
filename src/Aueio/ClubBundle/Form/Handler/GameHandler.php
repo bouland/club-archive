@@ -33,6 +33,29 @@ class GameHandler extends FormHandler
 				throw new NotFoundHttpException('No season found for date '. $date->format("Y-m-d"));
 			}
 			$game->setSeason($season);
+			$roles = $game->getRoles();
+			$team = $this->get('context.team');
+			foreach($roles as $role){
+				if($team != $role->getTeam()){
+					$virtuals = $em->getRepository('AueioClubBundle:Player')->findVirtualsByTeam($team);
+					foreach($virtuals as $virtual){
+						if($virtual->getFirstname() == 'boy'){
+							$max = 7;
+						}else{
+							$max = 1;
+						}
+						for($i = 0 ; $i < $max; $i++){
+							$action = new Action();
+							$action->setType('play');
+							$action->setPlayer($virtual);
+							$action->setSeason($season);
+							$game->addAction($action);
+						}
+					}
+					
+				}
+			}
+			
 		}else{
 			$roles = $game->getRoles();
 			$score_team_0 = $roles[0]->getScore();

@@ -7,6 +7,7 @@ layout:
 # Emails
 email:
     send: "Envoyer"
+    to:   "Destinataires"
     subject:
         tag: "[HandBall]"
         recall: "%date%"
@@ -210,6 +211,8 @@ fos_user_profile_form_secret: "Le prénom d'un de nos Gardiens"
 fos_user_profile_form_current_password: "Saisi ton mot de passe"
 fos_user_profile_form_team: "Equipe"
 fos_user_profile_form_seasons: "Saisons"
+fos_user_profile_form_address_latitude: Latitude
+fos_user_profile_form_address_longitude: Longitude
 
 fos_user_registration_form_username:             "Choisis un nom d'utilisateur"
 fos_user_registration_form_email:                "Quelle est ton adresse e-mail"
@@ -240,7 +243,8 @@ team_slot: Créneau
 team_slot_days: Jour de la semaine
 team_slot_start_time: Heure de début
 team_slot_end_time: Heure de fin
-team_contacts: Contacts
+team_leaders_add: Sélectionner pour donner le status de capitaine
+team_leaders_del: Sélectionner pour retirer le status de capitaine
 team_seasons: Saisons
 team_gym_name: Nom
 team_gym_phone: Téléphone

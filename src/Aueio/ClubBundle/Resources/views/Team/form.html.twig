@@ -29,8 +29,9 @@
 						{{ form_row(form.slot_start_time) }}
 						{{ form_row(form.slot_end_time) }}
 					</div>
-					{{ form_row(form.contacts) }}
-					{{ form_row(form.seasons) }}
+					<div id="seasons">
+						{{ form_row(form.seasons) }}
+					</div>
 				</div><div id="gym" class="cols">
 					<h3>{{ 'team.gym'|trans({}, 'AueioClubBundle') }}</h3>
 					{{ form_row(form.gym_name) }}
@@ -39,6 +40,12 @@
 						{{ form_row(form.gym_address) }}
 					</div>
 				</div>
+				{% if form.leaders_add is defined and form.leaders_del is defined %}
+				<div id="leaders">
+					{{ form_row(form.leaders_add) }}
+					{{ form_row(form.leaders_del) }}
+				</div>
+				{% endif %}
 				{{ form_widget(form._token) }}
 				<input type="submit" value="{{ 'registration.submit'|trans({}, 'FOSUserBundle') }}" />
 			</div>

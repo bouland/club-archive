@@ -12,8 +12,8 @@ class AddressType extends AbstractType
 		$builder->add('name', 'textarea');
 		$builder->add('code', 'integer');
 		$builder->add('city', 'text');
-		$builder->add('latitude', 'number', array('precision' => 10));
-		$builder->add('longitude', 'number',array('precision' => 10));
+		$builder->add('latitude', 'number', array('precision' => 10, 'required' => false));
+		$builder->add('longitude', 'number',array('precision' => 10, 'required' => false));
 	}
 
 	public function getName()

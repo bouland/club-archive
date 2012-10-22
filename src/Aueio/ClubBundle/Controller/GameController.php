@@ -90,6 +90,28 @@ class GameController extends Controller
 				$session->set('context.season_id', $season->getId());
 				$session->set('context.season_color', $season->getId());
 				
+				$team = $this->get('context.team');
+				foreach($game->getRoles() as $role){
+					if($team != $role->getTeam()){
+						$virtuals = $em->getRepository('AueioClubBundle:Player')->findVirtualsByTeam($team);
+						foreach($virtuals as $virtual){
+							if($virtual->getFirstname() == 'boy'){
+								$max = 7;
+							}else{
+								$max = 1;
+							}
+							for($i = 0 ; $i < $max; $i++){
+								$action = new Action();
+								$action->setType('play');
+								$action->setPlayer($virtual);
+								$action->setSeason($season);
+								$game->addAction($action);
+							}
+						}
+							
+					}
+				}
+				
 				$em->persist($game);
 				$em->flush();
 				return $this->redirect($this->generateUrl('aueio_club_game_view', array('id' => $game->getId())));
@@ -126,6 +148,29 @@ class GameController extends Controller
 				$session = $this->container->get('session');
 				$session->set('context.season_id', $season->getId());
 				$session->set('context.season_color', $season->getColor());
+				
+				$team_context = $this->get('context.team');
+				foreach($game->getRoles() as $role){
+					$team_role = $role->getTeam();
+					if($team_context != $team_role){
+						$virtuals = $em->getRepository('AueioClubBundle:Player')->findVirtualsByTeam($team_role);
+						foreach($virtuals as $virtual){
+							if($virtual->getFirstname() == 'boy'){
+								$max = 7;
+							}else{
+								$max = 1;
+							}
+							for($i = 0 ; $i < $max; $i++){
+								$action = new Action();
+								$action->setType('play');
+								$action->setPlayer($virtual);
+								$action->setSeason($season);
+								$game->addAction($action);
+							}
+						}
+							
+					}
+				}
 				
 				$em->persist($game);
 				$em->flush();
@@ -166,7 +211,7 @@ class GameController extends Controller
     		$volunteer = null;
     	}
     	$builder = $this->createFormBuilder(array('game' => $game, 'volunteer' => $volunteer))
-    			->add('game', new GameType(), array('intention' => 'update'));
+    			->add('game', new GameType($em), array('intention' => 'update'));
     	if ($volunteer){
     		$builder->add('cost', 'money', array('precision' => 2));
     	}

@@ -90,11 +90,6 @@ class Team
     */
     private $gym_address;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="Player", inversedBy="leads")
-     * @ORM\JoinTable(name="teams_contacts"),
-     */
-    private $contacts;
     
     /**
      * Bidirectional - One-To-Many (INVERSE SIDE)
@@ -128,7 +123,6 @@ class Team
     }
     public function __construct()
     {
-        $this->contacts = new \Doctrine\Common\Collections\ArrayCollection();
 	    $this->players = new \Doctrine\Common\Collections\ArrayCollection();
 	    $this->roles = new \Doctrine\Common\Collections\ArrayCollection();
 	    $this->seasons = new \Doctrine\Common\Collections\ArrayCollection();
@@ -181,26 +175,6 @@ class Team
     public function getGymAddress()
     {
         return $this->gym_address;
-    }
-
-    /**
-     * Add contacts
-     *
-     * @param Aueio\ClubBundle\Entity\Player $contacts
-     */
-    public function addContact(Player $contact)
-    {
-        $this->contacts[] = $contact;
-    }
-
-    /**
-     * Get contacts
-     *
-     * @return Doctrine\Common\Collections\Collection 
-     */
-    public function getContacts()
-    {
-        return $this->contacts;
     }
     
     /**

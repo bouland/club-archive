@@ -16,12 +16,22 @@
 	padding: 2%;
 	width: 46%;
 }
-#team_slot_days,
-#team_seasons,
-#team_contacts{
+#team_slot_days{
 	display: block;
 	width: 100%;
 }
+#team_seasons,
+#team_contacts,
+#team_leaders_add,
+#team_leaders_del
+{
+	display: block;
+}
+#team #seasons,
+#team #leaders > div{
+	padding: 15px;
+}
+
 #team form .cols > div{
 	margin-bottom: 15px;
 }
@@ -55,4 +65,20 @@
 }
 #team #colors{
 	padding: 0 10px;
+}
+#team #to,
+#team #subject,
+#team #message{
+	margin-bottom: 30px;
+}
+#team #tag,
+#team #to > li {
+	display: inline-block;
+	
+}
+#team #tag{
+	margin-right: 10px;
+}
+#team #form_subject{
+	width: auto;
 }

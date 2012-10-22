@@ -102,19 +102,23 @@ WHERE (s.season_id = g.season_id AND g.id = {$game->getId()} AND t.id = {$team->
 			AND p.firstname != 'boy');");
 			*/
 	}
-	public function findSeasonTeamContacts(Team $team, Season $season){
+	public function findSeasonTeamMemberEmails(Team $team, Season $season){
 		return $this->createQueryBuilder('p')
+		->select('p.email, p.firstname, p.lastname')
 		->leftJoin('p.seasons', 's')
-		->leftJoin('p.leads', 't')
+		->join('p.team', 't')
 		->where('s.id = :id_season')
 		->andWhere('t.id = :id_team')
+		->andWhere("p.firstname != 'girl'")
+		->andWhere("p.firstname != 'goal'")
+		->andWhere("p.firstname != 'boy'")
 		->setParameters(array(
 				'id_season' => $season->getId(),
 				'id_team' => $team->getId(),
 		))
 		->getQuery()->getResult();
 	}
-	public function findSeasonTeamEmails(Team $team, Season $season){
+	public function findSeasonTeamLeaderEmails(Team $team, Season $season){
 		return $this->createQueryBuilder('p')
 		->select('p.email, p.firstname, p.lastname')
 		->leftJoin('p.seasons', 's')
@@ -136,6 +140,20 @@ WHERE (s.season_id = g.season_id AND g.id = {$game->getId()} AND t.id = {$team->
 		->andWhere("p.firstname != 'girl'")
 		->andWhere("p.firstname != 'goal'")
 		->andWhere("p.firstname != 'boy'")
+		->orderBy('p.firstname')
+		->setParameters(array(
+				'id_season' => $season->getId(),
+				'id_team' => $team->getId(),
+		))
+		->getQuery()->getResult();
+	}
+	public function findSeasonTeamLeaders(Team $team, Season $season){
+		return $this->createQueryBuilder('p')
+		->join('p.team', 't')
+		->leftJoin('p.seasons', 's')
+		->where('t.id = :id_team')
+		->andWhere('s.id = :id_season')
+		->andWhere("p.roles LIKE '%ROLE_LEADER%'")
 		->orderBy('p.firstname')
 		->setParameters(array(
 				'id_season' => $season->getId(),

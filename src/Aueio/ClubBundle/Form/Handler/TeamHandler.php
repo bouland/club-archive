@@ -11,9 +11,9 @@ use Aueio\ClubBundle\Entity\Team,
 
 class TeamHandler extends FormHandler
 {
-	public function onSuccess(Team $team)
+	public function onSuccess(Team $team, $create = true)
 	{
-		if($this->request->getPathInfo() == '/team/new')
+		if($create)
 		{
 			$team->setCash(0);
     		foreach (array('boy', 'girl', 'goal') as $type){
@@ -32,6 +32,8 @@ class TeamHandler extends FormHandler
 				$player->setTeam($team);
 				$this->em->persist($player);
 			}
+		}else{
+			
 		}
 		$this->em->getRepository('AueioClubBundle:Address');
 		$this->em->persist($team->getGymAddress());

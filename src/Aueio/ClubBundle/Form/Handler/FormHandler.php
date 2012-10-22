@@ -22,7 +22,7 @@ class FormHandler
 		$this->em      = $em;
 	}
 
-	public function process()
+	public function process($create = true)
 	{
 		if( $this->request->getMethod() == 'POST' )
 		{
@@ -30,7 +30,7 @@ class FormHandler
 
 			if( $this->form->isValid() )
 			{
-				return $this->onSuccess($this->form->getData());
+				return $this->onSuccess($this->form->getData(), $create);
 			}
 		}
 

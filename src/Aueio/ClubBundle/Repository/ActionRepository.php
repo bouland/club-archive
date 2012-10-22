@@ -127,7 +127,7 @@ class ActionRepository extends EntityRepository
 			return $builder->getQuery()->getResult();
 		}
 	}
-	public function getScores(){
+	public function getScores(Game $game, Team $team){
 		 $boy = $this->createQueryBuilder('a')
 					->select('count(a.id)')
 					->join('a.game', 'g')

@@ -44,6 +44,10 @@ class PlayerProfileType extends ProfileFormType
 										));
 		$builder->add('seasons', 'entity', array(
 				'class' 		=> 'AueioClubBundle:Season',
+				'query_builder' => function(EntityRepository $er) {
+				return $er->createQueryBuilder('s')
+				->orderBy('s.start_date', 'DESC');
+				},
 				'expanded'		=> false,
 				'multiple'		=> true,
 		));

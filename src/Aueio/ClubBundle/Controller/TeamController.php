@@ -39,7 +39,7 @@ class TeamController extends Controller
     	$season = $this->get('context.season');
     	$game_next = $em->getRepository('AueioClubBundle:Game')->findNextGameByTeam($team, time(), $season);
     	$trainning_next = $em->getRepository('AueioClubBundle:Game')->findNextTrainByTeam($team, time(), $season);
-    	$contacts = $em->getRepository('AueioClubBundle:Player')->findSeasonTeamContacts($team, $season);
+    	$contacts = $em->getRepository('AueioClubBundle:Player')->findSeasonTeamLeaders($team, $season);
     	$members = $em->getRepository('AueioClubBundle:Player')->findSeasonTeamMembers($team, $season);
     	$stats = $em->getRepository('AueioClubBundle:Role')->getTeamStats($team);
     	
@@ -99,12 +99,16 @@ class TeamController extends Controller
      **/
     public function editAction(Team $team, Request $request)
     {
-    	$form = $this->createForm(new TeamType(), $team);
+    	$form = $this->createForm(new TeamType(), $team, array(
+    			"type" => 'edit',
+    			"season_id" => $this->get('context.season')->getId(),
+    			"team_id" => $team->getId()
+    	));
     
     	$em = $this->getDoctrine()->getEntityManager();
     	$formHandler = new TeamHandler($form, $request, $em);
     	
-        if( $formHandler->process() )
+        if( $formHandler->process(false) )
         {
     		return $this->redirect($this->generateUrl('aueio_club_team_view', array('id' => $team->getId())));
     	}
@@ -133,13 +137,25 @@ class TeamController extends Controller
     		 
     		if( $form->isValid() )
     		{
-    			$this->get('aueio_club.mailer')->sendContactEmailToTeam($team, $from, $form->getData());
+    			if($team == $from->getTeam())
+    			{
+    				$this->get('aueio_club.mailer')->sendContactEmailToTeam($team, $from, $form->getData());
+    			}else{
+    				$this->get('aueio_club.mailer')->sendContactEmailToTeamLeaders($team, $from, $form->getData());
+    			}
     			$this->get('session')->setFlash('notice', $this->get('translator')->trans('email.message.send',array(),'AueioClubBundle'));
     			return $this->redirect($this->generateUrl('aueio_club_team_view', array('id' => $team->getId())));
     		}
     	}
-    
-    	return $this->render('AueioClubBundle:Team:contact.html.twig', array('team' => $team, 'form' => $form->createView()));
+    	$em = $this->getDoctrine()->getEntityManager();
+    	$season = $this->get('context.season');
+    	if($team == $from->getTeam())
+    	{
+    		$to = $em->getRepository('AueioClubBundle:Player')->findSeasonTeamMembers($team, $season);
+    	}else{
+    		$to = $em->getRepository('AueioClubBundle:Player')->findSeasonTeamLeaders($team, $season);
+    	}
+    	return $this->render('AueioClubBundle:Team:contact.html.twig', array('team' => $team, 'to' => $to, 'form' => $form->createView()));
     }
     /**
      * @Route("/call/{id}", requirements={"id" = "\d+"})

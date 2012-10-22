@@ -140,9 +140,10 @@ class Game implements SeasonAwareInterface
      *
      * @param Aueio\ClubBundle\Entity\Action $actions
      */
-    public function addAction(\Aueio\ClubBundle\Entity\Action $actions)
+    public function addAction(\Aueio\ClubBundle\Entity\Action $action)
     {
-        $this->actions[] = $actions;
+    	$action->setGame($this);
+        $this->actions[] = $action;
     }
     public function getTeams(){
     	$teams = new \Doctrine\Common\Collections\ArrayCollection();

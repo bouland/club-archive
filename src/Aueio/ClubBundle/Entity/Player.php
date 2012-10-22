@@ -110,11 +110,6 @@ class Player extends User
     private $actions;
     
     /**
-     * @ORM\ManyToMany(targetEntity="Team" , mappedBy="contacts")
-     */
-	private $leads;
-	
-    /**
      * @ORM\ManyToMany(targetEntity="Season", inversedBy="players")
      * @ORM\JoinTable(name="seasons_players")
      */
@@ -133,7 +128,6 @@ class Player extends User
     {
         parent::__construct();
         $this->actions = new \Doctrine\Common\Collections\ArrayCollection();
-    	$this->leads = new \Doctrine\Common\Collections\ArrayCollection();
         $this->seasons = new \Doctrine\Common\Collections\ArrayCollection();
     }
     
@@ -164,46 +158,6 @@ class Player extends User
     public function getTeam()
     {
         return $this->team;
-    }
-    
-    /**
-     * Add leads
-     *
-     * @param Aueio\ClubBundle\Entity\Team $leads
-     * @return Player
-     */
-    public function addLead(\Aueio\ClubBundle\Entity\Team $team)
-    {
-    	$this->leads[] = $team;
-    	return $this;
-    }
-    
-    /**
-     * Remove lead
-     *
-     * @param Aueio\ClubBundle\Entity\Team $team
-     */
-    public function removeLead(\Aueio\ClubBundle\Entity\Team $team)
-    {
-    	$this->leads->removeElement($team);
-    }
-    /**
-     * Remove leads
-     */
-    public function removeLeads()
-    {
-    	foreach($this->leads as $team){
-    		$team->removeContact($this);
-    	}
-    }
-    /**
-     * Get leads
-     *
-     * @return Doctrine\Common\Collections\Collection
-     */
-    public function getLeads()
-    {
-    	return $this->leads;
     }
     
     /**

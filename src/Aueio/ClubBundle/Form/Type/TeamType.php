@@ -42,27 +42,61 @@ class TeamType extends AbstractType
 		$builder->add('gym_name', 'text');
 		$builder->add('gym_phone', 'text');
 		$builder->add('gym_address',  new AddressType());
-		$builder->add('contacts', 'entity', array(
-												'class' 		=> 'AueioClubBundle:Player',
-												'query_builder' => function(EntityRepository $er) {
-																		return $er->createQueryBuilder('p')
-																		->where("p.firstname != 'girl'")
-																		->andWhere("p.firstname != 'goal'")
-																		->andWhere("p.firstname != 'boy'")
-																		->orderBy('p.lastname', 'ASC');
-																	},
-												'expanded'		=> false,
-												'multiple'		=> true,
-										));
+		if($options['type'] == 'edit' && $options['season_id'] > 0 && $options['team_id'] > 0){
+			$builder->add('leaders_add', 'entity', array(
+					'property_path' => false,
+					'required'		=> false,
+					'expanded'		=> false,
+					'multiple'		=> true,
+					'class' 		=> 'AueioClubBundle:Player',
+					'query_builder' => function(EntityRepository $er) use ($options){
+											return $er->createQueryBuilder('p')
+												->leftJoin('p.seasons', 's')
+												->join('p.team', 't')
+												->where('t.id = :id_team')
+												->andWhere('s.id = :id_season')
+												->andWhere("p.firstname != 'girl'")
+												->andWhere("p.firstname != 'goal'")
+												->andWhere("p.firstname != 'boy'")
+												->orderBy('p.firstname')
+												->setParameters(array(
+														'id_season' => $options['season_id'],
+														'id_team' => $options['team_id'],
+											));
+										}
+			));
+			$builder->add('leaders_del', 'entity', array(
+					'property_path' => false,
+					'required'		=> false,
+					'expanded'		=> false,
+					'multiple'		=> true,
+					'class' 		=> 'AueioClubBundle:Player',
+					'query_builder' => function(EntityRepository $er) use ($options){
+											return $er->createQueryBuilder('p')
+												->join('p.team', 't')
+												->leftJoin('p.seasons', 's')
+												->where('t.id = :id_team')
+												->andWhere('s.id = :id_season')
+												->andWhere("p.roles LIKE '%ROLE_LEADER%'")
+												->orderBy('p.firstname')
+												->setParameters(array(
+														'id_season' => $options['season_id'],
+														'id_team' => $options['team_id'],
+											));
+										}
+			));
+		}
 		$builder->add('seasons', 'entity', array(
 				'class' 		=> 'AueioClubBundle:Season',
 				'query_builder' => function(EntityRepository $er) {
 				return $er->createQueryBuilder('s')
-					->orderBy('s.start_date', 'DESC');
-				},
-				'expanded'		=> false,
-				'multiple'		=> true,
+				->orderBy('s.start_date', 'DESC');
+		},
+		'expanded'		=> false,
+		'multiple'		=> true,
 		));
+		
+		
 	}
 	
 	public function getName()
@@ -74,6 +108,9 @@ class TeamType extends AbstractType
 	{
 		$resolver->setDefaults(array(
 				'data_class' => 'Aueio\ClubBundle\Entity\Team',
+				'type' => "new",
+				'team_id' => 0,
+				'season_id' => 0
 		));
 	}
 }
