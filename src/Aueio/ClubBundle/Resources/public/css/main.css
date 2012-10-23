@@ -233,7 +233,7 @@ form.season-switch h3{
 }
 .inner {
 	position: relative;
-	width: 800px;
+	width: 900px;
 	margin: 0 auto;
 	min-height:100%;
 }
@@ -241,7 +241,7 @@ form.season-switch h3{
 	height: 90px;
 }
 #sidebar{
-	width: 180px;
+	width: 170px;
     float: left;
 	position: relative;
     padding: 20px 10px;
@@ -270,7 +270,7 @@ form.season-switch h3{
 	min-height: 100%;
 }		
 #content {
-	width:   580px;
+	width:   690px;
 	overflow:auto;
 	padding: 10px 10px 40px 10px;
 	margin:0 0 0 200px;

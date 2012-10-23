@@ -11,6 +11,7 @@
 				<div class="cols">
 					<h3>{{ 'team_team'|trans({}, 'AueioClubBundle') }}</h3>
 					{{ form_row(form.name, { 'attr': { 'size' : 31, 'maxlength' : 50} }) }}
+					{{ form_row(form.cash) }}
 					<div id="color">
 						<h4>{{ 'team_colors'|trans({}, 'AueioClubBundle') }}</h4>
 						<button id="add-another-color">{{ 'team.color.add'|trans({}, 'AueioClubBundle') }}</button><button id="del-color">{{ 'team.color.del'|trans({}, 'AueioClubBundle') }}</button>

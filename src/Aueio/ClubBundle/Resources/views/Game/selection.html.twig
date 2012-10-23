@@ -88,9 +88,10 @@
 			    {% endfor %}
 				</ul>
 			</li><li class="shop">{% if not players['noshop'] %}
-				<h4>{{ 'game.selection.shop'|trans({}, 'AueioClubBundle') }}</h4>
+				<h4>{{ 'game.selection.shop'|trans({}, 'AueioClubBundle')|raw }}</h4>
+				<h5>{{ 'game.selection.budget'|trans({'%budget%':budget|number_format}, 'AueioClubBundle')|raw }}</h5>
 				<ul>
-			    {% for player in players['shop'] %}
+				{% for player in players['shop'] %}
 					<li>
 						{% include 'AueioClubBundle:Player:link.html.twig' with {'player': player} %}
 						<ul class="game-selection-menu">

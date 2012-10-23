@@ -271,9 +271,17 @@ class GameController extends Controller
     	if($game->isLocal($teams['focus'])){
     		$action_types = array('miss', 'play', 'hurt', 'referee', 'shop');
     		$players['noshop'] = false;
+    		$nb_local_games_left = $em->getRepository('AueioClubBundle:Game')->findNextGameByTeamByRole($teams['focus'], 'LOCAL', time(), $game->getSeason(), true);
+    		if($nb_local_games_left > 0)
+    		{
+    			$budget = $teams['focus']->getCash() / $nb_local_games_left;
+    		}else{
+    			$budget = $teams['focus']->getCash();
+    		}
     	}else{
     		$action_types = array('miss', 'play', 'hurt', 'referee');
     		$players['noshop'] = true;
+    		$budget = 0;
     	}
     	
     	foreach( $action_types as $action_type) {
@@ -309,7 +317,7 @@ class GameController extends Controller
 	    	
     	}
     	$players['positions'] = $positions;
-    	return $this->render('AueioClubBundle:Game:selection.html.twig', array('game' => $game, 'players' => $players));
+    	return $this->render('AueioClubBundle:Game:selection.html.twig', array('game' => $game, 'players' => $players, 'budget' => $budget));
     }
     /**
      * @Route("/score/{id}/{browser}/{id_goal}", requirements={"id" = "\d+", "id_goal" = "\d+", "browser" = "default|mobile"} , defaults={"id_goal" = "0", "browser" = "default"})

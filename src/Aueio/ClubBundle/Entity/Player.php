@@ -43,7 +43,7 @@ class Player extends User
     /**
      * @var string $gender
      *
-     * @ORM\Column(name="credit", type="decimal", precision=4,scale=2)
+     * @ORM\Column(name="credit", type="decimal", precision=5,scale=2)
      */
     private $credit;
 

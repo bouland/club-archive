@@ -81,6 +81,7 @@ game:
         selection: "Aller à la page de sélection des joueurs pour ce match."
     selection:
         shop: "Courses"
+        budget: "budget de %budget%€"
         noshop: "Besoin d'un volontaire"
         referee: "Arbitres"
         wait: "En attente (%count%)"
@@ -253,6 +254,7 @@ season_end_date: fin
 
 team_team: Equipe
 team_name: Nom
+team_cash: Solde du compte.
 team_colors: Couleurs
 team_slot: Créneau
 team_slot_days: Jour de la semaine
@@ -278,7 +280,7 @@ team_colors_0: Première
 team_colors_1: Seconde
 team_colors_2: Troisième
 
-
+form_credit: "Combien l'équipe doit lui rembourser"
 form_team: "Changer son équipe"
 form_seasons: "Modifier les saisons aux quelles ce joueur à participé."
 form_gender: "Genre"

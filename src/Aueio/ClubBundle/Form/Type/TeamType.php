@@ -96,7 +96,7 @@ class TeamType extends AbstractType
 		'multiple'		=> true,
 		));
 		
-		
+		$builder->add('cash', 'money', array('precision' => 2));
 	}
 	
 	public function getName()

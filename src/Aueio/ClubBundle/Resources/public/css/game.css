@@ -11,13 +11,13 @@ ul.game-selection-cols > li{
 }
 ul.game-selection-cols > li.miss,
 ul.game-selection-cols > li.wait{
-	width: 130px;
+	width: 158px;
 }
 ul.game-selection-cols > li.shop{
-	width: 110px;
+	width: 138px;
 }
 ul.game-selection-cols > li.play{
-	width: 165px;
+	width: 193px;
 }
 ul.game-selection-cols > li > ul > li{
 	height: 25px;
@@ -63,6 +63,9 @@ ul.game-selection-menu > li {
 #game ul h4,
 #game ul h5{
 	text-align: center;
+}
+#game ul h5{
+	padding-bottom: 15px;
 }
 .left,
 .right{
@@ -239,7 +242,7 @@ li.action{
 #pivot{
 	text-align:center;
 	position: absolute;
-	width:100px;
+	width:120px;
 }
 #wing_left{
 	top:100px;

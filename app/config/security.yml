@@ -44,3 +44,5 @@ security:
         - { path: ^/team/edit, role: ROLE_LEADER }
         - { path: ^/team/contact, role: ROLE_PLAYER }
         - { path: ^/team/delete, role: ROLE_ADMIN }
+        - { path: ^/season/, role: ROLE_ADMIN }
+        - { path: ^/config/, role: ROLE_ADMIN }

@@ -56,6 +56,9 @@ class PlayerController extends Controller
     public function editAction(Player $player, Request $request)
     {
     	$builder = $this->createFormBuilder($player);
+    	
+    	$builder->add('credit', 'money', array('precision' => 2));
+    	
    		$builder->add('gender', 'choice', array(
 				'choices'   => array('M' => 'Homme', 'F' => 'Femme'),
 				'required'  => true,

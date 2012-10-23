@@ -67,6 +67,34 @@ class GameRepository extends EntityRepository
 			return $game;
 		}
 	}
+	public function findNextGameByTeamByRole(Team $team, $role_type, $timestamp, Season $season, $count = false){
+		$builder = $this->createQueryBuilder('g')
+		->join('g.season', 's')
+		->leftJoin('g.roles', 'r')
+		->join('r.team', 't')
+		->where('s.id = :id_season')
+		->andWhere('t.id = :id_team')
+		->andWhere('g.date >= :date')
+		->andWhere("r.type = :type")
+		->setMaxResults(1)
+		->setParameters(array(
+				'id_season' => $season->getId(),
+				'id_team' => $team->getId(),
+				'type' => $role_type,
+				'date' => date("Y-m-d",$timestamp),
+		));
+		if($count){
+			$builder->select('count(g.id)')->setMaxResults(1);
+			return $builder->getQuery()->getSingleScalarResult();
+		}else{
+			try {
+				$game = $builder->getQuery()->getSingleResult();
+			} catch (\Doctrine\Orm\NoResultException $e) {
+				$game = null;
+			}
+			return $game;
+		}
+	}
 	public function findNextTrainByTeam(Team $team, $now, Season $season)
 	{
 		$dates = array();
@@ -106,7 +134,7 @@ LEFT JOIN Aueio\ClubBundle\Entity\Player p WHERE p.team = t
 LEFT JOIN Aueio\ClubBundle\Entity\Action a WHERE (a.player = p AND a.game = g)
 WHERE (g.season = {$season_id} AND p.id = {$player_id} AND a.id IS NULL)");
 		return $query->getResult();	
-*/
+*/		$date = date("Y-m-d",time());
 		return $this->getEntityManager()->getConnection()->fetchAll("SELECT g.id, g.date
 FROM games g
 LEFT JOIN roles r ON r.game_id = g.id
@@ -114,6 +142,7 @@ INNER JOIN teams t ON t.id = r.team_id
 LEFT JOIN players p ON p.team_id = t.id
 LEFT JOIN actions a ON (a.player_id = p.id AND a.game_id = g.id)
 WHERE ( {$season->getId()} = g.season_id
+AND g.date < '{$date}'
 AND p.id = {$player->getId()} AND a.id IS NULL)");
 		}
 }
