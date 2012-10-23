@@ -34,8 +34,21 @@ config:
         view: "Config vue"
     team: "Team en focus : %team%"
     season: "Saison en cours : %season%"
-    secret: "Réponses au secret du formulaire d'enrgistrement : %secret%"
+    secret:
+        question: "Question secrète du formulaire d'enregistrement :<br />%question%"
+        answers:
+            view: "Réponses de la question secrète :<br />%answers%"
+            add:  Ajouter
+            del:  Supprimer une réponse
+        clue: "Indice pour la réponse secrète :<br />%clue%"
+
     notfound: "Aucune configuration"
+config_secret_question: "Question secrète pour s'enregistrer."
+config_secret_answers:  "Réponses de la question secrète."
+config_secret_clue:     "Indice sur la réponse à la question."
+config_season_current:  "Saison courrante."
+config_team_focus:      "Equipe en focus, par défaut"
+
 game:
     WIN: WIN
     LOST: LOST
@@ -231,6 +244,8 @@ fos_user_registration_form_position: "De préférence à quel poste joues tu ?"
 fos_user_registration_form_hand: "Main de tir"
 fos_user_registration_form_secret: "Le prénom d'un de nos Gardiens"
 fos_user_registration_form_team: "Equipe"
+fos_user_registration_form_address_latitude: "Latitude"
+fos_user_registration_form_address_longitude: "Longitude"
 
 season_color: Couleur format HTML
 season_start_date: début

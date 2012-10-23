@@ -2,6 +2,8 @@
 // src/Auieo/ClubBundle/Form/Type/PlayerType.php
 namespace Aueio\ClubBundle\Form\Type;
 
+use Aueio\ClubBundle\Entity\Config;
+
 use Doctrine\ORM\EntityManager,
 	Symfony\Component\Form\FormError,
  	Symfony\Component\Form\FormInterface,
@@ -21,8 +23,13 @@ class PlayerRegistrationType extends RegistrationFormType
 	
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		parent::buildForm($builder, $options);
-		
+		$builder
+            ->add('username', null)
+            ->add('email', 'email')
+            ->add('plainPassword', 'repeated', array(
+                'type' => 'password',
+            ))
+        ;
 		$builder->add('firstname', 'text');
 		$builder->add('lastname', 'text');
 		$builder->add('phone', 'text');
@@ -57,18 +64,32 @@ class PlayerRegistrationType extends RegistrationFormType
 												'expanded'	=> false,
 												'preferred_choices' => $preferred,
 										));
+		if($config && $config instanceof Config){
+			$answers = $config->getSecretAnswers();
+			$question = $config->getSecretQuestion();
+			$clue = $config->getSecretClue();
+		}else{
+			$answers = array("GILLES", "CYRIL");
+			$question = "Donnez le prénom d'un de no gardiens.";
+			$clue = "Indice : C**** ou G*****";
+		}
 		
-		$builder->add('secret', 'text', array('property_path' => false));
+		$builder->add('secret', 'text', array(
+				'property_path' => false,
+				'label' => $question
+		));
 		
-		$builder->addValidator(new CallbackValidator(function(FormInterface $form)
+		
+		
+		
+		$builder->addValidator(new CallbackValidator(function(FormInterface $form) use ($answers, $clue)
 		{
 			//$config = $this->em->getRepository('AueioClubBundle:Config')->find(1);
 			$secret = $form["secret"];
 			//$answers= $config->getSecret();
-			$answers = array("CYRILLE", "GILLES", "CYRIL");
 			if (!in_array(strtoupper($secret->getData()), $answers))
 			{
-				$secret->addError(new FormError('Wrong answer.'));
+				$secret->addError(new FormError('Essaye encore avec cet indice : '. $clue));
 			}
 		})
 		);

@@ -34,33 +34,26 @@ class Config
     private $season_current;
     
     /**
-     * @var string $secret
+     * @var string $secret_question
      *
-     * @ORM\Column(name="secret", type="string", length=255 )
+     * @ORM\Column(type="string", length=255 )
      */
-
-    private $secret;
-    
+    private $secret_question;
     
     /**
-     * Assert\True()
-     */
-    public function isSecrets()
-    {
-    	$secret = $this->getSecrets();
-    	return is_array($secret);
-    }
-    
-	/**
-     * Get secret
+     * @var string $secret_clue
      *
-     * @return array
+     * @ORM\Column(type="string", length=255 )
      */
-    public function getSecrets()
-    {
-    	
-        return explode(",", $this->secret);
-    }
+    private $secret_clue;
+    
+    /**
+     * @var string $secret_answers
+     *
+     * @ORM\Column(type="array")
+     */
+    private $secret_answers;
+
     /**
      * Get id
      *
@@ -93,25 +86,6 @@ class Config
         return $this->team_focus;
     }
 
-    /**
-     * Set secret
-     *
-     * @param string $secret
-     */
-    public function setSecret($secret)
-    {
-        $this->secret = $secret;
-    }
-
-    /**
-     * Get secret
-     *
-     * @return string 
-     */
-    public function getSecret()
-    {
-        return $this->secret;
-    }
 
     /**
      * Set season_current
@@ -134,5 +108,74 @@ class Config
     public function getSeasonCurrent()
     {
         return $this->season_current;
+    }
+
+    /**
+     * Set secret_question
+     *
+     * @param string $secretQuestion
+     * @return Config
+     */
+    public function setSecretQuestion($secretQuestion)
+    {
+        $this->secret_question = $secretQuestion;
+    
+        return $this;
+    }
+
+    /**
+     * Get secret_question
+     *
+     * @return string 
+     */
+    public function getSecretQuestion()
+    {
+        return $this->secret_question;
+    }
+
+    /**
+     * Set secret_answers
+     *
+     * @param array $secretAnswers
+     * @return Config
+     */
+    public function setSecretAnswers($secretAnswers)
+    {
+        $this->secret_answers = $secretAnswers;
+    
+        return $this;
+    }
+
+    /**
+     * Get secret_answers
+     *
+     * @return array 
+     */
+    public function getSecretAnswers()
+    {
+        return $this->secret_answers;
+    }
+
+    /**
+     * Set secret_clue
+     *
+     * @param string $secretClue
+     * @return Config
+     */
+    public function setSecretClue($secretClue)
+    {
+        $this->secret_clue = $secretClue;
+    
+        return $this;
+    }
+
+    /**
+     * Get secret_clue
+     *
+     * @return string 
+     */
+    public function getSecretClue()
+    {
+        return $this->secret_clue;
     }
 }

@@ -1,1 +1,6 @@
 @CHARSET "UTF-8";
+form.aueio_club_config_form > div{
+	margin-bottom: 15px;
+	padding-bottom: 15px;
+	border-bottom: 1px dotted #9E8D99;
+}

@@ -1,5 +1,5 @@
 {# src/Aueio/ClubBundle/Resources/views/Game/edit.html.twig #}
-{% extends 'AueioClubBundle::layout.html.twig' %}
+{% extends 'AueioClubBundle:Config:form.html.twig' %}
 
 {% block title %}
 	{{ 'config.title.edit'|trans({}, 'AueioClubBundle') }}
@@ -15,8 +15,6 @@
 	<li><a href="{{ path('aueio_club_config_delete', {"id": config.id}) }}" onclick="return confirm('{{ 'sidebar.confirm'|trans({}, 'AueioClubBundle') }}')">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
 {% endblock %}
 
-{% block content %}
+{% block form %}
 	<form action="{{ path('aueio_club_config_edit', {"id": config.id}) }}" {{ form_enctype(form) }} method="POST" class="aueio_club_config_form">
-	{% include 'AueioClubBundle:Config:form.html.twig' %}
-	</form>
 {% endblock %}

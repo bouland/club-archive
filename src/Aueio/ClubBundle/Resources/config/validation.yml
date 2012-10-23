@@ -92,7 +92,6 @@ Aueio\ClubBundle\Entity\Role:
 
 Aueio\ClubBundle\Entity\Config:
     properties:
-        secret:
+        secret_question:
             - NotBlank: ~
             - MaxLength: 255
-             

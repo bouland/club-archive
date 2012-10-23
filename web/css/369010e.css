@@ -1,5 +1,9 @@
 @CHARSET "UTF-8";
-
+form.aueio_club_config_form > div{
+	margin-bottom: 15px;
+	padding-bottom: 15px;
+	border-bottom: 1px dotted #9E8D99;
+}
 @CHARSET "UTF-8";
 #game .short > div.name{
 	text-align: center;
@@ -677,7 +681,7 @@ ul.system-messages > li.notice{
 #aueio_club_player_edit_form div ul > li,
 #aueio_club_team_new_form div ul:not(#color-fields-list) > li,
 #aueio_club_team_edit_form div ul:not(#color-fields-list) > li,
-.aueio_club_config_form div ul > li,
+.aueio_club_config_form div ul:not(#answer-fields-list) > li,
 .fos_user_profile_edit div ul > li,
 .fos_user_registration_register div  ul > li,
 .fos_user_login > ul > li,

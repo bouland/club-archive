@@ -19,7 +19,16 @@ class ConfigType extends AbstractType
 					'class' 		=> 'AueioClubBundle:Season',
 					'expanded'		=> false,
 			));
-		$builder->add('secret', 'text');
+		$builder->add('secret_question', 'text');
+		
+		$builder->add('secret_clue', 'text');
+		
+		$builder->add('secret_answers', 'collection',array(
+				'type'   => 'text',
+				'allow_add' => true,
+				'allow_delete' => true,
+				'prototype' => true,
+				));
 	}
 
 	public function getName()

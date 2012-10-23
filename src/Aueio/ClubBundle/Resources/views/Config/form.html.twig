@@ -1,3 +1,56 @@
 {# src/Aueio/ClubBundle/Resources/views/Config/form.html.twig #}
-{% form_theme form theme %}
-{% include 'AueioClubBundle::form.submit.html.twig' %}
+{% extends 'AueioClubBundle::layout.html.twig' %}
+{% form_theme form 'AueioClubBundle::form.theme.html.twig' %}
+
+{% block content %}
+	{% block form %}
+	{% endblock %}
+	
+		<div id="secret">
+			{{ form_row(form.secret_question) }}
+			{{ form_row(form.secret_clue) }}
+			<ul id="answer-fields-list" data-prototype="{{ form_widget(form.secret_answers.vars.prototype) | e }}">
+		    {% for secret_answer in form.secret_answers %}
+		        <li>
+		            {{ form_errors(secret_answer) }}
+		            {{ form_widget(secret_answer) }}
+		        </li>
+		    {% endfor %}
+		    </ul>
+		    <button id="add-answer">{{ 'config.secret.answers.add'|trans({}, 'AueioClubBundle') }}</button><button id="del-answer">{{ 'config.secret.answers.del'|trans({}, 'AueioClubBundle') }}</button>
+		</div>
+		{% include 'AueioClubBundle::form.submit.html.twig' %}
+	</form>
+{% endblock %}
+
+{% block javascripts %}
+	{{ parent () }}
+	<script type="text/javascript">
+		$(document).ready(function(){
+		    // keep track of how many email fields have been rendered
+		    var answerCount = {{ form.secret_answers | length }};
+		
+	        $('#add-answer').click(function() {
+	            var answerList = $('#answer-fields-list');
+	
+	            // grab the prototype template
+	            var newWidget = answerList.attr('data-prototype');
+	            // replace the "__name__" used in the id and name of the prototype
+	            // with a number that's unique to our emails
+	            // end name attribute looks like name="contact[emails][2]"
+	            newWidget = newWidget.replace(/__name__/g, answerCount);
+	            // create a new list element and add it to our list
+	            var newLi = jQuery('<li id="answer' + answerCount + '"></li>').html(newWidget);
+	            answerCount++;
+	            newLi.appendTo(answerList);
+	
+	            return false;
+	        });
+	        $('#del-answer').click(function() {
+	        	answerCount--;
+	        	$('#answer' + answerCount).remove();
+	           	return false;
+	        });
+	     });
+	</script>
+{% endblock %}
