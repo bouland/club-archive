@@ -45,14 +45,14 @@ class Address
     /**
      * @var float $longitude
      *
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $longitude;
     
     /**
      * @var float $latitude
      *
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", nullable=true)
      */
     private $latitude;
     

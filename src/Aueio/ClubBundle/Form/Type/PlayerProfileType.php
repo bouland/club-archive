@@ -2,18 +2,21 @@
 // src/Auieo/ClubBundle/Form/Type/PlayerType.php
 namespace Aueio\ClubBundle\Form\Type;
 
-use Symfony\Component\Form\FormBuilderInterface,
+use Doctrine\ORM\EntityRepository,
+	Symfony\Component\Form\FormBuilderInterface,
 	Symfony\Component\Security\Core\SecurityContextInterface,
+	Symfony\Component\Security\Core\Validator\Constraint\UserPassword,
 	FOS\UserBundle\Form\Type\ProfileFormType,
 	Aueio\ClubBundle\Form\Type\AdressType;
 
 class PlayerProfileType extends ProfileFormType
 {
 	
-	public function buildUserForm(FormBuilderInterface $builder, array $options)
+	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
-		parent::buildUserForm($builder, $options);
-		
+		$builder->add('username', null, array('label' => 'form.username', 'translation_domain' => 'FOSUserBundle'))
+				->add('email', 'email', array('label' => 'form.email', 'translation_domain' => 'FOSUserBundle'))
+		;
 		$builder->add('firstname', 'text');
 		$builder->add('lastname', 'text');
 		$builder->add('phone', 'text');
@@ -50,6 +53,10 @@ class PlayerProfileType extends ProfileFormType
 				},
 				'expanded'		=> false,
 				'multiple'		=> true,
+		));
+		$builder->add('current_password', 'password', array(
+				'mapped' => false,
+				'constraints' => new UserPassword(),
 		));
 		
 	}

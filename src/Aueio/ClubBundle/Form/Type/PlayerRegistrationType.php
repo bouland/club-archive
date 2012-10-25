@@ -87,9 +87,9 @@ class PlayerRegistrationType extends RegistrationFormType
 			//$config = $this->em->getRepository('AueioClubBundle:Config')->find(1);
 			$secret = $form["secret"];
 			//$answers= $config->getSecret();
-			if (!in_array(strtoupper($secret->getData()), $answers))
+			if (!in_array(strtoupper($secret->getData()), array_map('strtoupper',$answers)) )
 			{
-				$secret->addError(new FormError('Essaye encore avec cet indice : '. $clue));
+				$secret->addError(new FormError('Essaye encore avec cet indice : '. $answers[0] . $clue));
 			}
 		})
 		);
