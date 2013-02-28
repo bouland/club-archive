@@ -63,6 +63,7 @@
 		<!-- Current Team Factory -->
     	<service id="aueio_club.team_factory" class="Aueio\ClubBundle\Factory\TeamFactory">
         	<argument type="service" id="context.player" />
+        	<tag name="twig.extension" />
     	</service>
 
     	<!-- The Current Team -->

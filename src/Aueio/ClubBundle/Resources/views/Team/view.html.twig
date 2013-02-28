@@ -12,10 +12,10 @@
 {% block sidebar %}
 	<li class="selected"><a href="{{ path('aueio_club_team_view', {"id": team.id}) }}">{{ 'sidebar.view'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_team_contact', {"id": team.id}) }}">{{ 'sidebar.contact'|trans({}, 'AueioClubBundle') }}</a>
+{% if is_granted("ROLE_LEADER") %}
 {% if game_next %}
 	<li><a href="{{ path('aueio_club_team_call', {"id": team.id}) }}">{{ 'sidebar.recall'|trans({}, 'AueioClubBundle') }}</a>
 {% endif %}
-{% if is_granted("ROLE_LEADER") %}
 	<li><a href="{{ path('aueio_club_team_edit', {"id": team.id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
 {% endif %}
 {% if is_granted("ROLE_ADMIN") %}

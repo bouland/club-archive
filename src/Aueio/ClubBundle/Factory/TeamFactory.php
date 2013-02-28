@@ -3,7 +3,7 @@ namespace Aueio\ClubBundle\Factory;
 
 use Aueio\ClubBundle\Entity\Player;
 
-class TeamFactory
+class TeamFactory extends \Twig_Extension
 {
 	private $player;
 
@@ -21,5 +21,15 @@ class TeamFactory
 		}
 
 		return $team;
+	}
+	
+	public function getGlobals()
+	{
+		return array('current_team' => $this->get());
+	}
+	
+	public function getName()
+	{
+		return 'team_extension';
 	}
 }
