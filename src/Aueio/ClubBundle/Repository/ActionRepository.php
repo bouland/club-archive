@@ -5,7 +5,8 @@ namespace Aueio\ClubBundle\Repository;
 use Doctrine\ORM\EntityRepository,
 	Aueio\ClubBundle\Entity\Game,
 	Aueio\ClubBundle\Entity\Player,
-	Aueio\ClubBundle\Entity\Team;
+	Aueio\ClubBundle\Entity\Team,
+	Doctrine\DBAL\Schema\View;
 
 /**
  * ActionRepository
@@ -15,11 +16,28 @@ use Doctrine\ORM\EntityRepository,
  */
 class ActionRepository extends EntityRepository
 {
-	
+	public function getPlayersStats()
+	{
+		$builder = $this->createQueryBuilder('a')
+		->join('a.player', 'p')
+		->join('a.game', 'g')
+		->where('p.id = 2')
+		->andWhere("a.type IN ('play', 'miss', 'shop', 'referee','score', 'save', 'goal')")
+		//->andWhere('g.date <= :now')
+		//->setParameters(array(
+		//						'id_player' => 2
+		//						'now' => new \Datetime('now')
+		//				))
+		->select('count(a.id)');
+		
+		$sql =	$builder->getQuery()->getSQL();
+		$view = new View('stats', $sql);
+		
+	}
 	public function getPlayerStats(Player $player)
 	{
 		$stats = array();
-		foreach ( array("play", "miss", "shop", "referee","score", "save", "goal") as $type ){
+		foreach ( array("play", "miss", "shop", "referee","score", "save", "goal", "hurt") as $type ){
 			$stats[$type] = $this->findTypeByPlayer($player, $type, true);
 		}
 		foreach ( array("win", "lost", "nul") as $result ){

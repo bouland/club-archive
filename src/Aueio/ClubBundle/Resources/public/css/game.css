@@ -79,7 +79,8 @@ ul.game-selection-menu > li {
 .right{
 	text-align: left;
 }
-#when{
+#when,
+#where{
 	text-align: center;
 }
 #address
@@ -100,7 +101,7 @@ ul.game-selection-menu > li {
 }
 
 #where > a,
-#where > h4{
+#where  h4{
 	display: inline-block;
 }
 #when div.calendar,
@@ -124,7 +125,7 @@ ul.game-selection-menu > li {
 }
 
 #game ul.list div.short div.name{
-	width:58%;
+	width:70%;
 }
 
 #results > li > input{

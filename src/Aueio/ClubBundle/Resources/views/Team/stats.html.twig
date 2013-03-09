@@ -1,0 +1,74 @@
+<div class="stats">
+	<h3>{{ 'team.stats.title.team'|trans({}, 'AueioClubBundle') }}</h3>
+	<ul>
+{% set stats_team = stats['team'] %}
+{% if stats_team['total'] > 0 %}
+		<li>
+			<ul class="stats-results">
+				<li class="games-win {% if stats_team['win'] > (stats_team['total']-stats_team['win']) %}green{% endif %}">{{ 'team.stats.win'|trans({'%nb%':stats_team['win'], '%percent%':(stats_team['win']*100)//stats_team['total'] }, 'AueioClubBundle') }}</li>
+				<li class="games-lost {% if stats_team['lost'] > (stats_team['total']-stats_team['lost']) %}red{% endif %}">{{ 'team.stats.lost'|trans({'%nb%':stats_team['lost'], '%percent%':(stats_team['lost']*100)//stats_team['total'] }, 'AueioClubBundle') }}</li>
+				<li class="games-nul {% if stats_team['nul'] >= (stats_team['total']-stats_team['nul']) %}blue{% endif %}">{{ 'team.stats.nul'|trans({'%nb%':stats_team['nul'], '%percent%':(stats_team['nul']*100)//stats_team['total'] }, 'AueioClubBundle') }}</li>
+			</ul>
+		</li>
+		<li>
+			<ul class="stats-games">
+				<li class="games-local">{{ 'team.stats.local'|trans({'%nb%':stats_team['local'], '%percent%':(stats_team['local']*100)//stats_team['total'] }, 'AueioClubBundle') }}</li>
+				<li class="games-visitor">{{ 'team.stats.visitor'|trans({'%nb%':stats_team['visitor'], '%percent%':(stats_team['visitor']*100)//stats_team['total'] }, 'AueioClubBundle') }}</li>
+				<li class="games-giveup">{{ 'team.stats.giveup'|trans({'%nb%':stats_team['giveup'], '%percent%':(stats_team['giveup']*100)//stats_team['total'] }, 'AueioClubBundle') }}</li>
+			</ul>
+		</li>
+{% endif %}
+		<li class="games-total ">{{ 'team.stats.total'|trans({'%nb%':stats_team['total']}, 'AueioClubBundle') }}</li>
+	</ul>
+</div>
+{% if stats['players'] is defined %}
+{% set stats_players = stats['players'] %}
+<div class="stats-players">
+	<h3>{{ 'team.stats.title.players'|trans({}, 'AueioClubBundle') }}</h3>
+	<table>
+	   <thead>
+    	   <tr>
+                <th class="bord first">{{ 'team.stats.col.member'|trans({}, 'AueioClubBundle') }}</th>
+                <th>{{ 'team.stats.col.play'|trans({}, 'AueioClubBundle') }}</th>
+                <th class="bord">%</th>
+                <th>{{ 'team.stats.col.win'|trans({}, 'AueioClubBundle') }}</th>
+                <th class="bord">%</th>
+                <th>{{ 'team.stats.col.lost'|trans({}, 'AueioClubBundle') }}</th>
+                <th class="bord">%</th>
+                <th>{{ 'team.stats.col.nul'|trans({}, 'AueioClubBundle') }}</th>
+                <th class="bord">%</th>
+
+                <th>{{ 'team.stats.col.score'|trans({}, 'AueioClubBundle') }}</th>
+                <th class="bord">/</th>
+                <th>{{ 'team.stats.col.save'|trans({}, 'AueioClubBundle') }}</th>
+                <th class="bord">/</th>
+                <th class="bord">{{ 'team.stats.col.referee'|trans({}, 'AueioClubBundle') }}</th>
+                <th class="bord">{{ 'team.stats.col.shop'|trans({}, 'AueioClubBundle') }}</th>
+            </tr>
+        </thead>
+		<tbody>
+
+{% for stats_player in stats_players %}
+            <tr>
+		         <td class="bord first">{% include 'AueioClubBundle:Player:link.html.twig' with {'player': stats_player['player']} %}</td>
+		         <td>{{ stats_player['stats']['play'] }}</td>
+		         <td class="bord">{{ (stats_player['stats']['play']*100)//stats_team['total'] }}</td>
+		         <td>{{ stats_player['stats']['win'] }}</td>
+		         <td class="bord">{{ (stats_player['stats']['win']*100)//stats_player['stats']['play'] }}</td>
+		         <td>{{ stats_player['stats']['lost'] }}</td>
+		         <td class="bord">{{ (stats_player['stats']['lost']*100)//stats_player['stats']['play'] }}</td>
+		         <td>{{ stats_player['stats']['nul'] }}</td>
+		         <td class="bord">{{ (stats_player['stats']['nul']*100)//stats_player['stats']['play'] }}</td>
+		         
+		         <td>{{ stats_player['stats']['score'] }}</td>
+                 <td class="bord">{{ (stats_player['stats']['score']//stats_player['stats']['play'])|number_format(0, '.', ',') }}</td>
+                 <td>{{ stats_player['stats']['save'] }}</td>
+                 <td class="bord">{{ stats_player['stats']['save']//stats_player['stats']['play']|number_format(0, '.') }}</td>
+                 <td class="bord">{{ stats_player['stats']['referee'] }}</td>
+                 <td class="bord">{{ stats_player['stats']['shop'] }}</td>
+	        </tr>
+{% endfor %}
+        </tbody>
+	</table>
+</div>
+{% endif %}

@@ -1,47 +1,49 @@
 <div class="stats">
 {% if stats['available'] %}
-			<h3>{{ 'player.stats.title'|trans({}, 'AueioClubBundle') }}</h3>
-			<ul>
-	{% if stats['play'] > 0 %}
-				<li>
-					<ul class="stats-actions">
-						<li class="games-score">{{ stats['score'] }}({{ ((stats['score']*100)//stats['play'])/100 }}) Buts</li>
-	{% if stats['goal'] > 0 %}
-						<li class="games-save">{{ stats['save'] }}({{ ((stats['save']*100)//stats['goal'])/100 }}) Arrets</li>
-	{% endif %}
-						<li class="games-shop {% if stats['shop'] < 1 %}red{% endif %}">{{ stats['shop'] }} Courses</li>
-						<li class="games-referee {% if stats['referee'] < 2 %}red{% endif %}">{{ stats['referee'] }} Arbitrages</li>
-					</ul>
-				</li>
-	{% endif %}
-	{% if stats['play'] > 0 %}
-				<li>
-					<ul class="stats-results">
-						<li class="games-win {% if stats['win'] > (stats['play']-stats['win']) %}green{% endif %}">{{ stats['win'] }} ({{ (stats['win']*100)//stats['play'] }}%) Victoires</li>
-						<li class="games-lost {% if stats['lost'] >= (stats['play']-stats['lost']) %}red{% endif %}">{{ stats['lost'] }} ({{ (stats['lost']*100)//stats['play'] }}%) Défaites</li>
-						<li class="games-nul {% if stats['nul'] > (stats['play']-stats['nul']) %}blue{% endif %}">{{ stats['nul'] }} ({{ (stats['nul']*100)//stats['play'] }}%) Nuls</li>
-					</ul>
-				</li>
-	{% endif %}
-	{% if stats['total'] > 0 %}
-				<li>
-					<ul class="stats-games">
-						<li class="games-play {% if stats['play'] > (stats['total']-stats['play']) %}green{% endif %}">{{ stats['play'] }} ({{ (stats['play']*100)//stats['total'] }}%) Présent</li>
-						<li class="games-miss {% if stats['miss'] >= (stats['total']-stats['miss']) %}red{% endif %}">{{ stats['miss'] }} ({{ (stats['miss']*100)//stats['total'] }}%) Absent</li>
-						<li class="games-total {% if stats['total'] != (stats['play']+stats['miss']) %}red{% endif %}">{{ stats['total'] }} ({{ ((stats['play']+stats['miss'])*100)//stats['total'] }}%) Matchs</li>
-					</ul>
-				</li>
-	{% endif %}
-	
+	<h3>{{ 'player.stats.title'|trans({}, 'AueioClubBundle') }}</h3>
+	<ul>
+    {% if stats['play'] > 0 %}
+		<li>
+			<ul class="stats-actions">
+			    <li class="games-score">{{ 'player.stats.score'|trans({'%nb%':stats['score'], '%ratio%':((stats['score']*100)//stats['play'])/100 }, 'AueioClubBundle') }}</li>
+        {% if stats['goal'] > 0 %}
+                <li class="games-save">{{ 'player.stats.save'|trans({'%nb%':stats['save'], '%ratio%':((stats['save']*100)//stats['goal'])/100 }, 'AueioClubBundle') }}</li>
+        {% endif %}
+                <li class="games-shop">{{ 'player.stats.shop'|trans({'%nb%':stats['shop']}, 'AueioClubBundle') }}</li>
+				<li class="games-referee {% if stats['referee'] < 2 %}red{% endif %}">{{ 'player.stats.referee'|trans({'%nb%':stats['referee']}, 'AueioClubBundle') }}</li>
 			</ul>
-	{% if stats['error'] %}
-			<p>{{ 'player.stats.error'|trans({}, 'AueioClubBundle') }}</p>
-			<ul class="stats-errors">
-			{% for game in stats['error'] %}
-				<li class="error"><div class="link"><a href="{{ path('aueio_club_game_selection', {"id": game.id}) }}">{% include 'AueioClubBundle:Game:date.html.twig' with {'date':game.date}%}</a></div></li>
-			{% endfor %}
-			</ul>
-	{% endif %}
+		</li>
+    {% endif %}
+    {% if stats['play'] > 0 %}
+		<li>
+			<ul class="stats-results">
+				<li class="games-win {% if stats['win'] > (stats['play']-stats['win']) %}green{% endif %}">{{ 'player.stats.win'|trans({'%nb%':stats['win'], '%percent%':(stats['win']*100)//stats['play'] }, 'AueioClubBundle') }}</li>
+            	<li class="games-lost {% if stats['lost'] > (stats['play']-stats['lost']) %}red{% endif %}">{{ 'player.stats.lost'|trans({'%nb%':stats['lost'], '%percent%':(stats['lost']*100)//stats['play'] }, 'AueioClubBundle') }}</li>
+                <li class="games-nul {% if stats['nul'] > (stats['play']-stats['nul']) %}red{% endif %}">{{ 'player.stats.nul'|trans({'%nb%':stats['nul'], '%percent%':(stats['nul']*100)//stats['play'] }, 'AueioClubBundle') }}</li>
+           </ul>
+		</li>
+    {% endif %}
+    {% if stats['total'] > 0 %}
+		<li>
+			<ul class="stats-games">
+				<li class="games-play {% if stats['play'] > (stats['total']-stats['play']) %}green{% endif %}">{{ 'player.stats.play'|trans({'%nb%':stats['play'], '%percent%':(stats['play']*100)//stats['total'] }, 'AueioClubBundle') }}</li>
+				<li class="games-miss {% if stats['miss'] >= (stats['total']-stats['miss']) %}red{% endif %}">{{ 'player.stats.miss'|trans({'%nb%':stats['miss'], '%percent%':(stats['miss']*100)//stats['total'] }, 'AueioClubBundle') }}</li>
+		    {% if stats['hurt'] > 0 %}
+                <li class="games-hurt">{{ 'player.stats.hurt'|trans({'%nb%':stats['hurt']}, 'AueioClubBundle') }}</li>
+            {% endif %}
+                <li class="games-total {% if stats['total'] != (stats['play']+stats['miss']) %}red{% endif %}">{{ 'player.stats.total'|trans({'%nb%':stats['total'], '%percent%':((stats['play']+stats['miss'])*100)//stats['total'] }, 'AueioClubBundle') }}</li>
+            </ul>
+		</li>
+    {% endif %}
+	</ul>
+    {% if stats['error'] %}
+	<p>{{ 'player.stats.error'|trans({}, 'AueioClubBundle') }}</p>
+	<ul class="stats-errors">
+    {% for game in stats['error'] %}
+		<li class="error"><div class="link"><a href="{{ path('aueio_club_game_selection', {"id": game.id}) }}">{% include 'AueioClubBundle:Game:date.html.twig' with {'date':game.date}%}</a></div></li>
+    {% endfor %}
+	</ul>
+    {% endif %}
 {% else %}
 	<h3>{{ 'player.stats.noavailable'|trans({}, 'AueioClubBundle') }}</h3>
 {% endif %}

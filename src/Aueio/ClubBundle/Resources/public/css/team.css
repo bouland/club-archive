@@ -82,3 +82,18 @@
 #team #form_subject{
 	width: auto;
 }
+div.stats-players > table th,
+div.stats-players > table td
+{
+	padding: 4px;
+	text-align: right;
+}
+div.stats-players > table td.bord,
+div.stats-players > table th.bord{
+	border-right: 1px dotted #9E8D99;
+}
+div.stats-players > table td.first,
+div.stats-players > table th.first
+{
+	text-align: left;
+}

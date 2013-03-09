@@ -137,6 +137,17 @@ player:
             team: "Son équipe"
     stats:
         title: Statistiques
+        score: "%nb% (%ratio%) Buts"
+        save: "%nb% (%ratio%) Arrêts"
+        shop: "%nb% Courses"
+        referee: "%nb% Arbitrages"
+        win: "%nb% (%percent%%) Victoires"
+        lost: "%nb% (%percent%%) Défaites"
+        nul: "%nb% (%percent%%) Nuls"
+        play: "%nb% (%percent%%) Sélections"
+        miss: "%nb% (%percent%%) Absences"
+        hurt: "%nb% Blessures"
+        total: "%nb% (%percent%%) Matchs"
         error: "Matchs n'est pas à 100% car tu n'as pas répondu aux sélections suivantes :"
         noavailable: "Ce joueur n'a pas participé à cette saison"
     name: Noms
@@ -184,15 +195,28 @@ team:
             news:
                 game: "Prochain match"
                 trainning: "Prochain entrainement"
-        stats:
-            title: "Statistiques"
-            win: "%nb% (%percent%%) Victoires"
-            lost: "%nb% (%percent%%) Défaites"
-            nul: "%nb% (%percent%%) Nuls"
-            local: "%nb% (%percent%%) Domiciles"
-            visitor: "%nb% (%percent%%) Extérieurs"
-            giveup: "%nb% (%percent%%) Forfaits"
-            total: "%nb% Matchs"
+    stats:
+        title:
+            team: "Statistiques"
+            players: "Membres"
+        win: "%nb%  Victoires"
+        lost: "%nb% Défaites"
+        nul: "%nb% Nuls"
+        local: "%nb% Domiciles"
+        visitor: "%nb% Extérieurs"
+        giveup: "%nb% Forfaits"
+        total: "%nb% Matchs"
+        col:
+            member: "Joueur"
+            play:   "Sél."
+            win:    "Vict."
+            lost:   "Déf."
+            nul:    "Nuls"
+            score:  "Buts"
+            save:   "Arrêts"
+            shop:   "Courses"
+            referee: "Arbit."
+
     gym: Gymnase
     color:
         add: "Ajouter"

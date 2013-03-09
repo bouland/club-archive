@@ -41,9 +41,17 @@ class TeamController extends Controller
     	$trainning_next = $em->getRepository('AueioClubBundle:Game')->findNextTrainByTeam($team, time(), $season);
     	$contacts = $em->getRepository('AueioClubBundle:Player')->findSeasonTeamLeaders($team, $season);
     	$members = $em->getRepository('AueioClubBundle:Player')->findSeasonTeamMembers($team, $season);
-    	$stats = $em->getRepository('AueioClubBundle:Role')->getTeamStats($team);
-    	
-        return $this->render('AueioClubBundle:Team:view.html.twig', array('team' => $team, 'game_next' => $game_next, 'trainning_next' => $trainning_next, 'members' => $members, 'contacts' => $contacts, 'stats' => $stats));
+    	$stats = array();
+    	$stats['team'] = $em->getRepository('AueioClubBundle:Role')->getTeamStats($team);
+    	foreach($members as $player){
+    		$tmp = array();
+    		$tmp['player'] = $player;
+    		$tmp['stats'] = $em->getRepository('AueioClubBundle:Action')->getPlayerStats($player);
+    		if(count($tmp['stats']) > 0){
+    		    $stats['players'][] = $tmp;
+    		}
+    	}
+        return $this->render('AueioClubBundle:Team:view.html.twig', array('team' => $team, 'game_next' => $game_next, 'trainning_next' => $trainning_next, 'contacts' => $contacts, 'stats' => $stats));
     }
     /**
      * @Route("/list")
