@@ -295,7 +295,9 @@ ul.list {
 	height: 50px;
 	clear:both;
 } 
-input[type="submit"]{
+input[type="submit"],
+input[type="button"]
+{
     background: url("http://elgg18/_graphics/button_graduation.png") repeat-x scroll left 10px #86717F;
     border: 1px solid #86717F;
     color: white;

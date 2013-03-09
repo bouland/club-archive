@@ -320,6 +320,18 @@ img.btn_close {
 	float: right;
 	margin: -55px -55px 0 0;
 }
+#leader-manage input,
+#leader-manage select
+{
+	margin-right: 10px;
+}
+#leader-manage{
+    text-align: center;
+}
+#leader-manage form{
+	display:inline-block;
+}
+
 /*--Gérer la position fixed pour IE6--*/
 *html #fade {
 position: absolute;

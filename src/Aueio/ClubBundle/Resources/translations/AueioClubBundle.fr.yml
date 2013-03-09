@@ -48,7 +48,14 @@ config_secret_answers:  "Réponses de la question secrète."
 config_secret_clue:     "Indice sur la réponse à la question."
 config_season_current:  "Saison courrante."
 config_team_focus:      "Equipe en focus, par défaut"
-
+day:
+    monday: Lundi
+    thursday: Jeuid
+    wednesday: Mercredi
+    tuesday: Mardi
+    friday: Vendredi
+    saturday: Samedi
+    sunday: Dimanche
 game:
     WIN: WIN
     LOST: LOST
@@ -58,6 +65,9 @@ game:
     score: Scores
     date: Date du match
     notfound: "Aucun match"
+    action:
+        add: "Ajouter"
+        del: "Supprimer"
     title:
         new: "Nouveau match"
         list: "Liste des %count% matchs"

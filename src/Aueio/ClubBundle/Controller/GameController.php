@@ -4,6 +4,12 @@ namespace Aueio\ClubBundle\Controller;
 
 
 
+use Aueio\ClubBundle\Repository\ActionRepository;
+
+use Aueio\ClubBundle\Repository\PlayerRepository;
+
+use Doctrine\ORM\EntityRepository;
+
 use Symfony\Component\HttpFoundation\Request,
 	 Symfony\Component\HttpFoundation\Response,
 	 Symfony\Bundle\FrameworkBundle\Controller\Controller,
@@ -320,6 +326,60 @@ class GameController extends Controller
     	return $this->render('AueioClubBundle:Game:selection.html.twig', array('game' => $game, 'players' => $players, 'budget' => $budget));
     }
     /**
+     * @Route("/manage/{id}")
+     **/
+    public function manageAction(Request $request,Game $game)
+    {
+        $teams = $this->getTeams($game);
+        $team_focus = $teams['focus'];
+        $season = $this->get('context.season');
+        $form = $this->createFormBuilder()
+                     ->add('action', 'hidden', array(
+                            'data' => 'null',
+                     ))
+                     ->add('player', 'entity', array(
+                            'class' 	=> 'AueioClubBundle:Player',
+                            'query_builder' => function(PlayerRepository $er) use($team_focus, $season){
+                                return $er->findSeasonTeamMembersQueryBuilder($team_focus, $season);
+                                /*
+                                createQueryBuilder('p')
+                                ->join('p.team', 't')
+                                ->andWhere('t.id = :id_team')
+                                ->setParameters(array(
+                                        'id_team' => $team_focus->getId(),
+                                 ))
+                                ->orderBy('p.firstname', 'ASC');
+                                */
+                            },
+                            'expanded'		=> false))
+                      ->add('type', 'choice', array(
+                                'choices'   => array(
+                                        'play' => 'Présent',
+                                        'miss'=> 'Absent',
+                                        'shop'=> 'Courses',
+                                        'referee'=> 'Arbitre',
+                                        'goal'=> 'Gardien',
+                                        'hurt' => 'Blessé'),
+                                'required'  => true,
+                        ))
+                      ->getForm();
+    
+                if ($request->getMethod() == 'POST') {
+                    $form->bindRequest($request);
+                    $data = $form->getData();
+                    $repo = $this->getDoctrine()->getRepository('AueioClubBundle:Action');
+                    if($data['action'] == 'add'){
+                         $repo->add($data['player'], $game, $data['type']);
+                    }
+                    else if($data['action'] == 'delete')
+                    {
+                        $repo->delete($data['player'], $game, $data['type']);
+                    }
+                    return $this->redirect($this->get('request')->headers->get('referer'));
+                }
+                return $this->render('AueioClubBundle:Game:manage.html.twig', array('form' => $form->createView(), 'game' => $game));
+    }
+    /**
      * @Route("/score/{id}/{browser}/{id_goal}", requirements={"id" = "\d+", "id_goal" = "\d+", "browser" = "default|mobile"} , defaults={"id_goal" = "0", "browser" = "default"})
      **/
     public function scoreAction(Game $game, $id_goal, Request $request, $browser)
@@ -457,6 +517,9 @@ class GameController extends Controller
     		throw $this->createNotFoundException('No team found');
     	}
     	$game_teams = $game->getTeams()->toArray();
+    	if (!is_array($game_teams) && count($game_teams) == 2) {
+    	    throw $this->createNotFoundException('No team found for this game');
+    	}
     	foreach( $game_teams as $team)
     	{
 	    	if ($team == $user_team)

@@ -14,6 +14,7 @@
 	<li class="selected"><a href="{{ path('aueio_club_game_selection', {"id": game.id}) }}">{{ 'sidebar.selection'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_game_score', {"id": game.id}) }}">{{ 'sidebar.score'|trans({}, 'AueioClubBundle') }}</a>
 {% if is_granted("ROLE_LEADER") %}
+    <li><a href="{{ path('aueio_club_team_call', {"id": current_team.id}) }}">{{ 'sidebar.recall'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_game_sheet', {"id": game.id}) }}">{{ 'sidebar.sheet'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_game_edit', {"id": game.id}) }}">{{ 'sidebar.edit'|trans({}, 'AueioClubBundle') }}</a>
 	<li><a href="{{ path('aueio_club_game_delete', {"id": game.id}) }}" onclick="return confirm('{{ 'sidebar.confirm'|trans({}, 'AueioClubBundle') }}')">{{ 'sidebar.delete'|trans({}, 'AueioClubBundle') }}</a></li>
@@ -152,7 +153,9 @@
 			</li>
 		</ul>
 	</div>
-	
+{% if is_granted("ROLE_LEADER") %}
+	{% render 'AueioClubBundle:Game:manage' with {'id': game.id} %}
+{% endif %}
 	<div id="game-selection">
 		<h4>{{ 'game.selection.details'|trans({}, 'AueioClubBundle') }}</h4>
 		<div id="game-background">

@@ -1,0 +1,4 @@
+<div id="leader-manage"><form name="form_game_action" action="{{ path('aueio_club_game_manage', { 'id':game.id }) }}" {{ form_enctype(form) }} method="POST" class="action-manage">
+		{{ form_widget(form.player) }}{{ form_widget(form.type) }}<input type="button" onClick="document.getElementById('form_action').value='add';document.forms['form_game_action'].submit();" value="{{ 'game.action.add'|trans({}, 'AueioClubBundle') }}" /><input type="button" onClick="document.getElementById('form_action').value='delete';document.forms['form_game_action'].submit();" value="{{ 'game.action.del'|trans({}, 'AueioClubBundle') }}" />
+		{{ form_rest(form) }}
+</form></div>

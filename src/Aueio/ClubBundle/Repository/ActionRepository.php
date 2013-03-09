@@ -2,7 +2,8 @@
 
 namespace Aueio\ClubBundle\Repository;
 
-use Doctrine\ORM\EntityRepository,
+use Aueio\ClubBundle\Entity\Action,
+    Doctrine\ORM\EntityRepository,
 	Aueio\ClubBundle\Entity\Game,
 	Aueio\ClubBundle\Entity\Player,
 	Aueio\ClubBundle\Entity\Team,
@@ -16,6 +17,37 @@ use Doctrine\ORM\EntityRepository,
  */
 class ActionRepository extends EntityRepository
 {
+    public function add(Player $player, Game $game, $type){
+        if($type == 'play' || $type == 'miss' || $type == 'hurt' || $type == 'shop' || $type == 'goal')
+        {
+            $action = $this->findOneBy(
+                          array('player'=>	$player,
+                                'game'	=>	$game,
+                                'type'	=>	$type), null, 1);
+            if($action){
+                return;
+            }
+        }
+        $action = new Action();
+        $action->setGame($game);
+        $action->setPlayer($player);
+        $action->setType($type);
+        $em = $this->getEntityManager();
+        $em->persist($action);
+        $em->flush();
+    }
+    public function delete(Player $player, Game $game, $type){
+        $action = $this->findOneBy(array(
+                'player'=>	$player,
+                'game'	=>	$game,
+                'type'	=>	$type));
+        if ($action) {
+            $em = $this->getEntityManager();
+            $em->remove($action);
+            $em->flush();
+        }
+         
+    }
 	public function getPlayersStats()
 	{
 		$builder = $this->createQueryBuilder('a')

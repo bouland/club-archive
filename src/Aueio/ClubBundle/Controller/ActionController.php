@@ -2,6 +2,10 @@
 
 namespace Aueio\ClubBundle\Controller;
 
+use JMS\SecurityExtraBundle\Security\Util\String;
+
+use Doctrine\ORM\EntityManager;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -34,24 +38,11 @@ class ActionController extends Controller
     		throw $this->createNotFoundException('No player found for id '.$player_id);
     	}
     	
-    	if($type != 'score' && $type != 'save' && $type != 'play')
-    	{
-	    	$actions = $em->getRepository('AueioClubBundle:Action')->findBy(array(	'player'=>	$player,
-	    																				'game'	=>	$game,
-	    																				'type'	=>	$type), null, 1);
-	    	if(is_array($actions) && count($actions) == 1){
-	    		return $this->redirect($this->get('request')->headers->get('referer'));
-	    	}
-    	}
-    	$action = new Action();
-	    $action->setGame($game);
-	    $action->setPlayer($player);
-	    $action->setType($type);
-	    $em->persist($action);
-	    $em->flush();
+    	$em->getRepository('AueioClubBundle:Action')->add($player, $game, $type);
     	
 	    return $this->redirect($this->get('request')->headers->get('referer'));
     }
+    
 	/**
      * @Route("/delete/{type}/{game_id}/{player_id}", requirements={"game_id" = "\d+", "player_id" = "\d+", "action"="play|miss|shop|referee|score|save|hurt"})
      **/
@@ -68,29 +59,9 @@ class ActionController extends Controller
     	if (!$player) {
     		throw $this->createNotFoundException('No player found for id '.$player_id);
     	}
-    	$this->remove($player, $game, $type, $em);
-    	switch($type){
-    		case "play":
-    			$this->remove($player, $game, 'referee', $em);
-    			$this->remove($player, $game, 'shop', $em);
-    			$this->remove($player, $game, 'goal', $em);
-    			break;
-    		case "miss":
-    			$this->remove($player, $game, 'hurt', $em);
-    			break;
-    	}
+    	
+    	$em->getRepository('AueioClubBundle:Action')->delete($player, $game, $type);
     	
     	return $this->redirect($this->get('request')->headers->get('referer'));
-    }
-    public function remove($player, $game, $type, $em){
-    	$actions = $em->getRepository('AueioClubBundle:Action')->findBy(array(
-    							'player'=>	$player,
-    							'game'	=>	$game,
-    							'type'	=>	$type));
-    	if (count($actions) > 0) {
-    		$em->remove($actions[count($actions)-1]);
-    		$em->flush();
-    	}
-    	
     }
 }

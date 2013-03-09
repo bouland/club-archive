@@ -132,20 +132,22 @@ WHERE (s.season_id = g.season_id AND g.id = {$game->getId()} AND t.id = {$team->
 		->getQuery()->getResult();
 	}
 	public function findSeasonTeamMembers(Team $team, Season $season){
-		return $this->createQueryBuilder('p')
-		->leftJoin('p.seasons', 's')
-		->join('p.team', 't')
-		->where('t.id = :id_team')
-		->andWhere('s.id = :id_season')
-		->andWhere("p.firstname != 'girl'")
-		->andWhere("p.firstname != 'goal'")
-		->andWhere("p.firstname != 'boy'")
-		->orderBy('p.firstname')
-		->setParameters(array(
-				'id_season' => $season->getId(),
-				'id_team' => $team->getId(),
-		))
-		->getQuery()->getResult();
+		return $this->findSeasonTeamMembersQueryBuilder($team, $season)->getQuery()->getResult();
+	}
+	public function findSeasonTeamMembersQueryBuilder(Team $team, Season $season){
+    	return $this->createQueryBuilder('p')
+    	->leftJoin('p.seasons', 's')
+    	->join('p.team', 't')
+    	->where('t.id = :id_team')
+    	->andWhere('s.id = :id_season')
+    	->andWhere("p.firstname != 'girl'")
+    	->andWhere("p.firstname != 'goal'")
+    	->andWhere("p.firstname != 'boy'")
+    	->orderBy('p.firstname')
+    	->setParameters(array(
+    	        'id_season' => $season->getId(),
+    	        'id_team' => $team->getId(),
+    	));
 	}
 	public function findSeasonTeamLeaders(Team $team, Season $season){
 		return $this->createQueryBuilder('p')
