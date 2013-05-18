@@ -40,6 +40,7 @@
 -->        
         <service id="kernel.listener.season_subscriber" class="Aueio\ClubBundle\Subscriber\SeasonSubscriber">
             <tag name="kernel.event_subscriber"/>
+            <argument type="service" id="context.season" />
         </service>
 
 		<service id="aueio_club.mailer" class="Aueio\ClubBundle\Service\Mailer">

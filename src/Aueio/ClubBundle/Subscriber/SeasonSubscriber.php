@@ -1,6 +1,8 @@
 <?php
 namespace Aueio\ClubBundle\Subscriber;
 
+use Aueio\ClubBundle\Entity\Season;
+
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent,
 	Symfony\Component\EventDispatcher\EventSubscriberInterface,
 	Symfony\Component\HttpKernel\HttpKernelInterface,
@@ -8,6 +10,12 @@ use Symfony\Component\HttpKernel\Event\FilterControllerEvent,
 
 class SeasonSubscriber implements EventSubscriberInterface
 {
+    private $season;
+    
+    public function __construct(Season $season = null){
+        $this->season = $season;
+    }
+    
 	public function onKernelController(FilterControllerEvent $event)
 	{
 		if (HttpKernelInterface::MASTER_REQUEST !== $event->getRequestType()) {
@@ -26,8 +34,7 @@ class SeasonSubscriber implements EventSubscriberInterface
 			$em->getFilters()->disable('season');
 			return;
 		}
-		$season_id = $event->getRequest()->getSession()->get('context.season_id');
-		$em->getFilters()->enable('season')->setParameter('season_id', $season_id);
+		$em->getFilters()->enable('season')->setParameter('season_id', $this->season->getId());
 	}
 
 	public static function getSubscribedEvents()

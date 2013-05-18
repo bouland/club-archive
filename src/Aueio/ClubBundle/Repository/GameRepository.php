@@ -23,6 +23,7 @@ class GameRepository extends EntityRepository
 		->where('s.id = :id_season')
 		->andWhere('t.id = :id_team')
 		->andWhere('g.date >= :date')
+		->addOrderBy('g.date')
 		->setMaxResults(1)
 		->setParameters(array(
 				'id_season' => $season->getId(),

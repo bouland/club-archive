@@ -26,33 +26,23 @@ class Mailer
 	public function sendContactEmailToPlayer(Player $to, Player $from, Array $context)
 	{
 		$context = array_merge($context, array('to' => $to, 'from'=> $from));
-		$this->sendMessage('AueioClubBundle:Player:email.contact.html.twig', $context, array( $from->getEmail() => $from->getFirstname() . ' ' . $from->getLastname()), array( $to->getEmail() => $to->getFirstname() . ' ' . $to->getLastname()));
+		$this->sendMessage('AueioClubBundle:Player:email.contact.html.twig', $context, $from, array( $to->getEmail() => $to->getFirstname() . ' ' . $to->getLastname()));
 	}
 	
 	public function sendContactEmailToTeam(Team $to, Player $from, Array $context)
 	{
 		$season = $this->season;
-		$to_players = $this->_em->getRepository('AueioClubBundle:Player')->findSeasonTeamMemberEmails($to, $season);
-		$to_emails = array();
-		foreach ($to_players as $player)
-		{
-			$to_emails[$player['email']] = $player['firstname'] . ' ' . $player['lastname'];
-		}
 		$context = array_merge($context, array('to' => $to, 'from'=> $from));
-		$this->sendMessage('AueioClubBundle:Team:email.contact.html.twig', $context, array( $from->getEmail() => $from->getFirstname() . ' ' . $from->getLastname()), $to_emails);
+		$listPlayerTo = $this->_em->getRepository('AueioClubBundle:Player')->findSeasonTeamMemberEmails($to, $season);
+		$this->sendMessage('AueioClubBundle:Team:email.contact.html.twig', $context, $from, $listPlayerTo, array());
 	}
 	
 	public function sendContactEmailToTeamLeaders(Team $to, Player $from, Array $context)
 	{
 		$season = $this->season;
-		$to_players = $this->_em->getRepository('AueioClubBundle:Player')->findSeasonTeamLeaderEmails($to, $season);
-		$to_emails = array();
-		foreach ($to_players as $player)
-		{
-			$to_emails[$player['email']] = $player['firstname'] . ' ' . $player['lastname'];
-		}
 		$context = array_merge($context, array('to' => $to, 'from'=> $from));
-		$this->sendMessage('AueioClubBundle:Team:email.contact.html.twig', $context, array( $from->getEmail() => $from->getFirstname() . ' ' . $from->getLastname()), $to_emails);
+		$listPlayerTo = $this->_em->getRepository('AueioClubBundle:Player')->findSeasonTeamLeaderEmails($to, $season);
+		$this->sendMessage('AueioClubBundle:Team:email.contact.html.twig', $context, $from, $listPlayerTo, array());
 	}
 	
 	public function sendRecallEmailToTeam(Team $to, Player $from)
@@ -61,34 +51,43 @@ class Mailer
 		$next_game = $this->_em->getRepository('AueioClubBundle:Game')->findNextGameByTeam($to, time(), $season);
 		if($next_game)
 		{
-			$to_players = $this->_em->getRepository('AueioClubBundle:Player')->findTeamNextGameEmails($to, $next_game);
-			$to_emails = array();
-			foreach ($to_players as $player)
-			{
-				$to_emails[$player['email']] = $player['firstname'] . ' ' . $player['lastname'];
-			}
 			$context = array(
 					'game' => $next_game,
 					'to' => $to,
 					'from' => $from
 			);
-			$this->sendMessage('AueioClubBundle:Team:email.recall.html.twig', $context, array( $from->getEmail() => $from->getFirstname() . ' ' . $from->getLastname()), $to_emails);
+			$listPlayerTo = $this->_em->getRepository('AueioClubBundle:Player')->findTeamNextGameEmails($to, $next_game);
+			$listPlayerReplyTo  = $this->_em->getRepository('AueioClubBundle:Player')->findSeasonTeamMemberEmails($to, $season);
+			
+			$this->sendMessage('AueioClubBundle:Team:email.recall.html.twig', $context, $from, $listPlayerTo, $listPlayerReplyTo);
 		}
 		
 	}
 	
-	protected function sendMessage($templateName, $context, $fromEmail, $toEmail)
+	protected function sendMessage($templateName, $context, Player $playerFrom, array $listPlayerTo, array $listPlayerReplyTo)
 	{
 		$template = $this->_twig->loadTemplate($templateName);
 		$subject = $template->renderBlock('subject', $context);
 		$textBody = $template->renderBlock('body_text', $context);
 		$htmlBody = $template->renderBlock('body_html', $context);
-	
+	    
 		$message = \Swift_Message::newInstance()
 		->setSubject($subject)
-		->setFrom($fromEmail)
-		->setTo($toEmail);
-	
+		->setFrom(array( $playerFrom->getEmail() => $playerFrom->getFirstname() . ' ' . $playerFrom->getLastname()))
+		;
+		
+		$to = array();
+		foreach ($listPlayerTo as $player)
+		{
+		    $to[$player['email']] = $player['firstname'] . ' ' . $player['lastname'];
+		    
+		}
+		$message->setTo($to);
+		foreach ($listPlayerReplyTo as $player)
+		{
+		    $message->addReplyTo($player['email'], $player['firstname'] . ' ' . $player['lastname']);
+		}
+			
 		if (!empty($htmlBody)) {
 			$message->setBody($htmlBody, 'text/html')
 			->addPart($textBody, 'text/plain');

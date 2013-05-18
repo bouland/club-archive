@@ -47,27 +47,47 @@
             </tr>
         </thead>
 		<tbody>
-
-{% for stats_player in stats_players %}
+{% if stats_team['total'] is defined and stats_team['total'] > 0 %}
+    {% for stats_player in stats_players %}
+        
             <tr>
 		         <td class="bord first">{% include 'AueioClubBundle:Player:link.html.twig' with {'player': stats_player['player']} %}</td>
-		         <td>{{ stats_player['stats']['play'] }}</td>
-		         <td class="bord">{{ (stats_player['stats']['play']*100)//stats_team['total'] }}</td>
-		         <td>{{ stats_player['stats']['win'] }}</td>
-		         <td class="bord">{{ (stats_player['stats']['win']*100)//stats_player['stats']['play'] }}</td>
-		         <td>{{ stats_player['stats']['lost'] }}</td>
-		         <td class="bord">{{ (stats_player['stats']['lost']*100)//stats_player['stats']['play'] }}</td>
-		         <td>{{ stats_player['stats']['nul'] }}</td>
-		         <td class="bord">{{ (stats_player['stats']['nul']*100)//stats_player['stats']['play'] }}</td>
-		         
-		         <td>{{ stats_player['stats']['score'] }}</td>
-                 <td class="bord">{{ (stats_player['stats']['score']//stats_player['stats']['play'])|number_format(0, '.', ',') }}</td>
-                 <td>{{ stats_player['stats']['save'] }}</td>
-                 <td class="bord">{{ stats_player['stats']['save']//stats_player['stats']['play']|number_format(0, '.') }}</td>
-                 <td class="bord">{{ stats_player['stats']['referee'] }}</td>
-                 <td class="bord">{{ stats_player['stats']['shop'] }}</td>
+		         {% if  stats_player['stats']['play'] is defined and stats_player['stats']['play'] > 0 %}
+		             <td>{{ stats_player['stats']['play'] }}</td>
+    		         <td class="bord">{{ (stats_player['stats']['play']*100)//stats_team['total'] }}</td>
+    		         <td>{{ stats_player['stats']['win'] }}</td>
+    		         <td class="bord">{{ (stats_player['stats']['win']*100)//stats_player['stats']['play'] }}</td>
+    		         <td>{{ stats_player['stats']['lost'] }}</td>
+    		         <td class="bord">{{ (stats_player['stats']['lost']*100)//stats_player['stats']['play'] }}</td>
+    		         <td>{{ stats_player['stats']['nul'] }}</td>
+    		         <td class="bord">{{ (stats_player['stats']['nul']*100)//stats_player['stats']['play'] }}</td>
+    		         <td>{{ stats_player['stats']['score'] }}</td>
+                     <td class="bord">{{ (stats_player['stats']['score']//stats_player['stats']['play'])|number_format(0, '.', ',') }}</td>
+                     <td>{{ stats_player['stats']['save'] }}</td>
+                     <td class="bord">{{ stats_player['stats']['save']//stats_player['stats']['play']|number_format(0, '.') }}</td>
+                     <td class="bord">{{ stats_player['stats']['referee'] }}</td>
+                     <td class="bord">{{ stats_player['stats']['shop'] }}</td>
+                 {% else %}
+                     <td>0</td>
+                     <td class="bord">0</td>
+                     <td>0</td>
+                     <td class="bord">0</td>
+                     <td>0</td>
+                     <td class="bord">0</td>
+                     <td>0</td>
+                     <td class="bord">0</td>
+                     <td>0</td>
+                     <td class="bord">0</td>
+                     <td>0</td>
+                     <td class="bord">0</td>
+                     <td class="bord">0</td>
+                     <td class="bord">0</td>
+                 {% endif %}
+                
 	        </tr>
-{% endfor %}
+    	
+    {% endfor %}
+{% endif %}
         </tbody>
 	</table>
 </div>
