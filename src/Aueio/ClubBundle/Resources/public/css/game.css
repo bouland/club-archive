@@ -166,6 +166,10 @@ div.value {
     padding: 2px 8px 3px 8px;
     text-decoration: none;
 }
+#game li.value{
+	width: 16px;
+	text-align: center;
+}
 #scores li.unselected > a{
 	background-color: rgba(151, 130, 144, 0.3);
 }

@@ -8,3 +8,8 @@
 {% block body %}
 	{% include 'AueioClubBundle:Game:score.html.twig' %}
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent () }}
+    {% include 'AueioClubBundle:Game:score.ajax.html.twig' %}
+{% endblock %}   

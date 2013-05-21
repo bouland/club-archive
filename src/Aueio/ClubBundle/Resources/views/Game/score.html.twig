@@ -1,8 +1,8 @@
 <ul id="results">
     <li class="cols">
-	{% include 'AueioClubBundle:Team:link.html.twig' with {'team': teams['focus']} %}<div class="value">{{ score_focus }}</div>
+	{% include 'AueioClubBundle:Team:link.html.twig' with {'team': teams['focus']} %}<div id="score{{ teams['focus'].id }}" class="value">{{ score_focus }}</div>
 	</li><li class="cols">
-	<div class="value">{{ score_opponent }}</div>{% include 'AueioClubBundle:Team:link.html.twig' with {'team': teams['opponent']} %}
+	<div id="score{{ teams['opponent'].id }}" class="value">{{ score_opponent }}</div>{% include 'AueioClubBundle:Team:link.html.twig' with {'team': teams['opponent']} %}
 	</li>
 </ul>
 <ul id="scores" class="cols">
@@ -28,17 +28,17 @@
 			<li>
 				<ul class="count">
 					<li>
-						<a href="{{ path('aueio_club_action_delete', {"game_id": game.id, "player_id": player_id, "type": action_type}) }}" title="{{ 'score.decrease'|trans({}, 'AueioClubBundle') }}">
-							<img  src="/bundles/aueioclub/images/Crystal_Clear_action_edit_remove.png" alt="minus logo">
-						</a>
-					</li><li class="value">
+					   <button class="register-action" data-action="del" data-idgame="{{ game.id }}" data-idteam="{{ teams['focus'].id }}" data-idplayer="{{ player_id }}" data-type="score" type="button">
+                           <img  src="/bundles/aueioclub/images/Crystal_Clear_action_edit_remove.png" alt="minus logo">
+                       </button>
+					</li><li id="value{{ player_id }}" class="value">
 						{% if actions[action_type] is defined %}
 							{{- actions[action_type] -}}
 						{% else %}0{% endif %}
 					</li><li>
-						<a href="{{ path('aueio_club_action_add', {"game_id": game.id, "player_id": player_id, "type": action_type }) }}" title="{{ 'score.increase'|trans({}, 'AueioClubBundle') }}">
-							<img src="/bundles/aueioclub/images/Crystal_Clear_action_edit_add.png" alt="plus logo">
-						</a>
+					   <button class="register-action" data-action="add" data-idgame="{{ game.id }}" data-idteam="{{ teams['focus'].id }}" data-idplayer="{{ player_id }}" data-type="score" type="button">
+					       <img src="/bundles/aueioclub/images/Crystal_Clear_action_edit_add.png" alt="plus logo">
+					   </button>
 					</li>
 				</ul>
 			</li>
@@ -52,17 +52,17 @@
 			<li>
 				<ul class="count">
 					<li>
-						<a href="{{ path('aueio_club_action_add', {"game_id": game.id, "player_id": player_id, "type": actions['type'] }) }}" title="{{ 'score.increase'|trans({}, 'AueioClubBundle') }}">
-							<img src="/bundles/aueioclub/images/Crystal_Clear_action_edit_add.png" alt="plus logo">
-						</a>
-					</li><li class="value">
+						<button class="register-action" data-action="add" data-idgame="{{ game.id }}" data-idteam="{{ teams['opponent'].id }}" data-idplayer="{{ player_id }}" data-type="score" type="button">
+                            <img  src="/bundles/aueioclub/images/Crystal_Clear_action_edit_add.png" alt="minus logo">
+                        </button>
+					</li><li id="value{{ player_id }}" class="value">
 						{% if actions[actions['type']] is defined %}
 							{{- actions[actions['type']] -}}
 						{% else %}0{% endif %}
 					</li><li>
-						<a href="{{ path('aueio_club_action_delete', {"game_id": game.id, "player_id": player_id, "type": actions['type']}) }}" title="{{ 'score.decrease'|trans({}, 'AueioClubBundle') }}">
-							<img  src="/bundles/aueioclub/images/Crystal_Clear_action_edit_remove.png" alt="minus logo">
-						</a>
+                        <button class="register-action" data-action="del" data-idgame="{{ game.id }}" data-idteam="{{ teams['opponent'].id }}" data-idplayer="{{ player_id }}" data-type="score" type="button">
+                            <img  src="/bundles/aueioclub/images/Crystal_Clear_action_edit_remove.png" alt="minus logo">
+                        </button>
 					</li>
 				</ul>
 			</li>

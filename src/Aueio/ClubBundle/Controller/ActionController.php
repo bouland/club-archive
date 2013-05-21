@@ -2,6 +2,8 @@
 
 namespace Aueio\ClubBundle\Controller;
 
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 use JMS\SecurityExtraBundle\Security\Util\String;
 
 use Doctrine\ORM\EntityManager;
@@ -41,6 +43,64 @@ class ActionController extends Controller
     	$em->getRepository('AueioClubBundle:Action')->add($player, $game, $type);
     	
 	    return $this->redirect($this->get('request')->headers->get('referer'));
+    }
+    
+    /**
+     * @Route("/register")
+     **/
+    public function registerAction(Request $request){
+        
+        $action = $request->query->get('action');
+        $type = $request->query->get('type');
+        $idPlayer = $request->query->get('idPlayer');
+        $idGame = $request->query->get('idGame');
+        
+        if(empty($action)){
+            return new JsonResponse(array('error' => 'empty action'), 400);
+        }
+        if(empty($type)){
+            return new JsonResponse(array('error' => 'empty type'), 400);
+        }
+        if(empty($idPlayer)){
+            return new JsonResponse(array('error' => 'empty idPlayer'), 400);
+        }
+        if(empty($idGame)){
+            return new JsonResponse(array('error' => 'empty idGame'), 400);
+        }
+        
+        $em = $this->getDoctrine()->getEntityManager();
+        $game = $em->getRepository('AueioClubBundle:Game')->find($idGame);
+        if(empty($game)){
+            return new JsonResponse(array('error' => 'no Game found with id ' . $idGame), 400);
+        }
+        $player = $em->getRepository('AueioClubBundle:Player')->find($idPlayer);
+        if(empty($player)){
+            return new JsonResponse(array('error' => 'no player found with id ' . $idPlayer), 400);
+        }
+        
+        $listTypeAllowed = array("play","miss","shop","referee","goal","score","save","hurt");
+        if( ! in_array($type, $listTypeAllowed) ){
+            return new JsonResponse(array('error' => 'invalid action ' . $type), 400);
+        }
+        
+        if($player->getGender() == 'F'){
+            $score = 2;
+        }else{
+            $score = 1;
+        }
+        
+        if( $action == 'add'){
+            $value = 1;
+            $em->getRepository('AueioClubBundle:Action')->add($player, $game, $type);
+        }elseif( $action == 'del' ){
+            $score *= -1;
+            $value = -1;
+            $em->getRepository('AueioClubBundle:Action')->delete($player, $game, $type);
+        } else {
+            return new JsonResponse(array('error' => 'invalid action ' . $action), 400);
+        }
+        
+        return  new JsonResponse(array('value' => $value, 'score' => $score), 200);
     }
     
 	/**

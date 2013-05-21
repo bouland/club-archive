@@ -29,3 +29,8 @@
 	</div>
 </div>
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent () }}
+    {% include 'AueioClubBundle:Game:score.ajax.html.twig' %}
+{% endblock %}   

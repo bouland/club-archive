@@ -1,0 +1,25 @@
+<script type="text/javascript">
+    $(document).ready(function() {     
+      $('button.register-action').click(function(){registerAction(this.dataset.action, this.dataset.type, this.dataset.idgame, this.dataset.idteam, this.dataset.idplayer);});
+    });
+    
+    function registerAction(pAction, pType, pIdGame, pIdTeam, pIdPlayer){
+        $.get('{{ path('aueio_club_action_register') }}',               
+                    {action:pAction, type:pType, idGame:pIdGame, idPlayer:pIdPlayer}, 
+                    function(response){
+                        if(response.error){
+                            console.log(response.error);
+                        }else if(response.value && response.score){
+                            var oldValue = parseInt($("#value" + pIdPlayer).text());
+                            var newValue = eval(oldValue + response.value);
+                            $("#value" + pIdPlayer).text(newValue);
+                        
+                            var oldScore = parseInt($("#score" + pIdTeam).text());
+                            var newScore = eval(oldScore + response.score);
+                            $("#score" + pIdTeam).text(newScore);
+                        }else{
+                            console.log("Missing add value.");
+                        }
+                    }, "json");
+    }
+</script>
