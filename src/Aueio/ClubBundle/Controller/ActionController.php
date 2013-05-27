@@ -80,27 +80,67 @@ class ActionController extends Controller
         
         $listTypeAllowed = array("play","miss","shop","referee","goal","score","save","hurt");
         if( ! in_array($type, $listTypeAllowed) ){
-            return new JsonResponse(array('error' => 'invalid action ' . $type), 400);
+            return new JsonResponse(array('error' => 'invalid type ' . $type), 400);
+        }
+        if($type == 'score') {
+            if($player->getGender() == 'F'){
+                $score = 2;
+            }else{
+                $score = 1;
+            }
+            
+            if( $action == 'add'){
+                $value = 1;
+                $em->getRepository('AueioClubBundle:Action')->add($player, $game, $type);
+            }elseif( $action == 'del' ){
+                $score *= -1;
+                $value = -1;
+                $em->getRepository('AueioClubBundle:Action')->delete($player, $game, $type);
+            } else {
+                return new JsonResponse(array('error' => 'invalid action ' . $action), 400);
+            }
+            return  new JsonResponse(array('value' => $value, 'score' => $score), 200);
+        } else if ($type == 'referee') {
+            if ($action == 'add'){
+                $action = 'del';
+                $em->getRepository('AueioClubBundle:Action')->add($player, $game, $type);
+            } elseif ($action == 'del') {
+                $action = 'add';
+                $em->getRepository('AueioClubBundle:Action')->delete($player, $game, $type);
+            }else {
+                return new JsonResponse(array('error' => 'invalid action ' . $action), 400);
+            }
+            return  new JsonResponse(array('action' => $action), 200);
+        } else if ($type == 'goal') {
+            if ($action == 'add'){
+                $em->getRepository('AueioClubBundle:Action')->add($player, $game, $type);
+                $action = 'del';
+                $type = 'save';
+            } elseif ($action == 'del') {
+                $em->getRepository('AueioClubBundle:Action')->delete($player, $game, $type);
+                $action = 'add';
+                $type = 'score';
+            }else {
+                return new JsonResponse(array('error' => 'invalid action ' . $action), 400);
+            }
+            $value = $em->getRepository('AueioClubBundle:Action')->findTypeByPlayerByGame($player, $game, $type, true);
+            return  new JsonResponse(array('action' => $action, 'type' => $type, 'value' => $value), 200);
+        } else if($type == 'save') {
+            if( $action == 'add'){
+                $value = 1;
+                $em->getRepository('AueioClubBundle:Action')->add($player, $game, $type);
+                
+            }elseif( $action == 'del' ){
+                $value = -1;
+                $em->getRepository('AueioClubBundle:Action')->delete($player, $game, $type);
+            } else {
+                return new JsonResponse(array('error' => 'invalid action ' . $action), 400);
+            }
+            return  new JsonResponse(array('value' => $value), 200);
         }
         
-        if($player->getGender() == 'F'){
-            $score = 2;
-        }else{
-            $score = 1;
-        }
         
-        if( $action == 'add'){
-            $value = 1;
-            $em->getRepository('AueioClubBundle:Action')->add($player, $game, $type);
-        }elseif( $action == 'del' ){
-            $score *= -1;
-            $value = -1;
-            $em->getRepository('AueioClubBundle:Action')->delete($player, $game, $type);
-        } else {
-            return new JsonResponse(array('error' => 'invalid action ' . $action), 400);
-        }
-        
-        return  new JsonResponse(array('value' => $value, 'score' => $score), 200);
+        return new JsonResponse(array('error' => 'type not implemented. ' . $type), 400);
     }
     
 	/**

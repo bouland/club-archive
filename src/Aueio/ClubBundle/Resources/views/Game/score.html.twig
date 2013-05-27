@@ -9,34 +9,27 @@
 {% for player_id, actions in actions_focus %}
 	<li>
 		<ul>
-		{% if actions['goal_current'] is defined %}
-			{% set action_type = 'save' %}
-			<li class="goal selected"><a href="{{ path('aueio_club_game_removegoal', {"id": game.id, "goal_id": player_id, "browser":browser}) }}" title="supprimer l'action Gardien">G</a></li>
-		{% elseif actions['goal'] is defined %}
-			{% set action_type = 'score' %}
-			<li class="goal unselected"><a href="{{ path('aueio_club_game_score', {"id":game.id, "id_goal": player_id, "browser":browser}) }}" title="passer Gardien">G</a></a></li>
-		{% else %}
-			{% set action_type = 'score' %}
-			<li class="goal"><a href="{{ path('aueio_club_game_score', {"id":game.id, "id_goal": player_id, "browser":browser}) }}" title="passer Gardien">G</a></li>
-		{% endif %}
-		{% if actions['referee'] is defined %}
-			<li class="referee delete"><a href="{{ path('aueio_club_action_delete', {"game_id": game.id, "player_id": player_id, "type": "referee"}) }}" title="Arbitre">A</a></li>
-		{% else %}
-			<li class="referee add"><a href="{{ path('aueio_club_action_add', {"game_id": game.id, "player_id": player_id, "type": "referee"}) }}" title="Arbitre">A</a></li>
-		{% endif %}
+		<li class="goal">
+           <button id="goal{{ player_id }}" class="register-action add" data-action="add" data-idgame="{{ game.id }}" data-idteam="{{ teams['focus'].id }}" data-idplayer="{{ player_id }}" data-type="goal" type="button">G</button>
+        </li>
+        <li class="referee">
+		   <button id="referee{{ player_id }}" class="register-action add" data-action="add" data-idgame="{{ game.id }}" data-idteam="{{ teams['focus'].id }}" data-idplayer="{{ player_id }}" data-type="referee" type="button">A</button>
+		</li>
 			<li>{% include 'AueioClubBundle:Player:link.html.twig' with {'player':actions['player']} %}</li>
 			<li>
 				<ul class="count">
 					<li>
-					   <button class="register-action" data-action="del" data-idgame="{{ game.id }}" data-idteam="{{ teams['focus'].id }}" data-idplayer="{{ player_id }}" data-type="score" type="button">
+					   <button id="del{{ player_id }}" class="register-action" data-action="del" data-idgame="{{ game.id }}" data-idteam="{{ teams['focus'].id }}" data-idplayer="{{ player_id }}" data-type="score" type="button">
                            <img  src="/bundles/aueioclub/images/Crystal_Clear_action_edit_remove.png" alt="minus logo">
                        </button>
 					</li><li id="value{{ player_id }}" class="value">
-						{% if actions[action_type] is defined %}
-							{{- actions[action_type] -}}
+						{% if actions['score'] is defined %}
+							{{- actions['score'] -}}
+						{% elseif actions['save'] is defined %}
+						    {{- actions['save'] -}}  
 						{% else %}0{% endif %}
 					</li><li>
-					   <button class="register-action" data-action="add" data-idgame="{{ game.id }}" data-idteam="{{ teams['focus'].id }}" data-idplayer="{{ player_id }}" data-type="score" type="button">
+					   <button id="add{{ player_id }}" class="register-action" data-action="add" data-idgame="{{ game.id }}" data-idteam="{{ teams['focus'].id }}" data-idplayer="{{ player_id }}" data-type="score" type="button">
 					       <img src="/bundles/aueioclub/images/Crystal_Clear_action_edit_add.png" alt="plus logo">
 					   </button>
 					</li>

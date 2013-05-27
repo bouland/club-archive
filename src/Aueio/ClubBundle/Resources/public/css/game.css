@@ -1,4 +1,12 @@
 @CHARSET "UTF-8";
+button.add {
+    color: black;
+}
+button.del {
+    color: white;
+    background-color: rgba(151,130,144, 0.3);
+}
+
 #game .short > div.name{
 	text-align: center;
 }

@@ -9,16 +9,48 @@
                     function(response){
                         if(response.error){
                             console.log(response.error);
-                        }else if(response.value && response.score){
-                            var oldValue = parseInt($("#value" + pIdPlayer).text());
-                            var newValue = eval(oldValue + response.value);
-                            $("#value" + pIdPlayer).text(newValue);
-                        
-                            var oldScore = parseInt($("#score" + pIdTeam).text());
-                            var newScore = eval(oldScore + response.score);
-                            $("#score" + pIdTeam).text(newScore);
                         }else{
-                            console.log("Missing add value.");
+                            console.log(pType);
+                            if(pType == "score"){
+                                if(response.value && response.score){
+                                    var oldValue = parseInt($("#value" + pIdPlayer).text());
+                                    var newValue = eval(oldValue + response.value);
+                                    $("#value" + pIdPlayer).text(newValue);
+                                
+                                    var oldScore = parseInt($("#score" + pIdTeam).text());
+                                    var newScore = eval(oldScore + response.score);
+                                    $("#score" + pIdTeam).text(newScore);
+                                }else{
+                                    console.log("Missing add value.");
+                                }
+                            }else if(pType == "save") {
+                                if(response.value){
+                                    var oldValue = parseInt($("#value" + pIdPlayer).text());
+                                    var newValue = eval(oldValue + response.value);
+                                    $("#value" + pIdPlayer).text(newValue);
+                                }else{
+                                    console.log("Missing add value.");
+                                }
+                            }else if(pType == "referee") {
+                                console.log(response.action);
+                                if(response.action){
+                                    $("#referee" + pIdPlayer).attr("data-action", response.action);
+                                    $("#referee" + pIdPlayer).attr("class", "register-action " + response.action);
+                                }else{
+                                    console.log("Missing action.");
+                                }
+                            }else if(pType == "goal") {
+                                console.log(response.action + response.type + response.value);
+                                if(response.action && response.type && response.value){
+                                    $("#goal" + pIdPlayer).attr("data-action", response.action);
+                                    $("#goal" + pIdPlayer).attr("class", "register-action " + response.action);
+                                    $("#add" + pIdPlayer).attr("data-type", response.type);
+                                    $("#del" + pIdPlayer).attr("data-type", response.type);
+                                    $("#value" + pIdPlayer).text(response.value);
+                                }else{
+                                    console.log("Missing action or type or value");
+                                }
+                            }
                         }
                     }, "json");
     }
