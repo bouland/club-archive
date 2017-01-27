@@ -36,4 +36,26 @@ class AppKernel extends Kernel
     {
         $loader->load(__DIR__.'/config/config_'.$this->getEnvironment().'.yml');
     }
+
+    public function getCacheDir()
+    {
+        if ('dev' === $this->environment) {
+            return '/var/cache/club-app';
+        }
+        else {
+            return parent::getCacheDir();
+        }
+
+    }
+
+
+    public function getLogDir()
+    {
+        if ('dev' === $this->environment) {
+            return '/var/log/club-app';
+        }
+        else {
+            return parent::getLogDir();
+        }
+    }
 }

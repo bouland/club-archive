@@ -1,0 +1,31 @@
+# See https://hub.docker.com/r/mysql/mysql-server/
+version: "2"
+
+services:
+
+  app:
+    container_name: "club_app"
+    restart: "always"
+    build: "./app"
+    ports:
+     - "80:80"
+    volumes:
+     - "/home/bouland/git/club-app:/var/www/club-app"
+     - "/home/bouland/git/club-app/docker/app/log:/var/log/club-app"
+    links:
+     - "db:database"
+
+  db:
+    container_name: "club_db"
+    image: "mysql/mysql-server:latest"
+    restart: "always"
+    ports:
+     - "3306:3306"
+    volumes:
+     - "/home/bouland/git/club-app/docker/db/dump/handball-20170119.sql:/docker-entrypoint-initdb.d/hanball.sql"
+    environment:
+     - "MYSQL_ROOT_PASSWORD=ohmygod"
+     - "MYSQL_ROOT_HOST=172.18.0.2"
+     - "MYSQL_DATABASE=club"
+     - "MYSQL_USER=club-user"
+     - "MYSQL_PASSWORD=club-pwd"

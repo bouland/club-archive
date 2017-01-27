@@ -11,9 +11,14 @@
 *~
 
 # Symfony files
+web/info.php
 web/bundles/
 app/bootstrap*
 app/cache/*
 app/logs/*
 vendor/
 app/config/parameters.yml
+
+# Development files
+docker/app/log/
+docker/db/dump/
