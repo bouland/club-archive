@@ -1,13 +1,19 @@
+# Eclipse files
 .buildpath
 .project
-.settings
+.settings/
 .externalToolBuilders/
+
+# PhpStorm files
+.idea/
+
+# TMP files
 *~
-composer.phar
-/web/bundles/
-/app/bootstrap*
-/app/cache/*
-/app/logs/*
-/vendor/
-/app/config/parameters.yml
-/src/Acme/
+
+# Symfony files
+web/bundles/
+app/bootstrap*
+app/cache/*
+app/logs/*
+vendor/
+app/config/parameters.yml
